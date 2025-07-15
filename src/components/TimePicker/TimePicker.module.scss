@@ -1,0 +1,61 @@
+// TimePicker.scss
+
+// ——— 변수 정의 ———
+$width: 300px; // 필요에 맞게 조정
+$visible-height: 200px; // item 높이 * 보이는 갯수 (예: 40px * 5)
+$item-height: 40px; // 스크롤 아이템 높이
+$font-family: Arial, sans-serif;
+$color-default: #999;
+$color-selected: #000;
+$border-color: #ddd;
+
+// ——— 스코프 ———
+.time-picker {
+  position: relative;
+  display: flex;
+  width: $width;
+  height: $visible-height;
+  overflow: hidden;
+  font-family: $font-family;
+
+  // 중앙 가이드 라인
+  .indicator {
+    position: absolute;
+    top: calc(50% - #{$item-height / 2});
+    left: 0;
+    right: 0;
+    height: $item-height;
+    border-top: 1px solid $border-color;
+    border-bottom: 1px solid $border-color;
+    pointer-events: none;
+  }
+
+  // 스크롤 칼럼 공통
+  .column {
+    flex: 1;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+
+    // 스크롤바 숨기기
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  // 각 아이템
+  .item {
+    height: $item-height;
+    line-height: $item-height;
+    text-align: center;
+    scroll-snap-align: start;
+    color: $color-default;
+    font-size: 16px;
+
+    // 선택된 상태
+    &.selected {
+      color: $color-selected;
+      font-weight: bold;
+    }
+  }
+}

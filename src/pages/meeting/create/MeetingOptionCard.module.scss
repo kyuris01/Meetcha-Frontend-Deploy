@@ -1,0 +1,81 @@
+.meetingOptionCard {
+  width: 100%;
+  height: 4rem;
+  transition: border 0.3s;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+
+  padding: 12px 18px;
+
+  border-radius: 8px;
+  border-style: solid;
+  border-color: $color-gray-1;
+  border-width: 1px;
+
+  &__top {
+    width: 100%;
+    height: 2.5rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    &__icon {
+      svg {
+        color: $color-orange-1;
+      }
+      // &.active svg {
+      //   color: $color-orange-5;
+      // }
+    }
+
+    &__data {
+      width: 70%;
+      height: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: space-between;
+
+      &__label {
+        font-size: 14px;
+        color: $color-gray-3;
+      }
+
+      &__value {
+        width: 100%;
+
+        font-size: 16px;
+        color: $color-gray-4;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &__downArrow {
+      svg {
+        color: $color-gray-2;
+      }
+    }
+  }
+
+  &__content {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+
+  &.expanded {
+    border: 1px solid $color-orange-5;
+    height: auto;
+  }
+}
