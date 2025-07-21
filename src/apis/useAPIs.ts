@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const API_BASE = import.meta.env.VITE_API_BASE_URL;
-
+console.log("useAPI hook 실행됨");
 export const useAPIs = (
   path: string,
   method = "GET",
@@ -15,11 +15,12 @@ export const useAPIs = (
   const [trigger, setTrigger] = useState(false); // 실행 트리거
 
   const access_token = sessionStorage.getItem("access-token");
-
+  
   useEffect(() => {
     if (manual && !trigger) return;
     const fetchData = async () => {
       try {
+        
         const res = await fetch(`${API_BASE}${path}`, {
           method: method,
           headers: {
@@ -28,13 +29,17 @@ export const useAPIs = (
           },
           ...(data && { body: JSON.stringify(data) }),
         });
+        
         const jsonData = await res.json();
+       
         setResponse(jsonData);
+      
       } catch (e: any) {
         setError(e.message);
       } finally {
         setLoading(false);
       }
+  
     };
 
     fetchData();

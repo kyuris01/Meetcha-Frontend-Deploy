@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const SchedulePage = () => {
   const [viewNum, setViewNum] = useState<number>(0);
   const navigate = useNavigate();
-
   const userId = "11";
   const { response: schedules, loading, error } = useAPIs(`/schedules?userid=${userId}`);
   console.log(schedules);
