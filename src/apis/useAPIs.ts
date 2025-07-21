@@ -31,7 +31,7 @@ export const useAPIs = (
         });
         
         const jsonData = await res.json();
-       
+        console.log(jsonData);
         setResponse(jsonData);
       
       } catch (e: any) {

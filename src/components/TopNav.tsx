@@ -4,14 +4,15 @@ import LeftArrow from "@assets/leftArrow.svg?react";
 import { useNavigate } from "react-router-dom";
 
 interface Props {
-  type: string;
+  type?: string;
   label?: string;
+  className?: string;
 }
 
-const TopNav = ({ type, label }: Props) => {
+const TopNav = ({ type, label, className }: Props) => {
   const navigate = useNavigate();
   return (
-    <div className={styles.topnav}>
+    <div className={`${styles.topnav} ${className}`}>
       <div className={styles.topnav__left}>
         <LeftArrow className={styles.topnav__left__icon} onClick={() => navigate(-1)} />
       </div>

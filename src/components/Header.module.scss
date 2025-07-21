@@ -7,6 +7,15 @@
   align-items: center;
 
   background-color: #fff9f1;
+
+  position: relative;
+
+  &__leftArrow {
+    position: absolute;
+    left: 20px;
+    color: $color-orange-5;
+  }
+
   &__mainlogo {
     width: 5rem;
   }

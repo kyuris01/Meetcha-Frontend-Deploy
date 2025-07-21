@@ -1,0 +1,32 @@
+.meetingStateCard {
+  width: 100%;
+  height: 9rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+
+  border-radius: 8px;
+
+  font-family: Pretendard;
+  font-size: 21px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.complete {
+  color: $color-orange-5;
+  background-color: $color-cream-dark;
+}
+
+.running {
+  color: $color-orange-2;
+  background-color: $color-cream-dark;
+}
+
+.fail {
+  color: $color-gray-2;
+  background-color: $color-gray-7;
+}

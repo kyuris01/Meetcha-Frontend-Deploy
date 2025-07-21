@@ -1,0 +1,46 @@
+.meetingCompleteSection {
+  width: 100%;
+  height: 30%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 12px;
+
+  padding: 16px;
+
+  background-color: $color-cream-dark;
+
+  &__label {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    svg {
+      color: $color-orange-4;
+    }
+  }
+
+  &__meetingList {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 16px;
+
+    flex: 1;
+    min-height: 0;
+
+    overflow-y: scroll;
+  }
+}

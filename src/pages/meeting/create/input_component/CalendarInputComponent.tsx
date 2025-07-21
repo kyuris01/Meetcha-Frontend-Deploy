@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
-import "./CalendarMultipleInputComponent.scss";
+import "./CalendarInputComponent.scss";
 import { dateFormatter } from "@/utils/dateFormatter";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
     | React.Dispatch<React.SetStateAction<string>>
     | React.Dispatch<React.SetStateAction<string[]>>;
 }
-const CalendarMultipleInputComponent = ({ dataSetter }: Props) => {
+const CalendarInputComponent = ({ dataSetter }: Props) => {
   const [clickedDay, setClickedDay] = useState<string>();
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const CalendarMultipleInputComponent = ({ dataSetter }: Props) => {
   }, [clickedDay]);
 
   return (
-    <div className="calendarMultipleInputComponent">
+    <div className="calendarInputComponent">
       <Calendar
         formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
         onClickDay={(value) => {
@@ -32,4 +32,4 @@ const CalendarMultipleInputComponent = ({ dataSetter }: Props) => {
   );
 };
 
-export default CalendarMultipleInputComponent;
+export default CalendarInputComponent;

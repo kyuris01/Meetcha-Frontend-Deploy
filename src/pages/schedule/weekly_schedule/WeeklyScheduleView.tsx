@@ -41,7 +41,6 @@ const WeeklyScheduleView = ({ schedules }: Props) => {
         },
       }}
       eventPropGetter={(event) => {
-        console.log(event.id);
         return {
           style: {
             backgroundColor: `${colorAutoSelector(event.id)}`,

@@ -1,0 +1,37 @@
+.fc-header-toolbar {
+  display: none !important;
+}
+
+.fc-scrollgrid {
+  border-radius: 8px !important;
+}
+
+.fc-col-header-cell-cushion {
+  color: #343434;
+
+  text-align: center !important;
+  font-family: Pretendard !important;
+  font-size: 12px !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+}
+
+.fc-event {
+  background-color: $color-orange-5;
+  border-color: $color-orange-5;
+
+  pointer-events: none !important;
+}
+
+.fc-event-main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  pointer-events: auto !important;
+}
+
+:root {
+  --fc-event-selected-overlay-color: transparent;
+}

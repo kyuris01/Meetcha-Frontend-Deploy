@@ -10,15 +10,15 @@ const BackgroundPage = () => {
   const activeMenu = () => {
     switch (activeMenuNum) {
       case 0:
-        return <HomePage />;
-      case 1:
         return <SchedulePage />;
+      case 1:
+        return <HomePage />;
     }
   };
 
   return (
     <div className={styles.background_page}>
-      <Header />
+      <Header prevButton={false} />
       {activeMenu()}
       <BottomNav activeMenuNum={activeMenuNum} setActiveMenuNum={setActiveMenuNum} />
     </div>

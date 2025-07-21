@@ -1,0 +1,11 @@
+.carouselContainer {
+  width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: start;
+  gap: 16px;
+
+  user-select: none;
+}

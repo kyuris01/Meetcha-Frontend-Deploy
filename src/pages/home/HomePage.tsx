@@ -1,9 +1,25 @@
-import React from 'react'
+import { useEffect } from "react";
+import styles from "./HomePage.module.scss";
+import MeetingIncompleteSection from "../meeting/list/MeetingIncompleteSection";
+import MeetingCompleteSection from "../meeting/list/MeetingCompleteSection";
+import { useMeetingStore } from "@/store/meetingStore";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-  return (
-    <div>HomePage</div>
-  )
-}
+  const navigate = useNavigate();
+  const fetchMeetings = useMeetingStore((state) => state.fetchMeetings);
 
-export default HomePage
+  useEffect(() => {
+    const userId = 3;
+    fetchMeetings(userId);
+  }, []);
+
+  return (
+    <div className={styles.homePage}>
+      <MeetingCompleteSection />
+      <MeetingIncompleteSection />
+    </div>
+  );
+};
+
+export default HomePage;

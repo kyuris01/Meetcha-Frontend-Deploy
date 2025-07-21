@@ -1,0 +1,36 @@
+.meetingDetailView {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 16px;
+
+  &__infoContainer1 {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+  }
+
+  &__infoContainer2 {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    border: 1px solid $color-gray-8;
+    border-radius: 8px;
+
+    padding: 16px 14px;
+  }
+}
+
+.icon {
+  color: $color-orange-2;
+}

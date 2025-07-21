@@ -1,0 +1,72 @@
+.carouselItem {
+  width: clamp(200px, 30vw, 400px);
+  height: 10rem;
+  background-color: $color-cream-dark;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 8px;
+
+  font-family: Pretendard;
+
+  &__topEdge {
+    width: 100%;
+    height: 8px;
+
+    background-color: $color-orange-2;
+
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  &__dataArea {
+    width: 100%;
+
+    padding: 8px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    gap: 13px;
+
+    flex: 1;
+    min-height: 0;
+
+    &__expirationDate {
+      color: $color-orange-4;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    &__timeAndPlace {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      gap: 6px;
+
+      flex: 1;
+
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    &__participantNum {
+      width: 100%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: start;
+      gap: 2px;
+
+      color: $color-orange-4;
+
+      font-size: 11px;
+    }
+  }
+}

@@ -1,0 +1,2 @@
+const centerRef = useRef<HTMLDivElement>(null);
+  const largeCircleRef = useRef<HTMLDivElement>(null);
