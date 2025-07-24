@@ -5,6 +5,10 @@ import SpinningClock from "@assets/spinningClock.svg?react";
 import Human from "@assets/human.svg?react";
 import { PiPlusCircleFill } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import NavModal from "./NavModal";
+import { AnimatePresence, motion } from "framer-motion";
+import ReactDOM from "react-dom";
 
 interface Props {
   activeMenuNum: number;
@@ -13,6 +17,7 @@ interface Props {
 
 const BottomNav = ({ activeMenuNum, setActiveMenuNum }: Props) => {
   const navigate = useNavigate();
+  const [modal, setModal] = useState<boolean>(false);
 
   const leftDataSet = [
     { id: 0, label: "내 일정", img: <Calendar /> },
@@ -25,10 +30,27 @@ const BottomNav = ({ activeMenuNum, setActiveMenuNum }: Props) => {
   ];
 
   const clickHandler = () => {
-    if (activeMenuNum === 1) {
-      navigate("/meeting-creation");
-    }
+    setModal((prev) => !prev);
   };
+
+  const portal = ReactDOM.createPortal(
+    <AnimatePresence>
+      {modal && (
+        <motion.div className={styles.backdrop} onClick={() => setModal(false)}>
+          <motion.div
+            className={styles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <NavModal />
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
+  );
 
   return (
     <div className={styles.bottomNav}>
@@ -65,6 +87,7 @@ const BottomNav = ({ activeMenuNum, setActiveMenuNum }: Props) => {
           </div>
         ))}
       </div>
+      {portal}
       <div className={styles.largeCircle}>
         <PiPlusCircleFill onClick={clickHandler} />
       </div>

@@ -54,7 +54,7 @@
 .monthlyScheduleView .react-calendar__navigation {
   display: flex;
   height: 44px;
-  margin-bottom: 1em;
+  padding: 2rem 0;
 }
 
 .monthlyScheduleView .react-calendar__navigation button {
@@ -198,4 +198,16 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.monthlyScheduleView .react-calendar__navigation__label {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.monthlyScheduleView .react-calendar__navigation__arrow {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
 }

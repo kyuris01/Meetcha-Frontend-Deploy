@@ -1,5 +1,4 @@
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
 import "./Calendar.scss";
 import EventTagBox from "./EventTagBox";
 import { dateFormatter } from "@/utils/dateFormatter";

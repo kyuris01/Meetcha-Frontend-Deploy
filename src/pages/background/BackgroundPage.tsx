@@ -1,4 +1,4 @@
-import BottomNav from "@/components/BottomNav";
+import BottomNav from "@/components/BottomNav/BottomNav";
 import React, { useState } from "react";
 import styles from "./BackgroundPage.module.scss";
 import HomePage from "../home/HomePage";
