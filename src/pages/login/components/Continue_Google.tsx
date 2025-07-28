@@ -18,7 +18,7 @@ const Continue_Google = () => {
     error,
     fire: sendAuthCodeToServer,
   } = useAPIs(
-    "/auth/google", // 서버가 code를 받아 처리할 엔드포인트
+    "/oauth/google", // 서버가 code를 받아 처리할 엔드포인트
     "POST",
     code ? { code } : undefined,
     false,
@@ -35,19 +35,21 @@ const Continue_Google = () => {
 
   //4. 응답 처리
   useEffect(() => {
+    console.log("API 응답:", response);
+    console.log("API 오류:", error); // ✅ 에러 메시지 확인
     if (response?.isSuccess) {
       sessionStorage.setItem("access-token", response.data.accessToken);
       navigate("/login_complete");
     } else if (response && !response.isSuccess) {
-      alert("로그인 실패: " + response.message);
+      alert(response.message);
     }
   }, [response]);
 
   //5. 버튼 클릭 → Google 로그인 페이지로 이동
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = encodeURIComponent("http://localhost:5173/login"); // Google 콘솔에 등록한 리디렉션 URI
-    const scope = encodeURIComponent("profile email");
+    const redirectUri = encodeURIComponent("http://localhost:5173/Login"); // Google 콘솔에 등록한 리디렉션 URI
+    const scope = encodeURIComponent("openid email profile");
     const responseType = "code";
     const accessType = "offline";
     const prompt = "consent";
@@ -60,10 +62,9 @@ const Continue_Google = () => {
   return (
     <button className="google_button" onClick={handleGoogleLogin}>
       <img src={google_logo} alt="google_logo" />
-      <p>Continue with Google</p>
+      <p>Sign in with Google</p>
     </button>
   );
 };
 
 export default Continue_Google;
-
