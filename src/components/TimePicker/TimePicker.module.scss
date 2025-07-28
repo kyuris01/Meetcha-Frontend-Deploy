@@ -21,7 +21,7 @@ $border-color: #ddd;
   // 중앙 가이드 라인
   .indicator {
     position: absolute;
-    top: calc(50% - #{$item-height / 2});
+    top: calc(50% - calc($item-height / 2));
     left: 0;
     right: 0;
     height: $item-height;

@@ -15,7 +15,7 @@ const MonthlyScheduleView = ({ schedules }: Props) => {
           const eventName = new Array();
 
           schedules &&
-            schedules.map((user) => {
+            schedules?.map((user) => {
               if (user.date === dateFormatter(date)) {
                 eventName.push(user.scheduleName);
               }

@@ -1,0 +1,30 @@
+.scheduleCreationCard {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 8px;
+  border: 1px solid $color-gray-8;
+
+  padding: 20px 16px;
+
+  &__basic {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 16px;
+
+    &__icon {
+      color: $color-orange-2;
+    }
+  }
+}
+
+.active {
+  border: 1px solid $color-orange-5;
+}

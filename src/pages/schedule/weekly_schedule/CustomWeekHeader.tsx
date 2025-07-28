@@ -3,8 +3,16 @@ import styles from "./CustomWeekHeader.module.scss";
 const CustomWeekHeader = ({ label }: any) => {
   return (
     <div className={styles.customWeekHeader}>
-      <div className={styles.customWeekHeader__date}>{label.substr(0, 2)}</div>
-      <div className={styles.customWeekHeader__day}>{label.substr(2)}</div>
+      <div
+        className={
+          label.substr(3) === "Sun"
+            ? `${styles.customWeekHeader__date} ${styles.sunday}`
+            : styles.customWeekHeader__date
+        }
+      >
+        {label.substring(3, 4)}
+      </div>
+      <div className={styles.customWeekHeader__day}>{label.substr(0, 2)}</div>
     </div>
   );
 };

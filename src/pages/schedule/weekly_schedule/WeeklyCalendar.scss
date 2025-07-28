@@ -41,7 +41,6 @@ button.rbc-input::-moz-focus-inner {
   background-color: $color-cream-light;
   width: 100%;
   overflow: scroll;
-  padding-top: 10px;
 }
 
 .rbc-m-b-negative-3 {
@@ -171,9 +170,12 @@ button.rbc-input::-moz-focus-inner {
 }
 
 .rbc-toolbar {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  //
+  // display: -webkit-box;
+  // display: -ms-flexbox;
+  // display: flex;
+  display: none;
+  //
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-box-pack: center;
@@ -886,4 +888,41 @@ button.rbc-input::-moz-focus-inner {
 
 .rbc-allday-cell {
   display: none;
+}
+
+.swiper {
+  width: 100% !important;
+}
+
+.rbc-event-label {
+  display: none;
+}
+
+.slideUpContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 70vh; /* 화면 높이의 90% */
+  background-color: #fff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
+
+.rbc-calendar,
+.rbc-day-slot,
+.rbc-time-slot,
+.rbc-timeslot-group {
+  touch-action: manipulation !important;
+  pointer-events: manipulation !important;
+  user-select: manipulation !important;
 }

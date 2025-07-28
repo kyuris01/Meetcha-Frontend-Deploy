@@ -1,0 +1,30 @@
+.customWeekHeader {
+  font-family: Pretendard;
+  &__date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 1.5rem;
+
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    color: $color-gray-2;
+  }
+  &__day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+
+    height: 2rem;
+  }
+}
+
+.sunday {
+  color: $color-orange-5 !important;
+}

@@ -11,7 +11,6 @@ const SchedulePage = () => {
   const navigate = useNavigate();
   const userId = "11";
   const { response: schedules, loading, error } = useAPIs(`/schedules?userid=${userId}`);
-  // console.log(schedules);
   return (
     <div className={styles.schedulePage}>
       <div className={styles.schedulePage__viewBox}>

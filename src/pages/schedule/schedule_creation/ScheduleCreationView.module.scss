@@ -1,0 +1,33 @@
+.scheduleCreationView {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  gap: 24px;
+
+  &__inputTag {
+    width: 100%;
+    height: 2.5rem;
+
+    padding: 0 5px;
+
+    font-size: 21px;
+    font-style: normal;
+    font-weight: 700;
+
+    border: none;
+    border-bottom: 1px solid $color-gray-8;
+  }
+
+  &__scheduleOptionContainer {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 12px;
+  }
+}
