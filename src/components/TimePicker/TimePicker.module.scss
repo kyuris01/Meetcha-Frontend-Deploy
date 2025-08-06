@@ -1,7 +1,7 @@
 // TimePicker.scss
 
 // ——— 변수 정의 ———
-$width: 300px; // 필요에 맞게 조정
+$width: 100%; // 필요에 맞게 조정
 $visible-height: 200px; // item 높이 * 보이는 갯수 (예: 40px * 5)
 $item-height: 40px; // 스크롤 아이템 높이
 $font-family: Arial, sans-serif;
@@ -13,6 +13,8 @@ $border-color: #ddd;
 .time-picker {
   position: relative;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: $width;
   height: $visible-height;
   overflow: hidden;
@@ -32,10 +34,18 @@ $border-color: #ddd;
 
   // 스크롤 칼럼 공통
   .column {
-    flex: 1;
+    // flex: 1;
+    width: 5rem;
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
+    -ms-scroll-snap-destination: 0 0; /* code added */
+    scroll-snap-destination: 0 0; /* code added */
+    -ms-scroll-snap-type: y mandatory; /* code added */
     -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    &.no-snap {
+      scroll-snap-type: none;
+    }
 
     // 스크롤바 숨기기
     &::-webkit-scrollbar {
@@ -49,6 +59,7 @@ $border-color: #ddd;
     line-height: $item-height;
     text-align: center;
     scroll-snap-align: start;
+    scroll-snap-stop: always;
     color: $color-default;
     font-size: 16px;
 

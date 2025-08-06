@@ -2,6 +2,12 @@
   padding: 0;
   margin: 0;
 }
+.chevron_icon {
+  transition: transform 0.3s ease;
+}
+.chevron_icon.rotate {
+  transform: rotate(180deg);
+}
 .Memoir_write_ctn {
   height: 100%;
   overflow: scroll;
@@ -11,8 +17,13 @@
   padding: 1rem;
   display: flex;
   gap: 0.5rem;
+  justify-content: center;
+  position: relative;
   > button {
-    all: unset;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    appearance: none;
     display: flex;
     > img {
       width: 21px;
@@ -144,11 +155,16 @@
   width: 90%;
 }
 .feel_ctn {
-  height: 4.875rem;
-  &::placeholder {
-    padding-top: 1rem;
-    margin-top: 0;
-  }
+  height: 6rem;
+  padding: 0.8rem;
+  resize: vertical;
+  font-family: Pretendard;
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 14px;
+
+  line-height: 100%;
+  letter-spacing: 0%;
 }
 
 .star {
@@ -173,7 +189,12 @@
   }
   .banner_box {
     width: 100%;
-    height: 100%;
+
+    transition: all 0.3s ease;
+    height: auto;
+    max-height: 20rem;
+    opacity: 0;
+    pointer-events: none;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -229,6 +250,11 @@
       }
     }
   }
+  .banner_box.open {
+    height: 20rem;
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 .banner_name_ctn {
   display: inline-block;
@@ -244,5 +270,54 @@
   > p {
     font-size: 12px;
     color: #b04404;
+  }
+}
+.memoir_botton_fixed {
+  width: 100%;
+  height: 10%;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .memoir_write_btn {
+    width: 90%;
+    height: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #faab74;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    > p {
+      font-family: Pretendard;
+      font-weight: 600;
+      font-style: SemiBold;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #fddac1;
+    }
+  }
+  .memoir_write_btn_ready{
+    width: 90%;
+    height: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff6200;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    > p {
+      font-family: Pretendard;
+      font-weight: 600;
+      font-style: SemiBold;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #ffffff;
+    }
+  
   }
 }

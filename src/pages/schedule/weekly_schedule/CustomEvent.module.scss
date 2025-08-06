@@ -1,2 +1,5 @@
 .customEvent {
+  overflow: hidden; /* 넘치는 부분 가리기 */
+  text-overflow: ellipsis; /* ... 처리하기 */
+  white-space: nowrap; /* 줄바꿈 안하기 (한 줄 밑줄임표 적용) */
 }

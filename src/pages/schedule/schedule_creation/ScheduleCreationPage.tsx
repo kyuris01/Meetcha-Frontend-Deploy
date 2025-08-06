@@ -33,9 +33,6 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
   }, []);
 
   useEffect(() => {
-    console.log("1: ", scheduleTitle);
-    console.log("2: ", scheduleTime);
-    console.log("3: ", repetition);
     if (scheduleTitle && scheduleTime && repetition) setAllDataReserved(true);
   }, [scheduleTitle, scheduleTime, repetition]);
 
@@ -118,7 +115,7 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
         )}
         <Button
           className={allDataReserved ? styles.active : styles.inactive}
-          label={createMode ? "미팅 생성하기" : "완료"}
+          label={createMode ? "일정 생성하기" : "완료"}
           clickHandler={createMode ? sendCreationReq : sendEditReq}
         />
       </div>

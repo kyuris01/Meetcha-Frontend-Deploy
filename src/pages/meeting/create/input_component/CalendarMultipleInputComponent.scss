@@ -209,3 +209,15 @@
 .calendarMultipleInputComponent .custom-active:enabled:focus {
   background: $color-orange-5;
 }
+
+.calendarMultipleInputComponent .react-calendar__navigation__label {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.calendarMultipleInputComponent .react-calendar__navigation__arrow {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+}

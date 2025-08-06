@@ -1,0 +1,38 @@
+.projectInputComponentRow {
+  width: 100%;
+
+  &__buttonContainer {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+
+    input[type="radio"] {
+      accent-color: $color-orange-5;
+      width: 20px;
+      height: 20px;
+
+      &:hover {
+        background-color: $color-orange-5;
+        border-color: $color-orange-5;
+      }
+    }
+
+    &__projectName {
+      color: #b04400;
+      background-color: $color-orange-7;
+
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+
+      padding: 2px;
+
+      border-radius: 8px;
+    }
+  }
+}

@@ -1,0 +1,51 @@
+.projectInputComponent {
+  width: 100%;
+  height: 6rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 10px;
+
+  &__inputSection {
+    width: 100%;
+    height: 2.5rem;
+
+    padding: 5px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+
+    background-color: $color-gray-11;
+
+    &__inputTag {
+      flex: 1;
+      height: 100%;
+
+      border: none;
+
+      background-color: $color-gray-11;
+    }
+
+    &__addBtn {
+      width: 1.8rem;
+      height: 1.8rem;
+      svg {
+        color: $color-gray-6;
+      }
+    }
+  }
+
+  &__listSection {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 3px;
+
+    overflow-y: scroll;
+  }
+}

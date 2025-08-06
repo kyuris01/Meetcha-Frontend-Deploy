@@ -21,13 +21,13 @@ const Meeting_card = ({ meeting }) => {
     <div className="study_info">
       <div className="spare_ctn"></div>
       <div className="study_banner_ctn">
-        <div className="project_name">
+         {/* <div className="project_name">
           <div className="p_container">
-            <p>{meeting.project_name}</p>
+            <p>{meeting.projectName}</p>
           </div>
-        </div>
-        <p>{meeting.meeting_name}</p>
-        <p>{meeting.created_at}</p>
+        </div>  */}
+        <p>{meeting.title}</p>
+        <p>{meeting.confirmedTime}</p>
        
         <div
           className="description"
@@ -38,7 +38,7 @@ const Meeting_card = ({ meeting }) => {
             transition: "max-height 0.3s ease",
           }}
         >
-          {meeting.thought || "이 미팅은 설명이 없습니다."}
+          {meeting.description || "이 미팅은 설명이 없습니다."}
         </div>
 
         <div className="expand_btn" onClick={toggleExpand}>

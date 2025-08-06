@@ -15,17 +15,17 @@ const MeetingStateCard = ({ meeting_status }: Props) => {
 
   const stateResolver = () => {
     switch (meeting_status) {
-      case "진행중":
+      case "COMPLETE":
         setText("매칭 완료");
         setIcon(<CompletedMatching className={styles.complete} />);
         setStyle(styles.complete);
         break;
-      case "생성중":
+      case "IN_PROGRESS":
         setText("매칭 중");
         setIcon(<RunningMatching className={styles.running} />);
         setStyle(styles.running);
         break;
-      case "실패":
+      case "MATCH_FAIL":
         setText("매칭 실패");
         setIcon(<FailedMatching className={styles.fail} />);
         setStyle(styles.fail);

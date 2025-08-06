@@ -4,24 +4,22 @@ import { apiCall } from "@/utils/apiCall";
 import { AnimatePresence, motion } from "framer-motion";
 import ParticipantInfoPage from "../participant/ParticipantInfoPage";
 import ReactDOM from "react-dom";
+import type { Participant } from "@/types/meeting-data-type";
 
 interface Props {
   label: string;
   icon: React.ReactNode;
-  data: string | number;
+  data: string | number | Participant[];
 }
 
 const MeetingDetailRow = ({ label, icon, data }: Props) => {
-  const [participants, setParticipants] = useState(null);
+  const [participants, setParticipants] = useState<Participant[]>([]);
   const [isOpen, setIsOpen] = useState(false); // 슬라이더가 열렸는지 여부
 
   useEffect(() => {
-    const getParticipantsData = async () => {
-      const response = await apiCall(`/meeting_participants?id=${data}`);
-      setParticipants(response);
-    };
+    console.log("mdr data: ", data);
     if (label === "참여자 정보 확인") {
-      getParticipantsData();
+      setParticipants(data as Participant[]);
     }
   }, [data]);
 
@@ -81,7 +79,15 @@ const MeetingDetailRow = ({ label, icon, data }: Props) => {
         }
         onClick={handleClick}
       >
-        {label === "참여자 정보 확인" ? "..." : (data as string)}
+        {label === "참여자 정보 확인"
+          ? participants.map((item, _) => (
+              <img
+                key={item.participantId}
+                className={styles.meetingDetailRow__rightArea__participantImg}
+                src={item.profileImageUrl}
+              />
+            ))
+          : (data as string)}
       </div>
       {portal}
     </div>

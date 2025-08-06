@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./SchedulePage.module.scss";
 import MonthlyScheduleView from "./monthly_schedule/MonthlyScheduleView";
 import WeeklyScheduleView from "./weekly_schedule/WeeklyScheduleView";
-import WriteButton from "@assets/writeButton.svg?react";
-import { useAPIs } from "@/apis/useAPIs";
-import { useNavigate } from "react-router-dom";
+import { useScheduleStore } from "@/store/scheduleStore";
 
 const SchedulePage = () => {
   const [viewNum, setViewNum] = useState<number>(0);
-  const navigate = useNavigate();
-  const userId = "11";
-  const { response: schedules, loading, error } = useAPIs(`/schedules?userid=${userId}`);
+  const schedules = useScheduleStore((state) => state.scheduleList);
+  const fetchSchedules = useScheduleStore((state) => state.fetchSchedules);
+
+  useEffect(() => {
+    fetchSchedules();
+  }, []);
   return (
     <div className={styles.schedulePage}>
       <div className={styles.schedulePage__viewBox}>

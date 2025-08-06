@@ -1,38 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAPIs2 } from "@/apis/useAPIs2";
+import "./Memoir_meeting.scss";
 
 interface Props {
   meetingLists: any[];
 }
-import "./Memoir_meeting.scss";
 
 const Meeting_list_content = ({ meetingLists }: Props) => {
   const navigate = useNavigate();
+
+  const [selectedMeetingId, setSelectedMeetingId] = useState<string | null>(
+    null
+  );
+
+  // 1. 훅은 최상단에서 선언
+  const {
+    response: chosenMemoir,
+    loading,
+    error,
+    fire,
+  } = useAPIs2(
+    selectedMeetingId ? `/meeting/${selectedMeetingId}/reflection` : "",
+    "GET",
+    undefined,
+    true,
+    false
+  );
+
+  // 2. 클릭 시 선택된 미팅 ID 저장 + fire 실행
   const handleClick = (meeting: any) => {
-    setTimeout(() => {
-    navigate("/memoir-complete", { state: meeting });
-  }, 0);
+    setSelectedMeetingId(meeting.meetingId);
+    fire();
   };
+
+  // 3. 회고 데이터 도착하면 이동
+  useEffect(() => {
+    if (chosenMemoir && chosenMemoir.success) {
+      navigate("/memoir-complete", { state: chosenMemoir });
+      
+    }
+  }, [chosenMemoir]);
+
   return (
     <div className="meetings_ctn">
       {Array.isArray(meetingLists) &&
         meetingLists.map((meeting) => {
           return (
             <div
-              key={meeting.reflection_id}
+              key={meeting.meetingId}
               className="meeting_ctn"
               onClick={() => handleClick(meeting)}
             >
               <div className="meeting_intro">
-                <div className="meeting_study">{meeting.project_name}</div>
-                <p className="meeting_date">{meeting.created_at}</p>
+                <div className="meeting_study">{meeting.projectName}</div>
+                <p className="meeting_date">{meeting.confirmedTime}</p>
               </div>
               <div className="meeting_main">
-                <p className="meeting_title">{meeting.meeting_name}</p>
+                <p className="meeting_title">{meeting.title}</p>
               </div>
               <div className="meeting_last">
-                <p className="meeting_lastWeekDone">{meeting.completed_work}</p>
-                <p className="meeting_nextWeekDone">{meeting.planned_work}</p>
+                <p className="meeting_lastWeekDone">{meeting.completedWork}</p>
+                <p className="meeting_nextWeekDone">{meeting.plannedWork}</p>
               </div>
             </div>
           );

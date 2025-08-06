@@ -8,10 +8,12 @@ import "./Memoir_meeting.scss";
 const Must_write = ({ meetingLists }) => {
   const navigate = useNavigate();
   console.log(meetingLists);
+
   const handleClick = (meeting) => {
-    navigate("/memoir-write",{
-      state:{
-       meeting
+    navigate("/memoir-write", {
+      state: {
+        
+        meeting
       },
     });
   };
@@ -21,14 +23,13 @@ const Must_write = ({ meetingLists }) => {
       <div className="meetingcard_container">
         {Array.isArray(meetingLists) &&
           meetingLists
-            .filter((meeting) => !meeting.done)
             .map((meeting) => (
-              <div key={meeting.reflection_id} className="meetingcard">
-                <p>{meeting.meeting_name}</p>
-                <p>{meeting.created_at}</p>
-                <button 
+              <div key={meeting.meetingId} className="meetingcard">
+                <p>{meeting.title}</p>
+                <p>{meeting.createdAt}</p>
+                <button
                   className="writeMemoir_button"
-                  onClick={()=>handleClick(meeting)}
+                  onClick={() => handleClick(meeting)}
                 >
                   <img src={plus} alt="plus"></img>
                   <span>회고 작성하기</span>

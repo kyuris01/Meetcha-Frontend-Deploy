@@ -12,6 +12,7 @@ export const apiCall = async (path: string, method = "GET", data?: any, withAuth
       },
       ...(data && { body: JSON.stringify(data) }),
     });
+    console.log(`apiCall 경로 : ${API_BASE}${path}`);
     return await res.json();
   } catch (e: any) {
     console.error(e.message);

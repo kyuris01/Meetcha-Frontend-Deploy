@@ -1,0 +1,39 @@
+
+.partici_link_ctn {
+  width: 100%;
+  height: 100%;
+  .partici_link_main {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .p_input_ctn {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      > p {
+        font-family: Inria Serif;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 21px;
+        line-height: 29.4px;
+        letter-spacing: 0%;
+        text-align: center;
+        color: #343434;
+
+      }
+      >input{
+        width: 100%;
+        height: 3.25rem;
+        padding: 1rem;
+        border: 1px solid #e8e8e8;
+        border-radius: 8px;
+        font-size: 14px;
+      }
+    }
+  }
+}

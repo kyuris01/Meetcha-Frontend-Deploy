@@ -14,7 +14,7 @@ const Memoir_complete_ctn = () => {
     <div className="memoir_complete_ctn">
       <Memoir_complete_intro/>
       <Memoir_complete_main meeting={meeting}/>
-      <Memoir_bottom_fixed />
+      
     </div>
   );
 };

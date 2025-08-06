@@ -1,30 +1,49 @@
-.memoir_botton_fixed{
-    width: 100%;
-    height:10%;
-    background-color: #FFFFFF;
-    position: fixed;
-    bottom:0;
+.memoir_botton_fixed {
+  width: 100%;
+  height: 10%;
+  background-color: #ffffff;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .memoir_write_btn {
+    width: 90%;
+    height: 66%;
     display: flex;
     justify-content: center;
     align-items: center;
-    .memoir_write_btn{
-        width: 90%;
-        height: 66%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #FAAB74;
-        margin-bottom: 1rem;
-        border-radius: 8px;
-        >p{
-            font-family: Pretendard;
-            font-weight: 600;
-            font-style: SemiBold;
-            font-size: 16px;
-            line-height: 100%;
-            letter-spacing: 0%;
-            color:#FDDAC1;
-
-        }
+    background-color: #faab74;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    > p {
+      font-family: Pretendard;
+      font-weight: 600;
+      font-style: SemiBold;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #fddac1;
     }
+  }
+  .memoir_write_btn_ready{
+    width: 90%;
+    height: 66%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ff6200;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    > p {
+      font-family: Pretendard;
+      font-weight: 600;
+      font-style: SemiBold;
+      font-size: 16px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #ffffff;
+    }
+  
+  }
 }

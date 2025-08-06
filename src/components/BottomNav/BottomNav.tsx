@@ -89,7 +89,7 @@ const BottomNav = ({ activeMenuNum, setActiveMenuNum }: Props) => {
       </div>
       {portal}
       <div className={styles.largeCircle}>
-        <PiPlusCircleFill onClick={clickHandler} />
+        <PiPlusCircleFill onClick={clickHandler} className={styles.smallCircle} />
       </div>
     </div>
   );

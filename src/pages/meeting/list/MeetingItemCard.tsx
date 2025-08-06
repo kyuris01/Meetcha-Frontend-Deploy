@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import styles from "./MeetingItemCard.module.scss";
 import type { MeetingDataType } from "@/types/meeting-data-type";
 import { useNavigate } from "react-router-dom";
+import {
+  completedMeetingDateFormatter,
+  incompletedMeetingDateFormatter,
+} from "@/utils/dateFormatter";
 
 interface Props {
   data: MeetingDataType;
@@ -11,24 +15,29 @@ const MeetingItemCard = ({ data }: Props) => {
   const navigate = useNavigate();
   const [meetingDetail, setMeetingDetail] = useState<string>("");
   const [cardStyle, setCardStyle] = useState<string>();
+  const [textStyle, setTextStyle] = useState<string>();
 
   const handleClick = () => {
-    navigate("detail", { state: data });
+    navigate("detail", { state: data.meetingId });
   };
 
   const cardInfoResolver = () => {
-    switch (data.meeting_status) {
-      case "실패":
+    switch (data.meetingStatus) {
+      case "매칭 실패":
         setMeetingDetail("매칭 실패");
         setCardStyle(styles.fail);
+        setTextStyle(styles.failText);
         break;
-      case "생성중":
-        setMeetingDetail(`${data.deadline} 종료`);
-        setCardStyle(styles.incomplete);
-        break;
-      case "진행중":
-        setMeetingDetail(data.confirmed_time);
+      case "완료":
+        setMeetingDetail(
+          `${completedMeetingDateFormatter(data.confirmedTime, data.durationMinutes)}`
+        );
         setCardStyle(styles.success);
+        break;
+      case "매칭 중":
+        setMeetingDetail(`${incompletedMeetingDateFormatter(data.deadline)} 종료`);
+        setCardStyle(styles.incomplete);
+        setTextStyle(styles.incompleteText);
     }
   };
 
@@ -44,7 +53,9 @@ const MeetingItemCard = ({ data }: Props) => {
           <div className={styles.meetingItemCard__dataArea__meetingInfo__meetingName}>
             {data.title}
           </div>
-          <div className={styles.meetingItemCard__dataArea__meetingInfo__meetingDetail}>
+          <div
+            className={`${styles.meetingItemCard__dataArea__meetingInfo__meetingDetail} ${textStyle}`}
+          >
             {meetingDetail}
           </div>
         </div>

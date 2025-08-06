@@ -8,12 +8,12 @@ import Must_list_container from "./Must_list_container";
 import "./Memoir_meeting.scss";
 
   
-const Memoir_meeting_ctn = ({meetingLists}) => {
+const Memoir_meeting_ctn = ({meetingLists,memoirLists}) => {
  
   return (
    <div className="meeting_container">
-        <Mymeeting_summary meetingLists={meetingLists}/>
-        <Must_list_container meetingLists={meetingLists}/>
+        <Mymeeting_summary memoirLists={memoirLists} meetingLists={meetingLists}/>
+        <Must_list_container memoirLists={memoirLists}meetingLists={meetingLists}/>
    </div>
   );
 };

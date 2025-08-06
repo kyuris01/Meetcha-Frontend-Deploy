@@ -3,46 +3,42 @@ import Button from "@/components/Button";
 import TopNav from "@/components/TopNav";
 import MeetingCreationView from "./MeetingCreationView";
 import { useEffect, useState } from "react";
-import { useAPIs } from "@/apis/useAPIs";
+import { apiCall } from "@/utils/apiCall";
 
-export interface MeetingData {
+export interface MeetingSendData {
   title: string;
-  explanation: string;
-  candidateDate: string[];
-  proceedTime: string;
-  expirationTime: string;
+  description: string;
+  durationMinutes: number;
+  candidateDates: string[];
+  deadline: string;
+  projectId: string;
 }
 
 const MeetingCreationPage = () => {
   const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
-  const [completeData, setCompleteData] = useState<MeetingData>();
+  const [completeData, setCompleteData] = useState<MeetingSendData>();
 
-  // ✅ Hook을 컴포넌트 최상위에서 호출
-  const { response, loading, error, fire } = useAPIs(
-    "/meeting_create",
-    "POST",
-    completeData,
-    false,
-    true // manual = true로 설정
-  );
+  useEffect(() => {
+    console.log(completeData);
+  }, [completeData]);
 
-  // ✅ 이벤트 핸들러에서는 fire 함수만 호출
-  const sendCreationReq = () => {
-    if (completeData) {
-      fire(); // API 호출 트리거
+  const requestMeetingCreation = async () => {
+    const response = await apiCall("/meeting/create", "POST", completeData, true);
+
+    switch (response.code) {
+      case 201:
+        alert(response.message);
+        break;
+      case 400:
+        const details = Object.entries(response.data)
+          .map(([_, value]) => `• ${value}`)
+          .join("\n");
+        alert(`${response.message}\n${details}`);
+        break;
+      default:
+        alert(response.message);
     }
   };
-
-  // ✅ response 변화를 감지하여 결과 처리
-  useEffect(() => {
-    if (response) {
-      if (response.code === 20000) {
-        alert("생성완료 되었습니다!");
-      } else {
-        alert("생성실패");
-      }
-    }
-  }, [response]);
 
   return (
     <div className={styles.meetingCreationPage}>
@@ -55,7 +51,7 @@ const MeetingCreationPage = () => {
         <Button
           className={allDataReserved ? styles.active : styles.inactive}
           label={"미팅 생성하기"}
-          clickHandler={sendCreationReq}
+          clickHandler={requestMeetingCreation}
         />
       </div>
     </div>

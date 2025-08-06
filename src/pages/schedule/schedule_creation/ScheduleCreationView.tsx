@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ScheduleCreationView.module.scss";
-import Button from "@/components/Button";
 import Clock from "@assets/clock.svg?react";
 import Pencil from "@assets/pencil.svg?react";
 import TimePicker from "@/components/TimePicker/TimePicker";

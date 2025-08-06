@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAPIs } from "@/apis/useAPIs";
+import { useAPIs2 } from "@/apis/useAPIs2";
 import google_logo from "../../../assets/Google.svg";
 import "../styles/login.scss";
 
@@ -17,7 +17,7 @@ const Continue_Google = () => {
     loading,
     error,
     fire: sendAuthCodeToServer,
-  } = useAPIs(
+  } = useAPIs2(
     "/oauth/google", // 서버가 code를 받아 처리할 엔드포인트
     "POST",
     code ? { code } : undefined,
@@ -37,7 +37,7 @@ const Continue_Google = () => {
   useEffect(() => {
     console.log("API 응답:", response);
     console.log("API 오류:", error); // ✅ 에러 메시지 확인
-    if (response?.isSuccess) {
+    if (response?.success) {
       sessionStorage.setItem("access-token", response.data.accessToken);
       navigate("/login_complete");
     } else if (response && !response.isSuccess) {

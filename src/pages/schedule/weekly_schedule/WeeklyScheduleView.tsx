@@ -4,9 +4,10 @@ import { addWeeks, subWeeks } from "date-fns";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import WeeklyCalendar from "./WeeklyCalendar";
+import type { ScheduleDataType } from "@/types/schedule-data-type";
 
 interface Props {
-  schedules: any[];
+  schedules: ScheduleDataType[];
 }
 
 const WeeklyScheduleView = ({ schedules }: Props) => {
@@ -14,6 +15,8 @@ const WeeklyScheduleView = ({ schedules }: Props) => {
   const didSkipFirstChange = useRef(false); // 0->1 이동시 handleSlideChange는 발동안되게하는 플래그
   const swiperRef = useRef(null);
   const [isSwiping, setIsSwiping] = useState(false);
+
+  console.log(schedules);
 
   const [calendarArr, setCalendarArr] = useState(() => {
     const prev = subWeeks(standardDate, 1);
@@ -26,10 +29,11 @@ const WeeklyScheduleView = ({ schedules }: Props) => {
   });
 
   const events = schedules?.map((item, _) => ({
-    id: item.id,
-    title: item.scheduleName,
-    start: new Date(`${item.date}T${item.startTime}`),
-    end: new Date(`${item.date}T${item.endTime}`),
+    id: item.eventId,
+    title: item.title,
+    start: new Date(item.startAt),
+    end: new Date(item.endAt),
+    recur: item.recurrence,
   }));
 
   const handleSlideChange = (swiper) => {
@@ -105,9 +109,6 @@ const WeeklyScheduleView = ({ schedules }: Props) => {
     >
       {calendarArr.map(({ week, key }) => (
         <SwiperSlide key={key}>
-          {/* <div onPointerUpCapture={(e) => e.stopPropagation()}>
-            <WeeklyCalendar week={week} events={events} />
-          </div> */}
           <WeeklyCalendar week={week} events={events} blockInteraction={isSwiping} />
         </SwiperSlide>
       ))}

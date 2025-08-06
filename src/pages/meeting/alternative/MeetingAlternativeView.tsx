@@ -8,7 +8,6 @@ import Button from "@/components/Button";
 import { differenceInDays, format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { apiCall } from "@/utils/apiCall";
-import { useParams } from "react-router-dom";
 import Loading from "@/components/Loading/Loading";
 import Check from "@assets/check.svg?react";
 import ReactDOM from "react-dom";
@@ -21,7 +20,7 @@ interface EventInput {
   extendedProps?: any; // 추가 데이터
 }
 
-const MeetingAlternativeView = () => {
+const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string[] }) => {
   //   const params = useParams();
   const [data, setData] = useState<EventInput[]>();
   const [firstDate, setFirstDate] = useState<Date>();
@@ -40,49 +39,40 @@ const MeetingAlternativeView = () => {
   const scrollerRef = useRef<HTMLDivElement | null>(null); // 스크롤시 위치참조를 위한 참조변수
   const popupRef = useRef<HTMLDivElement | null>(null); // 팝업 카드 DOM
   const eventRef = useRef<HTMLElement | null>(null); // 마지막으로 클릭한 이벤트 DOM
-  const PATH = `/alternative?id=3`;
 
-  const fetchData = async () => {
+  useEffect(() => {
     setLoading(true);
-    const response = await apiCall(PATH, "GET");
 
-    if (response.code === 20000) {
-      const raw = response.data;
+    // 첫번째 날짜와 마지막 날짜 계산
+    const first = new Date(alternativeTimes[0]);
+    const last = new Date(alternativeTimes[alternativeTimes.length - 1]);
+    const diff = differenceInDays(last, first) + 1; // +1 해야 마지막날 포함
 
-      // 첫번째 날짜와 마지막 날짜 계산
-      const first = new Date(raw[0].date.replace(/\//g, "-"));
-      const last = new Date(raw[raw.length - 1].date.replace(/\//g, "-"));
-      const diff = differenceInDays(last, first) + 1; // +1 해야 마지막날 포함
+    // 이벤트 매핑
+    const events = alternativeTimes.map((item, index) => {
+      return {
+        title: `---`,
+        start: item[0],
+        end: item[alternativeTimes.length - 1],
+        extendedProps: {
+          // index: index,
+          // failMembers: item.failMembers,
+          // adjustedTime: item.adjustedTime,
+          // startTime: item.startTime,
+          // endTime: item.endTime,
+          // availableNum: item.availableNum,
+          // totalNum: item.totalNum,
+          // date: item.date,
+        },
+      };
+    });
 
-      // 이벤트 매핑
-      const events = raw.map((item, index) => {
-        const dateString = item.date.replace(/\//g, "-");
-        return {
-          title: `---`,
-          start: `${dateString}T${item.startTime}:00`,
-          end: `${dateString}T${item.endTime}:00`,
-          extendedProps: {
-            index: index,
-            failMembers: item.failMembers,
-            adjustedTime: item.adjustedTime,
-            startTime: item.startTime,
-            endTime: item.endTime,
-            availableNum: item.availableNum,
-            totalNum: item.totalNum,
-            date: item.date,
-          },
-        };
-      });
-
-      // 상태 업데이트
-      setFirstDate(first);
-      setDuration(diff);
-      setData(events);
-    } else {
-      console.error("error");
-    }
+    // 상태 업데이트
+    setFirstDate(first);
+    setDuration(diff);
+    setData(events);
     setLoading(false);
-  };
+  }, []);
 
   const handleButtonClick = (e) => {
     console.log("check3");
@@ -141,10 +131,6 @@ const MeetingAlternativeView = () => {
       });
     }
   }
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   useEffect(() => {
     function handleDocClick(e: MouseEvent) {

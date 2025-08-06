@@ -8,23 +8,36 @@ import Memoir_complete_ctn from "./pages/memoir/Memoir_complete/Memoir_complete_
 import MeetingCreationPage from "./pages/meeting/create/MeetingCreationPage";
 import MeetingDetailPage from "./pages/meeting/detail/MeetingDetailPage";
 import MeetingAlternativePage from "./pages/meeting/alternative/MeetingAlternativePage";
+import SchedulePage from "./pages/schedule/SchedulePage";
+import MeetingPage from "./pages/meeting/MeetingPage";
+
+import Participate_timetable_ctn from "./pages/participate/Participate_timetable/Participate_timetable_ctn";
+
+import Participate_link from "./pages/participate/Participate_link/Participate_link_ctn";
+
+import Participate_completed_ctn from "./pages/participate/Participate_complete/Participate_completed_ctn";
+
+import Participate_error_ctn from "./pages/participate/Participate_error/Participate_error_ctn";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
-        <Route index path="/detail" element={<MeetingDetailPage />}></Route>
+        <Route index path="meeting/detail" element={<MeetingDetailPage />}></Route>
         <Route index path="/login" element={<LoginContainer />}></Route>
-        <Route
-          index
-          path="/login_complete"
-          element={<LoginCompleteContainer />}
-        ></Route>
-        <Route index path="/" element={<BackgroundPage />}></Route>
+        <Route index path="/login_complete" element={<LoginCompleteContainer />}></Route>
+        <Route path="/" element={<BackgroundPage />}>
+          <Route index path="schedule" element={<SchedulePage />} />
+          <Route path="meeting" element={<MeetingPage />} />
+        </Route>
         <Route index path="/memoir" element={<Memoir_meeting_All />}></Route>
-        <Route index path="/memoir-write" element={<Memoir_write_ctn/>}></Route>
-        <Route index path="/memoir-complete" element={<Memoir_complete_ctn/>}></Route>
+        <Route index path="/memoir-write" element={<Memoir_write_ctn />}></Route>
+        <Route index path="/memoir-complete" element={<Memoir_complete_ctn />}></Route>
+        <Route index path="/timetable" element={<Participate_timetable_ctn />}></Route>
+        <Route index path="/link" element={<Participate_link />}></Route>
+        <Route index path="/error" element={<Participate_error_ctn />}></Route>
+        <Route index path="/complete" element={<Participate_completed_ctn />}></Route>
         <Route index path="/meeting-creation" element={<MeetingCreationPage />}></Route>
       </Routes>
     </BrowserRouter>

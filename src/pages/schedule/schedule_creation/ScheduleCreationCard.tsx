@@ -8,7 +8,11 @@ interface Props {
   dataSetter: React.Dispatch<React.SetStateAction<string>>;
   BasicComponent: React.ComponentType<any>;
   basicProps?: Record<string, any>;
-  ExpandedComponent?: React.ComponentType<{ onChange: (val: string) => void }>;
+  ExpandedComponent?: React.ComponentType<{
+    onChange: (val: string) => void;
+    ampm: boolean;
+    minRange: number;
+  }>;
 }
 
 const ScheduleCreationCard = ({
@@ -39,7 +43,7 @@ const ScheduleCreationCard = ({
       </div>
       {expand && expandCard && (
         <div className={styles.scheduleCreationCard__expanded}>
-          <ExpandedComponent onChange={(item) => setSharingData(item)} />
+          <ExpandedComponent onChange={(item) => setSharingData(item)} ampm={false} minRange={5} />
         </div>
       )}
     </div>

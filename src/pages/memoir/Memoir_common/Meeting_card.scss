@@ -14,7 +14,7 @@
 
   .study_banner_ctn {
     flex: 1;
-    padding: 0.4rem 0.8rem;
+    padding: 1rem 0.8rem 0 0.8rem;
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
@@ -71,10 +71,10 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      padding-top: 0.3rem;
+      padding-top: 0;
       border-radius: 8px 8px 0 0;
       position: relative;
-
+      padding-bottom: 0.3rem;
       img {
         width: 1rem;
         height: 1rem;

@@ -4,11 +4,11 @@ import "./Memoir_meeting.scss";
 
 import Meeting_list_content from "./Meeting_list_content";
 
-const Meeting_list = ({ meetingLists }) => {
+const Meeting_list = ({ memoirLists }) => {
   //어차피 사용자로부터 입력을 받는다.
   const [showInput, setShowInput] = useState<boolean>(false);
   const [meetingTitle, setMeetingTitle] = useState<string>("");
-  const [filteredList, setFilteredList] = useState(meetingLists);
+  const [filteredList, setFilteredList] = useState(memoirLists);
 
   const inputRef = useRef(null);
 
@@ -21,7 +21,7 @@ const Meeting_list = ({ meetingLists }) => {
   };
 
   const handleFilter = () => {
-    const filtered = meetingLists.filter((item) =>
+    const filtered =memoirLists.filter((item) =>
       item.meeting_name
         .toLowerCase()
         .includes(meetingTitle.trim().toLowerCase())
@@ -43,7 +43,7 @@ const Meeting_list = ({ meetingLists }) => {
       ) {
         setShowInput(false);
         setMeetingTitle("");
-        setFilteredList(meetingLists);
+        setFilteredList(memoirLists);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -51,7 +51,7 @@ const Meeting_list = ({ meetingLists }) => {
     return ()=>{
       document.removeEventListener("mousedown",handleClickOutside);
     };
-  }, [showInput, meetingLists]);
+  }, [showInput, memoirLists]);
 
   return (
     <div className="meetingList_container">
@@ -61,7 +61,7 @@ const Meeting_list = ({ meetingLists }) => {
           className={showInput ? "disappear" : "appear"}
           onClick={handleClick}
         >
-          필터
+        
         </button>
         {showInput && (
           <div className="filter_input_wrapper" ref={inputRef}>
