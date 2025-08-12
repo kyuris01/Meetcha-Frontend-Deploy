@@ -15,8 +15,8 @@ interface Props {
 
 const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => {
   const [meetingTitle, setMeetingTitle] = useState<string>("");
-  const [meetingDescription, setMeetingDescription] = useState<string>();
-  const [meetingCandidateDates, setMeetingCandidateDates] = useState<string[]>();
+  const [meetingDescription, setMeetingDescription] = useState<string>("");
+  const [meetingCandidateDates, setMeetingCandidateDates] = useState<string[]>([]);
   const [durationMinutes, setDurationMinutes] = useState<string>("");
   const [deadline, setDeadline] = useState<string>("");
   const [projectData, setProjectData] = useState<string>("");
@@ -68,6 +68,14 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
     const parsedDate = parse(durationMinutes, "HH:mm", new Date()); // duration은 숫자로 파싱하면서 총 "분"으로 변환
     return parsedDate.getHours() * 60 + parsedDate.getMinutes();
   };
+
+  const deadlineParse = (deadline) => {
+    console.log(deadline);
+    const [date, time] = deadline?.split("T");
+    const [hour, minute] = time?.split(":");
+    const paddedTime = hour?.padStart(2, "0") + ":" + minute;
+    return date + "T" + paddedTime;
+  };
   //
   useEffect(() => {
     if (
@@ -75,16 +83,16 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
       meetingDescription &&
       meetingCandidateDates &&
       durationMinutes &&
-      deadline
+      deadline &&
+      projectData
     ) {
       setAllDataReserved(true);
-
       setCompleteData({
         title: meetingTitle,
         description: meetingDescription,
         candidateDates: meetingCandidateDates,
         durationMinutes: durationMinutesParse(durationMinutes),
-        deadline: deadline,
+        deadline: deadlineParse(deadline),
         projectId: projectDataParse(projectData),
       });
     }

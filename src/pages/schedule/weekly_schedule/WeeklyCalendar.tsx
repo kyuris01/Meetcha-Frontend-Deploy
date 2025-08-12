@@ -99,12 +99,12 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         selectable={true}
         step={30} // ✅ 각 시간 슬롯 간격 (분 단위)
         timeslots={2} // ✅ 한 시간당 몇 개의 슬롯
-        longPressThreshold={1000}
+        longPressThreshold={750}
         onSelecting={() => !blockInteraction}
         onSelectSlot={(slotInfo) => {
           if (blockInteraction) return;
           setTimeout(() => setCreationOpen(true), 0);
-          console.log("빈 영역 클릭됨:", slotInfo);
+          // console.log("빈 영역 클릭됨:", slotInfo);
           const formattedStart = scheduleStringFormatter(slotInfo.start);
           const formattedEnd = scheduleStringFormatter(slotInfo.end);
 
@@ -114,7 +114,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           if (blockInteraction) return;
           setMode(false);
           setTimeout(() => setCreationOpen(true), 0);
-          console.log("일정 클릭됨:", event);
+          // console.log("일정 클릭됨:", event);
           setClickedSchedule({
             title: event.title,
             startAt: event.start,

@@ -56,9 +56,21 @@ const MeetingOptionCard = ({ title, icon, data, type, dataSetter }: Props) => {
           />
           <TimePicker
             onChange={(item) => {
-              (dataSetter as React.Dispatch<React.SetStateAction<string>>)(
-                (prev) => `${prev?.split("T")[0]}T${item}`
-              );
+              (dataSetter as React.Dispatch<React.SetStateAction<string>>)((prev) => {
+                if (!prev) {
+                  // 초기의 빈 문자열인 경우
+                  return item;
+                } else if (prev.includes("T")) {
+                  // 날짜+시간이 이미 입력된 경우
+                  return `${prev?.split("T")[0]}T${item}`;
+                } else if (prev.includes(":")) {
+                  // 시간만 입력된 경우
+                  return item;
+                } else {
+                  // 날짜만 입력된 경우
+                  return `${prev}T${item}`;
+                }
+              });
             }}
             ampm={false}
             minRange={1}
@@ -79,7 +91,7 @@ const MeetingOptionCard = ({ title, icon, data, type, dataSetter }: Props) => {
     if (Array.isArray(data)) {
       return data.join(", ");
     }
-    if (typeof data === "string" && data.includes("T")) {
+    if (type === 3 && data && data.includes("T")) {
       const [date, time] = data?.split("T");
       return `${date} ${time}`;
     }

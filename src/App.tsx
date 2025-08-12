@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import LoginContainer from "./pages/login/components/LoginContainer";
 import LoginCompleteContainer from "./pages/login_complete/components/LoginCompleteContainer";
 import BackgroundPage from "./pages/background/BackgroundPage";
@@ -23,10 +23,11 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
         <Route index path="meeting/detail" element={<MeetingDetailPage />}></Route>
-        <Route index path="/login" element={<LoginContainer />}></Route>
-        <Route index path="/login_complete" element={<LoginCompleteContainer />}></Route>
+        <Route path="/login" element={<LoginContainer />}></Route>
+        <Route path="/login_complete" element={<LoginCompleteContainer />}></Route>
         <Route path="/" element={<BackgroundPage />}>
           <Route index path="schedule" element={<SchedulePage />} />
           <Route path="meeting" element={<MeetingPage />} />

@@ -2,16 +2,20 @@ import Calendar from "react-calendar";
 import "./Calendar.scss";
 import EventTagBox from "./EventTagBox";
 import { dateFormatter } from "@/utils/dateFormatter";
+import { getMonth } from "date-fns/getMonth";
+import { getYear } from "date-fns";
 
 interface Props {
   schedules: any[];
+  setFetchStandardDate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const MonthlyScheduleView = ({ schedules }: Props) => {
+const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
   // console.log(schedules);
   return (
     <div className="monthlyScheduleView">
       <Calendar
+        showNeighboringMonth={false}
         tileContent={({ date, view }) => {
           const eventName = new Array();
 
@@ -26,8 +30,22 @@ const MonthlyScheduleView = ({ schedules }: Props) => {
             });
           return <EventTagBox eventName={eventName} />;
         }}
-        formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
+        formatDay={(locale, date) => {
+          // console.log(date);
+          return date.toLocaleString("en", { day: "numeric" });
+        }}
         formatShortWeekday={(locale, date) => date.toLocaleString("en-US", { weekday: "short" })}
+        onActiveStartDateChange={({ activeStartDate, view }) => {
+          setFetchStandardDate((prev) => {
+            const newStandardDate = `${getYear(activeStartDate)} ${getMonth(activeStartDate) + 1}`;
+            if (prev !== newStandardDate) {
+              // console.log(getMonth(activeStartDate) + 1);
+              return newStandardDate;
+            } else {
+              return prev;
+            }
+          });
+        }}
       />
     </div>
   );

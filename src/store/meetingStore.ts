@@ -6,13 +6,13 @@ const access_token = sessionStorage.getItem("access-token");
 
 interface MeetingState {
   meetingList: MeetingDataType[];
-  fetchMeetings: (id: number) => void;
+  fetchMeetings: () => void;
 }
 
 export const useMeetingStore = create<MeetingState>()((set) => ({
   meetingList: [],
-  fetchMeetings: async (id) => {
-    const res = await fetch(`/meeting-lists`, {
+  fetchMeetings: async () => {
+    const res = await fetch(`${API_BASE}/meeting-lists`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +20,7 @@ export const useMeetingStore = create<MeetingState>()((set) => ({
       },
     });
     const data = await res.json();
-    // console.log(data.data);
+    console.log(data);
     set({ meetingList: data.data });
   },
 }));

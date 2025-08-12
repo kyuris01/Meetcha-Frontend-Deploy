@@ -36,7 +36,7 @@
 .selectButton {
   display: flex;
   width: 3rem;
-  height: 1.5rem;
+  height: 1.2rem;
   justify-content: center;
   align-items: center;
 
@@ -67,7 +67,7 @@
 .popupCard {
   position: absolute;
   transform: translate(-50%, -50%); // 카드 중앙이 기준점되도록함
-  width: 180px;
+  width: 170px;
   background: #fff8f2;
   border: 1px solid #ffb487;
   border-radius: 12px;

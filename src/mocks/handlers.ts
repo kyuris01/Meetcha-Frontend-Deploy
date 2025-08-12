@@ -211,26 +211,26 @@ export const handlers = [
       code: 200,
       message: "대안시간 후보 조회 성공",
       data: {
-        alternativeTimes: ["2025-07-25T14:00:00Z", "2025-07-25T15:00:00Z", "2025-07-26T10:30:00Z"],
+        alternativeTimes: [
+          {
+            startTime: "2025-07-25T14:00:00Z",
+            endTime: "2025-07-25T14:30:00Z",
+            adjustedDurationMinutes: 30,
+            includedUserNames: ["김철수", "이영희"],
+            excludedUserNames: ["홍길동"],
+            checked: true,
+          },
+          {
+            startTime: "2025-07-25T15:00:00Z",
+            endTime: "2025-07-25T15:30:00Z",
+            adjustedDurationMinutes: 30,
+            includedUserNames: ["김철수"],
+            excludedUserNames: ["이영희", "홍길동"],
+            checked: false,
+          },
+        ],
         userSelectedTime: "2025-07-25T14:00:00Z",
       },
-    });
-  }),
-  http.get("/user/projects", ({ request }) => {
-    return HttpResponse.json({
-      code: 200,
-      message: "프로젝트 목록 조회 성공",
-      data: [
-        {
-          projectId: "123e4567-e89b-12d3-a456-426614174000",
-          projectName: "밋챠 백엔드",
-        },
-        {
-          projectId: "789e4567-e89b-12d3-a456-426614174111",
-          projectName: "졸프 프론트",
-        },
-      ],
-      success: true,
     });
   }),
 ];

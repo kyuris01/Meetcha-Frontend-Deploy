@@ -31,16 +31,36 @@ const ProjectInputComponent = ({ dataSetter }: Props) => {
     }
   };
 
-  const addProjectName = () => {
+  const addProjectName = async () => {
+    const data = {
+      name: inputValue,
+    };
+    const response = await apiCall("/projects/create", "POST", data, true);
+
+    switch (response.code) {
+      case 201:
+        alert(response.message);
+        setProjects((prev) => [
+          ...prev,
+          {
+            projectId: response.data.projectId,
+            projectName: response.data.name,
+          },
+        ]);
+        setInputValue("");
+        break;
+      default:
+        alert(response.message);
+    }
     // 생각해보니까 추가버튼 누르면 서버의 데이터에 아예 추가되므로 로컬 플젝 상태따로 저장 안해도될듯
-    setProjects((prev) => [
-      ...prev,
-      {
-        projectId: crypto.randomUUID(),
-        projectName: inputValue,
-      },
-    ]);
-    setInputValue("");
+    // setProjects((prev) => [
+    //   ...prev,
+    //   {
+    //     projectId: crypto.randomUUID(),
+    //     projectName: inputValue,
+    //   },
+    // ]);
+    // setInputValue("");
   };
 
   useEffect(() => {

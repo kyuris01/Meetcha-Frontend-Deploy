@@ -1,6 +1,6 @@
 import "./WeeklyCalendar.scss";
 import { useEffect, useRef, useState } from "react";
-import { addWeeks, subWeeks } from "date-fns";
+import { addDays, addWeeks, subWeeks, getMonth, getYear } from "date-fns";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import WeeklyCalendar from "./WeeklyCalendar";
@@ -8,15 +8,16 @@ import type { ScheduleDataType } from "@/types/schedule-data-type";
 
 interface Props {
   schedules: ScheduleDataType[];
+  setFetchStandardDate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const WeeklyScheduleView = ({ schedules }: Props) => {
+const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
   const [standardDate, setStandardDate] = useState(new Date());
   const didSkipFirstChange = useRef(false); // 0->1 이동시 handleSlideChange는 발동안되게하는 플래그
   const swiperRef = useRef(null);
   const [isSwiping, setIsSwiping] = useState(false);
 
-  console.log(schedules);
+  // console.log(schedules);
 
   const [calendarArr, setCalendarArr] = useState(() => {
     const prev = subWeeks(standardDate, 1);
@@ -51,6 +52,16 @@ const WeeklyScheduleView = ({ schedules }: Props) => {
       if (activeIndex > previousIndex) {
         // 다음 주로 이동
         newStandard = addWeeks(standardDate, 1);
+        const newFetchStandard = `${getYear(addDays(newStandard, 5))} ${
+          getMonth(addDays(newStandard, 5)) + 1
+        }`;
+        setFetchStandardDate((prev) => {
+          if (prev !== newFetchStandard) {
+            return newFetchStandard;
+          } else {
+            return prev;
+          }
+        });
         // 오른쪽으로 한 칸 추가, 왼쪽 하나 제거
         const nextWeek = addWeeks(newStandard, 1);
         newArr.push({ week: nextWeek, key: nextWeek.getTime() });
@@ -58,6 +69,16 @@ const WeeklyScheduleView = ({ schedules }: Props) => {
       } else {
         // 이전 주로 이동
         newStandard = subWeeks(standardDate, 1);
+        const newFetchStandard = `${getYear(addDays(newStandard, -5))} ${
+          getMonth(addDays(newStandard, -5)) + 1
+        }`;
+        setFetchStandardDate((prev) => {
+          if (prev !== newFetchStandard) {
+            return newFetchStandard;
+          } else {
+            return prev;
+          }
+        });
         const prevWeek = subWeeks(newStandard, 1);
         newArr.unshift({ week: prevWeek, key: prevWeek.getTime() });
         newArr.pop();

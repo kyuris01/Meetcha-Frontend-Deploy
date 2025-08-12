@@ -7,10 +7,11 @@ import "./FullCalendar.scss";
 import Button from "@/components/Button";
 import { differenceInDays, format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { apiCall } from "@/utils/apiCall";
 import Loading from "@/components/Loading/Loading";
 import Check from "@assets/check.svg?react";
 import ReactDOM from "react-dom";
+import type { AlternativeScheduleDataType } from "@/types/meeting-data-type";
+import { apiCall } from "@/utils/apiCall";
 
 interface EventInput {
   title?: string;
@@ -20,13 +21,17 @@ interface EventInput {
   extendedProps?: any; // 추가 데이터
 }
 
-const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string[] }) => {
-  //   const params = useParams();
+interface Props {
+  alternativeTimes: AlternativeScheduleDataType[];
+  meetingId: string;
+}
+
+const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
   const [data, setData] = useState<EventInput[]>();
   const [firstDate, setFirstDate] = useState<Date>();
   const [duration, setDuration] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
-  const [clickedEventNum, setClickedEventNum] = useState<number>(null);
+  const [clickedEventNum, setClickedEventNum] = useState(null);
   const [popupInfo, setPopupInfo] = useState<{
     top: number;
     left: number;
@@ -44,47 +49,41 @@ const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string
     setLoading(true);
 
     // 첫번째 날짜와 마지막 날짜 계산
-    const first = new Date(alternativeTimes[0]);
-    const last = new Date(alternativeTimes[alternativeTimes.length - 1]);
-    const diff = differenceInDays(last, first) + 1; // +1 해야 마지막날 포함
+    const first = new Date(alternativeTimes[0]?.startTime.split("T")[0]);
+    const last = new Date(alternativeTimes[alternativeTimes.length - 1]?.startTime.split("T")[0]);
+    const diff = differenceInDays(last, first) + 3; // +1 해야 마지막날 포함
 
     // 이벤트 매핑
     const events = alternativeTimes.map((item, index) => {
       return {
         title: `---`,
-        start: item[0],
-        end: item[alternativeTimes.length - 1],
+        start: item?.startTime.slice(0, -1),
+        end: item?.endTime.slice(0, -1),
         extendedProps: {
-          // index: index,
-          // failMembers: item.failMembers,
-          // adjustedTime: item.adjustedTime,
-          // startTime: item.startTime,
-          // endTime: item.endTime,
-          // availableNum: item.availableNum,
-          // totalNum: item.totalNum,
-          // date: item.date,
+          index: index,
+          failMembers: item.excludedUserNames,
+          adjustedTime: item.adjustedDurationMinutes,
+          startTime: item?.startTime.split("T")[1].slice(0, -4),
+          endTime: item?.endTime.split("T")[1].slice(0, -4),
+          availableNum: item.includedUserNames.length,
+          totalNum: item.includedUserNames.length + item.excludedUserNames.length,
+          date: item?.startTime.split("T")[0],
         },
       };
     });
 
-    // 상태 업데이트
     setFirstDate(first);
     setDuration(diff);
     setData(events);
     setLoading(false);
-  }, []);
+  }, [alternativeTimes]);
 
   const handleButtonClick = (e) => {
-    console.log("check3");
-    setClickedEventNum(e._def.extendedProps.index);
+    setClickedEventNum(e._def.extendedProps);
     setPopupInfo(null);
   };
 
   function handleEventClick(arg: EventClickArg) {
-    const target = arg.jsEvent.target as HTMLElement;
-    console.log(target);
-
-    console.log("handleEventClick");
     // 이번에 클릭한 이벤트가 포함된 스크롤러를 즉시 찾는다
     const scroller = (arg.el as HTMLElement).closest(".fc-scroller") as HTMLDivElement;
     if (!scrollerRef.current) return;
@@ -93,7 +92,6 @@ const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string
     eventRef.current = arg.el as HTMLElement;
 
     // 스크롤러를 팝업 포털 컨테이너로 사용
-    // scroller.style.position = "relative";
     scrollerRef.current = scroller;
 
     const eventRect = (arg.el as HTMLElement).getBoundingClientRect();
@@ -101,35 +99,20 @@ const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string
 
     const eventCenterY = eventRect.top + eventRect.height / 2; // 이벤트 중앙 Y (viewport)
     const eventRight = eventRect.right; // 이벤트 오른쪽 끝 X
-    const lineWidth =
-      eventRect.right - scrollRect.left + 120 - 90 - eventRect.right + scrollRect.left;
     const failText =
       arg.event.extendedProps.failMembers.length !== 0
         ? ": " + arg.event.extendedProps.failMembers.join(", ") + " x"
         : "";
 
-    // 팝업카드가 안보이는 경우 왼쪽에 배치
-    if (eventRect.right + lineWidth + 180 >= scrollRect.right) {
-      setPopupInfo({
-        top: eventCenterY - scrollRect.top + scroller.scrollTop,
-        left: eventRect.left - scrollRect.left - 120,
-        title: `${arg.event.extendedProps.date} ${arg.event.extendedProps.startTime} - ${arg.event.extendedProps.endTime}`,
-        content: `참여자 ${arg.event.extendedProps.availableNum}/${arg.event.extendedProps.totalNum} 참여가능 ${failText}`,
-        lineY: eventCenterY - scrollRect.top + scroller.scrollTop, // 점선 Y 고정
-        lineX: eventRect.left - scrollRect.left - 120,
-        lineW: 120,
-      });
-    } else {
-      setPopupInfo({
-        top: eventCenterY - scrollRect.top + scroller.scrollTop,
-        left: eventRect.right - scrollRect.left + 120,
-        title: `${arg.event.extendedProps.date} ${arg.event.extendedProps.startTime} - ${arg.event.extendedProps.endTime}`,
-        content: `참여자 ${arg.event.extendedProps.availableNum}/${arg.event.extendedProps.totalNum} 참여가능 ${failText}`,
-        lineY: eventCenterY - scrollRect.top + scroller.scrollTop, // 점선 Y 고정
-        lineX: eventRight - scrollRect.left, // 점선 시작 X (scroller 좌표)
-        lineW: 120,
-      });
-    }
+    setPopupInfo({
+      top: eventCenterY - scrollRect.top + scroller.scrollTop,
+      left: eventRect.right - scrollRect.left + 120,
+      title: `${arg.event.extendedProps.date} ${arg.event.extendedProps.startTime} - ${arg.event.extendedProps.endTime}`,
+      content: `참여자 ${arg.event.extendedProps.availableNum}/${arg.event.extendedProps.totalNum} 참여가능 ${failText}`,
+      lineY: eventCenterY - scrollRect.top + scroller.scrollTop, // 점선 Y 고정
+      lineX: eventRight - scrollRect.left, // 점선 시작 X (scroller 좌표)
+      lineW: 120,
+    });
   }
 
   useEffect(() => {
@@ -137,7 +120,6 @@ const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string
       if (!popupInfo) return; // 팝업이 없으면 무시
       const target = e.target as HTMLElement;
 
-      console.log("handleDocClick");
       // 팝업 내부 or 선택버튼 or 이벤트 블록이면 닫지 않음
       if (popupRef.current?.contains(target)) {
         return;
@@ -153,11 +135,27 @@ const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string
     return () => document.removeEventListener("click", handleDocClick, true);
   }, [popupInfo]);
 
-  const completeButtonClickHandler = () => {
+  const completeButtonClickHandler = async () => {
     if (!clickedEventNum) {
       alert("대안 시간을 하나 선정하세요!");
     } else {
-      alert("완료되었습니다");
+      const data = {
+        alternativeTime: `${clickedEventNum.date}T${clickedEventNum.startTime}Z`,
+      };
+      const response = await apiCall(
+        `/meeting-lists/${meetingId}/alternative-vote`,
+        "POST",
+        data,
+        true
+      );
+
+      switch (response.code) {
+        case 200:
+          alert(response.message);
+          break;
+        default:
+          alert(response.message);
+      }
     }
   };
 
@@ -183,12 +181,12 @@ const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string
             initialDate={firstDate}
             events={data}
             eventClassNames={(arg) =>
-              arg.event._def.extendedProps.index === clickedEventNum
+              arg.event._def.extendedProps.index === clickedEventNum.index
                 ? [styles.selectedEvent] // 선택된 대인시간만 클래스를 부여
                 : []
             }
             eventContent={(arg) =>
-              arg.event._def.extendedProps.index === clickedEventNum ? (
+              arg.event._def.extendedProps.index === clickedEventNum.index ? (
                 <Check className={styles.checkButton} />
               ) : (
                 <button
@@ -213,7 +211,7 @@ const MeetingAlternativeView = ({ alternativeTimes }: { alternativeTimes: string
               }
             }}
             slotMinTime="07:00:00"
-            slotMaxTime="23:00:00"
+            slotMaxTime="24:00:00"
             height={600}
             slotLabelFormat={{
               hour: "numeric",

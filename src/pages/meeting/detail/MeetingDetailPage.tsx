@@ -14,6 +14,7 @@ const MeetingDetailPage = () => {
 
   const fetchMeetingDetail = async () => {
     const response = await apiCall(`/meeting-lists/${state}`, "GET", null, true);
+    console.log(response.data);
 
     switch (response.code) {
       case 200:
