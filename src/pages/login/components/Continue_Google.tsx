@@ -29,7 +29,7 @@
 //   useEffect(() => {
 //     if (code) {
 //       console.log("Google code:", code);
-//       sendAuthCodeToServer();
+//       sendFuthCodeToServer();
 //     }
 //   }, [code]);
 
@@ -69,9 +69,17 @@
 
 // export default Continue_Google;
 
+import { useEffect } from "react";
 import google_logo from "../../../assets/Google.svg";
+import { sendAuthCode } from "@/apis/auth/authAPI";
 
 const Continue_Google = () => {
+  let authCode = null;
+
+  useEffect(() => {
+    sendAuthCode(authCode);
+  }, [authCode]);
+
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const redirectUri = encodeURIComponent(
@@ -88,7 +96,9 @@ const Continue_Google = () => {
 
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get("code");
+    authCode = decodeURIComponent(code);
     console.log("code: ", code);
+    console.log("decodedCode: ", authCode);
   };
   return (
     <button className="google_button" onClick={handleGoogleLogin}>
