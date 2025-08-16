@@ -8,7 +8,7 @@ const Continue_Google = () => {
   const navigate = useNavigate();
 
   // 배포/로컬 모두 자동 대응되는 콜백 URL
-  const redirectUri = `https://meetcha-frontend-deploy.vercel.app/schedule/oauth/google/callback`;
+  const redirectUri = `https://meetcha-frontend-deploy.vercel.app/login_complete`;
 
   // 1) URL에서 code 추출 (콜백 시에만 존재)
   const params = new URLSearchParams(window.location.search);
@@ -28,7 +28,6 @@ const Continue_Google = () => {
     true
   );
 
-
   // 3) StrictMode 대비: 교환 호출은 딱 1번만
   const sentRef = useRef(false);
 
@@ -39,7 +38,6 @@ const Continue_Google = () => {
     }
   }, [code, sendAuthCodeToServer]);
 
-
   // 4) 응답 처리
   useEffect(() => {
     console.log("API 응답:", response);
@@ -49,15 +47,12 @@ const Continue_Google = () => {
     if (response) {
       if (response.isSuccess && response.data?.accessToken) {
         sessionStorage.setItem("access-token", response.data.accessToken);
-        navigate("/schedule");
       } else if (response.code !== 200) {
         console.error("OAuth 실패:", response.message);
         alert(`로그인 실패: ${response.message}`);
       }
-
     }
   }, [error, navigate]);
-
 
   // 5) 버튼 클릭 → Google 로그인 페이지로 이동
 
