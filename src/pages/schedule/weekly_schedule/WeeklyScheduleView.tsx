@@ -4,10 +4,10 @@ import { addDays, addWeeks, subWeeks, getMonth, getYear } from "date-fns";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper-bundle.css";
 import WeeklyCalendar from "./WeeklyCalendar";
-import type { ScheduleDataType } from "@/types/schedule-data-type";
+import type { Schedule } from "@/apis/schedule/scheduleTypes";
 
 interface Props {
-  schedules: ScheduleDataType[];
+  schedules: Schedule[];
   setFetchStandardDate: React.Dispatch<React.SetStateAction<string>>;
 }
 

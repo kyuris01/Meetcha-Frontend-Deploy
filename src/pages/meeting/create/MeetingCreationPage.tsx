@@ -2,8 +2,8 @@ import styles from "./MeetingCreationPage.module.scss";
 import Button from "@/components/Button";
 import TopNav from "@/components/TopNav";
 import MeetingCreationView from "./MeetingCreationView";
-import { useEffect, useState } from "react";
-import { apiCall } from "@/utils/apiCall";
+import { useState } from "react";
+import { createMeeting } from "@/apis/meeting/meetingAPI";
 
 export interface MeetingSendData {
   title: string;
@@ -18,27 +18,9 @@ const MeetingCreationPage = () => {
   const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
   const [completeData, setCompleteData] = useState<MeetingSendData>();
 
-  useEffect(() => {
-    console.log(completeData);
-  }, [completeData]);
-
-  const requestMeetingCreation = async () => {
-    const response = await apiCall("/meeting/create", "POST", completeData, true);
-
-    switch (response.code) {
-      case 201:
-        alert(response.message);
-        break;
-      case 400:
-        const details = Object.entries(response.data)
-          .map(([_, value]) => `• ${value}`)
-          .join("\n");
-        alert(`${response.message}\n${details}`);
-        break;
-      default:
-        alert(response.message);
-    }
-  };
+  // useEffect(() => {
+  //   console.log(completeData);
+  // }, [completeData]);
 
   return (
     <div className={styles.meetingCreationPage}>
@@ -51,7 +33,7 @@ const MeetingCreationPage = () => {
         <Button
           className={allDataReserved ? styles.active : styles.inactive}
           label={"미팅 생성하기"}
-          clickHandler={requestMeetingCreation}
+          clickHandler={() => createMeeting(completeData)}
         />
       </div>
     </div>

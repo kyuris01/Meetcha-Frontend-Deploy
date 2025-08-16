@@ -29,9 +29,24 @@
       align-items: center;
       justify-content: start;
     }
+
+    &__button {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
   }
 }
 
-.button {
+.shareButton {
+  background-color: $color-cream-dark;
+  color: $color-orange-5;
+}
+
+.editButton {
   background-color: $color-orange-5;
+  color: white;
 }

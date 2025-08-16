@@ -2,20 +2,15 @@ import Button from "@/components/Button";
 import { useEffect, useState } from "react";
 import styles from "./ScheduleCreationPage.module.scss";
 import ScheduleCreationView from "./ScheduleCreationView";
-import { apiCall } from "@/utils/apiCall";
-import type { ScheduleDataType } from "@/types/schedule-data-type";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
+import { createSchedule, deleteSchedule, editSchedule } from "@/apis/schedule/scheduleAPI";
+import type { Schedule } from "@/apis/schedule/scheduleTypes";
 
 interface Props {
   clickedSpan: string;
   createMode: boolean; // true -> create mode, false -> edit mode
-  data?: ScheduleDataType;
+  data?: Schedule;
 }
-
-const eventId = 3;
-const CREATE_PATH = `/schedule-create`;
-const EDIT_PATH = `/user/schedule/update`;
-const DEL_PATH = `/user/schedule/delete?eventId=${eventId}`;
 
 const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
   const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
@@ -33,7 +28,7 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (scheduleTitle && scheduleTime && repetition) setAllDataReserved(true);
+    if (scheduleTitle && scheduleTime) setAllDataReserved(true);
   }, [scheduleTitle, scheduleTime, repetition]);
 
   const sendCreationReq = async () => {
@@ -43,15 +38,7 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
       scheduleTime: scheduleTime,
       repetition: repetition,
     };
-    const response = await apiCall(CREATE_PATH, "POST", data, true);
-
-    switch (response.code) {
-      case 201:
-        alert("일정 생성이 완료되었습니다");
-        break;
-      default:
-        alert("오류가 발생하였습니다.. 잠시후 다시 시도해주세요");
-    }
+    await createSchedule(data);
   };
 
   const sendEditReq = async () => {
@@ -61,39 +48,12 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
       scheduleTime: scheduleTime,
       repetition: repetition,
     };
-    const response = await apiCall(EDIT_PATH, "PUT", data, true);
-
-    switch (response.code) {
-      case 200:
-        alert("일정을 수정하였습니다!");
-        break;
-      case 401:
-        alert("로그인이 필요합니다!");
-        break;
-      case 404:
-        alert("사용자를 찾을 수 없습니다");
-        break;
-      default:
-        alert("오류가 발생하였습니다.. 잠시후 다시 시도해주세요");
-    }
+    await editSchedule(data);
   };
 
   const sendDelReq = async () => {
-    const response = await apiCall(DEL_PATH, "DELETE", null, true);
-
-    switch (response.code) {
-      case 200:
-        alert("일정을 삭제하였습니다!");
-        break;
-      case 401:
-        alert("로그인이 필요합니다!");
-        break;
-      case 404:
-        alert("사용자를 찾을 수 없습니다");
-        break;
-      default:
-        alert("오류가 발생하였습니다.. 잠시후 다시 시도해주세요");
-    }
+    const scheduleId = "abc"; // 추후 실제 일정 id로 수정요망
+    await deleteSchedule(scheduleId);
   };
 
   return (

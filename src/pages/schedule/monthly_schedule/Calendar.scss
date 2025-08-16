@@ -160,7 +160,8 @@
 }
 
 .monthlyScheduleView .react-calendar__tile--active {
-  background: #006edc;
+  // background: #006edc;
+  background: $color-gray-6 !important;
   color: white;
 }
 

@@ -12,7 +12,6 @@ const CalendarInputComponent = ({ dataSetter }: Props) => {
   const [clickedDay, setClickedDay] = useState<string>();
 
   useEffect(() => {
-    console.log(clickedDay);
     (dataSetter as React.Dispatch<React.SetStateAction<string>>)((prev) => {
       if (!prev) {
         // 초기값인 경우
@@ -22,7 +21,6 @@ const CalendarInputComponent = ({ dataSetter }: Props) => {
         return `${clickedDay}T${prev?.split("T")[1]}`;
       } else {
         // 시간만 입력된 경우
-        console.log("뿌잉:", prev);
         return `${clickedDay}T${prev}`;
       }
     });

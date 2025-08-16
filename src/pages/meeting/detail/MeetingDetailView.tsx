@@ -1,24 +1,18 @@
 import styles from "./MeetingDetailView.module.scss";
-import type { MeetingDataType, MeetingDetailType } from "@/types/meeting-data-type";
 import MeetingDetailRow from "./MeetingDetailRow";
 import Calendar from "@assets/calendar.svg?react";
 import Clock from "@assets/clock.svg?react";
 import People from "@assets/people-hollow.svg?react";
 import MeetingStateCard from "./MeetingStateCard";
 import MeetingInfoCard from "./MeetingInfoCard";
-import { completedMeetingDateFormatter } from "@/utils/dateFormatter";
+import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
 
-const MeetingDetailView = ({ data }: { data: MeetingDetailType }) => {
-  console.log("data:", data);
-
+const MeetingDetailView = ({ data }: { data: MeetingDetail }) => {
   const dataArray = [
     {
       label: "미팅 시간",
       icon: <Calendar className={styles.icon} />,
-      data:
-        data?.status === "FAIL"
-          ? "실패"
-          : completedMeetingDateFormatter(data?.finalSchedule?.startAt, data?.durationMinutes),
+      data: data?.meetingStatus === "MATCH_FAILED" ? "실패" : data?.confirmedTime,
     },
     {
       label: "진행 시간",
@@ -30,7 +24,7 @@ const MeetingDetailView = ({ data }: { data: MeetingDetailType }) => {
   return (
     <div className={styles.meetingDetailView}>
       <div className={styles.meetingDetailView__infoContainer1}>
-        <MeetingStateCard meeting_status={data.status} />
+        <MeetingStateCard meeting_status={data.meetingStatus} />
         <MeetingInfoCard title={data.title} desc={data.description} />
       </div>
       <div className={styles.meetingDetailView__infoContainer2}>

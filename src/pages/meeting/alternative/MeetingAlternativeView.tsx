@@ -10,8 +10,8 @@ import { ko } from "date-fns/locale";
 import Loading from "@/components/Loading/Loading";
 import Check from "@assets/check.svg?react";
 import ReactDOM from "react-dom";
-import type { AlternativeScheduleDataType } from "@/types/meeting-data-type";
-import { apiCall } from "@/utils/apiCall";
+import { setAlternativeMeeting } from "@/apis/meeting/meetingAPI";
+import type { AlternativeMeeting } from "@/apis/meeting/meetingTypes";
 
 interface EventInput {
   title?: string;
@@ -22,7 +22,7 @@ interface EventInput {
 }
 
 interface Props {
-  alternativeTimes: AlternativeScheduleDataType[];
+  alternativeTimes: AlternativeMeeting[];
   meetingId: string;
 }
 
@@ -142,20 +142,7 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
       const data = {
         alternativeTime: `${clickedEventNum.date}T${clickedEventNum.startTime}Z`,
       };
-      const response = await apiCall(
-        `/meeting-lists/${meetingId}/alternative-vote`,
-        "POST",
-        data,
-        true
-      );
-
-      switch (response.code) {
-        case 200:
-          alert(response.message);
-          break;
-        default:
-          alert(response.message);
-      }
+      setAlternativeMeeting(meetingId, data);
     }
   };
 

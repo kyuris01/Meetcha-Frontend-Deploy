@@ -43,7 +43,7 @@ const ScheduleCreationCard = ({
       </div>
       {expand && expandCard && (
         <div className={styles.scheduleCreationCard__expanded}>
-          <ExpandedComponent onChange={(item) => setSharingData(item)} ampm={false} minRange={5} />
+          <ExpandedComponent onChange={(item) => setSharingData(item)} ampm={true} minRange={5} />
         </div>
       )}
     </div>

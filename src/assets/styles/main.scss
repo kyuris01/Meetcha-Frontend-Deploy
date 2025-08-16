@@ -21,3 +21,41 @@ body,
 input:focus {
   outline: none;
 }
+
+// 토스트 관련 스타일
+
+/* 컨테이너: 화면 전체 오버레이 + 중앙 정렬 */
+.custom-toast-container {
+  position: fixed !important;
+  inset: 0 !important; /* top/right/bottom/left: 0 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important; /* 클릭이 뒤로 통과되도록 */
+  z-index: 9999 !important; /* 필요한 만큼 높여주세요 */
+  margin: 0 !important;
+  transform: none !important; /* 토스트파이 기본 transform 해제 */
+}
+/* 카드 자체 */
+.custom-toast {
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  padding: 12px 20px !important;
+  text-align: center !important;
+  box-shadow: none !important;
+
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+
+  width: 80% !important; /* 화면 폭의 80% */
+  max-width: 500px !important; /* 최대폭 제한 (선택) */
+}
+
+/* 바디 텍스트 */
+.custom-toast .Toastify__toast-body {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}

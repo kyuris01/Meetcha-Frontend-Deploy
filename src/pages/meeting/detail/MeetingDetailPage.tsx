@@ -1,36 +1,44 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./MeetingDetailPage.module.scss";
 import Header from "@/components/Header";
 import MeetingDetailView from "./MeetingDetailView";
 import Button from "@/components/Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import { apiCall } from "@/utils/apiCall";
-import type { MeetingDetailType } from "@/types/meeting-data-type";
+import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
+import { fetchMeetingDetail } from "@/apis/meeting/meetingAPI";
+import { toast } from "react-toastify";
+import { copyToClipboard } from "@/utils/copyToClipBoard";
 
 const MeetingDetailPage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [meetingDetail, setMeetingDetail] = useState<MeetingDetailType | null>(null);
+  const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
 
-  const fetchMeetingDetail = async () => {
-    const response = await apiCall(`/meeting-lists/${state}`, "GET", null, true);
-    console.log(response.data);
+  const onClickShare = async () => {
+    const API_BASE = import.meta.env.VITE_API_BASE_URL;
+    const url = `${API_BASE}/meeting/${state}`;
+    const text = meetingDetail ? `[${meetingDetail.title}] 미팅 링크: ${url}` : `미팅 링크: ${url}`;
 
-    switch (response.code) {
-      case 200:
-        setMeetingDetail(response.data);
-        break;
-      default:
-        alert(response.message);
+    const ok = await copyToClipboard(text);
+
+    if (ok) {
+      toast.success("링크를 복사했습니다");
+    } else {
+      toast.error("복사에 실패했어요. 직접 복사해주세요.");
     }
   };
 
-  const clickHandler = () => {
+  const onClickEdit = () => {
     navigate(`/alternative/${state}`);
   };
 
   useEffect(() => {
-    fetchMeetingDetail();
+    const load = async () => {
+      const data = await fetchMeetingDetail(state);
+      console.log("data:", data);
+      setMeetingDetail(data);
+    };
+    load();
   }, []);
 
   return (
@@ -40,13 +48,22 @@ const MeetingDetailPage = () => {
         <div className={styles.meetingDetailPage__contents__view}>
           {meetingDetail && <MeetingDetailView data={meetingDetail} />}
         </div>
-        {meetingDetail?.status !== "SUCCESS" && (
-          <Button
-            label={"나의 미팅 시간 수정하기"}
-            className={styles.button}
-            clickHandler={clickHandler}
-          />
-        )}
+        <div className={styles.meetingDetailPage__contents__button}>
+          {meetingDetail?.meetingStatus === "MATCHING" && (
+            <Button
+              label={"링크 공유하기"}
+              className={styles.shareButton}
+              clickHandler={onClickShare}
+            />
+          )}
+          {meetingDetail?.meetingStatus !== "BEFORE" && (
+            <Button
+              label={"나의 미팅 시간 수정하기"}
+              className={styles.editButton}
+              clickHandler={onClickEdit}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

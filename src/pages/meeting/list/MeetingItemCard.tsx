@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import styles from "./MeetingItemCard.module.scss";
-import type { MeetingDataType } from "@/types/meeting-data-type";
 import { useNavigate } from "react-router-dom";
 import {
   completedMeetingDateFormatter,
   incompletedMeetingDateFormatter,
 } from "@/utils/dateFormatter";
+import type { Meeting } from "@/apis/meeting/meetingTypes";
 
 interface Props {
-  data: MeetingDataType;
+  data: Meeting;
 }
 
 const MeetingItemCard = ({ data }: Props) => {
@@ -23,18 +23,18 @@ const MeetingItemCard = ({ data }: Props) => {
 
   const cardInfoResolver = () => {
     switch (data.meetingStatus) {
-      case "매칭 실패":
+      case "MATCH_FAILED":
         setMeetingDetail("매칭 실패");
         setCardStyle(styles.fail);
         setTextStyle(styles.failText);
         break;
-      case "완료":
+      case "DONE":
         setMeetingDetail(
           `${completedMeetingDateFormatter(data.confirmedTime, data.durationMinutes)}`
         );
         setCardStyle(styles.success);
         break;
-      case "매칭 중":
+      case "MATCHING":
         setMeetingDetail(`${incompletedMeetingDateFormatter(data.deadline)} 종료`);
         setCardStyle(styles.incomplete);
         setTextStyle(styles.incompleteText);

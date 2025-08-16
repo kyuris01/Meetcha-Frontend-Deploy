@@ -40,19 +40,19 @@ const ScheduleCreationView = ({
       data: scheduleTime,
       dataSetter: setScheduleTime,
     },
-    {
-      id: 1,
-      icon: <Pencil />,
-      expand: false,
-      expandedComponent: null,
-      basicComponent: ScheduleRepetitionRow,
-      basicProps: {
-        data: repetition,
-        dataSetter: setRepetition,
-      },
-      data: repetition,
-      dataSetter: setRepetition,
-    },
+    // {
+    //   id: 1,
+    //   icon: <Pencil />,
+    //   expand: false,
+    //   expandedComponent: null,
+    //   basicComponent: ScheduleRepetitionRow,
+    //   basicProps: {
+    //     data: repetition,
+    //     dataSetter: setRepetition,
+    //   },
+    //   data: repetition,
+    //   dataSetter: setRepetition,
+    // },
   ];
 
   useEffect(() => {
