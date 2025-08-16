@@ -103,6 +103,8 @@ const Continue_Google = () => {
   //1. URL에서 code 추출
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get("code");
+  console.log("urlParams:", urlParams);
+  console.log("code: ", code);
 
   //2. API 훅 구성: 수동 실행 모드
   const {
