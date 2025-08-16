@@ -12,7 +12,8 @@ const LoginCompleteContainer = () => {
   useEffect(() => {
     const code = params.get("code");
     if (!code) return;
-    console.log(code);
+
+    console.log(code.substring(0, 4));
 
     (async () => {
       try {
