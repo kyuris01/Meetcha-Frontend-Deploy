@@ -19,6 +19,9 @@ const CalendarInputComponent = ({ dataSetter }: Props) => {
       } else if (prev.includes("T")) {
         // 날짜+시간이 이미 입력된 경우
         return `${clickedDay}T${prev?.split("T")[1]}`;
+      } else if (prev.includes("-")) {
+        // 날짜만 입력된 경우
+        return clickedDay;
       } else {
         // 시간만 입력된 경우
         return `${clickedDay}T${prev}`;
