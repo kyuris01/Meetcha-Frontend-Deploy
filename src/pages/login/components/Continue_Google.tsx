@@ -93,12 +93,6 @@ const Continue_Google = () => {
     const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&access_type=${accessType}&prompt=${prompt}`;
 
     window.location.href = authUrl;
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get("code");
-    authCode = decodeURIComponent(code);
-    console.log("code: ", code);
-    console.log("decodedCode: ", authCode);
   };
   return (
     <button className="google_button" onClick={handleGoogleLogin}>
