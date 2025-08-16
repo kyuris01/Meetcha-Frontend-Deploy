@@ -6,10 +6,24 @@ import Top_banner from "../common/Top_banner";
 
 import { useAPIs2 } from "@/apis/useAPIs2";
 import { useAPIs } from "@/apis/useAPIs";
+import { apiCall } from "@/utils/apiCall";
 //여기서 meetingcode를 가진 meetingdata를 불러와야함
 //msw사용
 
+interface MeetingData {
+  meetingId: string;
+  title: string;
+  description: string;
+  deadline: string;
+  isClosed: boolean;
+}
 
+interface aboutMeeting {
+  isSuccess: boolean;
+  code: number;
+  message: string;
+  data: MeetingData;
+}
 
 const Participate_link = () => {
   const top_text = "미팅 참가";
@@ -21,50 +35,39 @@ const Participate_link = () => {
     setLinkText(e.target.value);
   };
 
-  const {
-    response: aboutMeeting,
-    loading,
-    error,
-    fire
-  } = useAPIs(
-    `/participate_list`,
-    "GET",
-    undefined,
-    false,
-    true
-  );
 
-  const handleLinkCheck = () => {
-  if (!linkText.trim()) return;
-  fire(); // → 응답 도착하면 useEffect에서 처리
-};
+  const requestLinkCheck = async () => {
+  
+    const code = linkText.trim(); // 공백 제거
+    if (!code) return; // 빈 값 방지
 
-// 🔄 aboutMeeting 이 변경될 때 검사
-useEffect(() => {
-  if (!aboutMeeting || !Array.isArray(aboutMeeting)) return;
+    try {
+      const res = await apiCall(
+        `/meeting/code/${encodeURIComponent(code)}`, // ← 복수형 + 슬러그
+        "GET",
+        null,
+        true // 인증 필요
+        // ← GET이므로 data 인자 넣지 않음!
+      );
 
-  const foundMeeting = aboutMeeting.find(
-    (meeting) => meeting?.data?.meetingCode === linkText
-  );
+      if (!res) return;
 
-  if (!foundMeeting) {
-    navigate("/error");
-    return;
-  }
+      if (res.code === 400) {
+        navigate("/complete");
+      } else if (res.code === 200) {
+        navigate("/timetable", { state: { sendAboutMeeting: res.data } });
+      } else {
+        // 404 등
+        navigate("/error");
+      }
+    } catch (e) {
+      // 500 등 서버 에러
+      navigate("/error");
+    }
+  };
 
-  if (foundMeeting.code === 410) {
-    navigate("/complete");
-  } else if (foundMeeting.code === 200) {
-    navigate("/timetable", {
-      state: {
-        sendAboutMeeting: foundMeeting,
-      },
-    });
-  } else {
-    navigate("/error");
-  }
-}, [aboutMeeting]);
-
+  // 사용: 버튼 클릭 전에 일단 한 번 호출
+  // debugMeetingCode(linkText);
 
   return (
     <div className="partici_link_ctn">
@@ -86,7 +89,7 @@ useEffect(() => {
       </div>
 
       <div className="button_ctn">
-        <button className="button" onClick={handleLinkCheck}>
+        <button className="button" onClick={requestLinkCheck}>
           <div className="button_p_ctn">
             <p>다음</p>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import Memoir_write_intro from "./Memoir_write_intro";
@@ -10,6 +10,8 @@ import { useAPIs } from "@/apis/useAPIs";
 
 import "./Memoir_write.scss";
 
+type Project = { projectId: string; projectName: string };
+
 const Memoir_write_ctn = () => {
   const [contribution, setContribution] = useState<string>("");
   const [role, setRole] = useState<string>("");
@@ -18,8 +20,13 @@ const Memoir_write_ctn = () => {
   const [todo, setTodo] = useState<string>("");
   const [projectId, setProjectId] = useState<string>("");
 
+  const [chosenProjectTextColor, setChosenProjectTextColor] =
+    useState<string>("");
+  const [chosenProjectBgColor, setChosenProjectBgColor] = useState<string>("");
+
   const location = useLocation();
   const { meeting } = location.state || {};
+
   const isReadyToSubmit = !!(
     contribution &&
     role &&
@@ -29,18 +36,36 @@ const Memoir_write_ctn = () => {
     role.length <= 10
   );
 
+  // 원래 훅 그대로 유지
   const {
-    response: projectsAll,
+    response: projectsAllRes,
     loading,
     error,
-    fire,
+    fire: refetchProjectsApi,
   } = useAPIs2("/user/projects", "GET", undefined, true, false);
 
+  // 실제로 자식에게 내려줄 배열 상태 (참조 변경 보장)
+  const [projectsAllState, setProjectsAllState] = useState<Project[]>([]);
 
-  console.log(projectsAll);
+  // 최초/변경 시 응답 반영
+  useEffect(() => {
+    if (Array.isArray(projectsAllRes?.data)) {
+      // 새 배열로 교체 → 자식 컴포넌트만 리렌더
+      setProjectsAllState(projectsAllRes.data.slice());
+    }
+  }, [projectsAllRes]);
+
+  // 자식이 호출하는 진짜 refetch: 새 배열로 set해서 리렌더 보장
+  const refetchProjects = useCallback(async () => {
+    const res: any = await refetchProjectsApi();
+    if (res?.code === 200 && Array.isArray(res.data)) {
+      setProjectsAllState(res.data.slice());
+    }
+    return res;
+  }, [refetchProjectsApi]);
 
   const navigate = useNavigate();
- 
+
   const data = {
     contribution: Number(contribution),
     role: role.trim(),
@@ -49,7 +74,7 @@ const Memoir_write_ctn = () => {
     ...(todo && { plannedWork: todo }),
     ...(projectId && { projectId: projectId }),
   };
-  console.log(meeting.meetingId);
+
   const {
     response: postResponse,
     loading: postLoading,
@@ -62,34 +87,33 @@ const Memoir_write_ctn = () => {
     true,
     true
   );
-  console.log(postResponse);
+
   const handleSubmitBtnClick = () => {
     if (!meeting?.meetingId) {
       alert("미팅 정보가 없습니다.");
       return;
     }
-
     postReflection();
-    console.log(meeting);
-    console.log(role.length, role);
-    console.log(data);
-    console.log(meeting?.meetingId);
   };
 
+  //memoir 이동 + 1회 자동 새로고침(네가 원하던 동작 유지)
   useEffect(() => {
     if (postResponse?.isSuccess) {
-      navigate("/memoir");
+      navigate("/memoir", { replace: true });
+      setTimeout(() => window.location.reload(), 0);
     }
-  }, [postResponse]);
+  }, [postResponse, navigate, meeting?.meetingId]);
 
   if (loading) return <p>⌛ 프로젝트 목록 불러오는 중...</p>;
-  if (error) return <p>❌ 프로젝트 목록 불러오기 실패: {error}</p>;
+  if (error) return <p> 프로젝트 목록 불러오기 실패: {error}</p>;
+
   return (
     <div className="Memoir_write_ctn">
       <div className="Memoir_content_ctn">
         <Memoir_write_intro />
         <Memoir_write_main
-          projectsAll={projectsAll.data}
+          projectsAll={projectsAllState}     // state 배열 전달
+          refetchProjects={refetchProjects} // 자식에서 호출
           contribution={contribution}
           setContribution={setContribution}
           role={role}
@@ -103,6 +127,10 @@ const Memoir_write_ctn = () => {
           projectId={projectId}
           setProjectId={setProjectId}
           meeting={meeting}
+          chosenProjectTextColor={chosenProjectTextColor}
+          setChosenProjectTextColor={setChosenProjectTextColor}
+          chosenProjectBgColor={chosenProjectBgColor}
+          setChosenProjectBgColor={setChosenProjectBgColor}
         />
       </div>
 

@@ -26,7 +26,7 @@ const Must_write = ({ meetingLists }) => {
             .map((meeting) => (
               <div key={meeting.meetingId} className="meetingcard">
                 <p>{meeting.title}</p>
-                <p>{meeting.createdAt}</p>
+                <p>{meeting.confirmedTime}</p>
                 <button
                   className="writeMemoir_button"
                   onClick={() => handleClick(meeting)}

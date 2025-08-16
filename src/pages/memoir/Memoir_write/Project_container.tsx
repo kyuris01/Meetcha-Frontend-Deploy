@@ -1,114 +1,134 @@
-import React, { useState, useEffect } from "react";
-
+// Project_container.tsx
+import React, { useEffect, useState } from "react";
 import "./Memoir_write.scss";
 
+import { useLocation } from "react-router-dom";
 import LowChevron from "@/assets/LowChevron.svg";
-
 import Plus from "@/assets/plus.svg";
 
-const Project_container = ({ projectsAll, projectId, setProjectId }) => {
-  const [chosenProject, setChosenProject] = useState<string>("");
-  const [chosenProjectTextColor, setChosenProjectTextColor] =
-    useState<string>("");
-  const [chosenProjectBgColor, setChosenProjectBgColor] = useState<string>("");
+import { getProjectTheme } from "@/utils/theme";
+import { apiCall } from "@/utils/apiCall";
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [newProject, setNewProject] = useState<string>("");
+type Project = {
+  projectId: string;
+  projectName: string;
+  id?: string;   // 서버가 이렇게 내려올 수도 있어 대비
+  name?: string; // 서버가 이렇게 내려올 수도 있어 대비
+};
 
-  const [projectList, setProjectList] = useState(projectsAll || []);
-  useEffect(() => {
-    setProjectList(projectsAll || []);
-  }, [projectsAll]);
-  //여기서 새로 생성된 프로젝트는 id또한 가져야함
-  //id는 랜덤의 값으로 하나 부여 data()함수 사용
-  const updateProjectsAll = () => {
-    const trimmedName = newProject.trim();
-    if (!trimmedName) return;
+type Props = {
+  projectsAll: Project[] | undefined;
+  refetchProjects?: () => Promise<any>;
 
-    if (projectList.some((p) => p.projectName === trimmedName)) {
+  projectId: string | null;
+  setProjectId: (id: string) => void;
+
+  chosenProjectBgColor?: string;
+  chosenProjectTextColor?: string;
+  setChosenProjectBgColor: (c: string | undefined) => void;
+  setChosenProjectTextColor: (c: string | undefined) => void;
+
+  meeting?: any;
+  chosenProject: string;
+  setChosenProject: (name: string) => void;
+};
+
+const normalize = (s: string) => s.trim().toLowerCase();
+
+const Project_container: React.FC<Props> = ({
+  projectsAll,
+  refetchProjects,
+  projectId,
+  setProjectId,
+  chosenProjectBgColor,
+  chosenProjectTextColor,
+  setChosenProjectBgColor,
+  setChosenProjectTextColor,
+  chosenProject,
+  setChosenProject,
+}) => {
+  const list = projectsAll ?? [];
+  const [isOpen, setIsOpen] = useState(false);
+  const [newProject, setNewProject] = useState("");
+  const [creating, setCreating] = useState(false);
+
+  const location=useLocation();
+  const updateProjectsAll = async () => {
+    const name = newProject.trim();
+    if (!name) return;
+
+    // 이름 중복(공백/대소문자 무시)
+    const exists = list.some(
+      (p) => normalize(p.projectName ?? p.name ?? "") === normalize(name)
+    );
+    if (exists) {
       alert("같은 이름의 프로젝트가 이미 존재합니다.");
       return;
     }
 
-    const newId = `local-${Date.now()}`;
+    try {
+      setCreating(true);
+      // 최신 입력값을 직접 전송
+      const res: any = await apiCall("/projects/create", "POST", { name }, true);
+      if (!res || res.code !== 200) {
+        throw new Error(res?.message || "프로젝트 생성 실패");
+      }
 
-    const newItem = {
-      projectId: newId,
-      projectName: newProject,
-    };
+      const createdId: string | undefined = res.data?.projectId;
+      const createdName: string = res.data?.name ?? name;
 
-    setProjectList([...projectList, newItem]);
-    setNewProject("");
+      // 부모 목록 즉시 리패치 → 새로고침 없이 UI 반영
+      if (typeof refetchProjects === "function") {
+        await refetchProjects();
+      }
+
+      // 방금 만든 프로젝트 선택
+      if (createdId) {
+        setProjectId(createdId);
+        setChosenProject(createdName);
+      }
+
+      setNewProject("");
+    } catch (e: any) {
+      alert(e?.message || "프로젝트 생성 중 오류가 발생했습니다.");
+    } finally {
+      setCreating(false);
+    }
   };
 
-  const toggleBannerBox = () => setIsOpen(!isOpen);
+  const toggleBannerBox = () => setIsOpen((v) => !v);
 
-  const textColors = [
-    "#ED7014",
-    "#F98228",
-    "#FDAE1D",
-    "#BC2D02",
-    "#FC6B02",
-    "#DD5612",
-    "#B2560D",
-    "#FF9A66",
-    "#EF820E",
-    "#7F400B",
-    "#EC9706",
-    "#ED7117",
-    "#891E01",
-    "#891E01",
-  ];
-
-  const bgColors = [
-    "#E8CCB6",
-    "#F4EBE8",
-    "#F4EEE9",
-    "#FAD4B9",
-    "#FCF0EB",
-    "#FDDABF",
-    "#FDF2EA",
-    "#FDF4E9",
-    "#FDF6E8",
-    "#FFE4DB",
-    "#FFEEE3",
-    "#FFF2E8",
-    "#FFF4ED",
-    "#FFF8EB",
-  ];
-  //projectList에 내가 설정한(추가한)프로젝트 전부가 들어있음
-  const handleProjectClick = (project) => {
-    //여기서 projectId 설정해야한다.
-
-    setProjectId(project.projectId);
-  };
-
-  const handleChosenProject = (project, bgColor, textColor) => {
-    setChosenProject(project.projectName);
-    handleProjectClick(project);
-    setChosenProjectBgColor(bgColor);
-    setChosenProjectTextColor(textColor);
-  };
+  // projectId가 바뀌면 테마/이름 갱신
   useEffect(() => {
-    console.log("선택된 projectId:", projectId);
-  }, [projectId]);
+    if (!projectId) {
+      setChosenProject("");
+      setChosenProjectBgColor(undefined);
+      setChosenProjectTextColor(undefined);
+      return;
+    }
+    const p = list.find((x) => x.projectId === projectId);
+    if (p) {
+      const t = getProjectTheme(p.projectId);
+      setChosenProject(p.projectName ?? p.name ?? "");
+      setChosenProjectBgColor(t.bg);
+      setChosenProjectTextColor(t.text);
+    }
+  }, [
+    projectId,
+    list,
+    setChosenProject,
+    setChosenProjectBgColor,
+    setChosenProjectTextColor,
+  ]);
+
   return (
     <div className="ctn_in_common to_write_meeting">
       <p className="write_title">프로젝트</p>
+
       <div className="project_banner_ctn">
         <div className="in-common banner" onClick={toggleBannerBox}>
-          <div
-            style={{
-              background: chosenProjectBgColor,
-            }}
-            className="banner_name_ctn"
-          >
-            <p
-              className="banner_name"
-              style={{
-                color: chosenProjectTextColor,
-              }}
-            >
+          <div className="banner_name_ctn" style={{ background: chosenProjectBgColor }}>
+            <p className="banner_name" style={{ color: chosenProjectTextColor }}>
               {chosenProject || "선택된 프로젝트 없음"}
             </p>
           </div>
@@ -116,8 +136,9 @@ const Project_container = ({ projectsAll, projectId, setProjectId }) => {
             src={LowChevron}
             alt="LowChevron"
             className={`chevron_icon ${isOpen ? "rotate" : ""}`}
-          ></img>
+          />
         </div>
+
         <div className={`in-common banner_box ${isOpen ? "open" : "closed"}`}>
           <div className="banner_box_input_ctn">
             <input
@@ -125,29 +146,33 @@ const Project_container = ({ projectsAll, projectId, setProjectId }) => {
               className="project_banner_input"
               value={newProject}
               onChange={(e) => setNewProject(e.target.value)}
-            ></input>
-            <img src={Plus} alt="plus" onClick={updateProjectsAll}></img>
+              placeholder="새 프로젝트 이름"
+              disabled={creating}
+            />
+            <img
+              src={Plus}
+              alt="plus"
+              onClick={creating ? undefined : updateProjectsAll}
+              style={{
+                cursor: creating ? "not-allowed" : "pointer",
+                opacity: creating ? 0.6 : 1,
+              }}
+            />
           </div>
-          {projectList.map((project, index) => {
-            const bgColor = bgColors[index % bgColors.length];
-            const textColor = textColors[index % textColors.length];
 
+          {list.map((project) => {
+            const t = getProjectTheme(project.projectId);
             return (
               <div key={project.projectId} className="checkbox_ctn">
                 <input
                   className="study_checkbox"
                   type="radio"
                   name="project"
-                  checked={chosenProject === project.projectName}
-                  onChange={() =>
-                    handleChosenProject(project, bgColor, textColor)
-                  }
-                ></input>
-                <div
-                  className="banner_name_ctn"
-                  style={{ backgroundColor: bgColor }}
-                >
-                  <p className="banner_name" style={{ color: textColor }}>
+                  checked={projectId === project.projectId}
+                  onChange={() => setProjectId(project.projectId)}
+                />
+                <div className="banner_name_ctn" style={{ backgroundColor: t.bg }}>
+                  <p className="banner_name" style={{ color: t.text }}>
                     {project.projectName}
                   </p>
                 </div>
@@ -161,3 +186,4 @@ const Project_container = ({ projectsAll, projectId, setProjectId }) => {
 };
 
 export default Project_container;
+

@@ -39,7 +39,7 @@ const Continue_Google = () => {
     console.log("API 오류:", error); // ✅ 에러 메시지 확인
     if (response?.success) {
       sessionStorage.setItem("access-token", response.data.accessToken);
-      navigate("/login_complete");
+      navigate("/schedule");
     } else if (response && !response.isSuccess) {
       alert(response.message);
     }
@@ -48,7 +48,7 @@ const Continue_Google = () => {
   //5. 버튼 클릭 → Google 로그인 페이지로 이동
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-    const redirectUri = encodeURIComponent("http://localhost:5173/Login"); // Google 콘솔에 등록한 리디렉션 URI
+    const redirectUri = encodeURIComponent("https://meetcha-frontend-deploy.vercel.app/schedule"); // Google 콘솔에 등록한 리디렉션 URI
     const scope = encodeURIComponent("openid email profile");
     const responseType = "code";
     const accessType = "offline";

@@ -2,6 +2,11 @@
   padding: 0;
   margin: 0;
 }
+*.ellipsis {
+  white-space: nowrap; /* 줄바꿈 방지 */
+  overflow: hidden; /* 넘치는 부분 숨기기 */
+  text-overflow: ellipsis; /* 말줄임표(...) 표시 */
+}
 .chevron_icon {
   transition: transform 0.3s ease;
 }
@@ -200,7 +205,7 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
-
+    overflow: scroll;
     .banner_box_input_ctn {
       width: 100%;
       height: 2.5rem;
@@ -300,7 +305,7 @@
       color: #fddac1;
     }
   }
-  .memoir_write_btn_ready{
+  .memoir_write_btn_ready {
     width: 90%;
     height: 66%;
     display: flex;
@@ -318,6 +323,5 @@
       letter-spacing: 0%;
       color: #ffffff;
     }
-  
   }
 }

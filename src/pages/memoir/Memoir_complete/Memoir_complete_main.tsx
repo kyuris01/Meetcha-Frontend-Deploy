@@ -2,12 +2,29 @@ import React from "react";
 
 import "./Memoir_complete.scss";
 import Meeting_card from "../Memoir_common/Meeting_card";
+import { getProjectTheme } from "@/utils/theme";
 
 const Memoir_complete_main = ({ meeting }) => {
+  const projectId = meeting?.data?.projectId ?? meeting?.projectId ?? null;
+
+  const projectName =
+    meeting?.data?.projectName ?? meeting?.projectName ?? "프로젝트 없음";
+
+  // projectId가 없으면 meetingId나 "default"로 안정적인 색을 계산
+  const { text, bg } = getProjectTheme(
+    projectId ?? meeting?.data?.meetingId ?? undefined
+  );
+
   console.log(meeting);
   return (
     <div className="memoir_complete_main_ctn">
-      <Meeting_card meeting={meeting.data} />
+      <Meeting_card
+        meeting={meeting.data}
+        chosenProject={projectName}
+        setChosenProject={null}
+        chosenProjectBgColor={bg}
+        chosenProjectTextColor={text}
+      />
       <div className="ctn_common contribution_role_ctn">
         <div className="contribution">
           <div className="contribution_p">

@@ -1,16 +1,22 @@
 import React, { useRef, useState, useEffect } from "react";
-import "./Meeting_card.scss"
+import "./Meeting_card.scss";
 import LowChevron from "@assets/LowChevron.svg";
 
-const Meeting_card = ({ meeting }) => {
+const Meeting_card = ({
+  meeting,
+  chosenProject,
+  chosenProjectBgColor,
+  setChosenProject,
+  chosenProjectTextColor,
+}) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [descHeight, setDescHeight] = useState(0);
   const descRef = useRef(null);
-
+  
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
-
+  console.log(chosenProject);
   useEffect(() => {
     if (descRef.current) {
       setDescHeight(descRef.current.scrollHeight);
@@ -21,14 +27,21 @@ const Meeting_card = ({ meeting }) => {
     <div className="study_info">
       <div className="spare_ctn"></div>
       <div className="study_banner_ctn">
-         {/* <div className="project_name">
-          <div className="p_container">
-            <p>{meeting.projectName}</p>
+        <div className="project_name">
+          <div style={{backgroundColor: chosenProjectBgColor,}}className="p_container">
+            <p
+              style={{
+                color: chosenProjectTextColor,
+                
+              }}
+            >
+              {(chosenProject ?? "").trim() || "프로젝트 없음"}
+            </p>
           </div>
-        </div>  */}
+        </div>
         <p>{meeting.title}</p>
         <p>{meeting.confirmedTime}</p>
-       
+
         <div
           className="description"
           ref={descRef}

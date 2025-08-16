@@ -4,6 +4,7 @@ import Meeting_list from "./Meeting_list";
 
 import "./Memoir_meeting.scss";
 const Must_list_container = ({meetingLists,memoirLists}) => {
+  
   return (
     <div className="list_must_ctn">
         <Must_write meetingLists={meetingLists}/>

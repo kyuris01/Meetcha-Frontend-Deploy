@@ -26,9 +26,13 @@ const Participate_completed_ctn = () => {
           <p>이미 참여가 마감됐어요</p>
         </div>
       </div>
-      <button onClick={backtoLink}>
-        <Botton_banner_button text={button_text} />
-      </button>
+      <div className="button_ctn">
+        <button className="button">
+          <div onClick={backtoLink} className="button_p_ctn">
+            <p>{button_text}</p>
+          </div>
+        </button>
+      </div>
     </div>
   );
 };
