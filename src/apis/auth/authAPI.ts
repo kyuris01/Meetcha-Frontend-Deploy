@@ -3,7 +3,7 @@ import type { ApiResponse } from "../common/types";
 import type { AuthResponse } from "./authTypes";
 
 export const sendAuthCode = async (authCode: string) => {
-  const data = JSON.stringify({ code: authCode });
+  const data = { code: authCode };
   const res: ApiResponse<AuthResponse> = await apiCall("/oauth/google", "POST", data, false);
   sessionStorage.setItem("access-token", res.data.accessToken);
   console.log(res);
