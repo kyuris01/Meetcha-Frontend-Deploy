@@ -52,6 +52,7 @@ const Continue_Google = () => {
 
   // 5) 버튼 클릭 → Google 로그인 페이지로 이동
   const handleGoogleLogin = () => {
+    // ✅ 환경변수 다시 사용
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const redirectUri = encodeURIComponent("https://meetcha-frontend-deploy.vercel.app/login");
 
@@ -63,6 +64,7 @@ const Continue_Google = () => {
     console.log("Google OAuth 설정:");
     console.log("Client ID:", clientId);
     console.log("Redirect URI:", redirectUri);
+    console.log("환경변수 전체:", import.meta.env); // ✅ 환경변수 전체 확인
 
     // ✅ Client ID 검증 추가
     if (!clientId) {
