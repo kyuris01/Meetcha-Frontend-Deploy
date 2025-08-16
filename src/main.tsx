@@ -15,7 +15,6 @@ const queryClient = new QueryClient({
   },
 });
 
-
 /*
 if (process.env.NODE_ENV === "development") {
   const { worker } = await import("./mocks/browser");
@@ -25,7 +24,7 @@ if (process.env.NODE_ENV === "development") {
 }
 */
 createRoot(document.getElementById("root")!).render(
-  <GoogleOAuthProvider clientId="124678612470-l0adtvcmdc1664nvmsovqoa7qtc0peoh.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId="214919872484-j05rks059n5hbtm083spk9s5dvg6m9cu.apps.googleusercontent.com">
     <QueryClientProvider client={queryClient}>
       <App />
       <ToastContainer
