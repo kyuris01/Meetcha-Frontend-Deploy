@@ -9,7 +9,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnMount: "always", // 새로고침 시 무조건 refetch
-      staleTime: 0, // 캐시 즉시 stale
+      staleTime: 1000 * 60 * 5, // 캐시 즉시 stale
       retry: 1,
     },
   },

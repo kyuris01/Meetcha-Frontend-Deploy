@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Meetcha_banner from "../../../components/Meetcha_banner";
 
 import "../styles/login_complete.scss";
