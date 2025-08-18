@@ -24,12 +24,11 @@ const Participate_timetable_ctn = () => {
   console.log(sendAboutMeeting);
 
   const [nickname, setNickname] = useState("");
-  const [meetingData, setMeetingData] = useState<any|null>(null);
-  const [scheduleData, setScheduleData] = useState<any|null>([]);
+  const [meetingData, setMeetingData] = useState<any | null>(null);
+  const [scheduleData, setScheduleData] = useState<any | null>([]);
 
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
   const [selectedTimes, setSelectedTimes] = useState<UISlot[]>([]); //  수정됨: 선택된 시간 저장용 state
-  
 
   const finalPostData: SubmitAvailabilityBody = useMemo(() => {
     const times = selectedTimes
@@ -53,12 +52,7 @@ const Participate_timetable_ctn = () => {
   const getUserMeetingData = async () => {
     if (!meetingId) return;
     try {
-      const res = await apiCall(
-        `/meeting/id/${meetingId}`,
-        "GET",
-        null,
-        true
-      );
+      const res = await apiCall(`/meeting/id/${meetingId}`, "GET", null, true);
 
       if (!res) return;
       if (res.code === 404) {
@@ -159,28 +153,58 @@ const Participate_timetable_ctn = () => {
       alert("서버 오류가 발생했습니다.");
     }
   };
-if(!meetingData){
+  if (!meetingData) {
+    return (
+      <>
+        <div className="top_ctn">
+          <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink} />
+          <p>미팅 참가</p>
+        </div>
+        <div className="participate_ctn">
+          <div className="text_container1">
+            <div className="meeting_info_ctn">
+              <div className="dividend" />
+              <div className="meeting_info">
+                <p>불러오는 중…</p>
+                <p />
+              </div>
+            </div>
+            <input
+              type="text"
+              value={nickname}
+              onChange={handleSetNickname}
+              placeholder="닉네임*"
+            />
+          </div>
+        </div>
+      </>
+    );
+  }
+
+  // meetingData가 확보된 뒤에만 본문 렌더
   return (
     <>
       <div className="top_ctn">
-        <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink}></img>
+        <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink} />
         <p>미팅 참가</p>
       </div>
+
       <div className="participate_ctn">
         <div className="text_container1">
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
             <div className="meeting_info">
-              <p>{meetingData?.title??""}</p>
-              <p>{meetingData?.description??""}</p>
+              <p>{meetingData.title}</p>
+              <p>{meetingData.description}</p>
             </div>
           </div>
+
           <input
             type="text"
             value={nickname}
             onChange={handleSetNickname}
             placeholder="닉네임*"
-          ></input>
+          />
         </div>
 
         <div className="timetable">
@@ -189,10 +213,10 @@ if(!meetingData){
           </p>
           <div className="timetable_ctn">
             <Timetable
-              candidateDates={meetingData?.candidateDates??[]}
+              candidateDates={meetingData.candidateDates ?? []}
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
-              scheduleData={scheduleData??[]}
+              scheduleData={scheduleData /* []로 보장됨 */}
             />
           </div>
         </div>
@@ -208,5 +232,4 @@ if(!meetingData){
     </>
   );
 };
-}
 export default Participate_timetable_ctn;
