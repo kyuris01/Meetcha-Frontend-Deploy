@@ -52,8 +52,7 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
   };
 
   const sendDelReq = async () => {
-    const scheduleId = "abc"; // 추후 실제 일정 id로 수정요망
-    await deleteSchedule(scheduleId);
+    await deleteSchedule(data.eventId);
   };
 
   return (

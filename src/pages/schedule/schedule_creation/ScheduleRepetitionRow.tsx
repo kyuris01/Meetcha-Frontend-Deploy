@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ScheduleRepetitionRow.module.scss";
+import { options } from "./constants/ScheduleRepetitionRow.constants";
 
 interface Props {
   data: string;
@@ -8,31 +9,12 @@ interface Props {
 }
 
 const ScheduleRepetitionRow = ({ data, dataSetter }: Props) => {
-  const options = [
-    { id: 0, label: "없음" },
-    {
-      id: 1,
-      label: "매일",
-    },
-    {
-      id: 2,
-      label: "매주",
-    },
-    {
-      id: 3,
-      label: "격주",
-    },
-    {
-      id: 4,
-      label: "매달",
-    },
-  ];
   return (
     <div className={styles.scheduleRepetitionRow}>
       {options.map((item, _) => (
         <div
           key={item.id}
-          onClick={() => dataSetter(item.label)}
+          onClick={() => dataSetter(item.value)}
           className={
             data === item.label
               ? `${styles.active} ${styles.scheduleRepetitionRow__item}`
