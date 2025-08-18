@@ -23,8 +23,8 @@ const Participate_timetable_ctn = () => {
   console.log(sendAboutMeeting);
 
   const [nickname, setNickname] = useState("");
-  const [meetingData, setMeetingData] = useState<any | null>(null);
-  const [scheduleData, setScheduleData] = useState<any | null>(null);
+  const [meetingData, setMeetingData] = useState<any>(null);
+  const [scheduleData, setScheduleData] = useState<any>(null);
 
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
   const [selectedTimes, setSelectedTimes] = useState<UISlot[]>([]); //  수정됨: 선택된 시간 저장용 state
