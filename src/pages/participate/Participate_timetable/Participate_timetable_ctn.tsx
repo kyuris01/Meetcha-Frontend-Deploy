@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import "./Participate_timetabe.scss";
 import dayjs from "dayjs";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import Top_banner from "../common/Top_banner";
 import Botton_banner_button from "../common/Botton_banner_button";
 import Timetable from "./Timetable";
@@ -18,10 +18,9 @@ const Participate_timetable_ctn = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
+  const [params] = useSearchParams();
+  const meetingId = params.get("meetingId") || "";
 
-  const { sendAboutMeeting } = location.state || {};
-  const meetingId = (sendAboutMeeting as string) || "";
-  console.log(sendAboutMeeting);
 
   const [nickname, setNickname] = useState("");
   const [meetingData, setMeetingData] = useState<any | null>(null);
@@ -101,7 +100,7 @@ const Participate_timetable_ctn = () => {
 
   useEffect(() => {
     getUserMeetingData();
-  }, []);
+  }, [meetingId]);
 
   useEffect(() => {
     if (!meetingData) return;

@@ -54,9 +54,7 @@ const Participate_link = () => {
       if (res.code === 400) {
         navigate("/complete");
       } else if (res.code === 200) {
-        navigate("/timetable", {
-          state: { sendAboutMeeting: res.data.meetingId },
-        });
+        navigate(`/timetable?meetingId=${res.data.meetingId}`);
       } else {
         // 404 등
         navigate("/error");

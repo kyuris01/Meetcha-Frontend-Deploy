@@ -24,7 +24,7 @@ const MeetingCreationPage = () => {
     const result = await createMeeting(completeData);
 
     if (result.code === 201) {
-      navigate("/timetable",{state:result.data.meetingId});
+      navigate(`/timetable?meetingId=${result.data.meetingId}`);
     }
   };
 
