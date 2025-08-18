@@ -13,7 +13,7 @@ export const sendAuthCode = async (authCode: string) => {
 
 export const renewAccessToken = async (refToken: string) => {
   const data = { refreshToken: refToken };
-  const res: ApiResponse<AuthResponse> = await apiCall("oauth/refresh", "POST", data, false);
+  const res: ApiResponse<AuthResponse> = await apiCall("/oauth/refresh", "POST", data, false);
   if (res.code === 200) {
     console.log(res.message);
     sessionStorage.setItem("access-token", res.data.accessToken);
