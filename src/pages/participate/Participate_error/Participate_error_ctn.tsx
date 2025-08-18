@@ -15,7 +15,7 @@ const Participate_error_ctn = () => {
   const button_text = "링크 다시 입력하기";
 
   const backtoLink = () => {
-    navigate("/link");
+    navigate("/participate");
   };
   return (
     <div className="partici_error_ctn">

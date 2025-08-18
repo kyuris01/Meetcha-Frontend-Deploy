@@ -12,7 +12,7 @@ const Participate_completed_ctn = () => {
   const button_text = "링크 다시 입력하기";
   const navigate = useNavigate();
   const backtoLink = () => {
-    navigate("/link");
+    navigate("/participate");
   };
   return (
     <div className="partici_completed_ctn">

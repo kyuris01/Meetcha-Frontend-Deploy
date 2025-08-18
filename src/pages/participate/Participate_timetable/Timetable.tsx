@@ -5,7 +5,7 @@ import interactionPlugin from "@fullcalendar/interaction"; //  수정됨: 드래
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import "./Participate_timetabe.scss";
-
+import type { Dayjs } from "dayjs";
 import type { UISlot } from "@/apis/participate/participateTypes";
 
 dayjs.locale("ko");
@@ -28,7 +28,15 @@ const Timetable = ({
   setSelectedTimes,
   scheduleData,
 }) => {
-  const validDates = candidateDates.map((dateStr) => dayjs(dateStr));
+  console.log(candidateDates);
+  const sortedDates: string[] = [...(candidateDates ?? [])].sort();
+  if (sortedDates.length === 0) return <p>표시할 날짜가 없습니다.</p>;
+  const validDates: Dayjs[] = sortedDates.map((dateStr) => dayjs(dateStr));
+  const allowedDows: Set<number> = new Set(validDates.map((d) => d.day())); // 0=일 ... 6=토
+  const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter(
+    (dow:number) => !allowedDows.has(dow)
+  );
+
   const rangeStart = validDates[0]?.startOf("day").format("YYYY-MM-DD");
   const rangeEnd = validDates.at(-1)?.endOf("day").format("YYYY-MM-DD");
   //드래그 선택된 시간들
@@ -92,6 +100,7 @@ const Timetable = ({
         start: rangeStart,
         end: dayjs(rangeEnd).add(1, "day").format("YYYY-MM-DD"),
       }}
+      hiddenDays={hiddenDays}
       locale="ko"
       slotMinTime="00:00:00"
       slotMaxTime="24:00:00"
@@ -102,8 +111,8 @@ const Timetable = ({
       selectMirror={false}
       unselectAuto={false}
       select={handleSelect} //  수정됨: 드래그 선택 이벤트 핸들러
-      selectOverlap={(event)=>!event.extendedProps?.isBusy}
-      events={[...busyEvents,...selectedEvents]} //  수정됨: 선택된 시간대 렌더링
+      selectOverlap={(event) => !event.extendedProps?.isBusy}
+      events={[...busyEvents, ...selectedEvents]} //  수정됨: 선택된 시간대 렌더링
       height="auto"
       headerToolbar={false}
       dayHeaderContent={(info) => {

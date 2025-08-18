@@ -46,7 +46,7 @@ const Participate_timetable_ctn = () => {
   }, [selectedTimes, nickname]);
 
   const backtoLink = () => {
-    navigate("/link");
+    navigate("/participate");
   };
   //유저의 미팅정보(candidatedate)를 먼저 불러옴
   const getUserMeetingData = async () => {
@@ -76,9 +76,9 @@ const Participate_timetable_ctn = () => {
   const getUserScheduleData = async () => {
     if (!meetingData) return;
 
-    const candidateDates = meetingData.candidateDates;
-    const first = candidateDates[0];
-    const last = candidateDates[candidateDates.length - 1];
+    const sortedDates = [...meetingData.candidateDates].sort();
+    const first = sortedDates[0];
+    const last = sortedDates[sortedDates.length - 1];
 
     try {
       const resSchedule = await apiCall(
