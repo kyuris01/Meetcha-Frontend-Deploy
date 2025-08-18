@@ -43,6 +43,7 @@ export const createMeeting = async (data) => {
     true
   );
   const navigate = useNavigate();
+  console.log("cr meeting res: ", res);
 
   switch (res.code) {
     case 201:
