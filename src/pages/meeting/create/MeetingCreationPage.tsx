@@ -24,7 +24,7 @@ const MeetingCreationPage = () => {
     const result = await createMeeting(completeData);
 
     if (result === 201) {
-      navigate("participate");
+      navigate("/participate");
     }
   };
 

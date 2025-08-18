@@ -42,7 +42,6 @@ export const createMeeting = async (data) => {
     data,
     true
   );
-  console.log("cr meeting res: ", res);
 
   switch (res.code) {
     case 201:
