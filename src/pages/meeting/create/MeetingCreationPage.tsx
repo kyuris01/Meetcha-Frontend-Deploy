@@ -23,8 +23,8 @@ const MeetingCreationPage = () => {
   const createMeetingHandler = async () => {
     const result = await createMeeting(completeData);
 
-    if (result === 201) {
-      navigate("/participate");
+    if (result.code === 201) {
+      navigate("/participate",{state:result.data.meetingId});
     }
   };
 
