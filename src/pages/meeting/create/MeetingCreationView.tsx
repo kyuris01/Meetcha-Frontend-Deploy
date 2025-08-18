@@ -70,7 +70,6 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
   };
 
   const deadlineParse = (deadline) => {
-    console.log(deadline);
     const [date, time] = deadline?.split("T");
     const [hour, minute] = time?.split(":");
     const paddedTime = hour?.padStart(2, "0") + ":" + minute;

@@ -11,7 +11,7 @@ export const useMeetingStore = create<MeetingState>()((set) => ({
   meetingList: [],
   fetchMeetings: async () => {
     const data = await fetchMeetingList();
-    console.log(data);
+    // console.log(data);
     set({ meetingList: data });
   },
 }));

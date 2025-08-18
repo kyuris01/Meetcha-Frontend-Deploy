@@ -20,7 +20,7 @@ export const fetchSchedules = async (year: string, month: string) => {
 };
 
 export const createSchedule = async (data) => {
-  const res: ApiResponse<string> = await apiCall(`/schedule-create`, "POST", data, true);
+  const res: ApiResponse<string> = await apiCall(`/user/schedule/create`, "POST", data, true);
   alert(res.message);
   return res;
 };

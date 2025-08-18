@@ -33,7 +33,6 @@ const MeetingStateCard = ({ meeting_status }: Props) => {
   };
 
   useEffect(() => {
-    console.log("ms:", meeting_status);
     stateResolver();
   }, [meeting_status]);
 

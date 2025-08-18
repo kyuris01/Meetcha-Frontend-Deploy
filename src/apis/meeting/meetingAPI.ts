@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { apiCall } from "../apiCall";
 import type { ApiResponse } from "../common/types";
 import type { AlternativeObj, Meeting, MeetingCreateResponse, MeetingDetail } from "./meetingTypes";
