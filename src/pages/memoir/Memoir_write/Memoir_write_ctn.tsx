@@ -10,7 +10,7 @@ import { useAPIs } from "@/apis/useAPIs";
 
 import "./Memoir_write.scss";
 
-type Project = { projectId: string; projectName: string };
+interface Project  { projectId: string; projectName: string };
 
 const Memoir_write_ctn = () => {
   const [contribution, setContribution] = useState<string>("");

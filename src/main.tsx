@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 */
+
 createRoot(document.getElementById("root")!).render(
   <GoogleOAuthProvider clientId="214919872484-j05rks059n5hbtm083spk9s5dvg6m9cu.apps.googleusercontent.com">
     <QueryClientProvider client={queryClient}>
