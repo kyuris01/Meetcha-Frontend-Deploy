@@ -3,12 +3,6 @@ import google_logo from "../../../assets/Google.svg";
 import { sendAuthCode } from "@/apis/auth/authAPI";
 
 const Continue_Google = () => {
-  let authCode = null;
-
-  useEffect(() => {
-    sendAuthCode(authCode);
-  }, [authCode]);
-
   const handleGoogleLogin = () => {
     const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const addr = import.meta.env.VITE_FRONT_URL;

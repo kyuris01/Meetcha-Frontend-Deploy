@@ -9,7 +9,7 @@ export function useSchedules(year, month) {
     queryKey: scheduleKeys.month(year, month),
     queryFn: () => fetchSchedules(year, month),
     placeholderData: (prev) => prev,
-    staleTime: 60_000, // 1분 동안 신선
+    staleTime: 60_000 * 5, // 1분 동안 신선
     gcTime: 30 * 60_000, // 30분 후 메모리에서 제거
   });
 
