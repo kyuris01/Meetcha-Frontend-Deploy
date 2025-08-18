@@ -4,6 +4,7 @@ import TopNav from "@/components/TopNav";
 import MeetingCreationView from "./MeetingCreationView";
 import { useState } from "react";
 import { createMeeting } from "@/apis/meeting/meetingAPI";
+import { useNavigate } from "react-router-dom";
 
 export interface MeetingSendData {
   title: string;
@@ -17,10 +18,15 @@ export interface MeetingSendData {
 const MeetingCreationPage = () => {
   const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
   const [completeData, setCompleteData] = useState<MeetingSendData>();
+  const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   console.log(completeData);
-  // }, [completeData]);
+  const createMeetingHandler = async () => {
+    const result = await createMeeting(completeData);
+
+    if (result === 201) {
+      navigate("participate");
+    }
+  };
 
   return (
     <div className={styles.meetingCreationPage}>
@@ -33,7 +39,7 @@ const MeetingCreationPage = () => {
         <Button
           className={allDataReserved ? styles.active : styles.inactive}
           label={"미팅 생성하기"}
-          clickHandler={() => createMeeting(completeData)}
+          clickHandler={createMeetingHandler}
         />
       </div>
     </div>

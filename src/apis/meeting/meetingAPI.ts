@@ -42,14 +42,12 @@ export const createMeeting = async (data) => {
     data,
     true
   );
-  const navigate = useNavigate();
   console.log("cr meeting res: ", res);
 
   switch (res.code) {
     case 201:
       alert(res.message);
-      navigate("/participate");
-      break;
+      return res.code;
     case 400:
       const details = Object.entries(res.data)
         .map(([_, value]) => `• ${value}`)
