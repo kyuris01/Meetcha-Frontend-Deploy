@@ -170,8 +170,8 @@ const Participate_timetable_ctn = () => {
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
             <div className="meeting_info">
-              <p>{meetingData?.title??""}</p>
-              <p>{meetingData?.description??""}</p>
+              <p>{sendAboutMeeting?.title??""}</p>
+              <p>{sendAboutMeeting?.description??""}</p>
             </div>
           </div>
           <input
