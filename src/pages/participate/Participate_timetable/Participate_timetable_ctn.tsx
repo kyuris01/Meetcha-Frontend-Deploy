@@ -121,13 +121,13 @@ const Participate_timetable_ctn = () => {
       alert("참여 가능 시간을 최소 1개 이상 선택해주세요.");
       return;
     }
-
+    console.log(finalPostData);
     try {
       const res = await apiCall(
         `/meetings/id/${meetingId}/join`,
         "POST",
         finalPostData,
-        true // Authorization 포함(프로젝트 util 정책 유지)
+        false // Authorization 포함(프로젝트 util 정책 유지)
       );
 
       if (!res) return;
