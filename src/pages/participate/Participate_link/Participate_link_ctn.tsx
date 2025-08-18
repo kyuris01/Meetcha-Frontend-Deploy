@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Participate_link.scss";
 
+import LeftChevron from "@assets/LeftChevron.svg";
 import Top_banner from "../common/Top_banner";
 
 import { useAPIs2 } from "@/apis/useAPIs2";
@@ -35,9 +36,7 @@ const Participate_link = () => {
     setLinkText(e.target.value);
   };
 
-
   const requestLinkCheck = async () => {
-  
     const code = linkText.trim(); // 공백 제거
     if (!code) return; // 빈 값 방지
 
@@ -55,7 +54,9 @@ const Participate_link = () => {
       if (res.code === 400) {
         navigate("/complete");
       } else if (res.code === 200) {
-        navigate("/timetable", { state: { sendAboutMeeting: res.data.meetingId } });
+        navigate("/timetable", {
+          state: { sendAboutMeeting: res.data.meetingId },
+        });
       } else {
         // 404 등
         navigate("/error");
@@ -65,13 +66,16 @@ const Participate_link = () => {
       navigate("/error");
     }
   };
-
+ 
   // 사용: 버튼 클릭 전에 일단 한 번 호출
   // debugMeetingCode(linkText);
 
   return (
     <div className="partici_link_ctn">
-      <Top_banner text={top_text} />
+      <div className="top_ctn">
+        <img src={LeftChevron} alt="LeftChevron" onClick={()=>{navigate("/schedule")}}></img>
+        <p>{top_text}</p>
+      </div>
       <div className="partici_link_main">
         <div className="p_input_ctn">
           <p>
