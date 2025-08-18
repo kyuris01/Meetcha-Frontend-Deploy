@@ -31,7 +31,7 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
     // 서버 요구 형식에 맞게 데이터 파싱
     const scheduleArr = scheduleTime.split(" ");
     const data = {
-      scheduleTitle: scheduleTitle,
+      title: scheduleTitle,
       startAt: `${scheduleArr[0].slice(0, -1)}-${scheduleArr[1].slice(
         0,
         -1

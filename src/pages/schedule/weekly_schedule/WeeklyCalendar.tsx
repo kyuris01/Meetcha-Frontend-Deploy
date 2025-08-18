@@ -102,13 +102,14 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         onSelectSlot={(slotInfo) => {
           if (blockInteraction) return;
           setTimeout(() => setCreationOpen(true), 0);
-          console.log("빈 영역 클릭됨:", slotInfo);
+          // console.log("빈 영역 클릭됨:", slotInfo);
           const formattedStart = scheduleStringFormatter(slotInfo.start);
           const formattedEnd = scheduleStringFormatter(slotInfo.end);
 
           setClickedSpan(`${formattedStart} ${formattedEnd}`);
         }}
         onSelectEvent={(event) => {
+          // console.log(event);
           if (blockInteraction) return;
           setMode(false);
           setTimeout(() => setCreationOpen(true), 0);
@@ -122,7 +123,6 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           setClickedSpan(
             `${scheduleStringFormatter(event.start)} ${scheduleStringFormatter(event.end)}`
           );
-          setClickedSpan(event);
         }}
       />
       {portal}

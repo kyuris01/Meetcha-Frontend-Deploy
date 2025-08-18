@@ -35,7 +35,6 @@ const MeetingDetailPage = () => {
   useEffect(() => {
     const load = async () => {
       const data = await fetchMeetingDetail(state);
-      console.log("data:", data);
       setMeetingDetail(data);
     };
     load();

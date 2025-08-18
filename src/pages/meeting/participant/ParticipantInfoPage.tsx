@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styles from "./ParticipantInfoPage.module.scss";
 import ParticipantInfoView from "./ParticipantInfoView";
-import type { Participant } from "@/types/meeting-data-type";
+import type { Participant } from "@/apis/meeting/meetingTypes";
 
 interface Props {
   participants: Participant[];
@@ -9,7 +9,7 @@ interface Props {
 
 const ParticipantInfoPage = ({ participants }: Props) => {
   useEffect(() => {
-    console.log("InfoPage:", participants);
+    // console.log("InfoPage:", participants);
   }, []);
   return (
     <div className={styles.participantInfoPage}>
