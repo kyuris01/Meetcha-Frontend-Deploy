@@ -1,6 +1,4 @@
-import { useEffect } from "react";
 import google_logo from "../../../assets/Google.svg";
-import { sendAuthCode } from "@/apis/auth/authAPI";
 
 const Continue_Google = () => {
   const handleGoogleLogin = () => {
