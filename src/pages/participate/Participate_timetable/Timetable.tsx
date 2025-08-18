@@ -30,11 +30,18 @@ const Timetable = ({
 }) => {
   console.log(candidateDates);
   const sortedDates: string[] = [...(candidateDates ?? [])].sort();
+  console.log(sortedDates);
+
   if (sortedDates.length === 0) return <p>표시할 날짜가 없습니다.</p>;
   const validDates: Dayjs[] = sortedDates.map((dateStr) => dayjs(dateStr));
+
+  const start = validDates[0];
+  const end = validDates.at(-1);
+  const daysSpan = end!.diff(start!, "day") + 1; // 표시할 연속 일수
+
   const allowedDows: Set<number> = new Set(validDates.map((d) => d.day())); // 0=일 ... 6=토
   const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter(
-    (dow:number) => !allowedDows.has(dow)
+    (dow: number) => !allowedDows.has(dow)
   );
 
   const rangeStart = validDates[0]?.startOf("day").format("YYYY-MM-DD");
@@ -94,7 +101,8 @@ const Timetable = ({
   return (
     <FullCalendar
       plugins={[timeGridPlugin, interactionPlugin]} //  수정됨: 드래그/선택 위해 interactionPlugin 추가
-      initialView="timeGridWeek"
+      initialView="timeGridSpan"
+      views={{ timeGridSpan: { type: "timeGrid", duration: { days: daysSpan } } }}
       initialDate={validDates[0]?.format("YYYY-MM-DD")}
       visibleRange={{
         start: rangeStart,
