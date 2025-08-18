@@ -20,6 +20,7 @@ const Participate_timetable_ctn = () => {
   const location = useLocation();
 
   const { sendAboutMeeting } = location.state || {};
+  const meetingId = (sendAboutMeeting as string) || "";
   console.log(sendAboutMeeting);
 
   const [nickname, setNickname] = useState("");
@@ -28,7 +29,7 @@ const Participate_timetable_ctn = () => {
 
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
   const [selectedTimes, setSelectedTimes] = useState<UISlot[]>([]); //  수정됨: 선택된 시간 저장용 state
-  const meetingId = (sendAboutMeeting?.meetingId as string) || "";
+  
 
   const finalPostData: SubmitAvailabilityBody = useMemo(() => {
     const times = selectedTimes
@@ -50,10 +51,10 @@ const Participate_timetable_ctn = () => {
   };
   //유저의 미팅정보(candidatedate)를 먼저 불러옴
   const getUserMeetingData = async () => {
-    if (!sendAboutMeeting) return;
+    if (!meetingId) return;
     try {
       const res = await apiCall(
-        `/meeting/id/${sendAboutMeeting.meetingId}`,
+        `/meeting/id/${meetingId}`,
         "GET",
         null,
         true
@@ -92,7 +93,7 @@ const Participate_timetable_ctn = () => {
       if (resSchedule.code === 400) {
         alert("날짜 형식이 잘못되었거나 범위가 유효하지 않습니다.");
       } else if (resSchedule.code === 401) {
-        alert("로그인이 필요합니다.");
+        alert("로그인이 필요합니다다.");
       } else if (resSchedule.code === 404) {
         alert("사용자를 찾을 수 없습니다.");
       } else if (resSchedule.code == 200) {
@@ -158,7 +159,7 @@ const Participate_timetable_ctn = () => {
       alert("서버 오류가 발생했습니다.");
     }
   };
-
+if(!meetingData){
   return (
     <>
       <div className="top_ctn">
@@ -170,8 +171,8 @@ const Participate_timetable_ctn = () => {
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
             <div className="meeting_info">
-              <p>{sendAboutMeeting?.title??""}</p>
-              <p>{sendAboutMeeting?.description??""}</p>
+              <p>{meetingData?.title??""}</p>
+              <p>{meetingData?.description??""}</p>
             </div>
           </div>
           <input
@@ -191,7 +192,7 @@ const Participate_timetable_ctn = () => {
               candidateDates={meetingData?.candidateDates??[]}
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
-              scheduleData={scheduleData}
+              scheduleData={scheduleData??[]}
             />
           </div>
         </div>
@@ -207,5 +208,5 @@ const Participate_timetable_ctn = () => {
     </>
   );
 };
-
+}
 export default Participate_timetable_ctn;
