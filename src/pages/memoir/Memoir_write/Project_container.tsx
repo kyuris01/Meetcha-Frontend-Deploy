@@ -69,7 +69,7 @@ const Project_container: React.FC<Props> = ({
     try {
       setCreating(true);
       // 최신 입력값을 직접 전송
-      const res: any = await apiCall("/projects/create", "POST", { name }, true);
+      const res: any = await apiCall("/user/projects", "POST", { name }, true);
       if (!res || res.code !== 200) {
         throw new Error(res?.message || "프로젝트 생성 실패");
       }
