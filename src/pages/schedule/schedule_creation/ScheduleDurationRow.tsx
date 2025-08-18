@@ -17,8 +17,8 @@ const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) =>
   const [endTime, setEndTime] = useState<string>("");
 
   useEffect(() => {
-    setStartTime(`${parts[2]} ${parts[3]}`);
-    setEndTime(`${parts[6]} ${parts[7]}`);
+    setStartTime(`${parts[3]} ${parts[4]}`);
+    setEndTime(`${parts[8]} ${parts[9]}`);
   }, [clickedSpan]);
 
   useEffect(() => {
@@ -31,7 +31,9 @@ const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) =>
   }, [sharingData, startOrEnd]);
 
   useEffect(() => {
-    dataSetter(`${parts[0]} ${parts[1]} ${startTime} ${parts[4]} ${parts[5]} ${endTime}`);
+    dataSetter(
+      `${parts[0]} ${parts[1]} ${parts[2]} ${startTime} ${parts[5]} ${parts[6]} ${parts[7]} ${endTime}`
+    );
   }, [startTime, endTime]);
 
   return (
@@ -44,7 +46,7 @@ const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) =>
         }}
       >
         <div className={styles.scheduleDurationRow__box__date}>
-          {parts[0]} {parts[1]}
+          {parts[1]} {parts[2]}
         </div>
         <div
           className={
@@ -65,7 +67,7 @@ const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) =>
         }}
       >
         <div className={styles.scheduleDurationRow__box__date}>
-          {parts[4]} {parts[5]}
+          {parts[6]} {parts[7]}
         </div>
         <div
           className={

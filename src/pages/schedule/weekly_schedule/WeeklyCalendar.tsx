@@ -3,7 +3,7 @@ import CustomWeekHeader from "./CustomWeekHeader";
 import { CustomEvent } from "./CustomEvent";
 import { Calendar, luxonLocalizer } from "react-big-calendar";
 import { DateTime } from "luxon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import ScheduleCreationPage from "../schedule_creation/ScheduleCreationPage";
@@ -102,7 +102,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         onSelectSlot={(slotInfo) => {
           if (blockInteraction) return;
           setTimeout(() => setCreationOpen(true), 0);
-          // console.log("빈 영역 클릭됨:", slotInfo);
+          console.log("빈 영역 클릭됨:", slotInfo);
           const formattedStart = scheduleStringFormatter(slotInfo.start);
           const formattedEnd = scheduleStringFormatter(slotInfo.end);
 
@@ -112,7 +112,6 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           if (blockInteraction) return;
           setMode(false);
           setTimeout(() => setCreationOpen(true), 0);
-          // console.log("일정 클릭됨:", event);
           setClickedSchedule({
             title: event.title,
             startAt: event.start,
@@ -123,6 +122,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           setClickedSpan(
             `${scheduleStringFormatter(event.start)} ${scheduleStringFormatter(event.end)}`
           );
+          setClickedSpan(event);
         }}
       />
       {portal}

@@ -27,28 +27,37 @@ const ScheduleCreationPage = ({ clickedSpan, createMode, data }: Props) => {
     }
   }, []);
 
+  const parseScheduleTime = (scheduleTime) => {
+    // 서버 요구 형식에 맞게 데이터 파싱
+    const scheduleArr = scheduleTime.split(" ");
+    const data = {
+      scheduleTitle: scheduleTitle,
+      startAt: `${scheduleArr[0].slice(0, -1)}-${scheduleArr[1].slice(
+        0,
+        -1
+      )}-${scheduleArr[2].slice(0, -4)}T${scheduleArr[4]}:00`,
+      endAt: `${scheduleArr[5].slice(0, -1)}-${scheduleArr[6].slice(0, -1)}-${scheduleArr[7].slice(
+        0,
+        -4
+      )}T${scheduleArr[9]}:00`,
+      recurrence: repetition,
+    };
+    return data;
+  };
+
   useEffect(() => {
     if (scheduleTitle && scheduleTime) setAllDataReserved(true);
   }, [scheduleTitle, scheduleTime, repetition]);
 
   const sendCreationReq = async () => {
     if (!allDataReserved) return;
-    const data = {
-      scheduleTitle: scheduleTitle,
-      scheduleTime: scheduleTime,
-      repetition: repetition,
-    };
-    await createSchedule(data);
+
+    await createSchedule(parseScheduleTime(scheduleTime));
   };
 
   const sendEditReq = async () => {
     if (!allDataReserved) return;
-    const data = {
-      scheduleTitle: scheduleTitle,
-      scheduleTime: scheduleTime,
-      repetition: repetition,
-    };
-    await editSchedule(data);
+    await editSchedule(parseScheduleTime(scheduleTime));
   };
 
   const sendDelReq = async () => {

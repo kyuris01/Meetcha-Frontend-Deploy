@@ -16,7 +16,7 @@ const ScheduleRepetitionRow = ({ data, dataSetter }: Props) => {
           key={item.id}
           onClick={() => dataSetter(item.value)}
           className={
-            data === item.label
+            data === item.value
               ? `${styles.active} ${styles.scheduleRepetitionRow__item}`
               : styles.scheduleRepetitionRow__item
           }
