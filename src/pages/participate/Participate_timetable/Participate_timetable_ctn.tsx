@@ -23,8 +23,8 @@ const Participate_timetable_ctn = () => {
   console.log(sendAboutMeeting);
 
   const [nickname, setNickname] = useState("");
-  const [meetingData, setMeetingData] = useState<any>(null);
-  const [scheduleData, setScheduleData] = useState<any>(null);
+  const [meetingData, setMeetingData] = useState<any|null>(null);
+  const [scheduleData, setScheduleData] = useState<any|null>([]);
 
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
   const [selectedTimes, setSelectedTimes] = useState<UISlot[]>([]); //  수정됨: 선택된 시간 저장용 state
@@ -89,7 +89,7 @@ const Participate_timetable_ctn = () => {
       );
 
       if (!resSchedule) return;
-      if (resSchedule.code === 404) {
+      if (resSchedule.code === 400) {
         alert("날짜 형식이 잘못되었거나 범위가 유효하지 않습니다.");
       } else if (resSchedule.code === 401) {
         alert("로그인이 필요합니다.");
@@ -170,8 +170,8 @@ const Participate_timetable_ctn = () => {
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
             <div className="meeting_info">
-              <p>{meetingData.title}</p>
-              <p>{meetingData.description}</p>
+              <p>{meetingData?.title??""}</p>
+              <p>{meetingData?.description??""}</p>
             </div>
           </div>
           <input
@@ -188,7 +188,7 @@ const Participate_timetable_ctn = () => {
           </p>
           <div className="timetable_ctn">
             <Timetable
-              candidateDates={meetingData.candidateDates}
+              candidateDates={meetingData?.candidateDates??[]}
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
               scheduleData={scheduleData}
