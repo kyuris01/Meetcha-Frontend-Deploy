@@ -47,8 +47,15 @@ const Project_container: React.FC<Props> = ({
   chosenProject,
   setChosenProject,
 }) => {
-  const list = projectsAll ?? [];
-  const [isOpen, setIsOpen] = useState(false);
+
+  const propsList = projectsAll ?? [];
+
+  const [items, setItems] = useState<Project[]>(propsList);
+  useEffect(() => {
+    setItems(propsList); // 부모가 목록을 갱신해주면 로컬도 동기화
+  }, [projectsAll]);
+
+    const [isOpen, setIsOpen] = useState(false);
   const [newProject, setNewProject] = useState("");
   const [creating, setCreating] = useState(false);
 
@@ -58,7 +65,7 @@ const Project_container: React.FC<Props> = ({
     if (!name) return;
 
     // 이름 중복(공백/대소문자 무시)
-    const exists = list.some(
+    const exists = items.some(
       (p) => normalize(p.projectName ?? p.name ?? "") === normalize(name)
     );
     if (exists) {
@@ -77,12 +84,10 @@ const Project_container: React.FC<Props> = ({
       const createdId: string | undefined = res.data?.projectId ?? res.data?.id;
       const createdName: string = res.data?.projectName ?? res.data?.name ?? name;
 
+      const tempId = createdId ?? `temp-${Date.now()}`;
+      setItems((prev) => [...prev, { projectId: tempId, projectName: createdName }]);
 
-      // 부모 목록 즉시 리패치 → 새로고침 없이 UI 반영
-      if (typeof refetchProjects === "function") {
-        await refetchProjects();
-      }
-
+      refetchProjects?.();
       // 방금 만든 프로젝트 선택
       if (createdId) {
         setProjectId(createdId);
@@ -107,7 +112,7 @@ const Project_container: React.FC<Props> = ({
       setChosenProjectTextColor(undefined);
       return;
     }
-    const p = list.find((x) => x.projectId === projectId);
+    const p = items.find((x) => x.projectId === projectId);
     if (p) {
       const t = getProjectTheme(p.projectId);
       setChosenProject(p.projectName ?? p.name ?? "");
@@ -116,7 +121,7 @@ const Project_container: React.FC<Props> = ({
     }
   }, [
     projectId,
-    list,
+    items,
     setChosenProject,
     setChosenProjectBgColor,
     setChosenProjectTextColor,
@@ -161,7 +166,7 @@ const Project_container: React.FC<Props> = ({
             />
           </div>
 
-          {list.map((project) => {
+          {items.map((project) => {
             const t = getProjectTheme(project.projectId);
             return (
               <div key={project.projectId} className="checkbox_ctn">
