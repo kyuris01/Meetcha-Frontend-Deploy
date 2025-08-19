@@ -70,12 +70,13 @@ const Project_container: React.FC<Props> = ({
       setCreating(true);
       // 최신 입력값을 직접 전송
       const res: any = await apiCall("/user/projects", "POST", { name }, true);
-      if (!res || res.code !== 200) {
+      if (!res || (res.code !== 200 && res.code !== 201)) {
         throw new Error(res?.message || "프로젝트 생성 실패");
       }
 
-      const createdId: string | undefined = res.data?.projectId;
-      const createdName: string = res.data?.name ?? name;
+      const createdId: string | undefined = res.data?.projectId ?? res.data?.id;
+      const createdName: string = res.data?.projectName ?? res.data?.name ?? name;
+
 
       // 부모 목록 즉시 리패치 → 새로고침 없이 UI 반영
       if (typeof refetchProjects === "function") {
