@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./ScheduleCreationCard.module.scss";
+import styles from "./ScheduleCrudCard.module.scss";
 
 interface Props {
   icon: React.ReactNode;
@@ -15,7 +15,7 @@ interface Props {
   }>;
 }
 
-const ScheduleCreationCard = ({
+const ScheduleCrudCard = ({
   icon,
   data,
   dataSetter,
@@ -30,24 +30,30 @@ const ScheduleCreationCard = ({
     <div
       className={
         expand && expandCard
-          ? `${styles.active} ${styles.scheduleCreationCard}`
-          : styles.scheduleCreationCard
+          ? `${styles.active} ${styles.scheduleCrudCard}`
+          : styles.scheduleCrudCard
       }
       onClick={() => setExpandCard((prev) => !prev)}
     >
-      <div className={styles.scheduleCreationCard__basic}>
-        <div className={styles.scheduleCreationCard__basic__icon}>{icon}</div>
-        <div className={styles.scheduleCreationCard__basic__data}>
+      <div className={styles.scheduleCrudCard__basic}>
+        <div className={styles.scheduleCrudCard__basic__icon}>{icon}</div>
+        <div className={styles.scheduleCrudCard__basic__data}>
           <BasicComponent {...basicProps} sharingData={sharingData} />
         </div>
       </div>
       {expand && expandCard && (
-        <div className={styles.scheduleCreationCard__expanded}>
-          <ExpandedComponent onChange={(item) => setSharingData(item)} ampm={true} minRange={5} />
+        <div className={styles.scheduleCrudCard__expanded}>
+          <ExpandedComponent
+            onChange={(item) => {
+              setSharingData(item);
+            }}
+            ampm={true}
+            minRange={5}
+          />
         </div>
       )}
     </div>
   );
 };
 
-export default ScheduleCreationCard;
+export default ScheduleCrudCard;

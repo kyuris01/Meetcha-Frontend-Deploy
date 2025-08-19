@@ -6,9 +6,9 @@ import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import ScheduleCreationPage from "../schedule_creation/ScheduleCreationPage";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
 import type { Schedule } from "@/apis/schedule/scheduleTypes";
+import ScheduleCrudPage from "../schedule_crud/ScheduleCrudPage";
 
 interface Props {
   week: Date;
@@ -57,11 +57,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
               }
             }}
           >
-            <ScheduleCreationPage
-              clickedSpan={clickedSpan}
-              createMode={mode}
-              data={clickedSchedule}
-            />
+            <ScheduleCrudPage clickedSpan={clickedSpan} createMode={mode} data={clickedSchedule} />
           </motion.div>
         </>
       )}
@@ -109,7 +105,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           setClickedSpan(`${formattedStart} ${formattedEnd}`);
         }}
         onSelectEvent={(event) => {
-          // console.log(event);
+          console.log(event);
           if (blockInteraction) return;
           setMode(false);
           setTimeout(() => setCreationOpen(true), 0);

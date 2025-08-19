@@ -28,7 +28,7 @@ const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) =>
     } else if (startOrEnd === 2) {
       setEndTime(sharingData);
     }
-  }, [sharingData, startOrEnd]);
+  }, [sharingData]);
 
   useEffect(() => {
     dataSetter(

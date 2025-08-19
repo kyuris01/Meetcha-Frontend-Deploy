@@ -26,6 +26,7 @@ export const createSchedule = async (data) => {
 };
 
 export const editSchedule = async (data) => {
+  console.log(data);
   const res: ApiResponse<null> = await apiCall(`/user/schedule/update`, "PUT", data, true);
   alert(res.message);
   return res;
