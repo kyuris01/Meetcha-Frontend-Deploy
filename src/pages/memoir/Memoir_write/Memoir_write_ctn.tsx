@@ -10,7 +10,10 @@ import { useAPIs } from "@/apis/useAPIs";
 
 import "./Memoir_write.scss";
 
-interface Project  { projectId: string; projectName: string };
+interface Project {
+  projectId: string;
+  projectName: string;
+}
 
 const Memoir_write_ctn = () => {
   const [contribution, setContribution] = useState<string>("");
@@ -96,13 +99,12 @@ const Memoir_write_ctn = () => {
     postReflection();
   };
 
-  //memoir 이동 + 1회 자동 새로고침(네가 원하던 동작 유지)
   useEffect(() => {
     if (postResponse?.isSuccess) {
-      navigate("/memoir", { replace: true });
-      setTimeout(() => window.location.reload(), 0);
+      // 새로고침 없이 목록 화면이 refetch 하도록 신호만 보냄
+      navigate("/memoir", { replace: true, state: { refetchMemoirs: true } });
     }
-  }, [postResponse, navigate, meeting?.meetingId]);
+  }, [postResponse, navigate]);
 
   if (loading) return <p>⌛ 프로젝트 목록 불러오는 중...</p>;
   if (error) return <p> 프로젝트 목록 불러오기 실패: {error}</p>;
@@ -112,7 +114,7 @@ const Memoir_write_ctn = () => {
       <div className="Memoir_content_ctn">
         <Memoir_write_intro />
         <Memoir_write_main
-          projectsAll={projectsAllState}     // state 배열 전달
+          projectsAll={projectsAllState} // state 배열 전달
           refetchProjects={refetchProjects} // 자식에서 호출
           contribution={contribution}
           setContribution={setContribution}

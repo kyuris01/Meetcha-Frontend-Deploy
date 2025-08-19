@@ -12,7 +12,7 @@ import { apiCall } from "@/utils/apiCall";
 type Project = {
   projectId: string;
   projectName: string;
-  id?: string;   // 서버가 이렇게 내려올 수도 있어 대비
+  id?: string; // 서버가 이렇게 내려올 수도 있어 대비
   name?: string; // 서버가 이렇게 내려올 수도 있어 대비
 };
 
@@ -49,13 +49,11 @@ const Project_container: React.FC<Props> = ({
 }) => {
   const list = projectsAll ?? [];
 
-
-  
   const [isOpen, setIsOpen] = useState(false);
   const [newProject, setNewProject] = useState("");
   const [creating, setCreating] = useState(false);
 
-  const location=useLocation();
+  const location = useLocation();
   const updateProjectsAll = async () => {
     const name = newProject.trim();
     if (!name) return;
@@ -78,8 +76,8 @@ const Project_container: React.FC<Props> = ({
       }
 
       const createdId: string | undefined = res.data?.projectId ?? res.data?.id;
-      const createdName: string = res.data?.projectName ?? res.data?.name ?? name;
-
+      const createdName: string =
+        res.data?.projectName ?? res.data?.name ?? name;
 
       // 부모 목록 즉시 리패치 → 새로고침 없이 UI 반영
       if (typeof refetchProjects === "function") {
@@ -131,8 +129,14 @@ const Project_container: React.FC<Props> = ({
 
       <div className="project_banner_ctn">
         <div className="in-common banner" onClick={toggleBannerBox}>
-          <div className="banner_name_ctn" style={{ background: chosenProjectBgColor }}>
-            <p className="banner_name" style={{ color: chosenProjectTextColor }}>
+          <div
+            className="banner_name_ctn"
+            style={{ background: chosenProjectBgColor }}
+          >
+            <p
+              className="banner_name"
+              style={{ color: chosenProjectTextColor }}
+            >
               {chosenProject || "선택된 프로젝트 없음"}
             </p>
           </div>
@@ -175,7 +179,10 @@ const Project_container: React.FC<Props> = ({
                   checked={projectId === project.projectId}
                   onChange={() => setProjectId(project.projectId)}
                 />
-                <div className="banner_name_ctn" style={{ backgroundColor: t.bg }}>
+                <div
+                  className="banner_name_ctn"
+                  style={{ backgroundColor: t.bg }}
+                >
                   <p className="banner_name" style={{ color: t.text }}>
                     {project.projectName}
                   </p>
@@ -190,4 +197,3 @@ const Project_container: React.FC<Props> = ({
 };
 
 export default Project_container;
-

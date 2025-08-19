@@ -10,7 +10,7 @@ const Meeting_list = ({ memoirLists }) => {
   const [meetingTitle, setMeetingTitle] = useState<string>("");
   const [filteredList, setFilteredList] = useState(memoirLists);
   
-  
+  useEffect(() => { setFilteredList(memoirLists); }, [memoirLists]);
   const inputRef = useRef(null);
 
   const handleClick = () => {
