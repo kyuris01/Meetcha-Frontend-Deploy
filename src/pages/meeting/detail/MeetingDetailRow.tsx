@@ -16,7 +16,6 @@ const MeetingDetailRow = ({ label, icon, data }: Props) => {
   const [isOpen, setIsOpen] = useState(false); // 슬라이더가 열렸는지 여부
 
   useEffect(() => {
-    console.log("data:", data);
     if (label === "참여자 정보 확인") {
       setParticipants(data as Participant[]);
     }

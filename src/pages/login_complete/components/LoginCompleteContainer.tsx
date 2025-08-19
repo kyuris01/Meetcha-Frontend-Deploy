@@ -13,8 +13,6 @@ const LoginCompleteContainer = () => {
     const code = params.get("code");
     if (!code) return;
 
-    console.log(code.substring(0, 4));
-
     (async () => {
       try {
         await sendAuthCode(code);

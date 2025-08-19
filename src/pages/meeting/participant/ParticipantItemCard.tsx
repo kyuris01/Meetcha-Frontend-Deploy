@@ -7,7 +7,6 @@ interface Props {
 }
 
 const ParticipantItemCard = ({ data }: Props) => {
-  console.log("data:", data);
   return (
     <div className={styles.participantItemCard}>
       <div className={styles.participantItemCard__leftEdge}></div>

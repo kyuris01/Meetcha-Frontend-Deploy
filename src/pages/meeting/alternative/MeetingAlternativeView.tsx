@@ -47,8 +47,6 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    console.log("at: ", alternativeTimes);
-    console.log(alternativeTimes[0]?.startTime.split("T")[1].slice(0, -4));
 
     // 첫번째 날짜와 마지막 날짜 계산
     const first = new Date(alternativeTimes[0]?.startTime.split("T")[0]);
@@ -170,7 +168,6 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
             initialDate={firstDate}
             events={data}
             eventClassNames={(arg) => {
-              console.log("Arg:", arg);
               return arg.event._def.extendedProps.index === clickedEventNum?.index
                 ? [styles.selectedEvent] // 선택된 대인시간만 클래스를 부여
                 : [];
