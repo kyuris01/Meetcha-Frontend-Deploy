@@ -31,6 +31,7 @@ export const fetchAlternativeMeeting = async (meetingId: string) => {
     null,
     true
   );
+  console.log(res);
   return res.data.alternativeTimes;
 };
 
