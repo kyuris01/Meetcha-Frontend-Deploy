@@ -50,7 +50,7 @@ const Participate_timetable_ctn = () => {
     error: joinError,
     fire: fireJoin, // ← 이걸 버튼에서 호출
   } = useAPIs2(
-    `/meetings/id/${meetingId}/join`,
+    `/meeting/id/${meetingId}/join`,
     "POST",
     finalPostData, // ← 최신 selectedTimes 반영됨
     true, // ← withAuth: Authorization 포함
