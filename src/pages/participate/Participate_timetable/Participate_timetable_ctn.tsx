@@ -49,7 +49,7 @@ const Participate_timetable_ctn = () => {
     navigate("/schedule");
     }else if(pagenum==="2")
     {
-      navigate("/participate")
+      navigate("/participate");
     }
   };
   //유저의 미팅정보(candidatedate)를 먼저 불러옴
