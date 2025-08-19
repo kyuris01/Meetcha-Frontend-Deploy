@@ -19,18 +19,18 @@ const MeetingCreationPage = () => {
   const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
   const [completeData, setCompleteData] = useState<MeetingSendData>();
   const navigate = useNavigate();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const createMeetingHandler = async () => {
+    if (isSubmitting) return;
     if (!completeData) {
       alert("필수 입력을 완료해주세요.");
       return;
     }
-
+    setIsSubmitting(true);
     try {
       const result = await createMeeting(completeData);
       console.log("createMeeting result 👉", result);
       console.log("result.data 👉", result?.data);
-      
 
       const status = result?.code;
       const id = result?.data?.meetingId;
@@ -43,6 +43,8 @@ const MeetingCreationPage = () => {
     } catch (e) {
       console.error(e);
       alert("서버 오류가 발생했습니다.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -58,7 +60,6 @@ const MeetingCreationPage = () => {
           className={allDataReserved ? styles.active : styles.inactive}
           label={"미팅 생성하기"}
           clickHandler={createMeetingHandler}
-        
         />
       </div>
     </div>

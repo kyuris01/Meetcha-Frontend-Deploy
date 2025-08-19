@@ -47,7 +47,6 @@ export const createMeeting = async (data) => {
       alert(res.message);
 
       return res;
-    
 
     case 400:
       const details = Object.entries(res.data)
