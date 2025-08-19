@@ -18,7 +18,12 @@ const MeetingItemCard = ({ data }: Props) => {
   const [textStyle, setTextStyle] = useState<string>();
 
   const handleClick = () => {
-    navigate("detail", { state: data.meetingCode });
+    navigate("detail", {
+      state: {
+        meetingId: data.meetingId,
+        meetingCode: data.meetingCode,
+      },
+    });
   };
 
   const cardInfoResolver = () => {

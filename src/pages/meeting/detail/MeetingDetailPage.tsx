@@ -10,7 +10,8 @@ import { toast } from "react-toastify";
 import { copyToClipboard } from "@/utils/copyToClipBoard";
 
 const MeetingDetailPage = () => {
-  const { state } = useLocation();
+  const location = useLocation();
+  const { meetingId, meetingCode } = location.state;
   const navigate = useNavigate();
   const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
 
@@ -19,7 +20,7 @@ const MeetingDetailPage = () => {
     // const url = `${API_BASE}/meeting/${state}`;
     // const text = meetingDetail ? `[${meetingDetail.title}] 미팅 링크: ${url}` : `미팅 링크: ${url}`;
 
-    const ok = await copyToClipboard(state);
+    const ok = await copyToClipboard(meetingCode);
 
     if (ok) {
       toast.success("링크를 복사했습니다");
@@ -29,12 +30,12 @@ const MeetingDetailPage = () => {
   };
 
   const onClickEdit = () => {
-    navigate(`/alternative/${state}`);
+    navigate(`/alternative/${meetingId}`);
   };
 
   useEffect(() => {
     const load = async () => {
-      const data = await fetchMeetingDetail(state);
+      const data = await fetchMeetingDetail(meetingId);
       setMeetingDetail(data);
     };
     load();
