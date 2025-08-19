@@ -1,9 +1,7 @@
 import React from "react";
-import "./MyPage.scss";
-
 
 const MyPage = () => {
-  return <div>myPage</div>;
+  return <div>MyPage</div>;
 };
 
 export default MyPage;
