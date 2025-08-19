@@ -21,7 +21,6 @@ const Participate_timetable_ctn = () => {
   const location = useLocation();
   const [params] = useSearchParams();
   const meetingId = params.get("meetingId") || "";
-  const pagenum=params.get("pagenum");
   const [nickname, setNickname] = useState("");
   const [meetingData, setMeetingData] = useState<any | null>(null);
   const [scheduleData, setScheduleData] = useState<any | null>([]);
@@ -45,12 +44,7 @@ const Participate_timetable_ctn = () => {
   }, [selectedTimes, nickname]);
 
   const backtoLink = () => {
-    if(pagenum==="1"){
     navigate("/schedule");
-    }else if(pagenum==="2")
-    {
-      navigate("/participate");
-    }
   };
   //유저의 미팅정보(candidatedate)를 먼저 불러옴
   const getUserMeetingData = async () => {
