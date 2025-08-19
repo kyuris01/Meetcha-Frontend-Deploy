@@ -69,7 +69,7 @@ const Meeting_list_content = ({ meetingLists }: Props) => {
                   >
                     {meeting.projectName ?? "프로젝트 없음"}
                   </div>
-                  <p className="meeting_date">{meeting.confirmedTime}</p>
+                  <p className="meeting_date">{meeting.confirmedTime.replace("T"," ")}</p>
                 </div>
                 <div className="meeting_main">
                   <p className="meeting_title">{meeting.title}</p>

@@ -72,7 +72,7 @@ const Memoir_write_main = ({
             type="text"
             className="in-common"
             value={role}
-            placeholder="맡은 역할: 백수"
+            placeholder="맡은 역할"
             onChange={(e) => setRole(e.target.value)}
           />
         </div>
@@ -84,7 +84,7 @@ const Memoir_write_main = ({
         <textarea
           className="in-common feel_ctn"
           value={feeling}
-          placeholder="미팅에서 만족한 부분, 문제점 그리고 시도해볼 것이 있나욥?"
+          placeholder="미팅에서 만족한 부분, 문제점 그리고 시도해볼 것이 있나요?"
           onChange={(e) => setFeeling(e.target.value)}
         ></textarea>
       </div>
@@ -94,7 +94,7 @@ const Memoir_write_main = ({
           type="text"
           className="in-common"
           value={done}
-          placeholder="이번 시간에 한 일을 작성해 주세욧"
+          placeholder="이번 시간에 한 일을 작성해 주세요"
           onChange={(e) => setDone(e.target.value)}
         />
       </div>
@@ -104,7 +104,7 @@ const Memoir_write_main = ({
           type="text"
           className="in-common"
           value={todo}
-          placeholder="다음 시간까지 할 일을 작성해주세욯"
+          placeholder="다음 시간까지 할 일을 작성해주세요"
           onChange={(e) => setTodo(e.target.value)}
         />
       </div>
