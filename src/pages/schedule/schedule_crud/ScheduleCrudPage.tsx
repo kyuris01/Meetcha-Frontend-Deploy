@@ -41,7 +41,7 @@ const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
       endAt: `${scheduleArr[5].slice(0, -1)}-${scheduleArr[6].slice(0, -1)}-${scheduleArr[7].slice(
         0,
         -4
-      )}T${scheduleArr[9].split(":")[0].padStart(2, "0")}"${scheduleArr[9].split(":")[1]}:00`,
+      )}T${scheduleArr[9].split(":")[0].padStart(2, "0")}:${scheduleArr[9].split(":")[1]}:00`,
       recurrence: repetition,
     };
     return data;
