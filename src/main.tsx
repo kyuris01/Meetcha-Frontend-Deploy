@@ -3,7 +3,7 @@ import App from "./App.tsx";
 import "./assets/styles/main.scss";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,14 +27,27 @@ createRoot(document.getElementById("root")!).render(
     <QueryClientProvider client={queryClient}>
       <App />
       <ToastContainer
+        containerId="timerClose"
         autoClose={2000}
         closeButton={false}
         draggable={false}
         hideProgressBar
-        className="custom-toast-container"
-        toastClassName="custom-toast"
+        className="toast-container-timer"
+        toastClassName="toast-timer"
         limit={1}
         icon={false}
+      />
+      <ToastContainer
+        containerId="clickClose"
+        autoClose={false}
+        closeButton={false}
+        draggable={false}
+        hideProgressBar
+        closeOnClick={false}
+        className="toast-container-click"
+        toastClassName="toast-click"
+        icon={false}
+        onClick={() => toast.dismiss({ containerId: "clickClose" })}
       />
     </QueryClientProvider>
   </GoogleOAuthProvider>

@@ -25,7 +25,7 @@ input:focus {
 // 토스트 관련 스타일
 
 /* 컨테이너: 화면 전체 오버레이 + 중앙 정렬 */
-.custom-toast-container {
+.toast-container-timer {
   position: fixed !important;
   inset: 0 !important; /* top/right/bottom/left: 0 */
   display: flex !important;
@@ -37,7 +37,7 @@ input:focus {
   transform: none !important; /* 토스트파이 기본 transform 해제 */
 }
 /* 카드 자체 */
-.custom-toast {
+.toast-timer {
   background: rgba(0, 0, 0, 0.7) !important;
   color: #fff !important;
   border-radius: 8px !important;
@@ -55,7 +55,46 @@ input:focus {
 }
 
 /* 바디 텍스트 */
-.custom-toast .Toastify__toast-body {
+.toast-timer .Toastify__toast-body {
   font-size: 16px !important;
   font-weight: 500 !important;
+}
+
+//
+
+.toast-container-click {
+  position: fixed !important;
+  inset: 0 !important; /* top/right/bottom/left: 0 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 9999 !important; /* 필요한 만큼 높여주세요 */
+  margin: 0 !important;
+  transform: none !important; /* 토스트파이 기본 transform 해제 */
+
+  background: rgba(0, 0, 0, 0);
+
+  pointer-events: auto !important;
+}
+
+/* 토스트 박스 */
+.toast-click {
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: #fff !important;
+  border-radius: 8px !important;
+  padding: 12px 20px !important;
+  text-align: center !important;
+  box-shadow: none !important;
+
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+
+  width: 80% !important; /* 화면 폭의 80% */
+  max-width: 500px !important; /* 최대폭 제한 (선택) */
+
+  /* 자기 자신은 클릭 가능해야 닫힘 이벤트가 동작함 */
+  pointer-events: auto !important;
+  // pointer-events: auto !important;
 }

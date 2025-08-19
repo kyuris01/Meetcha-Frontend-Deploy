@@ -23,9 +23,9 @@ const MeetingDetailPage = () => {
     const ok = await copyToClipboard(meetingDetail.meetingCode);
 
     if (ok) {
-      toast.success("링크를 복사했습니다");
+      toast.success("링크를 복사했습니다", { containerId: "timerClose" });
     } else {
-      toast.error("복사에 실패했어요. 직접 복사해주세요.");
+      toast.error("복사에 실패했어요. 직접 복사해주세요.", { containerId: "timerClose" });
     }
   };
 

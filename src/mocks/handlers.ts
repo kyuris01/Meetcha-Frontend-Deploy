@@ -22,7 +22,7 @@ export const handlers = [
         },
         {
           eventId: "def456uvw",
-          title: "점심 시간",
+          title: "점심 시간 밥 먹기 맛있쪙",
           startAt: "2025-08-02T12:00:00",
           endAt: "2025-08-02T13:00:00",
           recurrence: "WEEKLY", // or "매일", "매월", "NONE"
@@ -218,15 +218,15 @@ export const handlers = [
         alternativeTimes: [
           {
             startTime: "2025-07-25T14:00:00",
-            endTime: "2025-07-25T14:30:00",
+            endTime: "2025-07-25T15:30:00",
             adjustedDurationMinutes: 30,
             includedUserNames: ["김철수", "이영희"],
             excludedUserNames: ["홍길동"],
             checked: true,
           },
           {
-            startTime: "2025-07-25T15:00:00",
-            endTime: "2025-07-25T15:30:00",
+            startTime: "2025-07-25T16:00:00",
+            endTime: "2025-07-25T16:30:00",
             adjustedDurationMinutes: 30,
             includedUserNames: ["김철수"],
             excludedUserNames: ["이영희", "홍길동"],
