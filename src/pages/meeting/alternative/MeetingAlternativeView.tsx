@@ -47,6 +47,8 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
 
   useEffect(() => {
     setLoading(true);
+    console.log("at: ", alternativeTimes);
+    console.log(alternativeTimes[0]?.startTime);
 
     // 첫번째 날짜와 마지막 날짜 계산
     const first = new Date(alternativeTimes[0]?.startTime.split("T")[0]);

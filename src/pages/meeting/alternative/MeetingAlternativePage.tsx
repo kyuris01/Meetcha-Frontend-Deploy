@@ -4,11 +4,11 @@ import MeetingAlternativeView from "./MeetingAlternativeView";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchAlternativeMeeting } from "@/apis/meeting/meetingAPI";
-import type { AlternativeSchedule } from "@/apis/meeting/meetingTypes";
+import type { AlternativeMeeting } from "@/apis/meeting/meetingTypes";
 
 const MeetingAlternativePage = () => {
   const { id } = useParams();
-  const [alternativeTimes, setAlternativeTimes] = useState<AlternativeSchedule[]>([]);
+  const [alternativeTimes, setAlternativeTimes] = useState<AlternativeMeeting[]>([]);
 
   useEffect(() => {
     const load = async () => {

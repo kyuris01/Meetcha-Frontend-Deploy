@@ -217,23 +217,23 @@ export const handlers = [
       data: {
         alternativeTimes: [
           {
-            startTime: "2025-07-25T14:00:00Z",
-            endTime: "2025-07-25T14:30:00Z",
+            startTime: "2025-07-25T14:00:00",
+            endTime: "2025-07-25T14:30:00",
             adjustedDurationMinutes: 30,
             includedUserNames: ["김철수", "이영희"],
             excludedUserNames: ["홍길동"],
             checked: true,
           },
           {
-            startTime: "2025-07-25T15:00:00Z",
-            endTime: "2025-07-25T15:30:00Z",
+            startTime: "2025-07-25T15:00:00",
+            endTime: "2025-07-25T15:30:00",
             adjustedDurationMinutes: 30,
             includedUserNames: ["김철수"],
             excludedUserNames: ["이영희", "홍길동"],
             checked: false,
           },
         ],
-        userSelectedTime: "2025-07-25T14:00:00Z",
+        userSelectedTime: "2025-07-25T14:00:00",
       },
     });
   }),
