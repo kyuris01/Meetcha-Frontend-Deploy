@@ -19,6 +19,9 @@ import Participate_completed_ctn from "./pages/participate/Participate_complete/
 
 import Participate_error_ctn from "./pages/participate/Participate_error/Participate_error_ctn";
 
+import MyPage from "./pages/mypage/myPage";
+
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -32,6 +35,7 @@ const App = () => {
           <Route index path="schedule" element={<SchedulePage />} />
           <Route path="meeting" element={<MeetingPage />} />
           <Route index path="/memoir" element={<Memoir_meeting_All />}></Route>
+          <Route index path="/mypage" element={<MyPage/>}></Route>
         </Route>
 
         <Route index path="/memoir-write" element={<Memoir_write_ctn />}></Route>
