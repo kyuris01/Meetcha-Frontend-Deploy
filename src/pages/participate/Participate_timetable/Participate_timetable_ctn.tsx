@@ -21,7 +21,7 @@ const Participate_timetable_ctn = () => {
   const location = useLocation();
   const [params] = useSearchParams();
   const meetingId = params.get("meetingId") || "";
-
+  const pagenum=params.get("pagenum");
   const [nickname, setNickname] = useState("");
   const [meetingData, setMeetingData] = useState<any | null>(null);
   const [scheduleData, setScheduleData] = useState<any | null>([]);
@@ -45,7 +45,12 @@ const Participate_timetable_ctn = () => {
   }, [selectedTimes, nickname]);
 
   const backtoLink = () => {
-    navigate("/participate");
+    if(pagenum==="1"){
+    navigate("/schedule");
+    }else if(pagenum==="2")
+    {
+      navigate("/participate")
+    }
   };
   //유저의 미팅정보(candidatedate)를 먼저 불러옴
   const getUserMeetingData = async () => {
@@ -137,7 +142,7 @@ const Participate_timetable_ctn = () => {
         // 참여 성공 후 이동/알림 처리
         alert("미팅 참여 성공!");
         console.log(res);
-        navigate("/schedule");
+        navigate(`/schedule`);
         // navigate(`/meeting/${meetingId}`);
       } else if (res.code === 409) {
         alert("이미 이 미팅에 참가했습니다.");
