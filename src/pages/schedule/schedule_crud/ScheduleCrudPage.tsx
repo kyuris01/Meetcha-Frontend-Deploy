@@ -59,7 +59,7 @@ const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
 
   const sendEditReq = async () => {
     if (!allDataReserved) return;
-    await editSchedule(parseScheduleTime(scheduleTime));
+    await editSchedule({ ...parseScheduleTime(scheduleTime), eventId: data.eventId });
   };
 
   const sendDelReq = async () => {
