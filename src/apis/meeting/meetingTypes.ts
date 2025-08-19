@@ -5,7 +5,6 @@ export interface Meeting {
   durationMinutes: number | null;
   deadline: string | null;
   createdAt: string;
-  meetingCode: string;
   meetingStatus: "MATCHING" | "ONGOING" | "DONE" | "MATCH_FAILED" | "BEFORE";
   confirmedTime: string | null;
 }
@@ -16,6 +15,7 @@ export interface MeetingDetail {
   description: string;
   deadline: string;
   durationMinutes: number;
+  meetingCode: string;
   participants: Participant[];
   meetingStatus: "MATCHING" | "ONGOING" | "DONE" | "MATCH_FAILED" | "BEFORE";
   confirmedTime: string;

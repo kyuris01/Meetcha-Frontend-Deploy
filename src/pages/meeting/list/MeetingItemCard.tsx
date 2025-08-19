@@ -21,7 +21,6 @@ const MeetingItemCard = ({ data }: Props) => {
     navigate("detail", {
       state: {
         meetingId: data.meetingId,
-        meetingCode: data.meetingCode,
       },
     });
   };

@@ -11,7 +11,7 @@ import { copyToClipboard } from "@/utils/copyToClipBoard";
 
 const MeetingDetailPage = () => {
   const location = useLocation();
-  const { meetingId, meetingCode } = location.state;
+  const { meetingId } = location.state;
   const navigate = useNavigate();
   const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
 
@@ -20,7 +20,7 @@ const MeetingDetailPage = () => {
     // const url = `${API_BASE}/meeting/${state}`;
     // const text = meetingDetail ? `[${meetingDetail.title}] 미팅 링크: ${url}` : `미팅 링크: ${url}`;
 
-    const ok = await copyToClipboard(meetingCode);
+    const ok = await copyToClipboard(meetingDetail.meetingCode);
 
     if (ok) {
       toast.success("링크를 복사했습니다");
