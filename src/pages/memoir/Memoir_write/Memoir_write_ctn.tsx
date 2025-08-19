@@ -100,12 +100,16 @@ const Memoir_write_ctn = () => {
   };
 
   useEffect(() => {
-    if (postResponse?.isSuccess) {
-      // 새로고침 없이 목록 화면이 refetch 하도록 신호만 보냄
+    if (!postResponse) return;
+    const ok =
+      postResponse.success ??
+      postResponse.isSuccess ??
+      (postResponse.code === 200 || postResponse.code === 201);
+
+    if (ok) {
       navigate("/memoir", { replace: true, state: { refetchMemoirs: true } });
     }
   }, [postResponse, navigate]);
-
   if (loading) return <p>⌛ 프로젝트 목록 불러오는 중...</p>;
   if (error) return <p> 프로젝트 목록 불러오기 실패: {error}</p>;
 
