@@ -8,6 +8,7 @@ import Timetable from "./Timetable";
 import LeftChevron from "@/assets/LeftChevron.svg";
 
 import { apiCall } from "@/utils/apiCall";
+import { useAPIs2 } from "@/apis/useAPIs2";
 
 import type {
   UISlot,
@@ -42,6 +43,19 @@ const Participate_timetable_ctn = () => {
       selectedTimes: times,
     };
   }, [selectedTimes, nickname]);
+
+  const {
+    response: joinRes,
+    loading: joinLoading,
+    error: joinError,
+    fire: fireJoin, // ← 이걸 버튼에서 호출
+  } = useAPIs2(
+    `/meetings/id/${meetingId}/join`,
+    "POST",
+    finalPostData, // ← 최신 selectedTimes 반영됨
+    true, // ← withAuth: Authorization 포함
+    true // ← manual 모드 (fire 호출 시에만 실행)
+  );
 
   const backtoLink = () => {
     navigate("/participate");
@@ -112,6 +126,7 @@ const Participate_timetable_ctn = () => {
   }; //나중에 backend에 post로 보낼예정..
 
   const handleSubmit = async () => {
+    fireJoin();
     if (!meetingId) {
       alert("유효하지 않은 미팅입니다.");
       return;
@@ -121,36 +136,26 @@ const Participate_timetable_ctn = () => {
       return;
     }
     console.log(finalPostData);
-    try {
-      const res = await apiCall(
-        `/meetings/id/${meetingId}/join`,
-        "POST",
-        finalPostData,
-        true // Authorization 포함(프로젝트 util 정책 유지)
-      );
-
-      if (!res) return;
-
-      // 명세에 맞춘 응답 처리
-      if (res.code === 200 && res.success) {
-        // 참여 성공 후 이동/알림 처리
-        alert("미팅 참여 성공!");
-        console.log(res);
-        navigate("/schedule");
-        // navigate(`/meeting/${meetingId}`);
-      } else if (res.code === 409) {
-        alert("이미 이 미팅에 참가했습니다.");
-      } else if (res.code === 400) {
-        alert("미팅 참여마감시간이 지났습니다.");
-      } else if (res.code === 401) {
-        alert("로그인이 필요합니다.");
-      } else {
-        alert(res.message ?? "참여에 실패했습니다.");
-      }
-    } catch (e) {
-      alert("서버 오류가 발생했습니다.");
-    }
   };
+  useEffect(() => {
+    if (!joinRes) return;
+    if (joinRes.code === 200 && joinRes.success) {
+      alert("미팅 참여 성공!");
+      navigate("/schedule");
+    } else if (joinRes.code === 409) {
+      alert("이미 이 미팅에 참가했습니다.");
+    } else if (joinRes.code === 400) {
+      alert("미팅 참여마감시간이 지났습니다.");
+    } else if (joinRes.code === 401) {
+      alert("로그인이 필요합니다.");
+    } else {
+      alert(joinRes.message ?? "참여에 실패했습니다.");
+    }
+  }, [joinRes, navigate]);
+  useEffect(() => {
+    if (joinError) alert(`요청 실패: ${joinError}`);
+  }, [joinError]);
+
   if (!meetingData) {
     return (
       <>
