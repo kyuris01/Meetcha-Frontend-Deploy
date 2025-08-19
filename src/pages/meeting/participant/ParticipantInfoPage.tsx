@@ -9,7 +9,7 @@ interface Props {
 
 const ParticipantInfoPage = ({ participants }: Props) => {
   useEffect(() => {
-    // console.log("InfoPage:", participants);
+    console.log("InfoPage:", participants);
   }, []);
   return (
     <div className={styles.participantInfoPage}>
