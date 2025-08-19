@@ -31,8 +31,8 @@ const Participate_timetable_ctn = () => {
   const finalPostData: SubmitAvailabilityBody = useMemo(() => {
     const times = selectedTimes
       .map((t) => ({
-        startAt: dayjs(t.startISO).format("YYYY-MM-DD HH:mm:ss"),
-        endAt: dayjs(t.endISO).format("YYYY-MM-DD HH:mm:ss"),
+        startAt: dayjs(t.startISO).format("YYYY-MM-DDTHH:mm:ss"),
+        endAt: dayjs(t.endISO).format("YYYY-MM-DDTHH:mm:ss"),
       }))
       .sort((a, b) => dayjs(a.startAt).valueOf() - dayjs(b.startAt).valueOf());
 
