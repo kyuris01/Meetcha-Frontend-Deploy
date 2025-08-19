@@ -48,7 +48,7 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
   useEffect(() => {
     setLoading(true);
     console.log("at: ", alternativeTimes);
-    console.log(alternativeTimes[0]?.startTime);
+    console.log(alternativeTimes[0]?.startTime.split("T")[1].slice(0, -4));
 
     // 첫번째 날짜와 마지막 날짜 계산
     const first = new Date(alternativeTimes[0]?.startTime.split("T")[0]);
@@ -59,14 +59,14 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
     const events = alternativeTimes.map((item, index) => {
       return {
         title: `---`,
-        start: item?.startTime.slice(0, -1),
-        end: item?.endTime.slice(0, -1),
+        start: item?.startTime,
+        end: item?.endTime,
         extendedProps: {
           index: index,
           failMembers: item.excludedUserNames,
           adjustedTime: item.adjustedDurationMinutes,
-          startTime: item?.startTime.split("T")[1].slice(0, -4),
-          endTime: item?.endTime.split("T")[1].slice(0, -4),
+          startTime: item?.startTime.split("T")[1],
+          endTime: item?.endTime.split("T")[1],
           availableNum: item.includedUserNames.length,
           totalNum: item.includedUserNames.length + item.excludedUserNames.length,
           date: item?.startTime.split("T")[0],
@@ -169,13 +169,14 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
             }}
             initialDate={firstDate}
             events={data}
-            eventClassNames={(arg) =>
-              arg.event._def.extendedProps.index === clickedEventNum.index
+            eventClassNames={(arg) => {
+              console.log("Arg:", arg);
+              return arg.event._def.extendedProps.index === clickedEventNum?.index
                 ? [styles.selectedEvent] // 선택된 대인시간만 클래스를 부여
-                : []
-            }
+                : [];
+            }}
             eventContent={(arg) =>
-              arg.event._def.extendedProps.index === clickedEventNum.index ? (
+              arg.event._def.extendedProps.index === clickedEventNum?.index ? (
                 <Check className={styles.checkButton} />
               ) : (
                 <button
@@ -240,7 +241,11 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
             )}
         </div>
       )}
-      <Button label={"완료"} clickHandler={completeButtonClickHandler} />
+      <Button
+        label={"완료"}
+        clickHandler={completeButtonClickHandler}
+        className={clickedEventNum !== null ? styles.active : styles.inactive}
+      />
     </div>
   );
 };

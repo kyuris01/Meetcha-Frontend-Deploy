@@ -1,12 +1,14 @@
 .meetingAlternativeView {
   width: 100%;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 15px;
 
-  padding: 27px 16px;
+  padding: 16px;
 
   flex: 1;
   min-height: 0;
@@ -22,6 +24,8 @@
 
   &__body {
     width: 100%;
+    flex: 1 1 auto;
+    min-height: 0;
   }
 }
 
@@ -90,4 +94,9 @@
     font-style: normal;
     font-weight: 400;
   }
+}
+
+.active {
+  background-color: $color-orange-5;
+  color: white;
 }
