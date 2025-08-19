@@ -126,7 +126,7 @@ const Participate_timetable_ctn = () => {
         `/meetings/id/${meetingId}/join`,
         "POST",
         finalPostData,
-        false // Authorization 포함(프로젝트 util 정책 유지)
+        true // Authorization 포함(프로젝트 util 정책 유지)
       );
 
       if (!res) return;
