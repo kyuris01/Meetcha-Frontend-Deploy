@@ -31,7 +31,7 @@ const LoginCompleteContainer = () => {
     <div className="login_complete_container">
       <div className="flex_container1">
         <Meetcha_banner />
-        <p>회원가입이 완료되었습니다.</p>
+        <p>로그인이 완료되었습니다.</p>
       </div>
     </div>
   );
