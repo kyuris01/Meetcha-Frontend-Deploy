@@ -21,11 +21,28 @@ const MeetingCreationPage = () => {
   const navigate = useNavigate();
 
   const createMeetingHandler = async () => {
-    const result = await createMeeting(completeData);
-    console.log(result);
-    console.log(result.data.meetingId);
-    if (result.code === 201) {
-      navigate(`/timetable?meetingId=${result.data.meetingId}`);
+    if (!completeData) {
+      alert("필수 입력을 완료해주세요.");
+      return;
+    }
+
+    try {
+      const result = await createMeeting(completeData);
+      console.log("createMeeting result 👉", result);
+      console.log("result.data 👉", result?.data);
+      
+
+      const status = result?.code;
+      const id = result?.data?.meetingId;
+
+      if ((status === 201 || status === 200) && id) {
+        navigate(`/timetable?meetingId=${encodeURIComponent(id)}`);
+      } else {
+        alert(result?.message ?? "meetingId를 응답에서 찾지 못했습니다.");
+      }
+    } catch (e) {
+      console.error(e);
+      alert("서버 오류가 발생했습니다.");
     }
   };
 
@@ -41,6 +58,7 @@ const MeetingCreationPage = () => {
           className={allDataReserved ? styles.active : styles.inactive}
           label={"미팅 생성하기"}
           clickHandler={createMeetingHandler}
+        
         />
       </div>
     </div>
