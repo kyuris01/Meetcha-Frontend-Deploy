@@ -17,8 +17,6 @@ const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
   const swiperRef = useRef(null);
   const [isSwiping, setIsSwiping] = useState(false);
 
-  // console.log(schedules);
-
   const [calendarArr, setCalendarArr] = useState(() => {
     const prev = subWeeks(standardDate, 1);
     const next = addWeeks(standardDate, 1);

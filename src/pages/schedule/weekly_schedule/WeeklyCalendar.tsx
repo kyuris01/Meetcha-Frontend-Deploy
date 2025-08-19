@@ -105,7 +105,6 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           setClickedSpan(`${formattedStart} ${formattedEnd}`);
         }}
         onSelectEvent={(event) => {
-          console.log(event);
           if (blockInteraction) return;
           setMode(false);
           setTimeout(() => setCreationOpen(true), 0);

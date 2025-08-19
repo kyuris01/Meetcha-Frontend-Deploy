@@ -16,7 +16,7 @@ const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
   const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
   const [scheduleTitle, setScheduleTitle] = useState<string>("");
   const [scheduleTime, setScheduleTime] = useState<string>();
-  const [repetition, setRepetition] = useState<string>();
+  const [recurrence, setRecurrence] = useState<string>("NONE");
 
   useEffect(() => {
     if (!createMode && data) {
@@ -24,8 +24,9 @@ const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
       setScheduleTime(
         `${scheduleStringFormatter(data?.startAt)} ${scheduleStringFormatter(data?.endAt)}`
       );
+      setRecurrence(data?.recurrence);
     }
-  }, []);
+  }, [data]);
 
   const parseScheduleTime = (scheduleTime) => {
     // 서버 요구 형식에 맞게 데이터 파싱
@@ -42,28 +43,30 @@ const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
         0,
         -4
       )}T${scheduleArr[9].split(":")[0].padStart(2, "0")}:${scheduleArr[9].split(":")[1]}:00`,
-      recurrence: repetition,
+      recurrence: recurrence,
     };
     return data;
   };
 
   useEffect(() => {
     if (scheduleTitle && scheduleTime) setAllDataReserved(true);
-  }, [scheduleTitle, scheduleTime, repetition]);
+  }, [scheduleTitle, scheduleTime, recurrence]);
 
   const sendCreationReq = async () => {
     if (!allDataReserved) return;
-
     await createSchedule(parseScheduleTime(scheduleTime));
+    window.location.reload();
   };
 
   const sendEditReq = async () => {
     if (!allDataReserved) return;
     await editSchedule({ ...parseScheduleTime(scheduleTime), eventId: data.eventId });
+    window.location.reload();
   };
 
   const sendDelReq = async () => {
     await deleteSchedule(data.eventId);
+    window.location.reload();
   };
 
   return (
@@ -72,10 +75,10 @@ const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
         clickedSpan={clickedSpan}
         scheduleTitle={scheduleTitle}
         scheduleTime={scheduleTime}
-        repetition={repetition}
+        recurrence={recurrence}
         setScheduleTitle={setScheduleTitle}
         setScheduleTime={setScheduleTime}
-        setRepetition={setRepetition}
+        setRecurrence={setRecurrence}
       />
       <div className={styles.scheduleCrudPage__buttonContainer}>
         {!createMode && (

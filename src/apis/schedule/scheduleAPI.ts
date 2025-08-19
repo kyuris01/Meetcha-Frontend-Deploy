@@ -1,3 +1,4 @@
+import { queryClient } from "@/main";
 import { apiCall } from "../apiCall";
 import type { ApiResponse } from "../common/types";
 import type { Schedule } from "./scheduleTypes";
@@ -16,6 +17,7 @@ export const fetchSchedules = async (year: string, month: string) => {
     null,
     true
   );
+
   return res.data;
 };
 
@@ -26,7 +28,6 @@ export const createSchedule = async (data) => {
 };
 
 export const editSchedule = async (data) => {
-  console.log(data);
   const res: ApiResponse<null> = await apiCall(`/user/schedule/update`, "PUT", data, true);
   alert(res.message);
   return res;

@@ -11,20 +11,20 @@ interface Props {
   clickedSpan: string;
   scheduleTitle: string;
   scheduleTime: string;
-  repetition: string;
+  recurrence: string;
   setScheduleTitle: React.Dispatch<React.SetStateAction<string>>;
   setScheduleTime: React.Dispatch<React.SetStateAction<string>>;
-  setRepetition: React.Dispatch<React.SetStateAction<string>>;
+  setRecurrence: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ScheduleCrudView = ({
   clickedSpan,
   scheduleTitle,
   scheduleTime,
-  repetition,
+  recurrence,
   setScheduleTitle,
   setScheduleTime,
-  setRepetition,
+  setRecurrence,
 }: Props) => {
   const cardDataSet = [
     {
@@ -47,17 +47,13 @@ const ScheduleCrudView = ({
       expandedComponent: null,
       basicComponent: ScheduleRepetitionRow,
       basicProps: {
-        data: repetition,
-        dataSetter: setRepetition,
+        data: recurrence,
+        dataSetter: setRecurrence,
       },
-      data: repetition,
-      dataSetter: setRepetition,
+      data: recurrence,
+      dataSetter: setRecurrence,
     },
   ];
-
-  useEffect(() => {
-    console.log(scheduleTitle);
-  }, [scheduleTitle]);
 
   return (
     <div className={styles.scheduleCrudView}>
