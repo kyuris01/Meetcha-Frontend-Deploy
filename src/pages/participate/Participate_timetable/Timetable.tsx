@@ -33,12 +33,18 @@ const Timetable = ({
   scheduleData,
   previousAvailTime,
 }) => {
+  const keyOf = (sISO: string, eISO: string) =>
+    `${dayjs(sISO).second(0).millisecond(0).valueOf()}|${dayjs(eISO)
+      .second(0)
+      .millisecond(0)
+      .valueOf()}`;
+
   useEffect(() => {
     if (!Array.isArray(previousAvailTime) || previousAvailTime.length === 0)
       return;
 
     setSelectedTimes((prev) => {
-      const exists = new Set(prev.map((s) => `${s.startAt}|${s.endAt}`));
+      const exists = new Set(prev.map((s) => keyOf(s.startAt, s.endAt)));
       const merged = [...prev];
       let changed = false;
 
@@ -48,7 +54,8 @@ const Timetable = ({
           .millisecond(0)
           .toISOString();
         const end = dayjs(slot.endAt).second(0).millisecond(0).toISOString();
-        const key = `${start}|${end}`;
+        const key = keyOf(start, end);
+
         if (!exists.has(key)) {
           merged.push({ startAt: start, endAt: end });
           exists.add(key);
@@ -79,34 +86,16 @@ const Timetable = ({
   const rangeEnd = validDates.at(-1)?.endOf("day").format("YYYY-MM-DD");
   //드래그 선택된 시간들
 
-  const handleSelect = (info) => {
-    const start = dayjs(info.start).second(0).millisecond(0); //  수정됨: 초, 밀리초 제거
-    const end = dayjs(info.end).second(0).millisecond(0);
+  const handleSelect = (info: any) => {
+    const sISO = dayjs(info.start).second(0).millisecond(0).toISOString();
+    const eISO = dayjs(info.end).second(0).millisecond(0).toISOString();
+    const k = keyOf(sISO, eISO);
 
-    const newSelection = {
-      startAt: start.toISOString(),
-      endAt: end.toISOString(),
-    };
-
-    const isAlreadySelected = selectedTimes.some(
-      (sel) =>
-        sel.startAt === newSelection.startAt && sel.endAt === newSelection.endAt
-    );
-
-    if (isAlreadySelected) {
-      // 수정됨: 이미 선택된 시간인 경우 → 제거
-      setSelectedTimes((prev) =>
-        prev.filter(
-          (sel) =>
-            !(
-              sel.startAt === newSelection.startAt &&
-              sel.endAt === newSelection.endAt
-            )
-        )
-      );
+    const exists = selectedTimes.some((t) => keyOf(t.startAt, t.endAt) === k);
+    if (exists) {
+      setSelectedTimes((prev) => prev.filter((t) => keyOf(t.startAt, t.endAt) !== k));
     } else {
-      // 수정됨: 새로운 시간 선택 → 추가
-      setSelectedTimes((prev) => [...prev, newSelection]);
+      setSelectedTimes((prev) => [...prev, { startAt: sISO, endAt: eISO }]);
     }
   };
 

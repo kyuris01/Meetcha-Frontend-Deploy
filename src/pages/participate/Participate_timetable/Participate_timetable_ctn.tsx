@@ -219,7 +219,14 @@ const Participate_timetable_ctn = () => {
             </div>
           </div>
 
-          <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임*" />
+
+          <input
+            type="text"
+            value={nickname}
+            onChange={handleSetNickname}
+            placeholder="닉네임"
+          />
+
         </div>
 
         <div className="timetable">
