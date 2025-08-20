@@ -18,7 +18,7 @@ export const scheduleStringFormatter = (input) => {
 
 export const incompletedMeetingDateFormatter = (input) => {
   const formattedDate = format(input, "MM월 dd일(EEE)", { locale: ko });
-  const formattedTime = format(input, "hh:mm");
+  const formattedTime = format(input, "hh:mm a");
   return `${formattedDate} ${formattedTime}`;
 };
 

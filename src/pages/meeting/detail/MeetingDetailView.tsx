@@ -6,13 +6,19 @@ import People from "@assets/people-hollow.svg?react";
 import MeetingStateCard from "./MeetingStateCard";
 import MeetingInfoCard from "./MeetingInfoCard";
 import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
+import { scheduleStringFormatter } from "@/utils/dateFormatter";
 
 const MeetingDetailView = ({ data }: { data: MeetingDetail }) => {
   const dataArray = [
     {
       label: "미팅 시간",
       icon: <Calendar className={styles.icon} />,
-      data: data?.meetingStatus === "MATCH_FAILED" ? "실패" : data?.confirmedTime,
+      data:
+        data?.meetingStatus === "MATCH_FAILED"
+          ? "실패"
+          : data?.confirmedTime
+          ? scheduleStringFormatter(data?.confirmedTime)
+          : data?.confirmedTime,
     },
     {
       label: "진행 시간",
