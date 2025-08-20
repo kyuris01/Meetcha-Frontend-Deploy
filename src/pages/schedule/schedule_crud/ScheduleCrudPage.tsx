@@ -28,6 +28,13 @@ const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (createMode) {
+      setScheduleTitle("");
+      setRecurrence("NONE");
+    }
+  }, []);
+
   const parseScheduleTime = (scheduleTime) => {
     // 서버 요구 형식에 맞게 데이터 파싱
     const scheduleArr = scheduleTime.split(" ");

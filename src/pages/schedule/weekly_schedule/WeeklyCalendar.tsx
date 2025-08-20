@@ -25,17 +25,24 @@ const formats = {
 };
 
 const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
-  const [creationOpen, setCreationOpen] = useState<boolean>(false);
+  const [crudOpen, setCrudOpen] = useState<boolean>(false);
   const [clickedSpan, setClickedSpan] = useState<string>();
   const [clickedSchedule, setClickedSchedule] = useState<Schedule>();
   const [mode, setMode] = useState<boolean>(true); // 생성모드 or 수정모드
 
   const portal = ReactDOM.createPortal(
     <AnimatePresence>
-      {creationOpen && (
+      {crudOpen && (
         <>
           {/* 1) 백드롭: 클릭 시 닫기 */}
-          <motion.div key="backdrop" className="backdrop" onClick={() => setCreationOpen(false)} />
+          <motion.div
+            key="backdrop"
+            className="backdrop"
+            onClick={() => {
+              setCrudOpen(false);
+              setClickedSchedule(null);
+            }}
+          />
 
           {/* 2) 슬라이드업 패널: 클릭 이벤트 전파 차단 */}
           <motion.div
@@ -53,7 +60,8 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
             dragMomentum={false}
             onDragEnd={(_, info) => {
               if (info.offset.y > window.innerHeight * 0.2) {
-                setCreationOpen(false);
+                setCrudOpen(false);
+                setClickedSchedule(null);
               }
             }}
           >
@@ -97,7 +105,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         onSelecting={() => !blockInteraction}
         onSelectSlot={(slotInfo) => {
           if (blockInteraction) return;
-          setTimeout(() => setCreationOpen(true), 0);
+          setTimeout(() => setCrudOpen(true), 0);
           // console.log("빈 영역 클릭됨:", slotInfo);
           const formattedStart = scheduleStringFormatter(slotInfo.start);
           const formattedEnd = scheduleStringFormatter(slotInfo.end);
@@ -107,7 +115,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         onSelectEvent={(event) => {
           if (blockInteraction) return;
           setMode(false);
-          setTimeout(() => setCreationOpen(true), 0);
+          setTimeout(() => setCrudOpen(true), 0);
           setClickedSchedule({
             title: event.title,
             startAt: event.start,
