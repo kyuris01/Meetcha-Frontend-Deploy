@@ -31,7 +31,9 @@ const MeetingDetailPage = () => {
   };
 
   const onClickEditParticipate = () => {
-    navigate(`/timetable?meetingId=${meetingDetail?.meetingId}&edit=true`);
+
+    navigate(`/timetable?meetingId=${meetingDetail?.meetingId}&pagenum=3`);
+
   };
 
   useEffect(() => {

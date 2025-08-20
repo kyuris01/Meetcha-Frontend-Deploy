@@ -10,36 +10,28 @@ import { apiCall } from "@/utils/apiCall";
 import type {
   UISlot,
   SubmitAvailabilityBody,
-  ParticipateObject,
 } from "@/apis/participate/participateTypes";
-import { fetchCurrentParticipate } from "@/apis/participate/participateAPI";
 
 const Participate_timetable_ctn = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const meetingId = params.get("meetingId") || "";
-  const isEdit = Boolean(params.get("edit")); // 참여시간 수정을 위한 렌더링인지 여부
+  const pageNum = params.get("pagenum");
   const [nickname, setNickname] = useState("");
   const [meetingData, setMeetingData] = useState<any | null>(null);
   const [scheduleData, setScheduleData] = useState<any | null>([]);
+  const [previousAvailTime, setPreviousAvailTime] = useState<any | null>([]);
 
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
-  const [selectedTimes, setSelectedTimes] = useState<ParticipateObject[]>([]); //  수정됨: 선택된 시간 저장용 state
-
-  useEffect(() => {
-    const load = async () => {
-      const data = await fetchCurrentParticipate(meetingId);
-      setSelectedTimes(data);
-    };
-    if (isEdit) {
-      load();
-    }
-  }, []);
+  const [selectedTimes, setSelectedTimes] = useState<UISlot[]>([]); //  수정됨: 선택된 시간 저장용 state
 
   const finalPostData: SubmitAvailabilityBody = useMemo(() => {
-    const times = selectedTimes.sort(
-      (a, b) => dayjs(a.startAt).valueOf() - dayjs(b.startAt).valueOf()
-    );
+    const times = selectedTimes
+      .map((t) => ({
+        startAt: dayjs(t.startISO).format("YYYY-MM-DDTHH:mm:ss"),
+        endAt: dayjs(t.endISO).format("YYYY-MM-DDTHH:mm:ss"),
+      }))
+      .sort((a, b) => dayjs(a.startAt).valueOf() - dayjs(b.startAt).valueOf());
 
     const nick = nickname.trim();
     return {
@@ -103,9 +95,36 @@ const Participate_timetable_ctn = () => {
     }
   };
 
+  const getPreviousAvailTime = async () => {
+    if (!meetingId) return;
+    try {
+      const res = await apiCall(
+        `/meeting/${meetingId}/available-times`,
+        "GET",
+        null,
+        true
+      );
+
+      if (!res) return;
+      if (res.code === 404) {
+        alert("해당 미팅에 대한 참가 가능 시간을 찾을 수 없습니다.");
+      } else if (res.code === 401) {
+        alert("인증이 필요합니다");
+      } else if (res.code == 200) {
+        console.log(res);
+        setPreviousAvailTime(res.data);
+      }
+    } catch (e) {
+      alert("서버 오류");
+    }
+  };
+
   useEffect(() => {
     getUserMeetingData();
-  }, [meetingId]);
+    if (pageNum === "3") {
+      getPreviousAvailTime();
+    }
+  }, [meetingId, pageNum]); // ← pageNum도 의존성에 추가
 
   useEffect(() => {
     if (!meetingData) return;
@@ -185,7 +204,6 @@ const Participate_timetable_ctn = () => {
     );
   }
 
-
   // meetingData가 확보된 뒤에만 본문 렌더
   return (
     <>
@@ -204,7 +222,12 @@ const Participate_timetable_ctn = () => {
             </div>
           </div>
 
-          <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임*" />
+          <input
+            type="text"
+            value={nickname}
+            onChange={handleSetNickname}
+            placeholder="닉네임*"
+          />
         </div>
 
         <div className="timetable">
@@ -216,6 +239,7 @@ const Participate_timetable_ctn = () => {
               candidateDates={meetingData?.candidateDates ?? []}
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
+              previousAvailTime={previousAvailTime}
               scheduleData={scheduleData /* []로 보장됨 */}
             />
           </div>

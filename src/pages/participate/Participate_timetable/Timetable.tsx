@@ -22,14 +22,20 @@ interface Props {
   scheduleData: BusyInterval[];
 }
 
-const Timetable = ({ candidateDates, selectedTimes, setSelectedTimes, scheduleData }: Props) => {
+
+const Timetable = ({
+  candidateDates,
+  selectedTimes,
+  setSelectedTimes,
+  scheduleData,
+  previousAvailTime
+}) => {
+  
   console.log(candidateDates);
   const sortedDates: string[] = [...(candidateDates ?? [])].sort();
   console.log(sortedDates);
+  console.log(previousAvailTime);
 
-  useEffect(() => {
-    console.log("st:", selectedTimes);
-  }, [selectedTimes]);
 
   if (sortedDates.length === 0) return <p>표시할 날짜가 없습니다.</p>;
   const validDates: Dayjs[] = sortedDates.map((dateStr) => dayjs(dateStr));

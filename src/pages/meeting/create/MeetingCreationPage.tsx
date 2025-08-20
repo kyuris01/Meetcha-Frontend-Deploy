@@ -39,7 +39,7 @@ const MeetingCreationPage = () => {
       const id = result?.data?.meetingId;
 
       if ((status === 201 || status === 200) && id) {
-        navigate(`/timetable?meetingId=${encodeURIComponent(id)}`);
+        navigate(`/timetable?meetingId=${encodeURIComponent(id)}&pagenum=1`);
       } else {
         alert(result?.message ?? "meetingId를 응답에서 찾지 못했습니다.");
       }
