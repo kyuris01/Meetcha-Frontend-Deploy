@@ -53,7 +53,6 @@ const MyPage = () => {
           />
         </div>
         <div className="nickname_ctn">
-          <p className="nickname_text">닉네임</p>
           <p className="nickname">{userData.nickname}</p>
         </div>
       </div>
