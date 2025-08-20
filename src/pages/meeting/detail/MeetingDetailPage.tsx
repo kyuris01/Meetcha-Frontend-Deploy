@@ -13,7 +13,9 @@ const MeetingDetailPage = () => {
   const location = useLocation();
   const { meetingId } = location.state;
   const navigate = useNavigate();
-  const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
+  const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(
+    null
+  );
 
   const onClickShare = async () => {
     const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -33,6 +35,9 @@ const MeetingDetailPage = () => {
     navigate(`/alternative/${meetingId}`);
   };
 
+  const onClickEditParticipate = () => {
+    navigate(`/timetable?meetingId=${meetingDetail?.meetingId}`);
+  };
   useEffect(() => {
     const load = async () => {
       const data = await fetchMeetingDetail(meetingId);
@@ -50,19 +55,35 @@ const MeetingDetailPage = () => {
         </div>
         <div className={styles.meetingDetailPage__contents__button}>
           {meetingDetail?.meetingStatus === "MATCHING" && (
-            <Button
-              label={"링크 공유하기"}
-              className={styles.shareButton}
-              clickHandler={onClickShare}
-            />
+            <>
+              <Button
+                label={"링크 공유하기"}
+                className={styles.shareButton}
+                clickHandler={onClickShare}
+              />
+              <Button
+                label={"나의 미팅 시간 수정하기"}
+                className={styles.editButton}
+                clickHandler={onClickEditParticipate}
+              />
+            </>
           )}
-          {meetingDetail?.meetingStatus !== "BEFORE" && (
+          {meetingDetail?.meetingStatus === "MATCH_FAILED" && (
             <Button
-              label={"나의 미팅 시간 수정하기"}
+              label={"대안시간 투표하기 버튼"}
               className={styles.editButton}
               clickHandler={onClickEdit}
             />
           )}
+          {meetingDetail?.meetingStatus !== "MATCHING" &&
+            meetingDetail?.meetingStatus !== "MATCH_FAILED" &&
+            meetingDetail?.meetingStatus !== "BEFORE" && (
+              <Button
+                label={"대안시간 투표하기 버튼"}
+                className={styles.editButton}
+                clickHandler={onClickEdit}
+              />
+            )}
         </div>
       </div>
     </div>
