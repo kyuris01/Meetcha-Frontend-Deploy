@@ -5,7 +5,6 @@ import Botton_banner_button from "../common/Botton_banner_button";
 
 import "./Participate_completed_ctn.scss";
 import LeftChevron from "@/assets/LeftChevron.svg";
-
 import completed from "@assets/meeting_complete.svg";
 import { useNavigate } from "react-router-dom";
 const Participate_completed_ctn = () => {
