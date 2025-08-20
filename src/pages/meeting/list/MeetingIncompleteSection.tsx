@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./MeetingIncompleteSection.module.scss";
 import MeetingItemCard from "./MeetingItemCard";
 import type { Meeting } from "@/apis/meeting/meetingTypes";
+import { isBefore } from "date-fns";
 
 const MeetingIncompleteSection = ({ meetingList }: { meetingList: Meeting[] }) => {
   const [incompleteMeetings, setIncompleteMeetings] = useState<Meeting[]>([]);
@@ -10,9 +11,9 @@ const MeetingIncompleteSection = ({ meetingList }: { meetingList: Meeting[] }) =
     setIncompleteMeetings(
       meetingList
         .filter((item: Meeting) => {
-          return item.meetingStatus === "MATCHING" || item.meetingStatus === "MATCH_FAILED";
+          return item.meetingStatus === "MATCHING";
         })
-        .sort((a, b) => a.meetingStatus.localeCompare(b.meetingStatus))
+        .sort((a, b) => (isBefore(a.deadline, b.deadline) ? 1 : -1))
     );
   }, [meetingList]);
 

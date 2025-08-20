@@ -6,6 +6,7 @@ import {
   incompletedMeetingDateFormatter,
 } from "@/utils/dateFormatter";
 import type { Meeting } from "@/apis/meeting/meetingTypes";
+import { isBefore } from "date-fns";
 
 interface Props {
   data: Meeting;
@@ -26,22 +27,21 @@ const MeetingItemCard = ({ data }: Props) => {
   };
 
   const cardInfoResolver = () => {
-    switch (data.meetingStatus) {
-      case "MATCH_FAILED":
-        setMeetingDetail("매칭 실패");
-        setCardStyle(styles.fail);
-        setTextStyle(styles.failText);
-        break;
-      case "DONE":
-        setMeetingDetail(
-          `${completedMeetingDateFormatter(data.confirmedTime, data.durationMinutes)}`
-        );
-        setCardStyle(styles.success);
-        break;
-      case "MATCHING":
+    if (data.meetingStatus === "MATCHING") {
+      if (isBefore(new Date(), data.deadline)) {
         setMeetingDetail(`${incompletedMeetingDateFormatter(data.deadline)} 종료`);
         setCardStyle(styles.incomplete);
         setTextStyle(styles.incompleteText);
+      } else if (isBefore(data.deadline, new Date())) {
+        setMeetingDetail("매칭 실패");
+        setCardStyle(styles.fail);
+        setTextStyle(styles.failText);
+      }
+    } else {
+      setMeetingDetail(
+        `${completedMeetingDateFormatter(data.confirmedTime, data.durationMinutes)}`
+      );
+      setCardStyle(styles.success);
     }
   };
 

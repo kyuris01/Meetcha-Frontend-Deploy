@@ -22,12 +22,7 @@ interface Props {
   scheduleData: BusyInterval[];
 }
 
-const Timetable = ({
-  candidateDates,
-  selectedTimes,
-  setSelectedTimes,
-  scheduleData,
-}) => {
+const Timetable = ({ candidateDates, selectedTimes, setSelectedTimes, scheduleData }) => {
   console.log(candidateDates);
   const sortedDates: string[] = [...(candidateDates ?? [])].sort();
   console.log(sortedDates);
@@ -40,9 +35,7 @@ const Timetable = ({
   const daysSpan = end!.diff(start!, "day") + 1; // 표시할 연속 일수
 
   const allowedDows: Set<number> = new Set(validDates.map((d) => d.day())); // 0=일 ... 6=토
-  const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter(
-    (dow: number) => !allowedDows.has(dow)
-  );
+  const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter((dow: number) => !allowedDows.has(dow));
 
   const rangeStart = validDates[0]?.startOf("day").format("YYYY-MM-DD");
   const rangeEnd = validDates.at(-1)?.endOf("day").format("YYYY-MM-DD");
@@ -53,25 +46,19 @@ const Timetable = ({
     const end = dayjs(info.end).second(0).millisecond(0);
 
     const newSelection = {
-      startISO: start.toISOString(),
-      endISO: end.toISOString(),
+      startAt: start.toISOString(),
+      endAt: end.toISOString(),
     };
 
     const isAlreadySelected = selectedTimes.some(
-      (sel) =>
-        sel.startISO === newSelection.startISO &&
-        sel.endISO === newSelection.endISO
+      (sel) => sel.startAt === newSelection.startAt && sel.endAt === newSelection.endAt
     );
 
     if (isAlreadySelected) {
       // 수정됨: 이미 선택된 시간인 경우 → 제거
       setSelectedTimes((prev) =>
         prev.filter(
-          (sel) =>
-            !(
-              sel.startISO === newSelection.startISO &&
-              sel.endISO === newSelection.endISO
-            )
+          (sel) => !(sel.startAt === newSelection.startAt && sel.endAt === newSelection.endAt)
         )
       );
     } else {
@@ -89,8 +76,8 @@ const Timetable = ({
   }));
 
   const selectedEvents = selectedTimes.map((time) => ({
-    start: time.startISO,
-    end: time.endISO,
+    start: time.startAt,
+    end: time.endAt,
     display: "background",
     backgroundColor: "#FF6200",
     classNames: ["selected-block"],

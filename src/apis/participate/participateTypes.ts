@@ -27,3 +27,12 @@ export interface MeetingData {
 //   title: string; // "티켓팅"
 //   description: string;
 // }
+
+export interface ParticipateResponse {
+  selectedTimes: ParticipateObject[];
+}
+
+export interface ParticipateObject {
+  startAt: string;
+  endAt: string;
+}

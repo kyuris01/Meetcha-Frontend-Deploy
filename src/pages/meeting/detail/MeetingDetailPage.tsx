@@ -8,20 +8,15 @@ import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
 import { fetchMeetingDetail } from "@/apis/meeting/meetingAPI";
 import { toast } from "react-toastify";
 import { copyToClipboard } from "@/utils/copyToClipBoard";
+import { isBefore } from "date-fns";
 
 const MeetingDetailPage = () => {
   const location = useLocation();
   const { meetingId } = location.state;
   const navigate = useNavigate();
-  const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(
-    null
-  );
+  const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
 
   const onClickShare = async () => {
-    const API_BASE = import.meta.env.VITE_API_BASE_URL;
-    // const url = `${API_BASE}/meeting/${state}`;
-    // const text = meetingDetail ? `[${meetingDetail.title}] 미팅 링크: ${url}` : `미팅 링크: ${url}`;
-
     const ok = await copyToClipboard(meetingDetail.meetingCode);
 
     if (ok) {
@@ -31,13 +26,14 @@ const MeetingDetailPage = () => {
     }
   };
 
-  const onClickEdit = () => {
+  const onClickAlternative = () => {
     navigate(`/alternative/${meetingId}`);
   };
 
   const onClickEditParticipate = () => {
-    navigate(`/timetable?meetingId=${meetingDetail?.meetingId}`);
+    navigate(`/timetable?meetingId=${meetingDetail?.meetingId}&edit=true`);
   };
+
   useEffect(() => {
     const load = async () => {
       const data = await fetchMeetingDetail(meetingId);
@@ -54,34 +50,28 @@ const MeetingDetailPage = () => {
           {meetingDetail && <MeetingDetailView data={meetingDetail} />}
         </div>
         <div className={styles.meetingDetailPage__contents__button}>
-          {meetingDetail?.meetingStatus === "MATCHING" && (
-            <>
-              <Button
-                label={"링크 공유하기"}
-                className={styles.shareButton}
-                clickHandler={onClickShare}
-              />
-              <Button
-                label={"나의 미팅 시간 수정하기"}
-                className={styles.editButton}
-                clickHandler={onClickEditParticipate}
-              />
-            </>
-          )}
-          {meetingDetail?.meetingStatus === "MATCH_FAILED" && (
-            <Button
-              label={"대안시간 투표하기"}
-              className={styles.editButton}
-              clickHandler={onClickEdit}
-            />
-          )}
-          {meetingDetail?.meetingStatus !== "MATCHING" &&
-            meetingDetail?.meetingStatus !== "MATCH_FAILED" &&
-            meetingDetail?.meetingStatus !== "BEFORE" && (
+          {meetingDetail?.meetingStatus === "MATCHING" &&
+            isBefore(Date.now(), meetingDetail?.deadline) && (
+              <>
+                <Button
+                  label={"링크 공유하기"}
+                  className={styles.shareButton}
+                  clickHandler={onClickShare}
+                />
+                <Button
+                  label={"나의 미팅 시간 수정하기"}
+                  className={styles.editButton}
+                  clickHandler={onClickEditParticipate}
+                />
+              </>
+            )}
+          {meetingDetail?.meetingStatus === "MATCHING" &&
+            isBefore(meetingDetail?.deadline, Date.now()) && (
+
               <Button
                 label={"대안시간 투표하기"}
                 className={styles.editButton}
-                clickHandler={onClickEdit}
+                clickHandler={onClickAlternative}
               />
             )}
         </div>

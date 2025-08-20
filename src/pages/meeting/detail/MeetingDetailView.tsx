@@ -7,18 +7,18 @@ import MeetingStateCard from "./MeetingStateCard";
 import MeetingInfoCard from "./MeetingInfoCard";
 import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
+import { isAfter } from "date-fns/isAfter";
 
 const MeetingDetailView = ({ data }: { data: MeetingDetail }) => {
   const dataArray = [
     {
       label: "미팅 시간",
       icon: <Calendar className={styles.icon} />,
-      data:
-        data?.meetingStatus === "MATCH_FAILED"
-          ? "실패"
-          : data?.confirmedTime
-          ? scheduleStringFormatter(data?.confirmedTime)
-          : data?.confirmedTime,
+      data: isAfter(new Date(), data?.deadline)
+        ? "실패"
+        : data?.confirmedTime
+        ? scheduleStringFormatter(data?.confirmedTime)
+        : data?.confirmedTime,
     },
     {
       label: "진행 시간",
@@ -30,7 +30,7 @@ const MeetingDetailView = ({ data }: { data: MeetingDetail }) => {
   return (
     <div className={styles.meetingDetailView}>
       <div className={styles.meetingDetailView__infoContainer1}>
-        <MeetingStateCard meeting_status={data.meetingStatus} />
+        <MeetingStateCard data={data} />
         <MeetingInfoCard title={data.title} desc={data.description} />
       </div>
       <div className={styles.meetingDetailView__infoContainer2}>

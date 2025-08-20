@@ -1,40 +1,45 @@
-import React, { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo } from "react";
 import "./Participate_timetabe.scss";
 import dayjs from "dayjs";
 import { useNavigate, useLocation, useSearchParams } from "react-router-dom";
-import Top_banner from "../common/Top_banner";
-import Botton_banner_button from "../common/Botton_banner_button";
 import Timetable from "./Timetable";
 import LeftChevron from "@/assets/LeftChevron.svg";
 
 import { apiCall } from "@/utils/apiCall";
-import { useAPIs2 } from "@/apis/useAPIs2";
 
 import type {
   UISlot,
   SubmitAvailabilityBody,
+  ParticipateObject,
 } from "@/apis/participate/participateTypes";
+import { fetchCurrentParticipate } from "@/apis/participate/participateAPI";
 
 const Participate_timetable_ctn = () => {
   const navigate = useNavigate();
-
-  const location = useLocation();
   const [params] = useSearchParams();
   const meetingId = params.get("meetingId") || "";
+  const isEdit = params.get("edit"); // 참여시간 수정을 위한 렌더링인지 여부
   const [nickname, setNickname] = useState("");
   const [meetingData, setMeetingData] = useState<any | null>(null);
   const [scheduleData, setScheduleData] = useState<any | null>([]);
 
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
-  const [selectedTimes, setSelectedTimes] = useState<UISlot[]>([]); //  수정됨: 선택된 시간 저장용 state
+  const [selectedTimes, setSelectedTimes] = useState<ParticipateObject[]>([]); //  수정됨: 선택된 시간 저장용 state
+
+  useEffect(() => {
+    const load = async () => {
+      const data = await fetchCurrentParticipate(meetingId);
+      setSelectedTimes(data);
+    };
+    if (isEdit) {
+      load();
+    }
+  }, []);
 
   const finalPostData: SubmitAvailabilityBody = useMemo(() => {
-    const times = selectedTimes
-      .map((t) => ({
-        startAt: dayjs(t.startISO).format("YYYY-MM-DDTHH:mm:ss"),
-        endAt: dayjs(t.endISO).format("YYYY-MM-DDTHH:mm:ss"),
-      }))
-      .sort((a, b) => dayjs(a.startAt).valueOf() - dayjs(b.startAt).valueOf());
+    const times = selectedTimes.sort(
+      (a, b) => dayjs(a.startAt).valueOf() - dayjs(b.startAt).valueOf()
+    );
 
     const nick = nickname.trim();
     return {
@@ -65,7 +70,8 @@ const Participate_timetable_ctn = () => {
       alert("서버 오류");
     }
   };
-  //유저의 일저 데이터를 불러오는 api연동
+
+  //유저의 일정 데이터를 불러오는 api연동
   const getUserScheduleData = async () => {
     if (!meetingData) return;
 
@@ -197,12 +203,7 @@ const Participate_timetable_ctn = () => {
             </div>
           </div>
 
-          <input
-            type="text"
-            value={nickname}
-            onChange={handleSetNickname}
-            placeholder="닉네임*"
-          />
+          <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임*" />
         </div>
 
         <div className="timetable">
