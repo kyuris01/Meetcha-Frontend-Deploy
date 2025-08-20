@@ -40,6 +40,7 @@ const MyPage = () => {
 
   return (
     <div className="myPage_ctn">
+      <p className="myPage_text">마이 페이지</p>
       <div className="myPage_nickname">
         <div className="img_ctn">
           <img
