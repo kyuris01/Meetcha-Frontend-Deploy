@@ -6,7 +6,10 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import "./Participate_timetabe.scss";
 import type { Dayjs } from "dayjs";
-import type { ParticipateObject, UISlot } from "@/apis/participate/participateTypes";
+import type {
+  ParticipateObject,
+  UISlot,
+} from "@/apis/participate/participateTypes";
 
 dayjs.locale("ko");
 
@@ -20,22 +23,45 @@ interface Props {
   selectedTimes: ParticipateObject[];
   setSelectedTimes: React.Dispatch<React.SetStateAction<ParticipateObject[]>>;
   scheduleData: BusyInterval[];
+  previousAvailTime?: { startAt: string; endAt: string }[];
 }
-
 
 const Timetable = ({
   candidateDates,
   selectedTimes,
   setSelectedTimes,
   scheduleData,
-  previousAvailTime
+  previousAvailTime,
 }) => {
-  
+  useEffect(() => {
+    if (!Array.isArray(previousAvailTime) || previousAvailTime.length === 0)
+      return;
+
+    setSelectedTimes((prev) => {
+      const exists = new Set(prev.map((s) => `${s.startAt}|${s.endAt}`));
+      const merged = [...prev];
+      let changed = false;
+
+      for (const slot of previousAvailTime) {
+        const start = dayjs(slot.startAt)
+          .second(0)
+          .millisecond(0)
+          .toISOString();
+        const end = dayjs(slot.endAt).second(0).millisecond(0).toISOString();
+        const key = `${start}|${end}`;
+        if (!exists.has(key)) {
+          merged.push({ startAt: start, endAt: end });
+          exists.add(key);
+          changed = true;
+        }
+      }
+      return changed ? merged : prev;
+    });
+  }, [previousAvailTime, setSelectedTimes]);
   console.log(candidateDates);
   const sortedDates: string[] = [...(candidateDates ?? [])].sort();
   console.log(sortedDates);
   console.log(previousAvailTime);
-
 
   if (sortedDates.length === 0) return <p>표시할 날짜가 없습니다.</p>;
   const validDates: Dayjs[] = sortedDates.map((dateStr) => dayjs(dateStr));
@@ -45,7 +71,9 @@ const Timetable = ({
   const daysSpan = end!.diff(start!, "day") + 1; // 표시할 연속 일수
 
   const allowedDows: Set<number> = new Set(validDates.map((d) => d.day())); // 0=일 ... 6=토
-  const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter((dow: number) => !allowedDows.has(dow));
+  const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter(
+    (dow: number) => !allowedDows.has(dow)
+  );
 
   const rangeStart = validDates[0]?.startOf("day").format("YYYY-MM-DD");
   const rangeEnd = validDates.at(-1)?.endOf("day").format("YYYY-MM-DD");
@@ -61,14 +89,19 @@ const Timetable = ({
     };
 
     const isAlreadySelected = selectedTimes.some(
-      (sel) => sel.startAt === newSelection.startAt && sel.endAt === newSelection.endAt
+      (sel) =>
+        sel.startAt === newSelection.startAt && sel.endAt === newSelection.endAt
     );
 
     if (isAlreadySelected) {
       // 수정됨: 이미 선택된 시간인 경우 → 제거
       setSelectedTimes((prev) =>
         prev.filter(
-          (sel) => !(sel.startAt === newSelection.startAt && sel.endAt === newSelection.endAt)
+          (sel) =>
+            !(
+              sel.startAt === newSelection.startAt &&
+              sel.endAt === newSelection.endAt
+            )
         )
       );
     } else {
@@ -99,7 +132,9 @@ const Timetable = ({
     <FullCalendar
       plugins={[timeGridPlugin, interactionPlugin]} //  수정됨: 드래그/선택 위해 interactionPlugin 추가
       initialView="timeGridSpan"
-      views={{ timeGridSpan: { type: "timeGrid", duration: { days: daysSpan } } }}
+      views={{
+        timeGridSpan: { type: "timeGrid", duration: { days: daysSpan } },
+      }}
       initialDate={validDates[0]?.format("YYYY-MM-DD")}
       visibleRange={{
         start: rangeStart,
