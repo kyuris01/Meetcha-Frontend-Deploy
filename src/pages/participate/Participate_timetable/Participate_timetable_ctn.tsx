@@ -26,12 +26,25 @@ const Participate_timetable_ctn = () => {
   const [selectedTimes, setSelectedTimes] = useState<UISlot[]>([]); //  수정됨: 선택된 시간 저장용 state
 
   const finalPostData: SubmitAvailabilityBody = useMemo(() => {
+    const snap30 = (d: dayjs.Dayjs) =>
+      d
+        .minute(Math.floor(d.minute() / 30) * 30)
+        .second(0)
+        .millisecond(0);
     const times = selectedTimes
-      .map((t: any) => ({
-        // Timetable에서 {startAt, endAt}로 들어오는 경우도 커버
-        startAt: dayjs(t.startISO ?? t.startAt).format("YYYY-MM-DDTHH:mm:ss"),
-        endAt: dayjs(t.endISO ?? t.endAt).format("YYYY-MM-DDTHH:mm:ss"),
-      }))
+      .map((t: any) => {
+        const sRaw = t.startISO ?? t.startAt; // 문자열 ISO 또는 Date 모두 허용
+        const eRaw = t.endISO ?? t.endAt;
+        let s = snap30(dayjs(sRaw));
+        let e = snap30(dayjs(eRaw));
+        if (!e.isAfter(s)) {
+          e = s.add(30, "minute"); // 0길이/역전 방지
+        }
+        return {
+          startAt: s.format("YYYY-MM-DDTHH:mm:ss"),
+          endAt: e.format("YYYY-MM-DDTHH:mm:ss"),
+        };
+      })
       .sort((a, b) => dayjs(a.startAt).valueOf() - dayjs(b.startAt).valueOf());
 
     const nick = nickname.trim();
