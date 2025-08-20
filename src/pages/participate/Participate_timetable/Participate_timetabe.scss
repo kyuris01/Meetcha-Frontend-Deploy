@@ -62,7 +62,8 @@
     gap: 1rem;
 
     .timetable_ctn {
-      height: 30rem;
+      max-height: 30rem;
+      height: 80%;
       overflow: scroll;
     }
     > p {
