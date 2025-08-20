@@ -49,11 +49,13 @@ const Timetable = ({
       let changed = false;
 
       for (const slot of previousAvailTime) {
-        const start = dayjs(slot.startAt)
-          .second(0)
-          .millisecond(0)
-          .toISOString();
-        const end = dayjs(slot.endAt).second(0).millisecond(0).toISOString();
+        const snap30 = (d: dayjs.Dayjs) =>
+          d
+            .minute(Math.floor(d.minute() / 30) * 30)
+            .second(0)
+            .millisecond(0);
+        const start = snap30(dayjs(slot.startAt)).toISOString();
+        const end = snap30(dayjs(slot.endAt)).toISOString();
         const key = keyOf(start, end);
 
         if (!exists.has(key)) {
@@ -87,13 +89,25 @@ const Timetable = ({
   //드래그 선택된 시간들
 
   const handleSelect = (info: any) => {
-    const sISO = dayjs(info.start).second(0).millisecond(0).toISOString();
-    const eISO = dayjs(info.end).second(0).millisecond(0).toISOString();
+    const snap30 = (d: dayjs.Dayjs) =>
+      d
+        .minute(Math.floor(d.minute() / 30) * 30)
+        .second(0)
+        .millisecond(0);
+    let s = snap30(dayjs(info.start));
+    let e = snap30(dayjs(info.end));
+    if (!e.isAfter(s)) {
+      e = s.add(30, "minute");
+    }
+    const sISO = s.toISOString();
+    const eISO = e.toISOString();
     const k = keyOf(sISO, eISO);
 
     const exists = selectedTimes.some((t) => keyOf(t.startAt, t.endAt) === k);
     if (exists) {
-      setSelectedTimes((prev) => prev.filter((t) => keyOf(t.startAt, t.endAt) !== k));
+      setSelectedTimes((prev) =>
+        prev.filter((t) => keyOf(t.startAt, t.endAt) !== k)
+      );
     } else {
       setSelectedTimes((prev) => [...prev, { startAt: sISO, endAt: eISO }]);
     }
