@@ -27,7 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
-        <Route index path="/detail" element={<MeetingDetailPage />}></Route>
+        <Route index path="detail" element={<MeetingDetailPage />}></Route>
         <Route path="/login" element={<LoginContainer />}></Route>
         <Route path="/login-complete" element={<LoginCompleteContainer />}></Route>
         <Route path="/" element={<BackgroundPage />}>
@@ -36,7 +36,6 @@ const App = () => {
           <Route index path="/memoir" element={<Memoir_meeting_All />}></Route>
           <Route index path="/mypage" element={<MyPage />}></Route>
         </Route>
-
         <Route index path="/memoir-write" element={<Memoir_write_ctn />}></Route>
         <Route index path="/memoir-complete" element={<Memoir_complete_ctn />}></Route>
         <Route index path="/timetable" element={<Participate_timetable_ctn />}></Route>
