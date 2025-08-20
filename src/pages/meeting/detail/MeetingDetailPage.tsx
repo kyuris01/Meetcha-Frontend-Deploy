@@ -70,7 +70,7 @@ const MeetingDetailPage = () => {
           )}
           {meetingDetail?.meetingStatus === "MATCH_FAILED" && (
             <Button
-              label={"대안시간 투표하기 버튼"}
+              label={"대안시간 투표하기"}
               className={styles.editButton}
               clickHandler={onClickEdit}
             />
@@ -79,7 +79,7 @@ const MeetingDetailPage = () => {
             meetingDetail?.meetingStatus !== "MATCH_FAILED" &&
             meetingDetail?.meetingStatus !== "BEFORE" && (
               <Button
-                label={"대안시간 투표하기 버튼"}
+                label={"대안시간 투표하기"}
                 className={styles.editButton}
                 clickHandler={onClickEdit}
               />
