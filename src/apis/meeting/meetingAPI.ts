@@ -19,7 +19,7 @@ export const fetchMeetingDetail = async (meetingId: string) => {
   return res.data;
 };
 
-export const setAlternativeMeeting = async (meetingId: string, data) => {
+export const voteAlternativeMeeting = async (meetingId: string, data) => {
   const res = await apiCall(`/meeting-lists/${meetingId}/alternative-vote`, "POST", data, true);
   if (!res.success) {
     alert(res.message);

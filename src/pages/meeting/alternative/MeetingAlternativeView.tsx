@@ -10,7 +10,7 @@ import { ko } from "date-fns/locale";
 import Loading from "@/components/Loading/Loading";
 import Check from "@assets/check.svg?react";
 import ReactDOM from "react-dom";
-import { setAlternativeMeeting } from "@/apis/meeting/meetingAPI";
+import { voteAlternativeMeeting } from "@/apis/meeting/meetingAPI";
 import type { AlternativeMeeting } from "@/apis/meeting/meetingTypes";
 import { useMeetingAlternative } from "@/hooks/useMeetingAlternative";
 
@@ -97,9 +97,9 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
       alert("대안 시간을 하나 선정하세요!");
     } else {
       const data = {
-        alternativeTime: `${clickedEventNum.date}T${clickedEventNum.startTime}Z`,
+        alternativeTime: `${clickedEventNum.date}T${clickedEventNum.startTime}`,
       };
-      setAlternativeMeeting(meetingId, data);
+      voteAlternativeMeeting(meetingId, data);
     }
   };
 
