@@ -8,8 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getProjectTheme } from "@/utils/theme";
 
 const Memoir_meeting_All = () => {
-  let __lastFetchAllTs = 0;
-  const __DEDUPE_WINDOW_MS = 300; // 0.3초 내 중복 막기
+  
   const location = useLocation();
   const navigate = useNavigate();
   const didInit = useRef(false);
@@ -35,17 +34,17 @@ const Memoir_meeting_All = () => {
     loading: summaryLoading,
     error: summaryError,
     fire: execSummaryAll,
-  } = useAPIs2(`/reflection/summary`, "GET", undefined, true, false);
+  }=useAPIs2(`/reflection/summary`,"GET",undefined,true,false);
+
 
   useEffect(() => {
-    const now = Date.now();
-    if (now - __lastFetchAllTs < __DEDUPE_WINDOW_MS) return;
-    __lastFetchAllTs = now;
+    if (didInit.current) return;
+    didInit.current = true;
     execMeetingAll();
     execMemoirAll();
     execSummaryAll();
-  }, [execMeetingAll, execMemoirAll, execSummaryAll]);
-
+  }, [execMeetingAll, execMemoirAll,execSummaryAll]);
+  
   useEffect(() => {
     const s: any = location.state;
     if (!s?.refetchMemoirs || didRefetch.current) return;
@@ -87,7 +86,9 @@ const Memoir_meeting_All = () => {
     [memoir]
   );
 
-  if (meetingLoading || memoirLoading || summaryLoading) {
+ 
+
+  if (meetingLoading || memoirLoading||summaryLoading) {
     return (
       <>
         <p style={{ textAlign: "center", marginTop: "2rem" }}>⌛ 로딩 중…</p>
@@ -105,6 +106,7 @@ const Memoir_meeting_All = () => {
       </>
     );
   }
+
 
   return (
     <>
