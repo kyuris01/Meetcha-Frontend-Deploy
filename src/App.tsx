@@ -27,7 +27,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
-        <Route index path="detail" element={<MeetingDetailPage />}></Route>
+        <Route index path="/meeting/detail" element={<MeetingDetailPage />}></Route>
         <Route path="/login" element={<LoginContainer />}></Route>
         <Route path="/login-complete" element={<LoginCompleteContainer />}></Route>
         <Route path="/" element={<BackgroundPage />}>
