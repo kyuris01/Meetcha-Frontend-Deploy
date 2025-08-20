@@ -157,33 +157,34 @@ const Participate_timetable_ctn = () => {
       alert("서버 오류가 발생했습니다.");
     }
   };
-  // if (!meetingData) {
-  //   return (
-  //     <>
-  //       <div className="top_ctn">
-  //         <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink} />
-  //         <p>미팅 참가</p>
-  //       </div>
-  //       <div className="participate_ctn">
-  //         <div className="text_container1">
-  //           <div className="meeting_info_ctn">
-  //             <div className="dividend" />
-  //             <div className="meeting_info">
-  //               <p>불러오는 중…</p>
-  //               <p />
-  //             </div>
-  //           </div>
-  //           <input
-  //             type="text"
-  //             value={nickname}
-  //             onChange={handleSetNickname}
-  //             placeholder="닉네임*"
-  //           />
-  //         </div>
-  //       </div>
-  //     </>
-  //   );
-  // }
+  if (!meetingData) {
+    return (
+      <>
+        <div className="top_ctn">
+          <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink} />
+          <p>미팅 참가</p>
+        </div>
+        <div className="participate_ctn">
+          <div className="text_container1">
+            <div className="meeting_info_ctn">
+              <div className="dividend" />
+              <div className="meeting_info">
+                <p>불러오는 중…</p>
+                <p />
+              </div>
+            </div>
+            <input
+              type="text"
+              value={nickname}
+              onChange={handleSetNickname}
+              placeholder="닉네임"
+            />
+          </div>
+        </div>
+      </>
+    );
+  }
+
 
   // meetingData가 확보된 뒤에만 본문 렌더
   return (
