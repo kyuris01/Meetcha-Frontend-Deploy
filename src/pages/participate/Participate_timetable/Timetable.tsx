@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction"; //  수정됨: 드래그/선택을 위해 추가
@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import "./Participate_timetabe.scss";
 import type { Dayjs } from "dayjs";
-import type { UISlot } from "@/apis/participate/participateTypes";
+import type { ParticipateObject, UISlot } from "@/apis/participate/participateTypes";
 
 dayjs.locale("ko");
 
@@ -17,15 +17,19 @@ interface BusyInterval {
 
 interface Props {
   candidateDates: string[];
-  selectedTimes: UISlot[];
-  setSelectedTimes: React.Dispatch<React.SetStateAction<UISlot[]>>;
+  selectedTimes: ParticipateObject[];
+  setSelectedTimes: React.Dispatch<React.SetStateAction<ParticipateObject[]>>;
   scheduleData: BusyInterval[];
 }
 
-const Timetable = ({ candidateDates, selectedTimes, setSelectedTimes, scheduleData }) => {
+const Timetable = ({ candidateDates, selectedTimes, setSelectedTimes, scheduleData }: Props) => {
   console.log(candidateDates);
   const sortedDates: string[] = [...(candidateDates ?? [])].sort();
   console.log(sortedDates);
+
+  useEffect(() => {
+    console.log("st:", selectedTimes);
+  }, [selectedTimes]);
 
   if (sortedDates.length === 0) return <p>표시할 날짜가 없습니다.</p>;
   const validDates: Dayjs[] = sortedDates.map((dateStr) => dayjs(dateStr));

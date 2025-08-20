@@ -34,9 +34,6 @@ const MeetingStateCard = ({ data }: Props) => {
   };
 
   useEffect(() => {
-    console.log(data);
-    console.log(new Date());
-    console.log(isBefore(data.deadline, new Date()));
     stateResolver();
   }, [data]);
 

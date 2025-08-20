@@ -18,7 +18,7 @@ const Participate_timetable_ctn = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const meetingId = params.get("meetingId") || "";
-  const isEdit = params.get("edit"); // 참여시간 수정을 위한 렌더링인지 여부
+  const isEdit = Boolean(params.get("edit")); // 참여시간 수정을 위한 렌더링인지 여부
   const [nickname, setNickname] = useState("");
   const [meetingData, setMeetingData] = useState<any | null>(null);
   const [scheduleData, setScheduleData] = useState<any | null>([]);
@@ -157,33 +157,33 @@ const Participate_timetable_ctn = () => {
       alert("서버 오류가 발생했습니다.");
     }
   };
-  if (!meetingData) {
-    return (
-      <>
-        <div className="top_ctn">
-          <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink} />
-          <p>미팅 참가</p>
-        </div>
-        <div className="participate_ctn">
-          <div className="text_container1">
-            <div className="meeting_info_ctn">
-              <div className="dividend" />
-              <div className="meeting_info">
-                <p>불러오는 중…</p>
-                <p />
-              </div>
-            </div>
-            <input
-              type="text"
-              value={nickname}
-              onChange={handleSetNickname}
-              placeholder="닉네임*"
-            />
-          </div>
-        </div>
-      </>
-    );
-  }
+  // if (!meetingData) {
+  //   return (
+  //     <>
+  //       <div className="top_ctn">
+  //         <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink} />
+  //         <p>미팅 참가</p>
+  //       </div>
+  //       <div className="participate_ctn">
+  //         <div className="text_container1">
+  //           <div className="meeting_info_ctn">
+  //             <div className="dividend" />
+  //             <div className="meeting_info">
+  //               <p>불러오는 중…</p>
+  //               <p />
+  //             </div>
+  //           </div>
+  //           <input
+  //             type="text"
+  //             value={nickname}
+  //             onChange={handleSetNickname}
+  //             placeholder="닉네임*"
+  //           />
+  //         </div>
+  //       </div>
+  //     </>
+  //   );
+  // }
 
   // meetingData가 확보된 뒤에만 본문 렌더
   return (
@@ -198,8 +198,8 @@ const Participate_timetable_ctn = () => {
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
             <div className="meeting_info">
-              <p>{meetingData.title}</p>
-              <p>{meetingData.description}</p>
+              <p>{meetingData?.title}</p>
+              <p>{meetingData?.description}</p>
             </div>
           </div>
 
@@ -212,7 +212,7 @@ const Participate_timetable_ctn = () => {
           </p>
           <div className="timetable_ctn">
             <Timetable
-              candidateDates={meetingData.candidateDates ?? []}
+              candidateDates={meetingData?.candidateDates ?? []}
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
               scheduleData={scheduleData /* []로 보장됨 */}

@@ -222,7 +222,6 @@ export const handlers = [
   }),
   http.get<{ meetingId: string }>("/meeting-lists/:meetingId/alternative-times", ({ params }) => {
     const { meetingId } = params;
-    console.log(meetingId);
 
     return HttpResponse.json({
       isSuccess: true,
@@ -265,6 +264,27 @@ export const handlers = [
           projectName: "졸프 프론트",
         },
       ],
+      success: true,
+    });
+  }),
+  http.get("/meeting/:meetingId/available-times", ({ params }) => {
+    const { meetingId } = params;
+
+    return HttpResponse.json({
+      code: 200,
+      message: "참가 가능 시간 조회 성공",
+      data: {
+        selectedTimes: [
+          {
+            startAt: "2025-07-22T15:00:00",
+            endAt: "2025-07-22T15:30:00",
+          },
+          {
+            startAt: "2025-07-22T16:00:00",
+            endAt: "2025-07-22T16:30:00",
+          },
+        ],
+      },
       success: true,
     });
   }),

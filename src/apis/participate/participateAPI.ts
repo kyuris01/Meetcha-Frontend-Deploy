@@ -10,5 +10,7 @@ export const fetchCurrentParticipate = async (meetingId: string) => {
     true
   );
 
+  console.log("cur part: ", res);
+
   return res.data.selectedTimes;
 };

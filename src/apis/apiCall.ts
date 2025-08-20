@@ -39,7 +39,7 @@ export const apiCall = async <T>(
           return res.json();
         }
       }
-      throw new Error("Unauthorized: token refresh failed or retry failed.");
+      console.error("Unauthorized: token refresh failed or retry failed.");
     }
 
     return res.json();
