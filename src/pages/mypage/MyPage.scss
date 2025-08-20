@@ -1,16 +1,20 @@
 .myPage_ctn {
-  padding: 1rem;
+  
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
+  background: #FFF9F1;
+
   .myPage_nickname {
-    padding: 1rem;
+    padding: 2rem;
     width: 100%;
     height: 20%;
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    background: #FFF9F1;
+
     .img_ctn {
       .myPageImg {
         width: 3.8rem;
@@ -33,6 +37,6 @@
   }
 
   .myPage_information {
-    padding: 1rem;
+    padding: 2rem;
   }
 }
