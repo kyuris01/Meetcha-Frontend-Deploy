@@ -161,6 +161,7 @@ const Participate_timetable_ctn = () => {
       return;
     }
     console.log(finalPostData);
+    console.log(meetingId);
     const isModify = pageNum === "3";
     const url = isModify
       ? `/meeting-lists/${meetingId}`
