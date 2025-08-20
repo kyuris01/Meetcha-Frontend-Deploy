@@ -57,7 +57,7 @@ const MyPage = () => {
           <p className="nickname">{userData.nickname}</p>
         </div>
       </div>
-      <div className="myPage_information">무엇을 입력할까요?</div>
+      
     </div>
   );
 };
