@@ -146,20 +146,25 @@ const Participate_timetable_ctn = () => {
       return;
     }
     console.log(finalPostData);
+    const isModify = pageNum === "3";
+    const url = isModify
+      ? `/meeting-lists/${meetingId}`
+      : `/meeting/id/${meetingId}/join`;
+    const method = isModify ? "PATCH" : "POST";
+
+    // PATCH 바디는 selectedTimes만, POST는 기존 명세(finalPostData) 유지
+    const body = isModify
+      ? { selectedTimes: finalPostData.selectedTimes }
+      : finalPostData;
+
     try {
-      const res = await apiCall(
-        `/meeting/id/${meetingId}/join`,
-        "POST",
-        finalPostData,
-        true // Authorization 포함(프로젝트 util 정책 유지)
-      );
+      const res = await apiCall(url, method, body, true);
 
       if (!res) return;
 
       // 명세에 맞춘 응답 처리
       if (res.code === 200 && res.success) {
-        // 참여 성공 후 이동/알림 처리
-        alert("미팅 참여 성공!");
+        alert(isModify ? "미팅 참여 정보 수정 성공!" : "미팅 참여 성공!");
         console.log(res);
         navigate(`/schedule`);
         // navigate(`/meeting/${meetingId}`);
@@ -236,10 +241,16 @@ const Participate_timetable_ctn = () => {
           </p>
           <div className="timetable_ctn">
             <Timetable
-              candidateDates={Array.isArray(meetingData?.candidateDates) ? meetingData.candidateDates : []}
+              candidateDates={
+                Array.isArray(meetingData?.candidateDates)
+                  ? meetingData.candidateDates
+                  : []
+              }
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
-              previousAvailTime={Array.isArray(previousAvailTime) ? previousAvailTime : []}
+              previousAvailTime={
+                Array.isArray(previousAvailTime) ? previousAvailTime : []
+              }
               scheduleData={scheduleData /* []로 보장됨 */}
             />
           </div>
