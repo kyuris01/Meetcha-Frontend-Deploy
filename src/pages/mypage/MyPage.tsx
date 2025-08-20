@@ -1,41 +1,60 @@
-import React, { useEffect } from "react";
-import myPageImg from "@/assets/myPage.png";
+import React, { useEffect, useState } from "react";
+import myPageImg from "@/assets/myPage.png"; // ← fallback 용으로 유지
 import "./MyPage.scss";
 import { apiCall } from "@/apis/apiCall";
-import { useState } from "react";
+
+interface MyPageData {
+  nickname: string;
+  profileImgUrl: string;
+}
+
 const MyPage = () => {
-  const [userData,setUserData]=useState<any>();
+  const [userData, setUserData] = useState<any>(null);
+
   const getUserData = async () => {
-      
-      try {
-        const res = await apiCall(`/user/mypage`, "GET", null, true);
-  
-        if (!res) return;
-        if (res.code === 404) {
-          alert("존재하지 않는 미팅입니다");
-        } else if (res.code === 401) {
-          alert("인증이 필요합니다");
-        } else if (res.code == 200||res.code==201) {
-          console.log(res);
-          setUserData(res);
-        }
-      } catch (e) {
-        alert("서버 오류");
+    try {
+      const res = await apiCall(`/user/mypage`, "GET", null, true);
+
+      if (!res) return;
+      if (res.code === 401) {
+        alert("인증이 필요합니다");
+      } else if (res.code === 404) {
+        alert("사용자를 찾을 수 없습니다.");
+      } else if (res.code === 200) {
+        // 실제 데이터만 저장
+        setUserData(res.data);
+      } else {
+        alert(res.message ?? "유저 정보를 불러오지 못했습니다.");
       }
-    };
-    useEffect(() => {
-        getUserData();
-        console.log(userData);
-      }, []);
+    } catch (e) {
+      alert("서버 오류");
+    }
+  };
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  // 데이터 오기 전에는 렌더하지 않음
+  if (!userData) return <div className="myPage_ctn">불러오는 중…</div>;
+
   return (
     <div className="myPage_ctn">
       <div className="myPage_nickname">
         <div className="img_ctn">
-            <img className="myPageImg" src={myPageImg} alt="myPageImg"></img>
+          <img
+            className="myPageImg"
+            src={userData.profileImgUrl}
+            alt="profile"
+            onError={(e) => {
+              // 이미지 깨질 때 기본 이미지로
+              (e.currentTarget as HTMLImageElement).src = myPageImg;
+            }}
+          />
         </div>
         <div className="nickname_ctn">
-            <p className="nickname_text">닉네임</p>
-            <p className="nickname">Kuit Meetcha</p>
+          <p className="nickname_text">닉네임</p>
+          <p className="nickname">{userData.nickname}</p>
         </div>
       </div>
       <div className="myPage_information">무엇을 입력할까요?</div>
@@ -44,3 +63,4 @@ const MyPage = () => {
 };
 
 export default MyPage;
+
