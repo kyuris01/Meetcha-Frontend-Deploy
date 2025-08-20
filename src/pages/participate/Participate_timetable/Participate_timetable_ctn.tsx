@@ -160,7 +160,7 @@ const Participate_timetable_ctn = () => {
         alert(isModify ? "미팅 참여 정보 수정 성공!" : "미팅 참여 성공!");
         console.log(res);
         // navigate(`/schedule`);
-        navigate("detail", {
+        navigate("/detail", {
           state: {
             meetingId: meetingId,
           },
