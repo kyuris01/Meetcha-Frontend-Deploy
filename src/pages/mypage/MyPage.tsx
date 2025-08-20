@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import myPageImg from "@/assets/myPage.png"; // ← fallback 용으로 유지
+// import myPageImg from "@/assets/myPage.png"; // ← fallback 용으로 유지
 import "./MyPage.scss";
 import { apiCall } from "@/apis/apiCall";
 
@@ -47,10 +47,10 @@ const MyPage = () => {
             className="myPageImg"
             src={userData.profileImgUrl}
             alt="profile"
-            onError={(e) => {
-              // 이미지 깨질 때 기본 이미지로
-              (e.currentTarget as HTMLImageElement).src = myPageImg;
-            }}
+            // onError={(e) => {
+            //   // 이미지 깨질 때 기본 이미지로
+            //   (e.currentTarget as HTMLImageElement).src = myPageImg;
+            // }}
           />
         </div>
         <div className="nickname_ctn">
@@ -58,10 +58,8 @@ const MyPage = () => {
           <p className="nickname">{userData.nickname}</p>
         </div>
       </div>
-      
     </div>
   );
 };
 
 export default MyPage;
-

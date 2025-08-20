@@ -71,6 +71,7 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
   };
 
   const deadlineParse = (deadline) => {
+    if (!deadline) return null;
     if (!deadline.includes("T")) return null;
     const [date, time] = deadline?.split("T");
     const [hour, minute] = time?.split(":");
@@ -81,10 +82,9 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
   useEffect(() => {
     if (
       meetingTitle &&
-      meetingDescription &&
       meetingCandidateDates.length > 0 &&
       durationMinutes &&
-      deadline
+      deadlineParse(deadline)
     ) {
       setAllDataReserved(true);
       setCompleteData({

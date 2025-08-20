@@ -17,20 +17,13 @@ export interface MeetingSendData {
 
 const MeetingCreationPage = () => {
   const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
-  const [completeData, setCompleteData] = useState<MeetingSendData>();
+  const [completeData, setCompleteData] = useState<MeetingSendData>(null);
   const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const createMeetingHandler = async () => {
     if (isSubmitting) return;
 
-    const keys = Object.keys(completeData);
-
-    for (let i = 0; i < keys.length; i++) {
-      if (!completeData[keys[i]] && keys[i] !== "projectId") {
-        alert("필수 입력을 완료해주세요.");
-        return;
-      }
-    }
+    if (!completeData) alert("필수 입력을 완료해주세요.");
 
     setIsSubmitting(true);
     try {
