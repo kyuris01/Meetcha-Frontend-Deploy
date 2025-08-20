@@ -19,7 +19,7 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
   const [meetingCandidateDates, setMeetingCandidateDates] = useState<string[]>([]);
   const [durationMinutes, setDurationMinutes] = useState<string>("");
   const [deadline, setDeadline] = useState<string>("");
-  const [projectData, setProjectData] = useState<string>("");
+  const [projectData, setProjectData] = useState<string>(null);
 
   const cardDataSet = [
     {
@@ -60,6 +60,7 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
   ];
   //
   const projectDataParse = (project) => {
+    if (!project) return null;
     const index = project.indexOf(" ");
     return project.slice(0, index);
   };
@@ -70,6 +71,7 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
   };
 
   const deadlineParse = (deadline) => {
+    if (!deadline.includes("T")) return null;
     const [date, time] = deadline?.split("T");
     const [hour, minute] = time?.split(":");
     const paddedTime = hour?.padStart(2, "0") + ":" + minute;
@@ -80,10 +82,9 @@ const MeetingCreationView = ({ setAllDataReserved, setCompleteData }: Props) => 
     if (
       meetingTitle &&
       meetingDescription &&
-      meetingCandidateDates &&
+      meetingCandidateDates.length > 0 &&
       durationMinutes &&
-      deadline &&
-      projectData
+      deadline
     ) {
       setAllDataReserved(true);
       setCompleteData({

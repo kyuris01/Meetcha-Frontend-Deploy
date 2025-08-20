@@ -96,6 +96,7 @@ const MeetingOptionCard = ({ title, icon, data, type, dataSetter }: Props) => {
       return `${date} ${time}`;
     }
     if (type === 4) {
+      if (!data) return;
       const index = data.indexOf(" ");
       return data.slice(index);
     }

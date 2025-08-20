@@ -237,4 +237,21 @@ export const handlers = [
       },
     });
   }),
+  http.get("/user/projects", ({ params }) => {
+    return HttpResponse.json({
+      code: 200,
+      message: "프로젝트 목록 조회 성공",
+      data: [
+        {
+          projectId: "123e4567-e89b-12d3-a456-426614174000",
+          projectName: "밋챠 백엔드",
+        },
+        {
+          projectId: "789e4567-e89b-12d3-a456-426614174111",
+          projectName: "졸프 프론트",
+        },
+      ],
+      success: true,
+    });
+  }),
 ];
