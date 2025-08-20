@@ -40,7 +40,7 @@ const Meeting_card = ({
           </div>
         </div>
         <p>{meeting.title}</p>
-        <p>{meeting.confirmedTime}</p>
+        <p>{meeting.confirmedTime.replace("T"," ")}</p>
 
         <div
           className="description"
