@@ -1,5 +1,6 @@
 import React from "react";
 import myPageImg from "@/assets/myPage.png";
+import "./MyPage.scss";
 const MyPage = () => {
   return (
     <div className="myPage_ctn">
