@@ -151,41 +151,11 @@ const Participate_timetable_ctn = () => {
       ? `/meeting-lists/${meetingId}`
       : `/meeting/id/${meetingId}/join`;
     const method = isModify ? "PATCH" : "POST";
-    // 유틸: 컨테이너/캘린더 혼재 키(startISO/startAt, endISO/endAt) 모두 대응 + 정규화
-    const normISO = (s: string) =>
-      dayjs(s).second(0).millisecond(0).toISOString();
-    const toBodyTimes = (slots: any[]) =>
-      slots
-        .map((t) => ({
-          startAt: dayjs(t.startISO ?? t.startAt).format("YYYY-MM-DDTHH:mm:ss"),
-          endAt: dayjs(t.endISO ?? t.endAt).format("YYYY-MM-DDTHH:mm:ss"),
-        }))
-        .sort(
-          (a, b) => dayjs(a.startAt).valueOf() - dayjs(b.startAt).valueOf()
-        );
 
-    // PATCH일 때만: previousAvailTime(초기 주황 표시)과의 차집합(신규 선택만) 계산
-    let body: any = finalPostData;
-    if (isModify) {
-      const prevSet = new Set(
-        (Array.isArray(previousAvailTime) ? previousAvailTime : []).map(
-          (s: any) => `${normISO(s.startAt)}|${normISO(s.endAt)}`
-        )
-      );
-      const delta = selectedTimes.filter((t: any) => {
-        const key = `${normISO(t.startISO ?? t.startAt)}|${normISO(
-          t.endISO ?? t.endAt
-        )}`;
-        return !prevSet.has(key);
-      });
-
-      // 필요 시: 변경사항 없으면 얼럿/리턴
-      if (delta.length === 0) {
-        alert("새로 추가된 시간이 없습니다.");
-        return;
-      }
-      body = { selectedTimes: toBodyTimes(delta) };
-    }
+    // PATCH 바디는 selectedTimes만, POST는 기존 명세(finalPostData) 유지
+    const body = isModify
+      ? { selectedTimes: finalPostData.selectedTimes }
+      : finalPostData;
 
     try {
       const res = await apiCall(url, method, body, true);
