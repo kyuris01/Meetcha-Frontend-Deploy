@@ -26,7 +26,7 @@ const MeetingCreationPage = () => {
     const keys = Object.keys(completeData);
 
     for (let i = 0; i < keys.length; i++) {
-      if (!completeData[keys[i]]) {
+      if (!completeData[keys[i]] && keys[i] !== "projectId") {
         alert("필수 입력을 완료해주세요.");
         return;
       }
