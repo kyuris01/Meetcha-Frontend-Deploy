@@ -112,7 +112,7 @@ const Participate_timetable_ctn = () => {
         alert("인증이 필요합니다");
       } else if (res.code == 200) {
         console.log(res);
-        setPreviousAvailTime(res.data);
+        setPreviousAvailTime(Array.isArray(res.data) ? res.data : []);
       }
     } catch (e) {
       alert("서버 오류");
@@ -236,10 +236,10 @@ const Participate_timetable_ctn = () => {
           </p>
           <div className="timetable_ctn">
             <Timetable
-              candidateDates={meetingData?.candidateDates ?? []}
+              candidateDates={Array.isArray(meetingData?.candidateDates) ? meetingData.candidateDates : []}
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
-              previousAvailTime={previousAvailTime}
+              previousAvailTime={Array.isArray(previousAvailTime) ? previousAvailTime : []}
               scheduleData={scheduleData /* []로 보장됨 */}
             />
           </div>
