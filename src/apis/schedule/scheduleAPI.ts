@@ -24,12 +24,14 @@ export const fetchSchedules = async (year: string, month: string) => {
 export const createSchedule = async (data) => {
   const res: ApiResponse<string> = await apiCall(`/user/schedule/create`, "POST", data, true);
   alert(res.message);
+  queryClient.invalidateQueries({ queryKey: scheduleKeys.all });
   return res;
 };
 
 export const editSchedule = async (data) => {
   const res: ApiResponse<null> = await apiCall(`/user/schedule/update`, "PUT", data, true);
   alert(res.message);
+  queryClient.invalidateQueries({ queryKey: scheduleKeys.all });
   return res;
 };
 
@@ -41,5 +43,6 @@ export const deleteSchedule = async (scheduleId) => {
     true
   );
   alert(res.message);
+  queryClient.invalidateQueries({ queryKey: scheduleKeys.all });
   return res;
 };
