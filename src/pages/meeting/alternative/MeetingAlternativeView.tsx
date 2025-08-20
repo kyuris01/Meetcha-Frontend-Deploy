@@ -5,21 +5,14 @@ import type { EventClickArg } from "@fullcalendar/core";
 import styles from "./MeetingAlternativeView.module.scss";
 import "./FullCalendar.scss";
 import Button from "@/components/Button";
-import { differenceInDays, format } from "date-fns";
+import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import Loading from "@/components/Loading/Loading";
 import Check from "@assets/check.svg?react";
 import ReactDOM from "react-dom";
 import { setAlternativeMeeting } from "@/apis/meeting/meetingAPI";
 import type { AlternativeMeeting } from "@/apis/meeting/meetingTypes";
-
-interface EventInput {
-  title?: string;
-  start: string | Date;
-  end?: string | Date;
-  className?: string;
-  extendedProps?: any; // 추가 데이터
-}
+import { useMeetingAlternative } from "@/hooks/useMeetingAlternative";
 
 interface Props {
   alternativeTimes: AlternativeMeeting[];
@@ -27,10 +20,7 @@ interface Props {
 }
 
 const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
-  const [data, setData] = useState<EventInput[]>();
-  const [firstDate, setFirstDate] = useState<Date>();
-  const [duration, setDuration] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(false);
+  const { data, firstDate, duration, loading } = useMeetingAlternative(alternativeTimes);
   const [clickedEventNum, setClickedEventNum] = useState(null);
   const [popupInfo, setPopupInfo] = useState<{
     top: number;
@@ -46,44 +36,31 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
   const eventRef = useRef<HTMLElement | null>(null); // 마지막으로 클릭한 이벤트 DOM
 
   useEffect(() => {
-    setLoading(true);
+    function handleDocClick(e: MouseEvent) {
+      if (!popupInfo) return; // 팝업이 없으면 무시
+      const target = e.target as HTMLElement;
 
-    // 첫번째 날짜와 마지막 날짜 계산
-    const first = new Date(alternativeTimes[0]?.startTime.split("T")[0]);
-    const last = new Date(alternativeTimes[alternativeTimes.length - 1]?.startTime.split("T")[0]);
-    const diff = differenceInDays(last, first) + 3; // +1 해야 마지막날 포함
+      // 팝업 내부 or 선택버튼 or 이벤트 블록이면 닫지 않음
+      if (popupRef.current?.contains(target)) {
+        return;
+      }
 
-    // 이벤트 매핑
-    const events = alternativeTimes.map((item, index) => {
-      return {
-        title: `---`,
-        start: item?.startTime,
-        end: item?.endTime,
-        extendedProps: {
-          index: index,
-          failMembers: item.excludedUserNames,
-          adjustedTime: item.adjustedDurationMinutes,
-          startTime: item?.startTime.split("T")[1],
-          endTime: item?.endTime.split("T")[1],
-          availableNum: item.includedUserNames.length,
-          totalNum: item.includedUserNames.length + item.excludedUserNames.length,
-          date: item?.startTime.split("T")[0],
-        },
-      };
-    });
+      if (target.closest(".selectButton")) return;
 
-    setFirstDate(first);
-    setDuration(diff);
-    setData(events);
-    setLoading(false);
-  }, [alternativeTimes]);
+      // 그 외 아무 곳이나 클릭 → 팝업 닫기
+      setPopupInfo(null);
+    }
+
+    document.addEventListener("click", handleDocClick, true); // 캡처 단계
+    return () => document.removeEventListener("click", handleDocClick, true);
+  }, [popupInfo]);
 
   const handleButtonClick = (e) => {
     setClickedEventNum(e._def.extendedProps);
     setPopupInfo(null);
   };
 
-  function handleEventClick(arg: EventClickArg) {
+  const handleEventClick = (arg: EventClickArg) => {
     // 이번에 클릭한 이벤트가 포함된 스크롤러를 즉시 찾는다
     const scroller = (arg.el as HTMLElement).closest(".fc-scroller") as HTMLDivElement;
     if (!scrollerRef.current) return;
@@ -113,27 +90,7 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
       lineX: eventRight - scrollRect.left, // 점선 시작 X (scroller 좌표)
       lineW: 120,
     });
-  }
-
-  useEffect(() => {
-    function handleDocClick(e: MouseEvent) {
-      if (!popupInfo) return; // 팝업이 없으면 무시
-      const target = e.target as HTMLElement;
-
-      // 팝업 내부 or 선택버튼 or 이벤트 블록이면 닫지 않음
-      if (popupRef.current?.contains(target)) {
-        return;
-      }
-
-      if (target.closest(".selectButton")) return;
-
-      // 그 외 아무 곳이나 클릭 → 팝업 닫기
-      setPopupInfo(null);
-    }
-
-    document.addEventListener("click", handleDocClick, true); // 캡처 단계
-    return () => document.removeEventListener("click", handleDocClick, true);
-  }, [popupInfo]);
+  };
 
   const completeButtonClickHandler = async () => {
     if (!clickedEventNum) {
@@ -197,7 +154,7 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
                 }
               }
             }}
-            slotMinTime="07:00:00"
+            slotMinTime="00:00:00"
             slotMaxTime="24:00:00"
             height={600}
             slotLabelFormat={{
