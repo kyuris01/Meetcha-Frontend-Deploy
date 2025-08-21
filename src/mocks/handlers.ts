@@ -21,6 +21,13 @@ export const handlers = [
           recurrence: "BIWEEKLY", // or "매일", "매월", "NONE"
         },
         {
+          eventId: "abc123444",
+          title: "회의의의",
+          startAt: "2025-08-01T16:00:00",
+          endAt: "2025-08-01T17:00:00",
+          recurrence: "BIWEEKLY", // or "매일", "매월", "NONE"
+        },
+        {
           eventId: "def456uvw",
           title: "점심 시간 밥 먹기 맛있쪙",
           startAt: "2025-08-02T12:00:00",
@@ -284,6 +291,17 @@ export const handlers = [
             endAt: "2025-07-22T16:30:00",
           },
         ],
+      },
+      success: true,
+    });
+  }),
+  http.get("/user/mypage", ({ params }) => {
+    return HttpResponse.json({
+      code: 200,
+      message: "마이페이지 정보 조회 성공",
+      data: {
+        nickname: "홍길동",
+        profileImgUrl: "https://picsum.photos/200/300?random=1",
       },
       success: true,
     });

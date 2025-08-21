@@ -40,7 +40,7 @@ const MyPage = () => {
 
   return (
     <div className="myPage_ctn">
-      <p className="myPage_text">마이 페이지</p>
+      {/* <p className="myPage_text">마이 페이지</p> */}
       <div className="myPage_nickname">
         <div className="img_ctn">
           <img
@@ -55,7 +55,7 @@ const MyPage = () => {
         </div>
         <div className="nickname_ctn">
           <p className="nickname_text">닉네임</p>
-          <p className="nickname">{userData.nickname}</p>
+          <input value={userData.nickname} className="nickname" />
         </div>
       </div>
     </div>
