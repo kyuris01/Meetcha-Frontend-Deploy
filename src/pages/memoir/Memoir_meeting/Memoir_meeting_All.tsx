@@ -97,7 +97,7 @@ const Memoir_meeting_All = () => {
   }
 
   return (
-    <div style={{ flex: 1 }}>
+    <div style={{ flex: 1, width: "100%" }}>
       <Memoir_meeting_ctn
         /* meetingLists가 배열인지 한 번 더 방어 */
         meetingLists={Array.isArray(meetingLists.data) ? meetingLists.data : []}
