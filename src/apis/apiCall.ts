@@ -40,6 +40,9 @@ export const apiCall = async <T>(
         }
       }
       console.error("Unauthorized: token refresh failed or retry failed.");
+      sessionStorage.removeItem("access-token");
+      sessionStorage.removeItem("refresh-token");
+      window.location.href = "/";
     }
 
     return res.json();
