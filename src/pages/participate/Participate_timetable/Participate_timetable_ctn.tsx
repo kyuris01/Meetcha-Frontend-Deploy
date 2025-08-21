@@ -7,10 +7,7 @@ import LeftChevron from "@/assets/LeftChevron.svg";
 
 import { apiCall } from "@/utils/apiCall";
 
-import type {
-  UISlot,
-  SubmitAvailabilityBody,
-} from "@/apis/participate/participateTypes";
+import type { UISlot, SubmitAvailabilityBody } from "@/apis/participate/participateTypes";
 
 const Participate_timetable_ctn = () => {
   const navigate = useNavigate();
@@ -113,12 +110,7 @@ const Participate_timetable_ctn = () => {
   const getPreviousAvailTime = async () => {
     if (!meetingId) return;
     try {
-      const res = await apiCall(
-        `/meeting/${meetingId}/available-times`,
-        "GET",
-        null,
-        true
-      );
+      const res = await apiCall(`/meeting/${meetingId}/available-times`, "GET", null, true);
 
       if (!res) return;
       if (res.code === 404) {
@@ -160,18 +152,14 @@ const Participate_timetable_ctn = () => {
       alert("참여 가능 시간을 최소 1개 이상 선택해주세요.");
       return;
     }
-    console.log(finalPostData);
+    console.log("fpd:", finalPostData);
     console.log(meetingId);
     const isModify = pageNum === "3";
-    const url = isModify
-      ? `/meeting-lists/${meetingId}`
-      : `/meeting/id/${meetingId}/join`;
+    const url = isModify ? `/meeting-lists/${meetingId}` : `/meeting/id/${meetingId}/join`;
     const method = isModify ? "PATCH" : "POST";
 
     // PATCH 바디는 selectedTimes만, POST는 기존 명세(finalPostData) 유지
-    const body = isModify
-      ? { selectedTimes: finalPostData.selectedTimes }
-      : finalPostData;
+    const body = isModify ? { selectedTimes: finalPostData.selectedTimes } : finalPostData;
 
     try {
       const res = await apiCall(url, method, body, true);
@@ -217,12 +205,7 @@ const Participate_timetable_ctn = () => {
                 <p />
               </div>
             </div>
-            <input
-              type="text"
-              value={nickname}
-              onChange={handleSetNickname}
-              placeholder="닉네임"
-            />
+            <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임" />
           </div>
         </div>
       </>
@@ -247,12 +230,7 @@ const Participate_timetable_ctn = () => {
             </div>
           </div>
 
-          <input
-            type="text"
-            value={nickname}
-            onChange={handleSetNickname}
-            placeholder="닉네임"
-          />
+          <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임" />
         </div>
 
         <div className="timetable">
@@ -262,15 +240,11 @@ const Participate_timetable_ctn = () => {
           <div className="timetable_ctn">
             <Timetable
               candidateDates={
-                Array.isArray(meetingData?.candidateDates)
-                  ? meetingData.candidateDates
-                  : []
+                Array.isArray(meetingData?.candidateDates) ? meetingData.candidateDates : []
               }
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
-              previousAvailTime={
-                Array.isArray(previousAvailTime) ? previousAvailTime : []
-              }
+              previousAvailTime={Array.isArray(previousAvailTime) ? previousAvailTime : []}
               scheduleData={scheduleData /* []로 보장됨 */}
             />
           </div>
