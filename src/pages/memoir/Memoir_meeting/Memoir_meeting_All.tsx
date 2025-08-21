@@ -8,7 +8,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getProjectTheme } from "@/utils/theme";
 
 const Memoir_meeting_All = () => {
-  
   const location = useLocation();
   const navigate = useNavigate();
   const didInit = useRef(false);
@@ -34,8 +33,7 @@ const Memoir_meeting_All = () => {
     loading: summaryLoading,
     error: summaryError,
     fire: execSummaryAll,
-  }=useAPIs2(`/reflection/summary`,"GET",undefined,true,false);
-
+  } = useAPIs2(`/reflection/summary`, "GET", undefined, true, false);
 
   useEffect(() => {
     if (didInit.current) return;
@@ -43,8 +41,8 @@ const Memoir_meeting_All = () => {
     execMeetingAll();
     execMemoirAll();
     execSummaryAll();
-  }, [execMeetingAll, execMemoirAll,execSummaryAll]);
-  
+  }, [execMeetingAll, execMemoirAll, execSummaryAll]);
+
   useEffect(() => {
     const s: any = location.state;
     if (!s?.refetchMemoirs || didRefetch.current) return;
@@ -54,14 +52,7 @@ const Memoir_meeting_All = () => {
     execMemoirAll();
     execSummaryAll();
     navigate(location.pathname, { replace: true, state: undefined });
-  }, [
-    location.state,
-    location.pathname,
-    execMeetingAll,
-    execMemoirAll,
-    execSummaryAll,
-    navigate,
-  ]);
+  }, [location.state, location.pathname, execMeetingAll, execMemoirAll, execSummaryAll, navigate]);
 
   //여기서 meetingLists중 meeting_status가 "종료인것만 남긴다."
 
@@ -86,9 +77,7 @@ const Memoir_meeting_All = () => {
     [memoir]
   );
 
- 
-
-  if (meetingLoading || memoirLoading||summaryLoading) {
+  if (meetingLoading || memoirLoading || summaryLoading) {
     return (
       <>
         <p style={{ textAlign: "center", marginTop: "2rem" }}>⌛ 로딩 중…</p>
@@ -107,16 +96,15 @@ const Memoir_meeting_All = () => {
     );
   }
 
-
   return (
-    <>
+    <div style={{ flex: 1 }}>
       <Memoir_meeting_ctn
         /* meetingLists가 배열인지 한 번 더 방어 */
         meetingLists={Array.isArray(meetingLists.data) ? meetingLists.data : []}
         memoirLists={memoirWithTheme}
         meetingSummary={meetingSummary}
       />
-    </>
+    </div>
   );
 };
 
