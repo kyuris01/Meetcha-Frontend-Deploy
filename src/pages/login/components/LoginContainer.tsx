@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Meetcha_banner from "../../../components/Meetcha_banner";
 import Continue_Google from "./Continue_Google";
 import Continue_des from "./Continue_des";
@@ -21,6 +21,9 @@ const LoginContainer = () => {
           <Continue_Google />
           <Continue_des />
         </div>
+      </div>
+      <div className="privacyBtn" onClick={() => navigate("/privacy")}>
+        개인정보 처리방침
       </div>
     </div>
   );
