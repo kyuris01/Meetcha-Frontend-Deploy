@@ -20,6 +20,7 @@ import Participate_completed_ctn from "./pages/participate/Participate_complete/
 import Participate_error_ctn from "./pages/participate/Participate_error/Participate_error_ctn";
 
 import MyPage from "./pages/mypage/MyPage";
+import PrivacyPage from "./pages/privacy/PrivacyPage";
 
 const App = () => {
   return (
@@ -41,8 +42,17 @@ const App = () => {
         <Route index path="/timetable" element={<Participate_timetable_ctn />}></Route>
         <Route index path="/participate" element={<Participate_link />}></Route>
         <Route index path="/error" element={<Participate_error_ctn />}></Route>
-        <Route index path="/complete" element={<Participate_completed_ctn />}></Route>
-        <Route index path="/meeting-creation" element={<MeetingCreationPage />}></Route>
+        <Route
+          index
+          path="/complete"
+          element={<Participate_completed_ctn />}
+        ></Route>
+        <Route
+          index
+          path="/meeting-creation"
+          element={<MeetingCreationPage />}
+        ></Route>
+        <Route index path="/privacy" element={<PrivacyPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
