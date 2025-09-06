@@ -23,9 +23,9 @@ const LoginContainer = () => {
         </div>
       </div>
       <footer>
-        <div className="privacyBtn" onClick={() => navigate("/privacy")}>
+        <a href="/privacy" className="privacyBtn">
           개인정보 처리방침
-        </div>
+        </a>
       </footer>
     </div>
   );
