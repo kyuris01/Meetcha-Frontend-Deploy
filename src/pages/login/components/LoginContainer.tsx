@@ -22,9 +22,11 @@ const LoginContainer = () => {
           <Continue_des />
         </div>
       </div>
-      <div className="privacyBtn" onClick={() => navigate("/privacy")}>
-        개인정보 처리방침
-      </div>
+      <footer>
+        <div className="privacyBtn" onClick={() => navigate("/privacy")}>
+          개인정보 처리방침
+        </div>
+      </footer>
     </div>
   );
 };
