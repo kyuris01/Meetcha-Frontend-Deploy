@@ -8,6 +8,7 @@ import { sendAuthCode } from "@/apis/auth/authAPI";
 const LoginCompleteContainer = () => {
   const [params] = useSearchParams();
   const navigate = useNavigate();
+  const addr = import.meta.env.VITE_FRONT_URL;
 
   useEffect(() => {
     const code = params.get("code");
@@ -15,7 +16,7 @@ const LoginCompleteContainer = () => {
 
     (async () => {
       try {
-        await sendAuthCode(code);
+        await sendAuthCode(code, addr);
       } catch (e) {
         console.error(e);
       }

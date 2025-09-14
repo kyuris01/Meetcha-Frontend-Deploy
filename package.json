@@ -29,6 +29,7 @@
     "luxon": "^3.7.1",
     "match-sorter": "^8.0.3",
     "msw": "^2.10.4",
+    "normalize.css": "^8.0.1",
     "react": "^19.1.0",
     "react-big-calendar": "^1.19.4",
     "react-calendar": "^6.0.0",

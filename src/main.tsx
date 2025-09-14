@@ -4,6 +4,7 @@ import "./assets/styles/main.scss";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { toast, ToastContainer } from "react-toastify";
+import "normalize.css";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
