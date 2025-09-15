@@ -33,29 +33,17 @@ const MeetingOptionCard = ({
   const contentRef = useRef<HTMLDivElement>(null); // 사용자 입력 컴포넌트 크기 영역 참조 변수
   let inputComponent = null; // 사용자 입력 방식에 따른 컴포넌트(input태그, 달력, ...)
 
-  const isPreviousDate = (date: Date) => {
-    return date.getTime() < new Date().getTime() && date.getDate() < new Date().getDate();
-  };
-
   switch (type) {
     case 0:
-      inputComponent = (
-        <TextInputComponent
-          dataSetter={
-            dataSetter as React.Dispatch<React.SetStateAction<string>>
-          }
-        />
-      );
+      inputComponent = <TextInputComponent dataSetter={dataSetter as React.Dispatch<React.SetStateAction<string>>} />;
       break;
     case 1:
       inputComponent = (
         <CalendarMultipleInputComponent
-          dataSetter={
-            dataSetter as React.Dispatch<React.SetStateAction<string[]>>
-          }
-          tileDisabled={({ date }) => {
-            return isPreviousDate(date);
-          }}
+          dataSetter={dataSetter as React.Dispatch<React.SetStateAction<string[]>>}
+          // tileDisabled={({ date }) => {
+          //   return isPreviousDate(date);
+          // }}
         />
       );
       break;
@@ -75,33 +63,29 @@ const MeetingOptionCard = ({
       inputComponent = (
         <>
           <CalendarInputComponent
-            dataSetter={
-              dataSetter as React.Dispatch<React.SetStateAction<string>>
-            }
-            tileDisabled={({ date }) => {
-              return isPreviousDate(date);
-            }}
+            dataSetter={dataSetter as React.Dispatch<React.SetStateAction<string>>}
+            // tileDisabled={({ date }) => {
+            //   return isPreviousDate(date);
+            // }}
             meetingCandidateDates={meetingCandidateDates}
           />
           <TimePicker
             onChange={(item) => {
-              (dataSetter as React.Dispatch<React.SetStateAction<string>>)(
-                (prev) => {
-                  if (!prev) {
-                    // 초기의 빈 문자열인 경우
-                    return item;
-                  } else if (prev.includes("T")) {
-                    // 날짜+시간이 이미 입력된 경우
-                    return `${prev?.split("T")[0]}T${item}`;
-                  } else if (prev.includes(":")) {
-                    // 시간만 입력된 경우
-                    return item;
-                  } else {
-                    // 날짜만 입력된 경우
-                    return `${prev}T${item}`;
-                  }
+              (dataSetter as React.Dispatch<React.SetStateAction<string>>)((prev) => {
+                if (!prev) {
+                  // 초기의 빈 문자열인 경우
+                  return item;
+                } else if (prev.includes("T")) {
+                  // 날짜+시간이 이미 입력된 경우
+                  return `${prev?.split("T")[0]}T${item}`;
+                } else if (prev.includes(":")) {
+                  // 시간만 입력된 경우
+                  return item;
+                } else {
+                  // 날짜만 입력된 경우
+                  return `${prev}T${item}`;
                 }
-              );
+              });
             }}
             ampm={false}
             minRange={1}
@@ -112,11 +96,7 @@ const MeetingOptionCard = ({
       break;
     case 4:
       inputComponent = (
-        <ProjectInputComponent
-          dataSetter={
-            dataSetter as React.Dispatch<React.SetStateAction<string>>
-          }
-        />
+        <ProjectInputComponent dataSetter={dataSetter as React.Dispatch<React.SetStateAction<string>>} />
       );
   }
 

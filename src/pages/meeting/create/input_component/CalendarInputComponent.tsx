@@ -1,15 +1,15 @@
-import { useEffect, useState, type ComponentProps } from "react";
+import { useEffect, useMemo, useState, type ComponentProps } from "react";
 import Calendar from "react-calendar";
 import "./CalendarInputComponent.scss";
 import { dateFormatter } from "@/utils/dateFormatter";
 import { min, startOfDay } from "date-fns";
+import { isPreviousDate } from "@/utils/MeetingOptionCardUtils";
 
-interface Props extends Omit<ComponentProps<typeof Calendar>, "onClickDay" | "tileClassName" | "formatDay" > {
-  dataSetter:
-    | React.Dispatch<React.SetStateAction<string>>
-    | React.Dispatch<React.SetStateAction<string[]>>;
+interface Props {
+  dataSetter: React.Dispatch<React.SetStateAction<string>> | React.Dispatch<React.SetStateAction<string[]>>;
+  meetingCandidateDates: string[];
 }
-const CalendarInputComponent = ({ dataSetter,...restProps }: Props) => {
+const CalendarInputComponent = ({ dataSetter, meetingCandidateDates }: Props) => {
   const [clickedDay, setClickedDay] = useState<string>();
   const limitDay = useMemo(() => {
     if (!meetingCandidateDates?.length) return undefined;
@@ -47,8 +47,7 @@ const CalendarInputComponent = ({ dataSetter,...restProps }: Props) => {
             return "custom-active";
           }
         }}
-        {...restProps}
-        tileDisabled={({ date, view }) => view === "month" && startOfDay(date) >= limitDay}
+        tileDisabled={({ date, view }) => (view === "month" && startOfDay(date) >= limitDay) || isPreviousDate(date)}
       />
     </div>
   );

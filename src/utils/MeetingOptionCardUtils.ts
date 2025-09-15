@@ -13,3 +13,7 @@ export const formatMeetingCardUIData = (type: number, data: string | string[]) =
     return data;
   }
 };
+
+export const isPreviousDate = (date: Date) => {
+  return date.getTime() < new Date().getTime() && date.getDate() < new Date().getDate();
+};
