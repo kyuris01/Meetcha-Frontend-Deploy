@@ -12,15 +12,8 @@ const Header = ({ prevButton }: Props) => {
 
   return (
     <div className={styles.header}>
-      {prevButton && (
-        <LeftArrow className={styles.header__leftArrow} onClick={() => navigate(-1)} />
-      )}
-      <img
-        className={styles.header__mainlogo}
-        src={MainLogo}
-        alt="Meetcha 로고 이미지"
-        onClick={() => navigate("/")}
-      />
+      {prevButton && <LeftArrow className={styles.header__leftArrow} onClick={() => navigate(-1)} />}
+      <img className={styles.header__mainlogo} src={MainLogo} alt="Meetcha 로고 이미지" onClick={() => navigate("/")} />
     </div>
   );
 };

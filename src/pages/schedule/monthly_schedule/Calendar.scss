@@ -118,7 +118,7 @@
 
 .monthlyScheduleView .react-calendar__tile {
   max-width: 100%;
-  padding: 10px 6.6667px;
+  padding: 5px 6.6667px;
   background: none;
   text-align: center;
   font: inherit;
@@ -181,17 +181,14 @@
 .monthlyScheduleView .eventTagBox {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  gap: 3px;
 }
 
 .monthlyScheduleView .eventTag {
   width: 100%;
-  line-height: 24px;
+  height: 15px;
 
   padding: 0 5px;
+  margin-top: 3px;
 
   border-radius: 15px;
 

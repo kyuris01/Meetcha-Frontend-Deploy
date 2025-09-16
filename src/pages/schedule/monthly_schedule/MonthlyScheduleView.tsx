@@ -30,11 +30,11 @@ const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
             });
           return <EventTagBox eventName={eventName} />;
         }}
-        formatDay={(locale, date) => {
+        formatDay={(_, date) => {
           // console.log(date);
           return date.toLocaleString("en", { day: "numeric" });
         }}
-        formatShortWeekday={(locale, date) => date.toLocaleString("en-US", { weekday: "short" })}
+        formatShortWeekday={(_, date) => date.toLocaleString("en-US", { weekday: "short" })}
         onActiveStartDateChange={({ activeStartDate, view }) => {
           setFetchStandardDate((prev) => {
             const newStandardDate = `${getYear(activeStartDate)} ${getMonth(activeStartDate) + 1}`;
