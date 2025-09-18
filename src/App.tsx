@@ -22,11 +22,14 @@ import Participate_error_ctn from "./pages/participate/Participate_error/Partici
 import MyPage from "./pages/mypage/MyPage";
 import PrivacyPage from "./pages/privacy/PrivacyPage";
 
+import LandingBackground from "./pages/landing/LandingBackground";
+
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/" element={<Navigate to="/landingPage" replace />} />
+        <Route path="/landingPage" element={<LandingBackground/>}></Route>
         <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
         <Route index path="/meeting/detail" element={<MeetingDetailPage />}></Route>
         <Route path="/login" element={<LoginContainer />}></Route>

@@ -11,7 +11,7 @@ export const apiCall = async <T>(
 ): Promise<ApiResponse<T>> => {
   const access_token = sessionStorage.getItem("access-token");
   const refresh_token = sessionStorage.getItem("refresh-token");
-
+  
   const doFetch = () =>
     fetch(`${API_BASE}${path}`, {
       method,

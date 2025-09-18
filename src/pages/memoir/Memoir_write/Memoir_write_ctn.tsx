@@ -6,7 +6,6 @@ import Memoir_write_main from "./Memoir_write_main";
 import Memoir_bottom_fixed from "../Memoir_common/Memoir_bottom_fixed";
 
 import { useAPIs2 } from "@/apis/useAPIs2";
-import { useAPIs } from "@/apis/useAPIs";
 
 import "./Memoir_write.scss";
 

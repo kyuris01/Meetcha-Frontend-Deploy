@@ -1,0 +1,72 @@
+$gradStart: 2294px;
+
+.backgroundContainer {
+  margin: 0 auto;
+  width: 393px;
+  height: 2915px;
+
+  background: linear-gradient(to bottom, #f2f2f2 0 #{$gradStart}, #fcf8f2 100%);
+  
+  position: relative;
+  
+  > img:nth-child(1) {
+    position: absolute;
+    width: 210.14528993679107;
+    height: 127.9456074571808;
+    top: 0px;
+    right: 0px;
+  }
+  > img:nth-child(2) {
+    position: absolute;
+    width: 99.671597644564;
+    height: 99.671597644564;
+    opacity: 1;
+    top: 78px;
+    left: 275px;
+    opacity: 60%;
+  }
+  > img:nth-child(3) {
+    position: absolute;
+    width: 173.6915105099528;
+    height: 231.5886959387259;
+    opacity: 1;
+    top: 123px;
+    left: 0px;
+    opacity: 40%;
+  }
+
+  
+  > .button_ctn {
+    
+    position: absolute;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 1;
+    >.button {
+    display: inline-block;
+    width: 100%;
+    height: 3.75rem;
+    background-color: #ff6200;
+    border-radius: 8px;
+    .button_p_ctn {
+      
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      p {
+        font-family: Pretendard;
+        font-weight: 600;
+        font-style: SemiBold;
+        font-size: 17px;
+        line-height: 23.1px;
+        letter-spacing: 1%;
+        text-align: center;
+        color: var(--Color, #f7f7f7);
+      }
+    }
+  }
+  }
+  
+}

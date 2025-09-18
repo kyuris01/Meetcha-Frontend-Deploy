@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useAPIs } from "@/apis/useAPIs";
-
-import LowChevron from "@assets/LowChevron.svg";
-import meetchalogo from "@assets/MeetchaLogo.svg";
 
 import Summary_card from "./Summary_card";
 
 import "./Memoir_meeting.scss";
 
-const Mymeeting_summary = ({ meetingSummary, meetingLists, memoirLists }) => {
+const Mymeeting_summary = ({ meetingSummary}) => {
   const [meetingCount, setMeetingCount] = useState<number>(0);
   const [mainRole, setMainRole] = useState<string>("--");
   const [averageContribution, setAverageContribution] = useState<number>(0);

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAPIs2 } from "@/apis/useAPIs2";
+import { apiCall } from "@/apis/apiCall";
 import "./Memoir_meeting.scss";
-
+//import { useAPIs2 } from "@/apis/useAPIs2";
 interface Props {
   meetingLists: any[];
 }
@@ -10,39 +10,57 @@ interface Props {
 const Meeting_list_content = ({ meetingLists }: Props) => {
   const navigate = useNavigate();
 
-  const [selectedMeetingId, setSelectedMeetingId] = useState<string | null>(
-    null
-  );
+  const [chosenMemoir,setChosenMemoir]=useState<any>();
 
-  // 1. 훅은 최상단에서 선언
-  const {
-    response: chosenMemoir,
-    loading,
-    error,
-    fire,
-  } = useAPIs2(
-    selectedMeetingId ? `/meeting/${selectedMeetingId}/reflection` : "",
-    "GET",
-    undefined,
-    true,
-    false
-  );
+  // const {
+  //   response: chosenMemoir,
+  //   loading,
+  //   error,
+  //   fire,
+  // } = useAPIs2(
+  //   selectedMeetingId ? `/meeting/${selectedMeetingId}/reflection` : "",
+  //   "GET",
+  //   undefined,
+  //   true,
+  //   false
+  // );
+
+  const getChosenMemoir=async(meetingId)=>{
+    try{
+      const res=await apiCall(`/meeting/${meetingId}/reflection`,"GET",null,true);
+
+      if(!res) return;
+      if(res.code===401){
+        alert("인증이 필요합니다");
+      } else if (res.code===404){
+        alert("사용자를 찾을 수 없습니다.");
+      } else if (res.code===200){
+        setChosenMemoir(res.data);
+      }else{
+        alert(res.message ?? '유저 정보를 불러오지 못했습니다.');
+      }
+    } catch(e){
+      alert("서버 오류");
+    }
+  };
+  
 
   // 2. 클릭 시 선택된 미팅 ID 저장 + fire 실행
   const handleClick = (meeting: any) => {
-    setSelectedMeetingId(meeting.meetingId);
-    fire();
+ 
+    getChosenMemoir(meeting.meetingId);
   };
-
 
 
   // 3. 회고 데이터 도착하면 이동
   useEffect(() => {
-    if (chosenMemoir && chosenMemoir.success) {
+    if (chosenMemoir) {
       navigate("/memoir-complete", { state: chosenMemoir });
     }
   }, [chosenMemoir]);
+
   console.log(meetingLists);
+
   return (
     <div className="meetings_ctn">
       {Array.isArray(meetingLists) &&

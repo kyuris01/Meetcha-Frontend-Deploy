@@ -1,0 +1,150 @@
+.content_ctn {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  > .content- {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    > .content_text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      > p:nth-child(1) {
+        font-family: Pretendard;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 15px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: center;
+        color: #ff7842;
+      }
+      .content_desc {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        > p:nth-child(1) {
+          font-family: Pretendard;
+          font-weight: 700;
+          font-style: Bold;
+          font-size: 24px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          text-align: center;
+        }
+        > p:nth-child(2) {
+          font-family: Pretendard;
+          font-weight: 700;
+          font-style: Bold;
+          font-size: 24px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          text-align: center;
+        }
+      }
+    }
+    .img_ctn {
+      /* 세로로 쌓고 가로 중앙 정렬 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      /* 이미지-선-이미지 간격 */
+      margin: 0 auto;
+      padding: 0;
+
+      --line-h: 29px; /* 선 길이 */
+      --line-w: 2px; /* 선 두께 */
+      --brand: #ff7842; /* 포인트 컬러 */
+      --circle: 14px; /* 원 지름 */
+      --r: calc(var(--circle) / 2); /* 원 반지름 */
+    }
+
+    /* 위/아래 이미지 */
+    .img_ctn > img:nth-child(1) {
+      width: 283px;
+      height: 335px;
+    }
+
+    /* 세로선 */
+    .img_ctn > .line {
+      display: block;
+      width: var(--line-w);
+      height: var(--line-h);
+      background: 
+        rgba(255, 120, 66, 0.85);
+      border-radius: calc(var(--line-w) / 2);
+      position: relative;
+      z-index: 1;
+    }
+
+    /* 선 끝의 원 (바닥에 살짝 겹치게) */
+    .img_ctn > .circle {
+      width: var(--circle);
+      height: var(--circle);
+      border-radius: 50%;
+      background: radial-gradient(
+        circle at center,
+        var(--brand) 0 3.5px,
+        rgba(255, 120, 66, 0.25) 8px 100%
+      );
+      position: relative;
+      z-index: 2;
+      margin-top: calc(-1 * var(--r)); /* 선과 반쯤 겹치기 */
+      margin-bottom: calc(
+        -1 * var(--r)
+      ); /* 아래 이미지 상단을 '원 중심'에 맞춤 */
+      display: grid;
+      place-items: center;
+    }
+    .img_ctn > img:nth-child(4) {
+      width: 283px;
+      height: 147px;
+      position: relative;
+      z-index: 1; /* 원보다 한 단계 아래 */
+    }
+  }
+  > .content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    > .content_text {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      > p:nth-child(1) {
+        font-family: Pretendard;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 15px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        text-align: center;
+        color: #ff7842;
+      }
+      .content_desc {
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+        > p:nth-child(1) {
+          font-family: Pretendard;
+          font-weight: 700;
+          font-style: Bold;
+          font-size: 24px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          text-align: center;
+        }
+        > p:nth-child(2) {
+          font-family: Pretendard;
+          font-weight: 700;
+          font-style: Bold;
+          font-size: 24px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
