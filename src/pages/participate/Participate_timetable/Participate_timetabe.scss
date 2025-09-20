@@ -2,6 +2,10 @@
   padding: 1rem;
   width: 100%;
   height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   .text_container1 {
     display: flex;
     flex-direction: column;
@@ -66,7 +70,6 @@
     gap: 1rem;
 
     .timetable_ctn {
-      
       height: 80%;
       overflow: scroll;
     }
@@ -118,7 +121,7 @@
   line-height: 2.5rem;
 }
 .fc .fc-timegrid-slot-label {
-border: none !important;
+  border: none !important;
   font-family: Pretendard;
   font-weight: 400;
   font-style: Regular;
@@ -130,10 +133,10 @@ border: none !important;
   color: #343434;
 }
 
-.fc .busy-block{
+.fc .busy-block {
   background-image: repeating-linear-gradient(
     135deg,
-    rgba(160,160,160,0.35) 0 8px,
-    rgba(160,160,160,0.15) 8px 16px
+    rgba(160, 160, 160, 0.35) 0 8px,
+    rgba(160, 160, 160, 0.15) 8px 16px
   );
 }

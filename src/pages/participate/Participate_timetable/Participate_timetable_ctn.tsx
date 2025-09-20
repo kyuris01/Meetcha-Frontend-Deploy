@@ -8,6 +8,7 @@ import LeftChevron from "@/assets/LeftChevron.svg";
 import { apiCall } from "@/utils/apiCall";
 
 import type { UISlot, SubmitAvailabilityBody } from "@/apis/participate/participateTypes";
+import CountDown from "@/components/CountDown/CountDown";
 
 const Participate_timetable_ctn = () => {
   const navigate = useNavigate();
@@ -84,12 +85,7 @@ const Participate_timetable_ctn = () => {
     const last = sortedDates[sortedDates.length - 1];
 
     try {
-      const resSchedule = await apiCall(
-        `/user/schedule?from=${first}T00:00:00&to=${last}T23:59:59`,
-        "GET",
-        null,
-        true
-      );
+      const resSchedule = await apiCall(`/user/schedule?from=${first}T00:00:00&to=${last}T23:59:59`, "GET", null, true);
 
       if (!resSchedule) return;
       if (resSchedule.code === 400) {
@@ -221,6 +217,7 @@ const Participate_timetable_ctn = () => {
       </div>
 
       <div className="participate_ctn">
+        <CountDown label={"참가 마감 시간"} finishTime={meetingData.deadline} />
         <div className="text_container1">
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
@@ -239,9 +236,7 @@ const Participate_timetable_ctn = () => {
           </p>
           <div className="timetable_ctn">
             <Timetable
-              candidateDates={
-                Array.isArray(meetingData?.candidateDates) ? meetingData.candidateDates : []
-              }
+              candidateDates={Array.isArray(meetingData?.candidateDates) ? meetingData.candidateDates : []}
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
               previousAvailTime={Array.isArray(previousAvailTime) ? previousAvailTime : []}

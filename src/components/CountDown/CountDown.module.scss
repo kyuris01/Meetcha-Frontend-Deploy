@@ -1,0 +1,25 @@
+.CountDown {
+  width: 100%;
+  height: 4rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: $color-orange-5;
+  color: $color-orange-1;
+
+  padding: 0 20px;
+
+  border-radius: 8px;
+
+  &__label {
+    @extend %body3;
+  }
+
+  &__time {
+    @extend %head3;
+    margin-right: 3rem;
+  }
+}

@@ -87,11 +87,11 @@
 }
 
 .calendarMultipleInputComponent .react-calendar__month-view__weekdays__weekday--weekend {
-  color: $color-orange-5;
+  color: $color-orange-10;
 }
 
 .calendarMultipleInputComponent .react-calendar__month-view__days__day--weekend {
-  color: $color-orange-5;
+  color: $color-orange-10;
 }
 
 .calendarMultipleInputComponent .react-calendar__month-view__days__day {
@@ -125,10 +125,8 @@
 }
 
 .calendarMultipleInputComponent .react-calendar__month-view__days__day--neighboringMonth:disabled,
-.calendarMultipleInputComponent
-  .react-calendar__decade-view__years__year--neighboringDecade:disabled,
-.calendarMultipleInputComponent
-  .react-calendar__century-view__decades__decade--neighboringCentury:disabled {
+.calendarMultipleInputComponent .react-calendar__decade-view__years__year--neighboringDecade:disabled,
+.calendarMultipleInputComponent .react-calendar__century-view__decades__decade--neighboringCentury:disabled {
   color: #cdcdcd;
 }
 
@@ -182,7 +180,7 @@
   height: 33%;
   border-radius: 10px;
 
-  background-color: $color-orange-5;
+  background-color: $color-orange-10;
   color: white;
   font-size: x-small;
   line-height: 25px;
@@ -197,7 +195,7 @@
   height: 40px;
   border-radius: 50%;
 
-  background: $color-orange-5;
+  background: $color-orange-10;
   color: white;
 
   display: flex;
@@ -207,7 +205,7 @@
 
 .calendarMultipleInputComponent .custom-active:enabled:hover,
 .calendarMultipleInputComponent .custom-active:enabled:focus {
-  background: $color-orange-5;
+  background: $color-orange-10;
 }
 
 .calendarMultipleInputComponent .react-calendar__navigation__label {

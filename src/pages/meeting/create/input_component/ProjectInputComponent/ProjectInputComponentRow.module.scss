@@ -11,13 +11,13 @@
     gap: 10px;
 
     input[type="radio"] {
-      accent-color: $color-orange-5;
+      accent-color: $color-orange-10;
       width: 20px;
       height: 20px;
 
       &:hover {
-        background-color: $color-orange-5;
-        border-color: $color-orange-5;
+        background-color: $color-orange-10;
+        border-color: $color-orange-10;
       }
     }
 

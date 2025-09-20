@@ -49,7 +49,7 @@
   border: none;
 
   background-color: $color-orange-2 !important;
-  color: $color-orange-5;
+  color: $color-orange-10;
 }
 
 .selectedEvent {
@@ -81,7 +81,7 @@
 
   font-family: Pretendard;
 
-  color: $color-orange-5;
+  color: $color-orange-10;
 
   &__title {
     font-size: 14px;
@@ -97,7 +97,7 @@
 }
 
 .active {
-  background-color: $color-orange-5;
+  background-color: $color-orange-10;
   color: white;
 }
 

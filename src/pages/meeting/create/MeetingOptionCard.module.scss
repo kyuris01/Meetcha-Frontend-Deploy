@@ -32,7 +32,7 @@
       align-items: center;
       justify-content: center;
       svg {
-        color: $color-orange-1;
+        color: $color-orange-11;
       }
     }
 
@@ -95,7 +95,7 @@
   }
 
   &.expanded {
-    border: 1px solid $color-orange-5;
+    border: 1px solid $color-orange-10;
     height: auto;
   }
 }
