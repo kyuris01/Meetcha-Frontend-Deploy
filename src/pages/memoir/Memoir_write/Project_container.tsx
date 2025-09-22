@@ -99,7 +99,7 @@ const Project_container: React.FC<Props> = ({
   };
 
   const toggleBannerBox = () => setIsOpen((v) => !v);
-
+  
   // projectId가 바뀌면 테마/이름 갱신
   useEffect(() => {
     if (!projectId) {
