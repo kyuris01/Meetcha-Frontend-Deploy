@@ -3,10 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Participate_link.scss";
 
 import LeftChevron from "@assets/LeftChevron.svg";
-import Top_banner from "../common/Top_banner";
 
-import { useAPIs2 } from "@/apis/useAPIs2";
-import { useAPIs } from "@/apis/useAPIs";
 import { apiCall } from "@/utils/apiCall";
 //여기서 meetingcode를 가진 meetingdata를 불러와야함
 //msw사용
@@ -64,7 +61,6 @@ const Participate_link = () => {
       navigate("/error");
     }
   };
- 
   // 사용: 버튼 클릭 전에 일단 한 번 호출
   // debugMeetingCode(linkText);
 
