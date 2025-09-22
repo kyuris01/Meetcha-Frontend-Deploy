@@ -1,5 +1,6 @@
 $gradStart: 2294px;
-
+$background-color: #fff9f1;
+$signiture-color: #ff6200;
 .backgroundContainer {
   margin: 0 auto;
   width: 393px;
@@ -39,7 +40,7 @@ $gradStart: 2294px;
   > .button_ctn {
     
     position: absolute;
-    bottom: 0%;
+    bottom: 1.2%;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -68,5 +69,20 @@ $gradStart: 2294px;
     }
   }
   }
-  
+  > footer > .privacyBtn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+
+    color: $color-orange-10;
+    text-decoration: underline;
+    text-decoration-color: $color-orange-10;
+
+    font-family: Pretendard;
+    font-size: small;
+    font-weight: 600;
+
+    cursor: pointer;
+  }
 }

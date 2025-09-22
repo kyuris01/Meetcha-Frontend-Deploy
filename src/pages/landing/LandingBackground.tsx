@@ -26,6 +26,11 @@ const LandingBackground = () => {
           </div>
         </button>
       </div>
+      <footer>
+        <a href="/privacy" className="privacyBtn">
+          개인정보 처리방침
+        </a>
+      </footer>
     </div>
   );
 };

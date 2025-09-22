@@ -57,20 +57,5 @@ $signiture-color: #ff6200;
     }
   }
 
-  > footer > .privacyBtn {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 20px;
-
-    color: $color-orange-10;
-    text-decoration: underline;
-    text-decoration-color: $color-orange-10;
-
-    font-family: Pretendard;
-    font-size: small;
-    font-weight: 600;
-
-    cursor: pointer;
-  }
+  
 }
