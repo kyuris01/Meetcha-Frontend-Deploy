@@ -16,7 +16,7 @@
   overflow-x: scroll;
 
   &__header {
-    color: $color-gray-6;
+    color: $color-gray-400;
     font-size: 21px;
     font-style: normal;
     font-weight: 700;
@@ -48,7 +48,7 @@
 
   border: none;
 
-  background-color: $color-orange-2 !important;
+  background-color: $color-orange-100 !important;
   color: $color-orange-10;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .checkButton {
-  color: $color-orange-2;
+  color: $color-orange-100;
 }
 
 .dashedLine {
@@ -102,6 +102,6 @@
 }
 
 .inactive {
-  background-color: $color-orange-6;
+  background-color: $color-orange-200;
   color: white;
 }

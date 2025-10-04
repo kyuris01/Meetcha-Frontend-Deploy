@@ -11,7 +11,7 @@
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  background: $color-cream-dark;
+  background: $color-cream-100;
   border: none !important;
   // border: 1px solid #a0a096;
   font-family: "Arial", "Helvetica", sans-serif;
@@ -161,7 +161,7 @@
 
 .monthlyScheduleView .react-calendar__tile--active {
   // background: #006edc;
-  background: $color-gray-6 !important;
+  background: $color-gray-400 !important;
   color: white;
 }
 

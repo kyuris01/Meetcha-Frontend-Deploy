@@ -1,27 +1,16 @@
 // orange
-$color-orange-7: #faefdf;
-$color-orange-6: #ffb180;
-$color-orange-10: #ff6200;
-$color-orange-4: #ff914c;
-$color-orange-3: #ffa9a9;
-$color-orange-2: #ffc8a5;
-$color-orange-11: #ffab7a;
-$color-orange-5: #ffeee3;
-$color-orange-1: #ff7842;
-
+// these oranges are independent: $color-orange-3, $color-orange-4, $color-orange-5, $color-orange-7, $color-orange-9, $color-orange-10
+$color-orange-100: #ffc8a5; // $color-orange-2
+$color-orange-200: #ffa770; // $color-orange-6, $color-orange-11
+$color-orange-300: #ff7842; // $color-orange-1
 //cream
-$color-cream-dark: #fff9f1;
-$color-cream-light: #f6f2ec;
+$color-cream-100: #fff9f1; // $color-cream-dark
+$color-cream-200: #f6f2ec; // $color-cream-light
 
 //gray
-$color-gray-1: #d9d9d9;
-$color-gray-2: #a3a3a3;
-$color-gray-3: #959595;
-$color-gray-4: #404040;
-$color-gray-5: #ccc;
-$color-gray-6: #616161;
-$color-gray-7: #f6f6f6;
-$color-gray-8: #e8e8e8;
-$color-gray-9: #f8f8f8;
-$color-gray-10: #343434;
-$color-gray-11: #f7f7f7;
+// these grays are independent: $color-gray-1, $color-gray-3, $color-gray-4, $color-gray-7, $color-gray-9, $color-gray-11
+$color-gray-100: #e8e8e8; // $color-gray-8
+$color-gray-200: #cccccc; // $color-gray-5
+$color-gray-300: #a3a3a3; // $color-gray-2
+$color-gray-400: #616161; // $color-gray-6
+$color-gray-500: #202020; // $color-gray-10

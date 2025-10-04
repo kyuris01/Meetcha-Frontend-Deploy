@@ -32,7 +32,7 @@
       align-items: center;
       justify-content: center;
       svg {
-        color: $color-orange-11;
+        color: $color-orange-200;
       }
     }
 
@@ -78,7 +78,7 @@
 
     &__downArrow {
       svg {
-        color: $color-gray-2;
+        color: $color-gray-300;
       }
     }
   }
@@ -91,7 +91,7 @@
 
     padding: 12px 16px;
 
-    border-top: 1px solid $color-gray-8;
+    border-top: 1px solid $color-gray-100;
   }
 
   &.expanded {

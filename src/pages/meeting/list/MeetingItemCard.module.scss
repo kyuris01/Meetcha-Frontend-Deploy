@@ -22,7 +22,7 @@
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
 
-    background-color: $color-orange-2;
+    background-color: $color-orange-100;
   }
 
   &__dataArea {
@@ -50,7 +50,7 @@
         line-height: 23.1px;
         letter-spacing: 0.17px;
 
-        color: $color-gray-10;
+        color: $color-gray-500;
       }
       &__meetingDetail {
         font-size: 14px;
@@ -58,7 +58,7 @@
         font-weight: 500;
         line-height: normal;
 
-        color: $color-gray-6;
+        color: $color-gray-400;
       }
     }
 
@@ -74,7 +74,7 @@
 }
 
 .incomplete {
-  background-color: $color-orange-2;
+  background-color: $color-orange-100;
 }
 
 .incompleteText {
@@ -82,9 +82,9 @@
 }
 
 .fail {
-  background-color: $color-gray-5;
+  background-color: $color-gray-200;
 }
 
 .failText {
-  color: $color-gray-5;
+  color: $color-gray-200;
 }

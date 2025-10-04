@@ -18,15 +18,15 @@
 
 .complete {
   color: $color-orange-10;
-  background-color: $color-cream-dark;
+  background-color: $color-cream-100;
 }
 
 .running {
-  color: $color-orange-2;
-  background-color: $color-cream-dark;
+  color: $color-orange-100;
+  background-color: $color-cream-100;
 }
 
 .fail {
-  color: $color-gray-2;
+  color: $color-gray-300;
   background-color: $color-gray-7;
 }
