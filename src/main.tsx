@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { toast, ToastContainer } from "react-toastify";
 import "normalize.css";
+import "@ncdai/react-wheel-picker/style.css";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
