@@ -17,7 +17,7 @@ const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
       <Calendar
         showNeighboringMonth={false}
         tileContent={({ date, view }) => {
-          const eventName = new Array();
+          const eventName = [];
 
           schedules &&
             schedules.map((schedule) => {

@@ -45,7 +45,7 @@ const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
 
     setCalendarArr((prevArr) => {
       let newStandard: Date;
-      let newArr = [...prevArr];
+      const newArr = [...prevArr];
 
       if (activeIndex > previousIndex) {
         // 다음 주로 이동

@@ -94,7 +94,7 @@ const Timetable = ({
         .minute(Math.floor(d.minute() / 30) * 30)
         .second(0)
         .millisecond(0);
-    let s = snap30(dayjs(info.start));
+    const s = snap30(dayjs(info.start));
     let e = snap30(dayjs(info.end));
     if (!e.isAfter(s)) {
       e = s.add(30, "minute");

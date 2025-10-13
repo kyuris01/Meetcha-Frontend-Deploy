@@ -1,0 +1,262 @@
+{
+  "src/apis/apiCall.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 2
+    }
+  },
+  "src/apis/client.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 10
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/apis/meeting/meetingAPI.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    },
+    "no-case-declarations": {
+      "count": 1
+    },
+    "react-hooks/rules-of-hooks": {
+      "count": 1
+    }
+  },
+  "src/components/BottomNav/BottomNav.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/components/BottomNav/NavModal.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/components/CountDown/CountDown.tsx": {
+    "no-constant-binary-expression": {
+      "count": 1
+    }
+  },
+  "src/mocks/handlers.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 7
+    }
+  },
+  "src/mocks/handlers/index.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/mocks/handlers/meetingHandlers.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/mocks/handlers/meetingParticipateHandlers.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/mocks/handlers/projectsAllHandler.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/landing/CommonContent.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/pages/meeting/alternative/MeetingAlternativeView.tsx": {
+    "no-irregular-whitespace": {
+      "count": 5
+    }
+  },
+  "src/pages/meeting/detail/MeetingDetailRow.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/meeting/list/CarouselItem.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/meeting/list/MeetingCompleteSection.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/meeting/list/MeetingIncompleteSection.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/meeting/participant/ParticipantInfoPage.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/meeting/participant/ParticipantInfoView.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/memoir/Memoir_common/Meeting_card.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/memoir/Memoir_complete/Memoir_complete_ctn.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/memoir/Memoir_meeting/Meeting_list_content.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 3
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/memoir/Memoir_meeting/Memoir_meeting_All.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 5
+    },
+    "no-irregular-whitespace": {
+      "count": 2
+    }
+  },
+  "src/pages/memoir/Memoir_write/Memoir_write_ctn.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/pages/memoir/Memoir_write/Memoir_write_main.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/memoir/Memoir_write/Project_container.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 4
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/mypage/MyPage.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/pages/participate/Participate_complete/Participate_completed_ctn.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/pages/participate/Participate_error/Participate_error_ctn.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/pages/participate/Participate_link/Participate_link_ctn.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 3
+    }
+  },
+  "src/pages/participate/Participate_timetable/Participate_timetable_ctn.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 4
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 5
+    }
+  },
+  "src/pages/participate/Participate_timetable/Timetable.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 3
+    }
+  },
+  "src/pages/schedule/SchedulePage.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 7
+    }
+  },
+  "src/pages/schedule/monthly_schedule/MonthlyScheduleView.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-expressions": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/pages/schedule/schedule_crud/ScheduleCrudCard.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 2
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
+    }
+  },
+  "src/pages/schedule/schedule_crud/ScheduleCrudView.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 3
+    }
+  },
+  "src/pages/schedule/schedule_crud/ScheduleRepetitionRow.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/pages/schedule/weekly_schedule/CustomEvent.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    }
+  },
+  "src/pages/schedule/weekly_schedule/CustomWeekHeader.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    }
+  },
+  "src/pages/schedule/weekly_schedule/WeeklyCalendar.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 2
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 3
+    }
+  },
+  "src/pages/schedule/weekly_schedule/WeeklyScheduleView.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
+  "src/utils/MeetingCreationUtils.ts": {
+    "no-unsafe-optional-chaining": {
+      "count": 2
+    }
+  },
+  "src/utils/apiCall.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 2
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    },
+    "no-empty": {
+      "count": 1
+    }
+  }
+}

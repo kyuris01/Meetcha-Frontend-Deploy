@@ -33,7 +33,7 @@ const Participate_timetable_ctn = () => {
       .map((t: any) => {
         const sRaw = t.startISO ?? t.startAt; // 문자열 ISO 또는 Date 모두 허용
         const eRaw = t.endISO ?? t.endAt;
-        let s = snap30(dayjs(sRaw));
+        const s = snap30(dayjs(sRaw));
         let e = snap30(dayjs(eRaw));
         if (!e.isAfter(s)) {
           e = s.add(30, "minute"); // 0길이/역전 방지
