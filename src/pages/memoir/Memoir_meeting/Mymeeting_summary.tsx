@@ -4,7 +4,7 @@ import Summary_card from "./Summary_card";
 
 import "./Memoir_meeting.scss";
 
-const Mymeeting_summary = ({ meetingSummary}) => {
+const Mymeeting_summary = ({ meetingSummary }) => {
   const [meetingCount, setMeetingCount] = useState<number>(0);
   const [mainRole, setMainRole] = useState<string>("--");
   const [averageContribution, setAverageContribution] = useState<number>(0);

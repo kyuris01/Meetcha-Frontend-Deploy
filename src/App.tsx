@@ -29,7 +29,7 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/landingPage" replace />} />
-        <Route path="/landingPage" element={<LandingBackground/>}></Route>
+        <Route path="/landingPage" element={<LandingBackground />}></Route>
         <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
         <Route index path="/meeting/detail" element={<MeetingDetailPage />}></Route>
         <Route path="/login" element={<LoginContainer />}></Route>
@@ -45,16 +45,8 @@ const App = () => {
         <Route index path="/timetable" element={<Participate_timetable_ctn />}></Route>
         <Route index path="/participate" element={<Participate_link />}></Route>
         <Route index path="/error" element={<Participate_error_ctn />}></Route>
-        <Route
-          index
-          path="/complete"
-          element={<Participate_completed_ctn />}
-        ></Route>
-        <Route
-          index
-          path="/meeting-creation"
-          element={<MeetingCreationPage />}
-        ></Route>
+        <Route index path="/complete" element={<Participate_completed_ctn />}></Route>
+        <Route index path="/meeting-creation" element={<MeetingCreationPage />}></Route>
         <Route index path="/privacy" element={<PrivacyPage />}></Route>
       </Routes>
     </BrowserRouter>

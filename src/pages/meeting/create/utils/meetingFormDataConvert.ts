@@ -22,12 +22,10 @@ export const meetingFormDataConvert = (formData: MeetingCreationSchema): Meeting
     const paddedTime = hour?.padStart(2, "0") + ":" + minute;
     return date + "T" + paddedTime;
   };
-  
+
   return {
     ...formData,
     deadline: deadlineParse(formData.deadline),
-    projectId: formData.projectId
-      ? projectDataParse(formData.projectId)
-      : undefined,
+    projectId: formData.projectId ? projectDataParse(formData.projectId) : undefined,
   };
 };

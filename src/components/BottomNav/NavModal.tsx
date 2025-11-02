@@ -13,7 +13,7 @@ const NavModal = () => {
     {
       id: 1,
       label: "미팅 참가",
-      clickRoute:"/participate",
+      clickRoute: "/participate",
     },
   ];
   return (

@@ -71,8 +71,7 @@
       display: block;
       width: var(--line-w);
       height: var(--line-h);
-      background: 
-        rgba(255, 120, 66, 0.85);
+      background: rgba(255, 120, 66, 0.85);
       border-radius: calc(var(--line-w) / 2);
       position: relative;
       z-index: 1;
@@ -83,17 +82,11 @@
       width: var(--circle);
       height: var(--circle);
       border-radius: 50%;
-      background: radial-gradient(
-        circle at center,
-        var(--brand) 0 3.5px,
-        rgba(255, 120, 66, 0.25) 8px 100%
-      );
+      background: radial-gradient(circle at center, var(--brand) 0 3.5px, rgba(255, 120, 66, 0.25) 8px 100%);
       position: relative;
       z-index: 2;
       margin-top: calc(-1 * var(--r)); /* 선과 반쯤 겹치기 */
-      margin-bottom: calc(
-        -1 * var(--r)
-      ); /* 아래 이미지 상단을 '원 중심'에 맞춤 */
+      margin-bottom: calc(-1 * var(--r)); /* 아래 이미지 상단을 '원 중심'에 맞춤 */
       display: grid;
       place-items: center;
     }

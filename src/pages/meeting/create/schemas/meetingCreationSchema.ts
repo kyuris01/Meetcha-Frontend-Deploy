@@ -33,10 +33,7 @@ const meetingCreationSchema = z
       .string()
       .min(1, { message: "제목을 입력해주세요" })
       .max(100, { message: "제목은 100자 이하로 입력해주세요" }),
-    description: z
-      .string()
-      .max(200, { message: "설명은 200자 이하로 입력해주세요" })
-      .optional(),
+    description: z.string().max(200, { message: "설명은 200자 이하로 입력해주세요" }).optional(),
     /**
      * YYYY-MM-DD[]
      */
@@ -75,11 +72,7 @@ const meetingCreationSchema = z
   })
   .superRefine((value, context) => {
     // 후보날짜와 데드라인 관계 검증
-    if (
-      value.candidateDates.some((date) =>
-        dayjs(date).isBefore(dayjs(value.deadline))
-      )
-    ) {
+    if (value.candidateDates.some((date) => dayjs(date).isBefore(dayjs(value.deadline)))) {
       context.addIssue({
         code: "custom",
         message: "후보날짜는 참여 마감 시간 이후여야 합니다.",

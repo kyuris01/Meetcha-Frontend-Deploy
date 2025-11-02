@@ -12,7 +12,7 @@ const Meeting_card = ({
   const [isExpanded, setIsExpanded] = useState(false);
   const [descHeight, setDescHeight] = useState(0);
   const descRef = useRef(null);
-  
+
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
@@ -28,11 +28,10 @@ const Meeting_card = ({
       <div className="spare_ctn"></div>
       <div className="study_banner_ctn">
         <div className="project_name">
-          <div style={{backgroundColor: chosenProjectBgColor,}}className="p_container">
+          <div style={{ backgroundColor: chosenProjectBgColor }} className="p_container">
             <p
               style={{
                 color: chosenProjectTextColor,
-                
               }}
             >
               {(chosenProject ?? "").trim() || "프로젝트 없음"}
@@ -40,7 +39,7 @@ const Meeting_card = ({
           </div>
         </div>
         <p>{meeting.title}</p>
-        <p>{meeting.confirmedTime.replace("T"," ")}</p>
+        <p>{meeting.confirmedTime.replace("T", " ")}</p>
 
         <div
           className="description"
@@ -55,11 +54,7 @@ const Meeting_card = ({
         </div>
 
         <div className="expand_btn" onClick={toggleExpand}>
-          <img
-            src={LowChevron}
-            alt="펼치기"
-            className={isExpanded ? "rotated" : ""}
-          />
+          <img src={LowChevron} alt="펼치기" className={isExpanded ? "rotated" : ""} />
         </div>
       </div>
     </div>

@@ -31,9 +31,7 @@ const MeetingDetailPage = () => {
   };
 
   const onClickEditParticipate = () => {
-
     navigate(`/timetable?meetingId=${meetingDetail?.meetingId}&pagenum=3`);
-
   };
 
   useEffect(() => {
@@ -69,7 +67,6 @@ const MeetingDetailPage = () => {
             )}
           {meetingDetail?.meetingStatus === "MATCHING" &&
             isBefore(meetingDetail?.deadline, Date.now()) && (
-
               <Button
                 label={"대안시간 투표하기"}
                 className={styles.editButton}

@@ -4,17 +4,15 @@
   button {
     all: unset;
   }
-  
 }
 *.ellipsis {
-  white-space: nowrap;      /* 줄바꿈 방지 */
-  overflow: hidden;         /* 넘치는 부분 숨기기 */
-  text-overflow: ellipsis;  /* 말줄임표(...) 표시 */
+  white-space: nowrap; /* 줄바꿈 방지 */
+  overflow: hidden; /* 넘치는 부분 숨기기 */
+  text-overflow: ellipsis; /* 말줄임표(...) 표시 */
 }
-.meeting_container{
+.meeting_container {
   width: 100%;
   height: 100%;
-  
 }
 .meeting_summary_ctn {
   padding: 1rem;
@@ -114,7 +112,6 @@
 }
 
 .must_write_ctn {
-
   padding: 1.4rem 1rem 1.2rem 1rem;
   display: flex;
   flex-direction: column;
@@ -138,7 +135,6 @@
     overflow-y: scroll;
 
     > .meetingcard {
-      
       flex: 0 0 calc(50% - 8px);
       scroll-snap-align: start;
       width: 50%;
@@ -223,7 +219,6 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-     
 
       .filter_input {
         padding: 0.3rem 0.5rem;
@@ -258,7 +253,6 @@
     gap: 0.7rem;
   }
   .meeting_ctn {
-    
     width: 100%;
     height: 8rem;
 
@@ -289,7 +283,7 @@
         height: 1.5rem;
         border-radius: 8px;
         background-color: #fff9f1;
-        text-overflow: ellipsis; 
+        text-overflow: ellipsis;
       }
       .meeting_date {
         font-family: Pretendard;

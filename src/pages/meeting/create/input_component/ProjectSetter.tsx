@@ -78,13 +78,7 @@ const ProjectRow = ({
     <div className={styles.projectInputComponentRow}>
       <label className={styles.projectInputComponentRow__buttonContainer}>
         <input type="radio" value={value} onChange={onChange} name="project" />
-        <div
-          className={
-            styles.projectInputComponentRow__buttonContainer__projectName
-          }
-        >
-          {label}
-        </div>
+        <div className={styles.projectInputComponentRow__buttonContainer__projectName}>{label}</div>
       </label>
     </div>
   );

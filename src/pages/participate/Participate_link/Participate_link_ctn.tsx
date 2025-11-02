@@ -67,7 +67,13 @@ const Participate_link = () => {
   return (
     <div className="partici_link_ctn">
       <div className="top_ctn">
-        <img src={LeftChevron} alt="LeftChevron" onClick={()=>{navigate("/schedule")}}></img>
+        <img
+          src={LeftChevron}
+          alt="LeftChevron"
+          onClick={() => {
+            navigate("/schedule");
+          }}
+        ></img>
         <p>{top_text}</p>
       </div>
       <div className="partici_link_main">

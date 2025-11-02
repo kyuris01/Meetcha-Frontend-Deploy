@@ -28,12 +28,12 @@ const Memoir_write_main = ({
   const navigate = useNavigate();
 
   const [chosenProject, setChosenProject] = useState<string>("");
-  
+
   useEffect(() => {
-  if (meeting?.projectId) {
-    setProjectId(meeting.projectId);   // 페이지 진입/meeting 로드 시 1회 반영
-  }
-}, [meeting?.projectId]);
+    if (meeting?.projectId) {
+      setProjectId(meeting.projectId); // 페이지 진입/meeting 로드 시 1회 반영
+    }
+  }, [meeting?.projectId]);
 
   useEffect(() => {
     setChosenProject(meeting?.projectName ?? "");

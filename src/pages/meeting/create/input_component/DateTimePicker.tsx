@@ -4,11 +4,7 @@ import dayjs from "dayjs";
 import min from "dayjs/plugin/minMax";
 import "./DateTimePicker.scss";
 import { useState } from "react";
-import {
-  WheelPicker,
-  WheelPickerWrapper,
-  type WheelPickerOption,
-} from "@ncdai/react-wheel-picker";
+import { WheelPicker, WheelPickerWrapper, type WheelPickerOption } from "@ncdai/react-wheel-picker";
 import { isPreviousDate } from "@/utils/MeetingOptionCardUtils";
 
 dayjs.extend(min);
@@ -66,10 +62,7 @@ export const DateTimePicker = () => {
           formatDay={(_, date) => date.toLocaleString("en", { day: "numeric" })}
           onClickDay={(date: Date) => {
             setDay(date);
-            form.setFormValue(
-              "deadline",
-              `${formatDate(date)}T${formatTime(time)}`
-            );
+            form.setFormValue("deadline", `${formatDate(date)}T${formatTime(time)}`);
           }}
           tileClassName={({ date }) => {
             if (day === date) {
@@ -79,9 +72,7 @@ export const DateTimePicker = () => {
           tileDisabled={({ date }) => {
             const candidateDates = form.getFormValue("candidateDates");
             const minDate =
-              candidateDates.length > 0
-                ? dayjs.min(candidateDates.map((d) => dayjs(d)))
-                : null;
+              candidateDates.length > 0 ? dayjs.min(candidateDates.map((d) => dayjs(d))) : null;
 
             return (
               isPreviousDate(date) ||

@@ -12,9 +12,7 @@ export const DurationSelect = () => {
             form.setFormValue("durationMinutes", option.value);
           }}
           className={
-            form.getFormValue("durationMinutes") === option.value
-              ? styles.selected
-              : undefined
+            form.getFormValue("durationMinutes") === option.value ? styles.selected : undefined
           }
         >
           {option.label}

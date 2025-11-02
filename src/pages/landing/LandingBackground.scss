@@ -7,9 +7,9 @@ $signiture-color: #ff6200;
   height: 2915px;
 
   background: linear-gradient(to bottom, #f2f2f2 0 #{$gradStart}, #fcf8f2 100%);
-  
+
   position: relative;
-  
+
   > img:nth-child(1) {
     position: absolute;
     width: 210.14528993679107;
@@ -36,38 +36,35 @@ $signiture-color: #ff6200;
     opacity: 40%;
   }
 
-  
   > .button_ctn {
-    
     position: absolute;
     bottom: 1.2%;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     z-index: 1;
-    >.button {
-    display: inline-block;
-    width: 100%;
-    height: 3.75rem;
-    background-color: #ff6200;
-    border-radius: 8px;
-    .button_p_ctn {
-      
-      display: flex;
-      text-align: center;
-      justify-content: center;
-      p {
-        font-family: Pretendard;
-        font-weight: 600;
-        font-style: SemiBold;
-        font-size: 17px;
-        line-height: 23.1px;
-        letter-spacing: 1%;
+    > .button {
+      display: inline-block;
+      width: 100%;
+      height: 3.75rem;
+      background-color: #ff6200;
+      border-radius: 8px;
+      .button_p_ctn {
+        display: flex;
         text-align: center;
-        color: var(--Color, #f7f7f7);
+        justify-content: center;
+        p {
+          font-family: Pretendard;
+          font-weight: 600;
+          font-style: SemiBold;
+          font-size: 17px;
+          line-height: 23.1px;
+          letter-spacing: 1%;
+          text-align: center;
+          color: var(--Color, #f7f7f7);
+        }
       }
     }
-  }
   }
   > footer > .privacyBtn {
     position: absolute;

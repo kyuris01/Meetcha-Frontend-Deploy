@@ -9,8 +9,10 @@ const Meeting_list = ({ memoirLists }) => {
   const [showInput, setShowInput] = useState<boolean>(false);
   const [meetingTitle, setMeetingTitle] = useState<string>("");
   const [filteredList, setFilteredList] = useState(memoirLists);
-  
-  useEffect(() => { setFilteredList(memoirLists); }, [memoirLists]);
+
+  useEffect(() => {
+    setFilteredList(memoirLists);
+  }, [memoirLists]);
   const inputRef = useRef(null);
 
   const handleClick = () => {
@@ -22,10 +24,8 @@ const Meeting_list = ({ memoirLists }) => {
   };
 
   const handleFilter = () => {
-    const filtered =memoirLists.filter((item) =>
-      item.meeting_name
-        .toLowerCase()
-        .includes(meetingTitle.trim().toLowerCase())
+    const filtered = memoirLists.filter((item) =>
+      item.meeting_name.toLowerCase().includes(meetingTitle.trim().toLowerCase())
     );
     setFilteredList(filtered);
   };
@@ -37,11 +37,7 @@ const Meeting_list = ({ memoirLists }) => {
   };
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (
-        showInput &&
-        inputRef.current &&
-        !inputRef.current.contains(e.target)
-      ) {
+      if (showInput && inputRef.current && !inputRef.current.contains(e.target)) {
         setShowInput(false);
         setMeetingTitle("");
         setFilteredList(memoirLists);
@@ -49,8 +45,8 @@ const Meeting_list = ({ memoirLists }) => {
     };
     document.addEventListener("mousedown", handleClickOutside);
 
-    return ()=>{
-      document.removeEventListener("mousedown",handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showInput, memoirLists]);
 
@@ -58,12 +54,7 @@ const Meeting_list = ({ memoirLists }) => {
     <div className="meetingList_container">
       <div className="list_header">
         <p>미팅 회고 목록</p>
-        <button
-          className={showInput ? "disappear" : "appear"}
-          onClick={handleClick}
-        >
-        
-        </button>
+        <button className={showInput ? "disappear" : "appear"} onClick={handleClick}></button>
         {showInput && (
           <div className="filter_input_wrapper" ref={inputRef}>
             <input

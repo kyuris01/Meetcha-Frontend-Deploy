@@ -17,10 +17,7 @@ import { DateTimePicker } from "./input_component/DateTimePicker";
 import dayjs from "dayjs";
 import { ProjectSetter } from "./input_component/ProjectSetter";
 
-const fieldNames: Record<
-  keyof MeetingCreationSchema,
-  keyof MeetingCreationSchema
-> = {
+const fieldNames: Record<keyof MeetingCreationSchema, keyof MeetingCreationSchema> = {
   title: "title",
   description: "description",
   candidateDates: "candidateDates",
@@ -43,11 +40,7 @@ const MeetingCreationView = () => {
         }}
         autoFocus
       />
-      <Accordion
-        type="single"
-        collapsible
-        className={styles.accordionContainer}
-      >
+      <Accordion type="single" collapsible className={styles.accordionContainer}>
         <MeetingAccordionItem
           triggerContent={{
             Icon: Pencil,
@@ -94,8 +87,7 @@ const MeetingCreationView = () => {
             title: "미팅 진행 시간",
             value:
               durationOptions.find(
-                (option) =>
-                  option.value === form.getFormValue("durationMinutes")
+                (option) => option.value === form.getFormValue("durationMinutes")
               )?.label || "선택해주세요",
           }}
           formInputComponent={<DurationSelect />}
@@ -107,9 +99,7 @@ const MeetingCreationView = () => {
             Icon: Watch,
             title: "투표 마감 시간",
             value: form.getFormValue("deadline")
-              ? dayjs(form.getFormValue("deadline")).format(
-                  "YYYY년 MM월 DD일 HH시 mm분"
-                )
+              ? dayjs(form.getFormValue("deadline")).format("YYYY년 MM월 DD일 HH시 mm분")
               : "선택해주세요",
           }}
           formInputComponent={<DateTimePicker />}
@@ -120,9 +110,7 @@ const MeetingCreationView = () => {
           triggerContent={{
             Icon: Icon,
             title: "프로젝트",
-            value: form.getFormValue("projectId")
-              ? "선택 완료"
-              : "선택해주세요",
+            value: form.getFormValue("projectId") ? "선택 완료" : "선택해주세요",
           }}
           formInputComponent={<ProjectSetter />}
           fieldName={fieldNames.projectId}

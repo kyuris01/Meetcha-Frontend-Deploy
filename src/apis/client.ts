@@ -50,13 +50,7 @@ type RequestOpts = {
 };
 
 async function request<T = any>(url: string, opts: RequestOpts = {}): Promise<T> {
-  const {
-    method = "GET",
-    body,
-    headers = {},
-    withAuth = true,
-    retryOn401 = true,
-  } = opts;
+  const { method = "GET", body, headers = {}, withAuth = true, retryOn401 = true } = opts;
 
   const init: RequestInit = {
     method,
@@ -126,4 +120,4 @@ export const api = {
     request<T>(u, { method: "DELETE", headers: h }),
 };
 
-export {request};
+export { request };

@@ -50,7 +50,9 @@ export default function TimePicker({ onChange, ampm, minRange, customHour }) {
   }, []);
 
   useEffect(() => {
-    const formatted = ampm ? `${value.ampm} ${value.hour}:${value.minute}` : `${value.hour}:${value.minute}`;
+    const formatted = ampm
+      ? `${value.ampm} ${value.hour}:${value.minute}`
+      : `${value.hour}:${value.minute}`;
     onChange?.(formatted);
   }, [value, ampm, onChange]);
 

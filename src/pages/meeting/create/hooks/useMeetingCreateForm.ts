@@ -4,19 +4,13 @@ import {
   type MeetingCreationSchema,
 } from "../schemas/meetingCreationSchema";
 
-export type SetError = (
-  field: keyof MeetingCreationSchema,
-  reason: string
-) => void;
+export type SetError = (field: keyof MeetingCreationSchema, reason: string) => void;
 
 export interface FormBase<Schema> {
   /**
    * 폼 필드 하나의 값을 세팅
    */
-  setFormValue: <K extends keyof Schema>(
-    field: K, 
-    value: Schema[K]
-  ) => void;
+  setFormValue: <K extends keyof Schema>(field: K, value: Schema[K]) => void;
   /**
    * 전체 폼 값
    */
@@ -66,9 +60,9 @@ export const useMeetingCreateForm = (
     }
   );
 
-  const [errors, setErrors] = useState<Partial<
-    Record<keyof MeetingCreationSchema, string>
-  > | null>(null);
+  const [errors, setErrors] = useState<Partial<Record<keyof MeetingCreationSchema, string>> | null>(
+    null
+  );
 
   const formDataSetter = (
     key: keyof MeetingCreationSchema,
@@ -111,10 +105,13 @@ export const useMeetingCreateForm = (
       const result = meetingCreationSchema.safeParse(formData);
       if (!result.success) {
         setErrors(
-          result.error.issues.reduce((acc, issue) => {
-            acc[issue.path[0] as keyof MeetingCreationSchema] = issue.message;
-            return acc;
-          }, {} as Partial<Record<keyof MeetingCreationSchema, string>>)
+          result.error.issues.reduce(
+            (acc, issue) => {
+              acc[issue.path[0] as keyof MeetingCreationSchema] = issue.message;
+              return acc;
+            },
+            {} as Partial<Record<keyof MeetingCreationSchema, string>>
+          )
         );
         return;
       }
@@ -125,8 +122,7 @@ export const useMeetingCreateForm = (
   };
 };
 
-export const MeetingCreateFormContext =
-  createContext<FormBase<MeetingCreationSchema>>(null);
+export const MeetingCreateFormContext = createContext<FormBase<MeetingCreationSchema>>(null);
 
 export const useMeetingCreateFormContext = () => {
   return useContext(MeetingCreateFormContext);

@@ -1,19 +1,24 @@
 import React from "react";
 import meetchaLogo from "@assets/MeetchaLogo.svg";
 import calendar from "@assets/realCalendar.svg";
-import { motion,type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import "./LadingPage.scss";
 
 import CommonContent from "./CommonContent";
 
-const fadeUp:Variants = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
 const LandingPage = () => {
   return (
-    <motion.div className="landingPage_ctn" initial="hidden" whileInView="show" viewport={{once:true,amount:0.2}}>
+    <motion.div
+      className="landingPage_ctn"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+    >
       <motion.div className="Header" variants={fadeUp}>
         <img src={meetchaLogo} alt="MeetchaLogo"></img>
         <p>모임의 시작은 MeetCha에서</p>

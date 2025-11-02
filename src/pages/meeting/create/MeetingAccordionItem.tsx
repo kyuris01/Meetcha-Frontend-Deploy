@@ -52,9 +52,7 @@ export const TriggerContent = ({
   value: MeetingCreationSchema[keyof MeetingCreationSchema];
   required?: boolean;
 }) => {
-  const formatValue = (
-    value: MeetingCreationSchema[keyof MeetingCreationSchema]
-  ) => {
+  const formatValue = (value: MeetingCreationSchema[keyof MeetingCreationSchema]) => {
     if (typeof value === "string") return value;
     if (typeof value === "number") return value.toString();
     return value.join(", ");
@@ -68,9 +66,7 @@ export const TriggerContent = ({
           {title}
           {required && <span>*</span>}
         </p>
-        <p className={styles.accordion__trigger__content__value}>
-          {formatValue(value)}
-        </p>
+        <p className={styles.accordion__trigger__content__value}>{formatValue(value)}</p>
       </div>
       <DownArrow className={styles.accordion__trigger__chevron} />
     </>

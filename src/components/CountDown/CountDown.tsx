@@ -8,7 +8,12 @@ interface Props {
 }
 
 const CountDown = ({ label, finishTime }: Props) => {
-  const [timeLeft, setTimeLeft] = useState<{ days: string; hours: string; minutes: string; seconds: string }>({
+  const [timeLeft, setTimeLeft] = useState<{
+    days: string;
+    hours: string;
+    minutes: string;
+    seconds: string;
+  }>({
     days: "0",
     hours: "00",
     minutes: "00",

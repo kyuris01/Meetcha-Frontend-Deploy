@@ -5,10 +5,7 @@ import MeetingCreationView from "./MeetingCreationView";
 import { useState } from "react";
 import { createMeeting } from "@/apis/meeting/meetingAPI";
 import { useNavigate } from "react-router-dom";
-import {
-  MeetingCreateFormContext,
-  useMeetingCreateForm,
-} from "./hooks/useMeetingCreateForm";
+import { MeetingCreateFormContext, useMeetingCreateForm } from "./hooks/useMeetingCreateForm";
 import { meetingFormDataConvert } from "./utils/meetingFormDataConvert";
 import { meetingCreationSchema } from "./schemas/meetingCreationSchema";
 
@@ -60,9 +57,7 @@ const MeetingCreationPage = () => {
           <MeetingCreationView />
           <Button
             className={
-              meetingCreationSchema.safeParse(form.values).success
-                ? styles.active
-                : styles.inactive
+              meetingCreationSchema.safeParse(form.values).success ? styles.active : styles.inactive
             }
             label={"미팅 생성하기"}
             clickHandler={handleSubmit}

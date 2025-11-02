@@ -7,14 +7,13 @@ import Memoir_complete_main from "./Memoir_complete_main";
 
 const Memoir_complete_ctn = () => {
   const location = useLocation();
-  const meeting = location.state;//이 state에는 meeting하나에 대한 모든 정보가 들어 있다.
+  const meeting = location.state; //이 state에는 meeting하나에 대한 모든 정보가 들어 있다.
   console.log(meeting);
 
   return (
     <div className="memoir_complete_ctn">
-      <Memoir_complete_intro/>
-      <Memoir_complete_main meeting={meeting}/>
-      
+      <Memoir_complete_intro />
+      <Memoir_complete_main meeting={meeting} />
     </div>
   );
 };

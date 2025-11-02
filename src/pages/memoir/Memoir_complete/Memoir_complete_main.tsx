@@ -7,13 +7,10 @@ import { getProjectTheme } from "@/utils/theme";
 const Memoir_complete_main = ({ meeting }) => {
   const projectId = meeting?.data?.projectId ?? meeting?.projectId ?? null;
 
-  const projectName =
-    meeting?.data?.projectName ?? meeting?.projectName ?? "프로젝트 없음";
+  const projectName = meeting?.data?.projectName ?? meeting?.projectName ?? "프로젝트 없음";
 
   // projectId가 없으면 meetingId나 "default"로 안정적인 색을 계산
-  const { text, bg } = getProjectTheme(
-    projectId ?? meeting?.data?.meetingId ?? undefined
-  );
+  const { text, bg } = getProjectTheme(projectId ?? meeting?.data?.meetingId ?? undefined);
 
   console.log(meeting);
   return (

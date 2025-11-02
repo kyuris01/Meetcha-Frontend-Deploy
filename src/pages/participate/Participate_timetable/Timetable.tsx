@@ -6,10 +6,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import "./Participate_timetabe.scss";
 import type { Dayjs } from "dayjs";
-import type {
-  ParticipateObject,
-  UISlot,
-} from "@/apis/participate/participateTypes";
+import type { ParticipateObject, UISlot } from "@/apis/participate/participateTypes";
 
 dayjs.locale("ko");
 
@@ -40,8 +37,7 @@ const Timetable = ({
       .valueOf()}`;
 
   useEffect(() => {
-    if (!Array.isArray(previousAvailTime) || previousAvailTime.length === 0)
-      return;
+    if (!Array.isArray(previousAvailTime) || previousAvailTime.length === 0) return;
 
     setSelectedTimes((prev) => {
       const exists = new Set(prev.map((s) => keyOf(s.startAt, s.endAt)));
@@ -80,9 +76,7 @@ const Timetable = ({
   const daysSpan = end!.diff(start!, "day") + 1; // 표시할 연속 일수
 
   const allowedDows: Set<number> = new Set(validDates.map((d) => d.day())); // 0=일 ... 6=토
-  const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter(
-    (dow: number) => !allowedDows.has(dow)
-  );
+  const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter((dow: number) => !allowedDows.has(dow));
 
   const rangeStart = validDates[0]?.startOf("day").format("YYYY-MM-DD");
   const rangeEnd = validDates.at(-1)?.endOf("day").format("YYYY-MM-DD");
@@ -105,9 +99,7 @@ const Timetable = ({
 
     const exists = selectedTimes.some((t) => keyOf(t.startAt, t.endAt) === k);
     if (exists) {
-      setSelectedTimes((prev) =>
-        prev.filter((t) => keyOf(t.startAt, t.endAt) !== k)
-      );
+      setSelectedTimes((prev) => prev.filter((t) => keyOf(t.startAt, t.endAt) !== k));
     } else {
       setSelectedTimes((prev) => [...prev, { startAt: sISO, endAt: eISO }]);
     }

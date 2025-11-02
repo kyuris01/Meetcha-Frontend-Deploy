@@ -5,7 +5,6 @@ import type { AlternativeObj, Meeting, MeetingCreateResponse, MeetingDetail } fr
 
 export const fetchMeetingList = async () => {
   const res: ApiResponse<Meeting[]> = await apiCall("/meeting-lists", "GET", null, true);
-  console.log("meetingLists:", res);
   return res.data;
 };
 
@@ -16,7 +15,6 @@ export const fetchMeetingDetail = async (meetingId: string) => {
     null,
     true
   );
-  console.log("meetingDetail: ", res);
   return res.data;
 };
 
@@ -38,7 +36,6 @@ export const fetchAlternativeMeeting = async (meetingId: string) => {
     null,
     true
   );
-  console.log("altMeeting:", res);
   return res.data.alternativeTimes;
 };
 

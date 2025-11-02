@@ -59,9 +59,7 @@ const Project_container: React.FC<Props> = ({
     if (!name) return;
 
     // 이름 중복(공백/대소문자 무시)
-    const exists = list.some(
-      (p) => normalize(p.projectName ?? p.name ?? "") === normalize(name)
-    );
+    const exists = list.some((p) => normalize(p.projectName ?? p.name ?? "") === normalize(name));
     if (exists) {
       alert("같은 이름의 프로젝트가 이미 존재합니다.");
       return;
@@ -76,8 +74,7 @@ const Project_container: React.FC<Props> = ({
       }
 
       const createdId: string | undefined = res.data?.projectId ?? res.data?.id;
-      const createdName: string =
-        res.data?.projectName ?? res.data?.name ?? name;
+      const createdName: string = res.data?.projectName ?? res.data?.name ?? name;
 
       // 부모 목록 즉시 리패치 → 새로고침 없이 UI 반영
       if (typeof refetchProjects === "function") {
@@ -115,13 +112,7 @@ const Project_container: React.FC<Props> = ({
       setChosenProjectBgColor(t.bg);
       setChosenProjectTextColor(t.text);
     }
-  }, [
-    projectId,
-    list,
-    setChosenProject,
-    setChosenProjectBgColor,
-    setChosenProjectTextColor,
-  ]);
+  }, [projectId, list, setChosenProject, setChosenProjectBgColor, setChosenProjectTextColor]);
 
   return (
     <div className="ctn_in_common to_write_meeting">
@@ -129,14 +120,8 @@ const Project_container: React.FC<Props> = ({
 
       <div className="project_banner_ctn">
         <div className="in-common banner" onClick={toggleBannerBox}>
-          <div
-            className="banner_name_ctn"
-            style={{ background: chosenProjectBgColor }}
-          >
-            <p
-              className="banner_name"
-              style={{ color: chosenProjectTextColor }}
-            >
+          <div className="banner_name_ctn" style={{ background: chosenProjectBgColor }}>
+            <p className="banner_name" style={{ color: chosenProjectTextColor }}>
               {chosenProject || "선택된 프로젝트 없음"}
             </p>
           </div>
@@ -179,10 +164,7 @@ const Project_container: React.FC<Props> = ({
                   checked={projectId === project.projectId}
                   onChange={() => setProjectId(project.projectId)}
                 />
-                <div
-                  className="banner_name_ctn"
-                  style={{ backgroundColor: t.bg }}
-                >
+                <div className="banner_name_ctn" style={{ backgroundColor: t.bg }}>
                   <p className="banner_name" style={{ color: t.text }}>
                     {project.projectName}
                   </p>

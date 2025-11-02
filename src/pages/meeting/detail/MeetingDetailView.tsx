@@ -17,8 +17,8 @@ const MeetingDetailView = ({ data }: { data: MeetingDetail }) => {
       data: isAfter(new Date(), data?.deadline)
         ? "실패"
         : data?.confirmedTime
-        ? scheduleStringFormatter(data?.confirmedTime)
-        : data?.confirmedTime,
+          ? scheduleStringFormatter(data?.confirmedTime)
+          : data?.confirmedTime,
     },
     {
       label: "진행 시간",

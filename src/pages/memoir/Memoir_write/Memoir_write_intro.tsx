@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import "./Memoir_write.scss";
 
 const Memoir_write_intro = () => {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  const handleClick=()=>{
+  const handleClick = () => {
     navigate("/memoir");
   };
   return (

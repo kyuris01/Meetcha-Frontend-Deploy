@@ -30,17 +30,22 @@ const Memoir_write_ctn = () => {
 
   // 마운트 가드 (언마운트 중 setState 방지)
   const mounted = useRef(true);
-  useEffect(() => () => { mounted.current = false; }, []);
+  useEffect(
+    () => () => {
+      mounted.current = false;
+    },
+    []
+  );
 
   // 제출 가능 여부
   const numContribution = Number(contribution);
   const isReadyToSubmit = Boolean(
     contribution &&
-    role &&
-    feeling &&
-    numContribution > 0 &&
-    numContribution <= 100 &&
-    role.length <= 10
+      role &&
+      feeling &&
+      numContribution > 0 &&
+      numContribution <= 100 &&
+      role.length <= 10
   );
 
   // 프로젝트 목록
@@ -102,10 +107,7 @@ const Memoir_write_ctn = () => {
         data,
         true
       );
-      const ok =
-        res?.success ||
-        res?.code === 200 ||
-        res?.code === 201;
+      const ok = res?.success || res?.code === 200 || res?.code === 201;
 
       if (ok) {
         navigate("/memoir", { replace: true, state: { refetchMemoirs: true } });
@@ -129,8 +131,8 @@ const Memoir_write_ctn = () => {
       <div className="Memoir_content_ctn">
         <Memoir_write_intro />
         <Memoir_write_main
-          projectsAll={projectsAll}              // ✅ state 배열 전달
-          refetchProjects={refetchProjects}      // ✅ 자식에서 호출하면 목록 최신화
+          projectsAll={projectsAll} // ✅ state 배열 전달
+          refetchProjects={refetchProjects} // ✅ 자식에서 호출하면 목록 최신화
           contribution={contribution}
           setContribution={setContribution}
           role={role}
@@ -148,7 +150,7 @@ const Memoir_write_ctn = () => {
           setChosenProjectTextColor={setChosenProjectTextColor}
           chosenProjectBgColor={chosenProjectBgColor}
           setChosenProjectBgColor={setChosenProjectBgColor}
-        // (선택) 버튼 로딩 표시용으로 props 넘겨 사용해도 됨
+          // (선택) 버튼 로딩 표시용으로 props 넘겨 사용해도 됨
         />
       </div>
 

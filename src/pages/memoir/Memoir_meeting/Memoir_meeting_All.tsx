@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import Memoir_meeting_ctn from "./Memoir_meeting_ctn";
 
-
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { getProjectTheme } from "@/utils/theme";
@@ -12,7 +11,7 @@ const Memoir_meeting_All = () => {
   const navigate = useNavigate();
   const didInit = useRef(false);
   const didRefetch = useRef(false);
-  const mounted =useRef(true);
+  const mounted = useRef(true);
 
   const [meetingLists, setMeetingLists] = useState<any>(null);
   const [memoirLists, setMemoirLists] = useState<any>(null);
@@ -25,20 +24,15 @@ const Memoir_meeting_All = () => {
   //   fire: execMeetingAll,
   // } = useAPIs2(`/meeting-lists/need-reflection`, "GET", undefined, true, false);
 
-  useEffect(()=>{
-    return ()=>{
-      mounted.current=false;
+  useEffect(() => {
+    return () => {
+      mounted.current = false;
     };
-  },[]);//unmount될 때 false로 바뀐다.
+  }, []); //unmount될 때 false로 바뀐다.
 
   const getMeetingLists = async () => {
-    const res = await apiCall(
-      `/meeting-lists/need-reflection`,
-      "GET",
-      null,
-      true
-    );
-    if(!mounted.current) return;
+    const res = await apiCall(`/meeting-lists/need-reflection`, "GET", null, true);
+    if (!mounted.current) return;
     if (!res) return;
     if (res.code === 401) {
       alert("인증이 필요합니다");
@@ -58,7 +52,7 @@ const Memoir_meeting_All = () => {
 
   const getMemoirLists = async () => {
     const res = await apiCall(`/meeting/reflections`, "GET", null, true);
-    if(!mounted.current) return;
+    if (!mounted.current) return;
     if (res.code === 401) {
       alert("인증 토큰이 필요합니다!");
     } else if (res.code === 200) {
@@ -77,7 +71,7 @@ const Memoir_meeting_All = () => {
 
   const getMeetingSummary = async () => {
     const res = await apiCall(`/reflection/summary`, "GET", null, true);
-    if(!mounted.current) return;
+    if (!mounted.current) return;
     if (res.code === 401) {
       alert("인증 토큰이 필요합니다!");
     } else if (res.code === 200) {
@@ -106,8 +100,7 @@ const Memoir_meeting_All = () => {
     getMemoirLists();
     getMeetingSummary();
     navigate(location.pathname, { replace: true, state: undefined });
-  }, []
-  );
+  }, []);
 
   //여기서 meetingLists중 meeting_status가 "종료인것만 남긴다."
 

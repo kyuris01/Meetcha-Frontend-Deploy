@@ -20,19 +20,14 @@ export const MultiSelectCalendar = () => {
       );
       return;
     }
-    form.setFormValue("candidateDates", [
-      ...form.getFormValue("candidateDates"),
-      clickedDay,
-    ]);
+    form.setFormValue("candidateDates", [...form.getFormValue("candidateDates"), clickedDay]);
   };
 
   return (
     <div className="calendarMultipleInputComponent">
       <Calendar
-      // 이걸로 formatDate 지울 수 있을듯
-        formatDay={(locale, date) =>
-          date.toLocaleString("en", { day: "numeric" })
-        }
+        // 이걸로 formatDate 지울 수 있을듯
+        formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })}
         onClickDay={(date: Date) => {
           handleClickDay(date);
         }}
