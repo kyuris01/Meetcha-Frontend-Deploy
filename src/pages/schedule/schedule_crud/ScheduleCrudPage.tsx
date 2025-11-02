@@ -1,99 +1,80 @@
 import Button from "@/components/Button";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./ScheduleCrudPage.module.scss";
-import { scheduleStringFormatter } from "@/utils/dateFormatter";
 import { createSchedule, deleteSchedule, editSchedule } from "@/apis/schedule/scheduleAPI";
 import type { Schedule } from "@/apis/schedule/scheduleTypes";
 import ScheduleCrudView from "./ScheduleCrudView";
+import { ScheduleCreateFormContext, useScheduleCreateForm } from "./hooks/useScheduleCreateForm";
+import { Slide, type SlideType } from "../weekly_schedule/WeeklyCalendar";
+import type { Dispatch, SetStateAction } from "react";
+import { ScheduleCrudContext } from "./hooks/useScheduleCrudContext";
 
 interface Props {
   clickedSpan: string;
-  createMode: boolean; // true -> create mode, false -> edit mode
-  data?: Schedule;
+  slideType: SlideType;
+  setCrudOpen: Dispatch<SetStateAction<boolean>>;
+  data?: Schedule; // 기존 일정 클릭시 얻을수있는 기존 일정 관련 데이터
 }
 
-const ScheduleCrudPage = ({ clickedSpan, createMode, data }: Props) => {
-  const [allDataReserved, setAllDataReserved] = useState<boolean>(false);
-  const [scheduleTitle, setScheduleTitle] = useState<string>("");
-  const [scheduleTime, setScheduleTime] = useState<string>();
-  const [recurrence, setRecurrence] = useState<string>("NONE");
-
+const ScheduleCrudPage = ({ clickedSpan, slideType, data, setCrudOpen }: Props) => {
+  const form = useScheduleCreateForm();
   useEffect(() => {
-    if (!createMode && data) {
-      setScheduleTitle(data?.title);
-      setScheduleTime(
-        `${scheduleStringFormatter(data?.startAt)} ${scheduleStringFormatter(data?.endAt)}`
-      );
-      setRecurrence(data?.recurrence);
-    }
-  }, [data]);
+    if (slideType === Slide.Create) return;
+    form.setFormValue("title", data?.title);
+    form.setFormValue("recurrence", data?.recurrence);
+  }, [slideType, data, form]);
 
-  useEffect(() => {
-    if (createMode) {
-      setScheduleTitle("");
-      setRecurrence("NONE");
+  const sendCreationReq = () => {
+    if (form.errors) {
+      for (const [key, value] of Object.entries(form.errors)) {
+        alert(`${key} ${value}`);
+      }
+      return;
     }
-  }, []);
 
-  const parseScheduleTime = (scheduleTime) => {
-    // 서버 요구 형식에 맞게 데이터 파싱
-    const scheduleArr = scheduleTime.split(" ");
-    const data = {
-      title: scheduleTitle,
-      startAt: `${scheduleArr[0].slice(0, -1)}-${scheduleArr[1].slice(
-        0,
-        -1
-      )}-${scheduleArr[2].slice(0, -4)}T${scheduleArr[4].split(":")[0].padStart(2, "0")}:${
-        scheduleArr[4].split(":")[1]
-      }:00`,
-      endAt: `${scheduleArr[5].slice(0, -1)}-${scheduleArr[6].slice(0, -1)}-${scheduleArr[7].slice(
-        0,
-        -4
-      )}T${scheduleArr[9].split(":")[0].padStart(2, "0")}:${scheduleArr[9].split(":")[1]}:00`,
-      recurrence: recurrence,
-    };
-    return data;
+    form.onSubmit(async () => {
+      await createSchedule(form.values);
+      setCrudOpen(false);
+    });
   };
 
-  useEffect(() => {
-    if (scheduleTitle && scheduleTime) setAllDataReserved(true);
-  }, [scheduleTitle, scheduleTime, recurrence]);
+  const sendEditReq = () => {
+    if (form.errors) {
+      for (const [key, value] of Object.entries(form.errors)) {
+        alert(`${key} ${value}`);
+      }
+      return;
+    }
 
-  const sendCreationReq = async () => {
-    if (!allDataReserved) return;
-    await createSchedule(parseScheduleTime(scheduleTime));
-  };
-
-  const sendEditReq = async () => {
-    if (!allDataReserved) return;
-    await editSchedule({ ...parseScheduleTime(scheduleTime), eventId: data.eventId });
+    form.onSubmit(async () => {
+      await editSchedule({ ...form.values, eventId: data.eventId });
+      setCrudOpen(false);
+    });
   };
 
   const sendDelReq = async () => {
     await deleteSchedule(data.eventId);
+    setCrudOpen(false);
   };
 
   return (
     <div className={styles.scheduleCrudPage}>
-      <ScheduleCrudView
-        clickedSpan={clickedSpan}
-        scheduleTitle={scheduleTitle}
-        scheduleTime={scheduleTime}
-        recurrence={recurrence}
-        setScheduleTitle={setScheduleTitle}
-        setScheduleTime={setScheduleTime}
-        setRecurrence={setRecurrence}
-      />
+      <ScheduleCreateFormContext.Provider value={form}>
+        <ScheduleCrudContext.Provider value={{ clickedSpan, slideType, data, setCrudOpen }}>
+          <ScheduleCrudView />
+        </ScheduleCrudContext.Provider>
+      </ScheduleCreateFormContext.Provider>
+
       <div className={styles.scheduleCrudPage__buttonContainer}>
-        {!createMode && (
+        {slideType === Slide.Edit && (
           <div className={styles.deleteButton} onClick={sendDelReq}>
             삭제하기
           </div>
         )}
         <Button
-          className={allDataReserved ? styles.active : styles.inactive}
-          label={createMode ? "일정 생성하기" : "완료"}
-          clickHandler={createMode ? sendCreationReq : sendEditReq}
+          className={styles.active}
+          label={slideType === Slide.Create ? "일정 생성하기" : "수정완료"}
+          clickHandler={slideType === Slide.Create ? sendCreationReq : sendEditReq}
         />
       </div>
     </div>

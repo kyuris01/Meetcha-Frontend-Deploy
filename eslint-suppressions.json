@@ -203,19 +203,11 @@
     }
   },
   "src/pages/schedule/schedule_crud/ScheduleCrudCard.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 2
-    },
     "@typescript-eslint/no-unused-vars": {
       "count": 2
     }
   },
   "src/pages/schedule/schedule_crud/ScheduleCrudView.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 3
-    }
-  },
-  "src/pages/schedule/schedule_crud/ScheduleRepetitionRow.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 1
     }
@@ -232,7 +224,7 @@
   },
   "src/pages/schedule/weekly_schedule/WeeklyCalendar.tsx": {
     "@typescript-eslint/no-explicit-any": {
-      "count": 2
+      "count": 1
     },
     "@typescript-eslint/no-unused-vars": {
       "count": 3

@@ -4,7 +4,7 @@ import {
   type MeetingCreationSchema,
 } from "../schemas/meetingCreationSchema";
 
-export type SetError = (field: keyof MeetingCreationSchema, reason: string) => void;
+export type SetError<Schema> = (field: keyof Schema, reason: string) => void;
 
 export interface FormBase<Schema> {
   /**
@@ -26,7 +26,7 @@ export interface FormBase<Schema> {
   /**
    * 에러 트리거
    */
-  setError: SetError;
+  setError: SetError<Schema>;
   /**
    * 에러뜨면 폼 제출 안함
    */

@@ -11,6 +11,14 @@ interface Props {
   setFetchStandardDate: React.Dispatch<React.SetStateAction<string>>;
 }
 
+export interface ParsedSchedule {
+  eventId: string;
+  title: string;
+  startAt: object;
+  endAt: object;
+  recurrence: string;
+}
+
 const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
   const [standardDate, setStandardDate] = useState(new Date());
   const didSkipFirstChange = useRef(false); // 0->1 이동시 handleSlideChange는 발동안되게하는 플래그
@@ -27,12 +35,12 @@ const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
     ];
   });
 
-  const events = schedules?.map((item, _) => ({
-    id: item.eventId,
+  const events: ParsedSchedule[] = schedules?.map((item, _) => ({
+    eventId: item.eventId,
     title: item.title,
-    start: new Date(item.startAt),
-    end: new Date(item.endAt),
-    recur: item.recurrence,
+    startAt: new Date(item.startAt),
+    endAt: new Date(item.endAt),
+    recurrence: item.recurrence,
   }));
 
   const handleSlideChange = (swiper) => {

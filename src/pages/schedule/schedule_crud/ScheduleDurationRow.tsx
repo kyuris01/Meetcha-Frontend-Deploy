@@ -1,40 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./ScheduleDurationRow.module.scss";
 import RightChevron from "@assets/rightChevron.svg?react";
+import { Picker, type PickerType } from "./ScheduleCrudCardExpandable";
 
 interface Props {
   clickedSpan: string;
-  sharingData: string;
-  dataSetter: React.Dispatch<React.SetStateAction<string>>;
+  startTime: string;
+  endTime: string;
+  pickerType: PickerType;
+  setPickerType: React.Dispatch<React.SetStateAction<PickerType>>;
 }
 
-const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) => {
-  // ex) clickedSpan : 07월 31일(목) 오전 02:00 07월 31일(목) 오전 05:30
-  const parts = clickedSpan.split(" ");
-
-  const [startOrEnd, setStartOrEnd] = useState<number>(0);
-  const [startTime, setStartTime] = useState<string>("");
-  const [endTime, setEndTime] = useState<string>("");
-
-  useEffect(() => {
-    setStartTime(`${parts[3]} ${parts[4]}`);
-    setEndTime(`${parts[8]} ${parts[9]}`);
-  }, [clickedSpan]);
-
-  useEffect(() => {
-    if (sharingData == null || sharingData === "") return;
-    if (startOrEnd === 1) {
-      setStartTime(sharingData);
-    } else if (startOrEnd === 2) {
-      setEndTime(sharingData);
-    }
-  }, [sharingData]);
-
-  useEffect(() => {
-    dataSetter(
-      `${parts[0]} ${parts[1]} ${parts[2]} ${startTime} ${parts[5]} ${parts[6]} ${parts[7]} ${endTime}`
-    );
-  }, [startTime, endTime]);
+const ScheduleDurationRow = ({
+  clickedSpan,
+  startTime,
+  endTime,
+  pickerType,
+  setPickerType,
+}: Props) => {
+  // ex) clickedSpan : YYYY년 MM월 DD일(D) HH시 MM분 YYYY년 MM월 DD일(D) HH시 MM분
+  const [, initStartMonth, initStartDate, , , , initEndMonth, initEndDate, ,] =
+    clickedSpan.split(" ");
 
   return (
     <div className={styles.scheduleDurationRow}>
@@ -42,15 +28,15 @@ const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) =>
         className={styles.scheduleDurationRow__box}
         onClick={(e) => {
           e.stopPropagation();
-          setStartOrEnd(1);
+          setPickerType(Picker.Start);
         }}
       >
         <div className={styles.scheduleDurationRow__box__date}>
-          {parts[1]} {parts[2]}
+          {initStartMonth} {initStartDate}
         </div>
         <div
           className={
-            startOrEnd === 1
+            pickerType === Picker.Start
               ? `${styles.active} ${styles.scheduleDurationRow__box__time}`
               : styles.scheduleDurationRow__box__time
           }
@@ -63,15 +49,15 @@ const ScheduleDurationRow = ({ clickedSpan, sharingData, dataSetter }: Props) =>
         className={styles.scheduleDurationRow__box}
         onClick={(e) => {
           e.stopPropagation();
-          setStartOrEnd(2);
+          setPickerType(Picker.End);
         }}
       >
         <div className={styles.scheduleDurationRow__box__date}>
-          {parts[6]} {parts[7]}
+          {initEndMonth} {initEndDate}
         </div>
         <div
           className={
-            startOrEnd === 2
+            pickerType === Picker.End
               ? `${styles.active} ${styles.scheduleDurationRow__box__time}`
               : styles.scheduleDurationRow__box__time
           }

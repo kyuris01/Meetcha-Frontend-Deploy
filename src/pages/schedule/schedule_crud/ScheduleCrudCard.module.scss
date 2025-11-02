@@ -23,6 +23,10 @@
       color: $color-orange-100;
     }
   }
+
+  &__expanded {
+    width: 100%;
+  }
 }
 
 .active {

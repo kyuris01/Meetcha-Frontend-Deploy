@@ -1,22 +1,18 @@
-import React from "react";
 import styles from "./ScheduleRepetitionRow.module.scss";
 import { options } from "./constants/ScheduleRepetitionRow.constants";
+import { useScheduleCreateFormContext } from "./hooks/useScheduleCreateForm";
 
-interface Props {
-  data: string;
-  dataSetter: React.Dispatch<React.SetStateAction<string>>;
-  sharingData?: string;
-}
+const ScheduleRepetitionRow = () => {
+  const form = useScheduleCreateFormContext();
 
-const ScheduleRepetitionRow = ({ data, dataSetter }: Props) => {
   return (
     <div className={styles.scheduleRepetitionRow}>
-      {options.map((item, _) => (
+      {options.map((item) => (
         <div
           key={item.id}
-          onClick={() => dataSetter(item.value)}
+          onClick={() => form.setFormValue("recurrence", item.value)}
           className={
-            data === item.value
+            form.getFormValue("recurrence") === item.value
               ? `${styles.active} ${styles.scheduleRepetitionRow__item}`
               : styles.scheduleRepetitionRow__item
           }

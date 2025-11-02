@@ -10,10 +10,12 @@
   padding: 27px 16px;
 
   &__buttonContainer {
-    position: relative;
     width: 100%;
 
-    font-family: Pretendard;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -28,10 +30,12 @@
 }
 
 .deleteButton {
-  position: absolute;
-  bottom: 66px;
-  left: 50%;
-  transform: translateX(-50%);
+  width: fit-content;
+  height: 2.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   font-size: 12px;
   font-style: normal;

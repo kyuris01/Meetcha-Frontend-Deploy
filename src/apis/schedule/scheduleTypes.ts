@@ -1,7 +1,7 @@
 export interface Schedule {
+  eventId: string;
   title: string;
   startAt: string;
   endAt: string;
-  eventId: string;
   recurrence: string;
 }
