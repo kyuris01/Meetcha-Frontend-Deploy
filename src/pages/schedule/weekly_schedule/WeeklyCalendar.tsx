@@ -3,13 +3,12 @@ import CustomWeekHeader from "./CustomWeekHeader";
 import { CustomEvent } from "./CustomEvent";
 import { Calendar, luxonLocalizer } from "react-big-calendar";
 import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
 import type { Schedule } from "@/apis/schedule/scheduleTypes";
 import ScheduleCrudPage from "../schedule_crud/ScheduleCrudPage";
-import type { ParsedSchedule } from "./WeeklyScheduleView";
 
 /**
  * 슬라이드가 생성모드로 열렸는지, 수정모드로 열렸는지를 구분
@@ -23,7 +22,7 @@ export type SlideType = (typeof Slide)[keyof typeof Slide];
 
 interface Props {
   week: Date;
-  events: ParsedSchedule[];
+  events: Schedule[];
   blockInteraction: boolean;
 }
 
@@ -41,6 +40,15 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
   const [clickedSchedule, setClickedSchedule] = useState<Schedule>();
   const [slideType, setSlideType] = useState<SlideType>(Slide.Create);
   const dragControls = useDragControls();
+
+  /**
+   * rbc 컴포넌트의 events prop에 넣기위해 events를 파싱
+   */
+  const parsedEvents = events?.map((e) => ({
+    ...e,
+    startAt: new Date(e.startAt),
+    endAt: new Date(e.endAt),
+  }));
 
   const handlePointerDown = (e: React.PointerEvent) => {
     // 이벤트가 발생한 가장 안쪽 요소를 가져옵니다.
@@ -103,15 +111,16 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
     </AnimatePresence>,
     document.body
   );
+
   return (
     <>
       <Calendar
         date={week}
         localizer={localizer}
-        events={events}
+        events={parsedEvents}
         formats={formats}
-        startAccessor="start"
-        endAccessor="end"
+        startAccessor="startAt"
+        endAccessor="endAt"
         defaultView="week"
         views={["week"]}
         components={{
@@ -123,7 +132,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         eventPropGetter={(event) => {
           return {
             style: {
-              backgroundColor: `${colorAutoSelector(event.id)}`,
+              backgroundColor: `${colorAutoSelector(event.eventId)}`,
               borderRadius: "6px",
               color: "white",
             },
@@ -136,8 +145,8 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         onSelecting={() => !blockInteraction}
         onSelectSlot={(slotInfo) => {
           if (blockInteraction) return;
-          setTimeout(() => setCrudOpen(true), 0);
-          // console.log("빈 영역 클릭됨:", slotInfo);
+          // setTimeout(() => setCrudOpen(true), 0);
+          setCrudOpen(true);
           const formattedStart = scheduleStringFormatter(slotInfo.start);
           const formattedEnd = scheduleStringFormatter(slotInfo.end);
 
@@ -149,12 +158,14 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           setTimeout(() => setCrudOpen(true), 0);
           setClickedSchedule({
             title: event.title,
-            startAt: event.start,
-            endAt: event.end,
-            recurrence: event.recur,
-            eventId: event.id,
+            startAt: DateTime.fromJSDate(event.startAt).toFormat("yyyy-MM-dd'T'HH:mm:ss"),
+            endAt: DateTime.fromJSDate(event.endAt).toFormat("yyyy-MM-dd'T'HH:mm:ss"),
+            recurrence: event.recurrence,
+            eventId: event.eventId,
           });
-          setClickedSpan(`${scheduleStringFormatter(event.start)} ${scheduleStringFormatter(event.end)}`);
+          setClickedSpan(
+            `${scheduleStringFormatter(event.startAt)} ${scheduleStringFormatter(event.endAt)}`
+          );
         }}
       />
       {portal}

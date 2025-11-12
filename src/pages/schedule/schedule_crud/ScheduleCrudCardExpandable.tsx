@@ -41,18 +41,25 @@ const ScheduleCrudCardExpandable = ({ clickedSpan }: Props) => {
   const [pickerType, setPickerType] = useState<PickerType>(Picker.Start);
   const [startTime, setStartTime] = useState<string>(`${initStartMeridiem} ${initStartTime}`);
   const [endTime, setEndTime] = useState<string>(`${initEndMeridiem} ${initEndTime}`);
-  const form = useScheduleCreateFormContext();
+  const { setFormValue } = useScheduleCreateFormContext();
 
   useEffect(() => {
-    form.setFormValue(
+    setFormValue(
       "startAt",
       startYear + "-" + startMonth + "-" + startDate + "T" + formatTime(startTime)
     );
-    form.setFormValue(
-      "endAt",
-      endYear + "-" + endMonth + "-" + endDate + "T" + formatTime(endTime)
-    );
-  }, [startTime, endTime, startYear, startMonth, startDate, endYear, endMonth, endDate, form]);
+    setFormValue("endAt", endYear + "-" + endMonth + "-" + endDate + "T" + formatTime(endTime));
+  }, [
+    startTime,
+    endTime,
+    startYear,
+    startMonth,
+    startDate,
+    endYear,
+    endMonth,
+    endDate,
+    setFormValue,
+  ]);
 
   const formatTime = (time: string) => {
     const [meridiem, timeAndMinute] = time.split(" ");
