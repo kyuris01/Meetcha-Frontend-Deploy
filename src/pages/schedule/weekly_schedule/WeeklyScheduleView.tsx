@@ -14,8 +14,8 @@ interface Props {
 export interface ParsedSchedule {
   eventId: string;
   title: string;
-  startAt: string;
-  endAt: string;
+  startAt: object;
+  endAt: object;
   recurrence: string;
 }
 
@@ -35,11 +35,11 @@ const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
     ];
   });
 
-  const events: Schedule[] = schedules?.map((item, _) => ({
+  const events: ParsedSchedule[] = schedules?.map((item, _) => ({
     eventId: item.eventId,
     title: item.title,
-    startAt: item.startAt,
-    endAt: item.endAt,
+    startAt: new Date(item.startAt),
+    endAt: new Date(item.endAt),
     recurrence: item.recurrence,
   }));
 

@@ -207,6 +207,11 @@
       "count": 2
     }
   },
+  "src/pages/schedule/schedule_crud/ScheduleCrudView.tsx": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 1
+    }
+  },
   "src/pages/schedule/weekly_schedule/CustomEvent.tsx": {
     "@typescript-eslint/no-explicit-any": {
       "count": 1

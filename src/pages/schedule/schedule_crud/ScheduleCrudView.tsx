@@ -1,4 +1,5 @@
 import styles from "./ScheduleCrudView.module.scss";
+import Clock from "@assets/clock.svg?react";
 import Pencil from "@assets/pencil.svg?react";
 import ScheduleRepetitionRow from "./ScheduleRepetitionRow";
 import ScheduleCrudCardExpandable from "./ScheduleCrudCardExpandable";
