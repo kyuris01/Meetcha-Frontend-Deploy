@@ -1,8 +1,5 @@
 import React from "react";
 
-import Top_banner from "../common/Top_banner";
-import Botton_banner_button from "../common/Botton_banner_button";
-
 import "./Participate_completed_ctn.scss";
 import LeftChevron from "@/assets/LeftChevron.svg";
 import completed from "@assets/meeting_complete.svg";

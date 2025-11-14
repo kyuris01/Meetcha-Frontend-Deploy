@@ -4,24 +4,9 @@ import "./Participate_link.scss";
 
 import LeftChevron from "@assets/LeftChevron.svg";
 
-import { apiCall } from "@/utils/apiCall";
-//여기서 meetingcode를 가진 meetingdata를 불러와야함
-//msw사용
-
-interface MeetingData {
-  meetingId: string;
-  title: string;
-  description: string;
-  deadline: string;
-  isClosed: boolean;
-}
-
-interface aboutMeeting {
-  isSuccess: boolean;
-  code: number;
-  message: string;
-  data: MeetingData;
-}
+import { requestLinkCheckFunc } from "@/apis/participate/participate_link/linkAPI";
+import type { ApiResponse } from "@/apis/common/types";
+import type { MeetingData } from "@/apis/participate/participate_link/linkTypes";
 
 const Participate_link = () => {
   const top_text = "미팅 참가";
@@ -34,18 +19,8 @@ const Participate_link = () => {
   };
 
   const requestLinkCheck = async () => {
-    const code = linkText.trim(); // 공백 제거
-    if (!code) return; // 빈 값 방지
-
+    const res:ApiResponse<MeetingData> = await requestLinkCheckFunc(linkText);
     try {
-      const res = await apiCall(
-        `/meeting/code/${encodeURIComponent(code)}`, // ← 복수형 + 슬러그
-        "GET",
-        null,
-        true // 인증 필요
-        // ← GET이므로 data 인자 넣지 않음!
-      );
-
       if (!res) return;
 
       if (res.code === 400) {

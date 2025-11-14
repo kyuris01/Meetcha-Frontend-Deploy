@@ -1,7 +1,5 @@
 import React from "react";
 
-import Top_banner from "../common/Top_banner";
-import Botton_banner_button from "../common/Botton_banner_button";
 import LeftChevron from "@/assets/LeftChevron.svg";
 import "./Participate_error.scss";
 

@@ -3,7 +3,7 @@ import CustomWeekHeader from "./CustomWeekHeader";
 import { CustomEvent } from "./CustomEvent";
 import { Calendar, luxonLocalizer } from "react-big-calendar";
 import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
@@ -30,7 +30,7 @@ interface Props {
 const localizer = luxonLocalizer(DateTime);
 
 const formats = {
-  timeGutterFormat: (date: Date, culture: string, localizer: any) => {
+  timeGutterFormat: (date: Date) => {
     return DateTime.fromJSDate(date).toFormat("H"); // 예: 22
   },
 };

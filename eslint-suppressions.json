@@ -4,14 +4,6 @@
       "count": 2
     }
   },
-  "src/apis/client.ts": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 10
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
   "src/apis/meeting/meetingAPI.ts": {
     "@typescript-eslint/no-unused-vars": {
       "count": 1
@@ -35,31 +27,6 @@
   },
   "src/components/CountDown/CountDown.tsx": {
     "no-constant-binary-expression": {
-      "count": 1
-    }
-  },
-  "src/mocks/handlers.ts": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 7
-    }
-  },
-  "src/mocks/handlers/index.ts": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/mocks/handlers/meetingHandlers.ts": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/mocks/handlers/meetingParticipateHandlers.ts": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/mocks/handlers/projectsAllHandler.ts": {
-    "@typescript-eslint/no-unused-vars": {
       "count": 1
     }
   },
@@ -152,35 +119,14 @@
       "count": 1
     }
   },
-  "src/pages/participate/Participate_complete/Participate_completed_ctn.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
-    }
-  },
-  "src/pages/participate/Participate_error/Participate_error_ctn.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
-    }
-  },
   "src/pages/participate/Participate_link/Participate_link_ctn.tsx": {
     "@typescript-eslint/no-unused-vars": {
-      "count": 3
-    }
-  },
-  "src/pages/participate/Participate_timetable/Participate_timetable_ctn.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 4
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 5
+      "count": 2
     }
   },
   "src/pages/participate/Participate_timetable/Timetable.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 1
-    },
     "@typescript-eslint/no-unused-vars": {
-      "count": 3
+      "count": 1
     }
   },
   "src/pages/schedule/SchedulePage.tsx": {
@@ -219,14 +165,6 @@
       "count": 1
     }
   },
-  "src/pages/schedule/weekly_schedule/WeeklyCalendar.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 1
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
-    }
-  },
   "src/pages/schedule/weekly_schedule/WeeklyScheduleView.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 1
@@ -240,9 +178,6 @@
   "src/utils/apiCall.ts": {
     "@typescript-eslint/no-explicit-any": {
       "count": 2
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
     },
     "no-empty": {
       "count": 1

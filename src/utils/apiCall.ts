@@ -1,5 +1,3 @@
-import { request } from "@/apis/client";
-
 export const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 export const apiCall = async (path: string, method = "GET", data?: any, withAuth = false) => {
