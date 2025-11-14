@@ -150,9 +150,6 @@
   "src/pages/mypage/MyPage.tsx": {
     "@typescript-eslint/no-explicit-any": {
       "count": 1
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
     }
   },
   "src/pages/participate/Participate_complete/Participate_completed_ctn.tsx": {
@@ -227,7 +224,7 @@
       "count": 1
     },
     "@typescript-eslint/no-unused-vars": {
-      "count": 3
+      "count": 2
     }
   },
   "src/pages/schedule/weekly_schedule/WeeklyScheduleView.tsx": {
