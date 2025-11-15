@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
+import "./Participate_timetabe.scss";
+import dayjs from "dayjs";
 import { useNavigate, useSearchParams } from "react-router-dom";
-
 import Timetable from "./Timetable";
 import CountDown from "@/components/CountDown/CountDown";
 
@@ -60,6 +61,31 @@ const Participate_timetable_ctn = () => {
 
   const handleSubmit = useHandleSubmitData(meetingId, pageNum, finalPostData);
 
+    try {
+      const res = await apiCall(url, method, body, true);
+
+      if (!res) return;
+
+      // 명세에 맞춘 응답 처리
+      if (res.code === 200) {
+        navigate("/meeting/detail", {
+          state: {
+            meetingId: meetingId,
+          },
+        });
+      } else if (res.code === 409) {
+        alert("이미 이 미팅에 참가했습니다.");
+      } else if (res.code === 400) {
+        alert("미팅 참여마감시간이 지났습니다.");
+      } else if (res.code === 401) {
+        alert("로그인이 필요합니다.");
+      } else {
+        alert(res.message ?? "참여에 실패했습니다.");
+      }
+    } catch (e) {
+      alert("서버 오류가 발생했습니다.");
+    }
+  };
   if (!meetingData) {
     return (
       <>
