@@ -1,7 +1,6 @@
-import { useEffect, useState, useMemo } from "react";
-import "./Participate_timetabe.scss";
-import dayjs from "dayjs";
+import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+
 import Timetable from "./Timetable";
 import CountDown from "@/components/CountDown/CountDown";
 
@@ -14,7 +13,6 @@ import type {
 } from "@/apis/participate/participateTypes";
 
 import "./Participate_timetabe.scss";
-
 
 import type {
   SubmitAvailabilityBody,
@@ -36,8 +34,7 @@ const Participate_timetable_ctn = () => {
 
   const [meetingData, setMeetingData] = useState<MeetingInfoData>(null); //참가페이지에 해당하는 미팅 데이터
   const [scheduleData, setScheduleData] = useState<UserScheduleData[]>([]); //사용자의 캘린더 데이터
-  const [previousAvailTime, setPreviousAvailTime] =
-    useState<ParticipateResponse>(null); //이전에 선택했던 시간 데이터 대안 시간 투표를 위한 데이터
+  const [previousAvailTime, setPreviousAvailTime] = useState<ParticipateResponse>(null); //이전에 선택했던 시간 데이터 대안 시간 투표를 위한 데이터
 
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
   const [selectedTimes, setSelectedTimes] = useState<ParticipateObject[]>([]); //  수정됨: 선택된 시간 저장용 state
@@ -46,10 +43,7 @@ const Participate_timetable_ctn = () => {
     navigate("/schedule");
   };
 
-  const finalPostData: SubmitAvailabilityBody = useGetFinalData(
-    selectedTimes,
-    nickname
-  );
+  const finalPostData: SubmitAvailabilityBody = useGetFinalData(selectedTimes, nickname);
 
   useGetSettingData(meetingId, pageNum, setMeetingData, setPreviousAvailTime);
 
@@ -61,31 +55,6 @@ const Participate_timetable_ctn = () => {
 
   const handleSubmit = useHandleSubmitData(meetingId, pageNum, finalPostData);
 
-    try {
-      const res = await apiCall(url, method, body, true);
-
-      if (!res) return;
-
-      // 명세에 맞춘 응답 처리
-      if (res.code === 200) {
-        navigate("/meeting/detail", {
-          state: {
-            meetingId: meetingId,
-          },
-        });
-      } else if (res.code === 409) {
-        alert("이미 이 미팅에 참가했습니다.");
-      } else if (res.code === 400) {
-        alert("미팅 참여마감시간이 지났습니다.");
-      } else if (res.code === 401) {
-        alert("로그인이 필요합니다.");
-      } else {
-        alert(res.message ?? "참여에 실패했습니다.");
-      }
-    } catch (e) {
-      alert("서버 오류가 발생했습니다.");
-    }
-  };
   if (!meetingData) {
     return (
       <>
@@ -102,12 +71,7 @@ const Participate_timetable_ctn = () => {
                 <p />
               </div>
             </div>
-            <input
-              type="text"
-              value={nickname}
-              onChange={handleSetNickname}
-              placeholder="닉네임"
-            />
+            <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임" />
           </div>
         </div>
       </>
@@ -123,10 +87,7 @@ const Participate_timetable_ctn = () => {
       </div>
 
       <div className="participate_ctn">
-        <CountDown
-          label={"참가 마감 시간"}
-          finishTime={parseISO(meetingData.deadline)}
-        />
+        <CountDown label={"참가 마감 시간"} finishTime={parseISO(meetingData.deadline)} />
         <div className="text_container1">
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
@@ -136,12 +97,7 @@ const Participate_timetable_ctn = () => {
             </div>
           </div>
 
-          <input
-            type="text"
-            value={nickname}
-            onChange={handleSetNickname}
-            placeholder="닉네임"
-          />
+          <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임" />
         </div>
 
         <div className="timetable">
@@ -153,27 +109,17 @@ const Participate_timetable_ctn = () => {
             tabIndex={-1}
             onPointerDownCapture={() => {
               const a = document.activeElement as HTMLElement | null;
-              if (
-                a &&
-                (a.tagName === "INPUT" ||
-                  a.tagName === "TEXTAREA" ||
-                  a.isContentEditable)
-              )
+              if (a && (a.tagName === "INPUT" || a.tagName === "TEXTAREA" || a.isContentEditable))
                 a.blur();
             }}
           >
             <Timetable
               candidateDates={
-
-                Array.isArray(meetingData?.candidateDates)
-                  ? meetingData.candidateDates
-                  : []
+                Array.isArray(meetingData?.candidateDates) ? meetingData.candidateDates : []
               } //이거는 내가 선택하는 후보날짜
               selectedTimes={selectedTimes}
               setSelectedTimes={setSelectedTimes}
-              previousAvailTime={
-                Array.isArray(previousAvailTime) ? previousAvailTime : []
-              }
+              previousAvailTime={Array.isArray(previousAvailTime) ? previousAvailTime : []}
               scheduleData={scheduleData /* []로 보장됨 */}
             />
           </div>
