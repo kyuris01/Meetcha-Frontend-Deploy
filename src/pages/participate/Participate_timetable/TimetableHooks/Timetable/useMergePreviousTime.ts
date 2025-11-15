@@ -14,11 +14,11 @@ export const useMergePreviousTimes = (
   setSelectedTimes: React.Dispatch<React.SetStateAction<ParticipateObject[]>>
 ) => {
   useEffect(() => {
-    if (!Array.isArray(previousAvailTime) || previousAvailTime.length === 0)
-      return;
+    if (!Array.isArray(previousAvailTime) || previousAvailTime.length === 0) return;
 
-    setSelectedTimes((prev) => {//현재 선택된 시간들과 새로운 previousAvailTime을 합치는 작업
-      const exists = new Set(prev.map((s) => keyOf(s.startAt, s.endAt)));//new Set은 중복제거
+    setSelectedTimes((prev) => {
+      //현재 선택된 시간들과 새로운 previousAvailTime을 합치는 작업
+      const exists = new Set(prev.map((s) => keyOf(s.startAt, s.endAt))); //new Set은 중복제거
       const merged = [...prev];
       let changed = false;
 
@@ -27,7 +27,7 @@ export const useMergePreviousTimes = (
         const e = snap30(parseISO(slot.endAt));
         const sISO = s.toISOString();
         const eISO = e.toISOString();
-        const key = keyOf(sISO, eISO);//
+        const key = keyOf(sISO, eISO); //
         if (!exists.has(key)) {
           merged.push({ startAt: sISO, endAt: eISO });
           exists.add(key);

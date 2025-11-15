@@ -31,12 +31,8 @@ const Timetable = ({
   scheduleData,
   previousAvailTime,
 }) => {
+  const { handleSelect } = useTimetableSelection(selectedTimes, setSelectedTimes);
 
-  const { handleSelect } = useTimetableSelection(
-    selectedTimes,
-    setSelectedTimes
-  );
-  
   useMergePreviousTimes(previousAvailTime, setSelectedTimes);
   //previousAvailTime(이전에 지정했던 시간=>대안시간 투표 전에 지정한 시간)이 존재하지 않으면 시행x
   const sortedDates: string[] = [...(candidateDates ?? [])].sort();
@@ -53,10 +49,7 @@ const Timetable = ({
   const hiddenDays = [0, 1, 2, 3, 4, 5, 6].filter((dow: number) => !allowedDows.has(dow));
 
   const rangeStart = formatDate(startOfDay(validDates[0]), "yyyy-MM-dd");
-  const rangeEndExclusive = formatDate(
-    addDays(endOfDay(validDates.at(-1)!), 1),
-    "yyyy-MM-dd"
-  );
+  const rangeEndExclusive = formatDate(addDays(endOfDay(validDates.at(-1)!), 1), "yyyy-MM-dd");
 
   const CalendarColor = [
     "#FF7842",
@@ -68,9 +61,7 @@ const Timetable = ({
     "#875A3E",
   ];
   //selectedTimes마다 색상을 지정해줌!
-  const selectedEventsWithColor = (
-    arr: ParticipateObject[]
-  ): EventWithColor[] =>
+  const selectedEventsWithColor = (arr: ParticipateObject[]): EventWithColor[] =>
     arr.map((t) => {
       const s = new Date(t.startAt).getTime();
       const e = new Date(t.endAt).getTime();

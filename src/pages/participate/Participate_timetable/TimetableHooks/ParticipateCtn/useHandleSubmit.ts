@@ -1,9 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  updateAvailability,
-  submitAvailability,
-} from "@/apis/participate/participateAPI";
+import { updateAvailability, submitAvailability } from "@/apis/participate/participateAPI";
 import type { SubmitAvailabilityBody } from "@/apis/participate/participateTypes";
 
 export const useHandleSubmitData = (

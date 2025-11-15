@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import LandingPage from "./LandingPage";
 
@@ -7,9 +7,32 @@ import alarm from "@assets/alarmClock.svg";
 import pen from "@assets/pen.svg";
 
 import "./LandingBackground.scss";
+import { fetchProfileData } from "@/apis/mypage/mypageAPI";
 
 const LandingBackground = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const verifyAuth = async () => {
+      const token = localStorage.getItem("access-token");
+
+      if (!token) {
+        return;
+      }
+
+      fetchProfileData()
+        .then(() => {
+          navigate("/schedule");
+        })
+        .catch(() => {
+          localStorage.removeItem("access-token");
+          localStorage.removeItem("refresh-token");
+        });
+    };
+
+    verifyAuth();
+  }, []);
+
   const handleClick = () => {
     navigate("/login");
   };

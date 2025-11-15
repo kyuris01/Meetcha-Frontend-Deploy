@@ -2,7 +2,7 @@
 //이전에 선택했던 데이터를 불러오는 로직
 import { useEffect } from "react";
 
-import { getPreviousAvailTime,getUserMeetingData } from "@/apis/participate/participateAPI";
+import { getPreviousAvailTime, getUserMeetingData } from "@/apis/participate/participateAPI";
 
 export const useGetSettingData = (
   meetingId: string,

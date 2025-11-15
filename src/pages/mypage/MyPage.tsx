@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import { fetchProfileData } from "@/apis/mypage/mypageAPI";
 import { logout } from "@/apis/auth/authAPI";
 import { useNavigate } from "react-router-dom";
+import type { ProfileResponse } from "@/apis/mypage/mypageTypes";
 
 const MyPage = () => {
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<ProfileResponse>(null);
   const navigate = useNavigate();
 
   useEffect(() => {

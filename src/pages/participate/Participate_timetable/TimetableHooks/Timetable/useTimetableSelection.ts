@@ -10,8 +10,7 @@ interface date {
 }
 export const useTimetableSelection = (
   selectedTimes: ParticipateObject[],
-  setSelectedTimes: React.Dispatch<React.SetStateAction<ParticipateObject[]>>,
-
+  setSelectedTimes: React.Dispatch<React.SetStateAction<ParticipateObject[]>>
 ) => {
   const handleSelect = (info: date) => {
     const s = snap30(info.start as Date);
@@ -30,8 +29,6 @@ export const useTimetableSelection = (
         ? prev.filter((t) => keyOf(t.startAt, t.endAt) !== key)
         : [...prev, { startAt: sISO, endAt: eISO }]
     );
-
-
   };
 
   return { handleSelect };

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const LoginContainer = () => {
   const navigate = useNavigate();
   useEffect(() => {
-    if (sessionStorage.getItem("access-token")) {
+    if (localStorage.getItem("access-token")) {
       navigate("/schedule");
     }
   }, []);

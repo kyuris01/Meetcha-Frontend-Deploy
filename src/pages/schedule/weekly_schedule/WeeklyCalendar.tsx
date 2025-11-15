@@ -3,7 +3,7 @@ import CustomWeekHeader from "./CustomWeekHeader";
 import { CustomEvent } from "./CustomEvent";
 import { Calendar, luxonLocalizer } from "react-big-calendar";
 import { DateTime } from "luxon";
-import {  useState } from "react";
+import { useState } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
@@ -154,7 +154,9 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
             recurrence: event.recur,
             eventId: event.id,
           });
-          setClickedSpan(`${scheduleStringFormatter(event.start)} ${scheduleStringFormatter(event.end)}`);
+          setClickedSpan(
+            `${scheduleStringFormatter(event.start)} ${scheduleStringFormatter(event.end)}`
+          );
         }}
       />
       {portal}

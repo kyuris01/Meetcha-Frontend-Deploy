@@ -9,8 +9,8 @@ export const apiCall = async <T>(
   data?: any,
   withAuth = false
 ): Promise<ApiResponse<T>> => {
-  const access_token = sessionStorage.getItem("access-token");
-  const refresh_token = sessionStorage.getItem("refresh-token");
+  const access_token = localStorage.getItem("access-token");
+  const refresh_token = localStorage.getItem("refresh-token");
 
   const doFetch = () =>
     fetch(`${API_BASE}${path}`, {
@@ -40,8 +40,8 @@ export const apiCall = async <T>(
         }
       }
       console.error("Unauthorized: token refresh failed or retry failed.");
-      sessionStorage.removeItem("access-token");
-      sessionStorage.removeItem("refresh-token");
+      localStorage.removeItem("access-token");
+      localStorage.removeItem("refresh-token");
       window.location.href = "/";
     }
 

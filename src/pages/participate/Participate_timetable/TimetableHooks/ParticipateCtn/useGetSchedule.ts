@@ -4,10 +4,7 @@ import type { MeetingInfoData } from "@/apis/participate/participateTypes";
 
 import { getUserScheduleData } from "@/apis/participate/participateAPI";
 
-export const useGetScheduleData = (
-  meetingData: MeetingInfoData,
-  setScheduleData
-) => {
+export const useGetScheduleData = (meetingData: MeetingInfoData, setScheduleData) => {
   useEffect(() => {
     if (!meetingData) return;
     //순서를 정한거임.. 미팅데이터를 먼저 불러와야함(candidate때문)

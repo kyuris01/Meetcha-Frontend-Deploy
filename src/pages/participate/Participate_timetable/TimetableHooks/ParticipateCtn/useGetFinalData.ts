@@ -1,5 +1,8 @@
 import { useMemo } from "react";
-import type { ParticipateObject,SubmitAvailabilityBody } from "@/apis/participate/participateTypes";
+import type {
+  ParticipateObject,
+  SubmitAvailabilityBody,
+} from "@/apis/participate/participateTypes";
 
 import { snap30, toDate } from "@/utils/dateUtil";
 import { parseISO, isAfter, addMinutes, format, getTime } from "date-fns";
@@ -7,7 +10,7 @@ import { parseISO, isAfter, addMinutes, format, getTime } from "date-fns";
 export const useGetFinalData = (
   selectedTimes: ParticipateObject[],
   nickname: string
-):SubmitAvailabilityBody => {
+): SubmitAvailabilityBody => {
   return useMemo(() => {
     const times = selectedTimes
       .map((t: ParticipateObject) => {
@@ -27,9 +30,7 @@ export const useGetFinalData = (
           endAt: format(e, "yyyy-MM-dd'T'HH:mm:ss"),
         };
       })
-      .sort(
-        (a, b) => getTime(parseISO(a.startAt)) - getTime(parseISO(b.startAt))
-      );
+      .sort((a, b) => getTime(parseISO(a.startAt)) - getTime(parseISO(b.startAt)));
 
     const nick = nickname.trim();
     return {
