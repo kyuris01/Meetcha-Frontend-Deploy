@@ -7,6 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { MSWProvider } from "./mocks/MSWProvider";
 import "normalize.css";
 import "@ncdai/react-wheel-picker/style.css";
+import { BrowserLimiter } from "./components/BrowserLimiter.tsx";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,6 +23,7 @@ createRoot(document.getElementById("root")!).render(
   <MSWProvider>
     <GoogleOAuthProvider clientId="214919872484-j05rks059n5hbtm083spk9s5dvg6m9cu.apps.googleusercontent.com">
       <QueryClientProvider client={queryClient}>
+        <BrowserLimiter />
         <App />
         <ToastContainer
           containerId="timerClose"
