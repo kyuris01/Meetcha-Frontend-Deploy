@@ -11,13 +11,9 @@ import { DateContext } from "./DataContext";
 const SchedulePage = () => {
   const [calendarType, setCalendarType] = useState<Calendar>(CALENDAR.Monthly);
 
-  /** 달이 바뀔 때 api 호출을 위한 month 상태 변수 */
-  const [fetchStandardDate, setFetchStandardDate] = useState<string>(
-    `${getYear(new Date())} ${getMonth(new Date()) + 1}`
-  );
-  const [initYear, initMonth] = fetchStandardDate.split(" ");
-  const [year, setYear] = useState<string>(initYear);
-  const [month, setMonth] = useState<string>(initMonth);
+  const now = new Date();
+  const [year, setYear] = useState<number>(getYear(now));
+  const [month, setMonth] = useState<number>(getMonth(now) + 1);
 
   const {
     data: schedules,
@@ -34,12 +30,9 @@ const SchedulePage = () => {
         <div className={styles.schedulePage__viewBox}>
           <CalendarHeader calendarType={calendarType} setCalendarType={setCalendarType} />
           {calendarType === CALENDAR.Monthly ? (
-            <MonthlyScheduleView
-              schedules={schedules}
-              setFetchStandardDate={setFetchStandardDate}
-            />
+            <MonthlyScheduleView schedules={schedules} />
           ) : (
-            <WeeklyScheduleView schedules={schedules} setFetchStandardDate={setFetchStandardDate} />
+            <WeeklyScheduleView schedules={schedules} />
           )}
         </div>
       </div>

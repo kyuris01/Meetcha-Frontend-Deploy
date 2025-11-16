@@ -9,11 +9,10 @@ import { DateContext } from "../DataContext";
 
 interface Props {
   schedules: any[];
-  setFetchStandardDate: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
-  const { year, month } = useContext(DateContext);
+const MonthlyScheduleView = ({ schedules }: Props) => {
+  const { year, month, setYear, setMonth } = useContext(DateContext);
   const activeStartDate = new Date(year, month - 1, 1);
   // console.log(schedules);
   return (
@@ -40,14 +39,30 @@ const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
         }}
         formatShortWeekday={(_, date) => date.toLocaleString("en-US", { weekday: "short" })}
         onActiveStartDateChange={({ activeStartDate, view }) => {
-          setFetchStandardDate((prev) => {
-            const newStandardDate = `${getYear(activeStartDate)} ${getMonth(activeStartDate) + 1}`;
-            if (prev !== newStandardDate) {
-              return newStandardDate;
+          setYear((prev) => {
+            const newYear = getYear(activeStartDate);
+            if (prev !== newYear) {
+              return newYear;
             } else {
               return prev;
             }
           });
+          setMonth((prev) => {
+            const newMonth = getMonth(activeStartDate);
+            if (prev !== newMonth) {
+              return newMonth;
+            } else {
+              return prev;
+            }
+          });
+          // setFetchStandardDate((prev) => {
+          //   const newStandardDate = `${getYear(activeStartDate)} ${getMonth(activeStartDate) + 1}`;
+          //   if (prev !== newStandardDate) {
+          //     return newStandardDate;
+          //   } else {
+          //     return prev;
+          //   }
+          // });
         }}
       />
     </div>

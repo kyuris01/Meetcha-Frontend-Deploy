@@ -160,14 +160,6 @@
       "count": 1
     }
   },
-  "src/pages/schedule/weekly_schedule/WeeklyCalendar.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 1
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
-    }
-  },
   "src/pages/schedule/weekly_schedule/WeeklyScheduleView.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 1

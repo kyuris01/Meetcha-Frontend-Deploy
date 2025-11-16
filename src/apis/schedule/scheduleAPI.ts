@@ -9,8 +9,8 @@ export const scheduleKeys = {
   month: (year: string, month: string) => [...scheduleKeys.all, `${year}-${month}`] as const,
 };
 
-export const fetchSchedules = async (year: string, month: string) => {
-  const { from, to } = buildRange(year, month);
+export const fetchSchedules = async (year: number, month: number) => {
+  const { from, to } = buildRange(year.toString(), month.toString());
   const res: ApiResponse<Schedule[]> = await apiCall(
     `/user/schedule?from=${from}&to=${to}`,
     "GET",
