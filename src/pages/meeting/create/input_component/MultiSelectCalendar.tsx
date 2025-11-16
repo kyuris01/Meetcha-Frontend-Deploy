@@ -36,9 +36,9 @@ export const MultiSelectCalendar = () => {
             return "custom-active";
           }
         }}
-        tileDisabled={({ date }) => {
+        tileDisabled={({ date, view }) => {
           return (
-            isPreviousDate(date) ||
+            isPreviousDate(date, view) ||
             (form.getFormValue("candidateDates").length >= 10 &&
               !form.getFormValue("candidateDates").includes(formatDate(date)))
           );

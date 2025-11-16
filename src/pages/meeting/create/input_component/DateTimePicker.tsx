@@ -69,13 +69,13 @@ export const DateTimePicker = () => {
               return "custom-active";
             }
           }}
-          tileDisabled={({ date }) => {
+          tileDisabled={({ date, view }) => {
             const candidateDates = form.getFormValue("candidateDates");
             const minDate =
               candidateDates.length > 0 ? dayjs.min(candidateDates.map((d) => dayjs(d))) : null;
 
             return (
-              isPreviousDate(date) ||
+              isPreviousDate(date, view) ||
               (minDate && dayjs(date).isAfter(minDate, "day")) ||
               candidateDates.includes(formatDate(date))
             );
