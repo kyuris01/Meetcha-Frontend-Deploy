@@ -7,18 +7,28 @@ import MeetingStateCard from "./MeetingStateCard";
 import MeetingInfoCard from "./MeetingInfoCard";
 import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
-import { isAfter } from "date-fns/isAfter";
 
 const MeetingDetailView = ({ data }: { data: MeetingDetail }) => {
+  const getMeetingTimeDisplay = () => {
+    switch (data.meetingStatus) {
+      case "MATCH_FAILED":
+        return "매칭 실패";
+      case "BEFORE":
+        return "시작 전";
+      case "MATCHING":
+        return "시간을 정하고 있어요!";
+      case "DONE":
+      case "ONGOING":
+      default:
+        return scheduleStringFormatter(data.confirmedTime);
+    }
+  };
+
   const dataArray = [
     {
       label: "미팅 시간",
       icon: <Calendar className={styles.icon} />,
-      data: isAfter(new Date(), data?.deadline)
-        ? "실패"
-        : data?.confirmedTime
-          ? scheduleStringFormatter(data?.confirmedTime)
-          : data?.confirmedTime,
+      data: getMeetingTimeDisplay(),
     },
     {
       label: "진행 시간",
