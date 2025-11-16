@@ -2,7 +2,6 @@
 
 .monthlyScheduleView {
   width: 100%;
-
   flex: 1;
 }
 
@@ -11,7 +10,7 @@
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  background: $color-cream-100;
+  background: white;
   border: none !important;
   // border: 1px solid #a0a096;
   font-family: "Arial", "Helvetica", sans-serif;
@@ -52,9 +51,10 @@
 }
 
 .monthlyScheduleView .react-calendar__navigation {
-  display: flex;
-  height: 44px;
-  padding: 2rem 0;
+  // display: flex;
+  // height: 44px;
+  // padding: 2rem 0;
+  display: none;
 }
 
 .monthlyScheduleView .react-calendar__navigation button {

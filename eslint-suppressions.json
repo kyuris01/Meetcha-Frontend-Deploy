@@ -114,11 +114,6 @@
       "count": 1
     }
   },
-  "src/pages/mypage/MyPage.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 1
-    }
-  },
   "src/pages/participate/Participate_link/Participate_link_ctn.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 2
@@ -131,7 +126,7 @@
   },
   "src/pages/schedule/SchedulePage.tsx": {
     "@typescript-eslint/no-unused-vars": {
-      "count": 7
+      "count": 5
     }
   },
   "src/pages/schedule/monthly_schedule/MonthlyScheduleView.tsx": {
@@ -163,6 +158,14 @@
   "src/pages/schedule/weekly_schedule/CustomWeekHeader.tsx": {
     "@typescript-eslint/no-explicit-any": {
       "count": 1
+    }
+  },
+  "src/pages/schedule/weekly_schedule/WeeklyCalendar.tsx": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 1
+    },
+    "@typescript-eslint/no-unused-vars": {
+      "count": 2
     }
   },
   "src/pages/schedule/weekly_schedule/WeeklyScheduleView.tsx": {

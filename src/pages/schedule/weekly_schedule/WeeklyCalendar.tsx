@@ -3,13 +3,15 @@ import CustomWeekHeader from "./CustomWeekHeader";
 import { CustomEvent } from "./CustomEvent";
 import { Calendar, luxonLocalizer } from "react-big-calendar";
 import { DateTime } from "luxon";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
 import type { Schedule } from "@/apis/schedule/scheduleTypes";
 import ScheduleCrudPage from "../schedule_crud/ScheduleCrudPage";
 import type { ParsedSchedule } from "./WeeklyScheduleView";
+import { DateContext } from "../DataContext";
+import { getMonth } from "date-fns";
 
 /**
  * 슬라이드가 생성모드로 열렸는지, 수정모드로 열렸는지를 구분
@@ -25,6 +27,7 @@ interface Props {
   week: Date;
   events: ParsedSchedule[];
   blockInteraction: boolean;
+  isActiveCalendar: boolean; // 현재 표시되고있는 캘린더인지 여부
 }
 
 const localizer = luxonLocalizer(DateTime);
@@ -35,7 +38,8 @@ const formats = {
   },
 };
 
-const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
+const WeeklyCalendar = ({ week, events, blockInteraction, isActiveCalendar }: Props) => {
+  const { setMonth } = useContext(DateContext);
   const [crudOpen, setCrudOpen] = useState<boolean>(false);
   const [clickedSpan, setClickedSpan] = useState<string>();
   const [clickedSchedule, setClickedSchedule] = useState<Schedule>();
@@ -53,6 +57,12 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
       e.stopPropagation();
     }
   };
+
+  useEffect(() => {
+    if (isActiveCalendar) {
+      setMonth(getMonth(week) + 1);
+    }
+  }, [isActiveCalendar]);
 
   const portal = ReactDOM.createPortal(
     <AnimatePresence>
@@ -110,8 +120,8 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         localizer={localizer}
         events={events}
         formats={formats}
-        startAccessor="start"
-        endAccessor="end"
+        startAccessor="startAt"
+        endAccessor="endAt"
         defaultView="week"
         views={["week"]}
         components={{
@@ -123,7 +133,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
         eventPropGetter={(event) => {
           return {
             style: {
-              backgroundColor: `${colorAutoSelector(event.id)}`,
+              backgroundColor: `${colorAutoSelector(event.eventId)}`,
               borderRadius: "6px",
               color: "white",
             },
@@ -149,13 +159,13 @@ const WeeklyCalendar = ({ week, events, blockInteraction }: Props) => {
           setTimeout(() => setCrudOpen(true), 0);
           setClickedSchedule({
             title: event.title,
-            startAt: event.start,
-            endAt: event.end,
-            recurrence: event.recur,
-            eventId: event.id,
+            startAt: String(event.startAt),
+            endAt: String(event.endAt),
+            recurrence: event.recurrence,
+            eventId: event.eventId,
           });
           setClickedSpan(
-            `${scheduleStringFormatter(event.start)} ${scheduleStringFormatter(event.end)}`
+            `${scheduleStringFormatter(event.startAt)} ${scheduleStringFormatter(event.endAt)}`
           );
         }}
       />

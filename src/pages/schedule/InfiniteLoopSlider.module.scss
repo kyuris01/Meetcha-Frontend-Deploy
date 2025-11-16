@@ -1,0 +1,46 @@
+.numberScrollerContainer {
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  // 드래그 UX 개선
+  cursor: grab;
+  user-select: none;
+  touch-action: pan-x; // 모바일 제스처는 유지, 가로 팬 허용
+  &[data-dragging="true"] {
+    cursor: grabbing;
+    scroll-snap-type: none; // 드래그 중엔 스냅 잠시 비활성화(싸움 방지)
+  }
+
+  mask-image: linear-gradient(to right, black 0%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, black 0%, black 80%, transparent 100%);
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  > .numberItem {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    padding-left: 5px;
+
+    flex-shrink: 0;
+    text-align: center;
+    font-size: 1.4rem;
+    color: $color-orange-500;
+    scroll-snap-align: start;
+    transition: all 0.3s ease;
+  }
+
+  > .active {
+    color: $color-orange-700;
+    font-weight: 700;
+    transform: scale(1.4);
+  }
+}

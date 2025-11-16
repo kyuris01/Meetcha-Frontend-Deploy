@@ -24,6 +24,7 @@ const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
   const didSkipFirstChange = useRef(false); // 0->1 이동시 handleSlideChange는 발동안되게하는 플래그
   const swiperRef = useRef(null);
   const [isSwiping, setIsSwiping] = useState(false);
+  const [activeCalendarIndex, setActiveCalendarIndex] = useState(1); // 기본 중앙
 
   const [calendarArr, setCalendarArr] = useState(() => {
     const prev = subWeeks(standardDate, 1);
@@ -48,6 +49,8 @@ const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
       didSkipFirstChange.current = true;
       return;
     }
+
+    setActiveCalendarIndex(swiper.activeIndex);
 
     const { previousIndex, activeIndex } = swiper;
 
@@ -134,9 +137,14 @@ const WeeklyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
       touchStartPreventDefault={false}
       touchMoveStopPropagation={false}
     >
-      {calendarArr.map(({ week, key }) => (
+      {calendarArr.map(({ week, key }, idx) => (
         <SwiperSlide key={key}>
-          <WeeklyCalendar week={week} events={events} blockInteraction={isSwiping} />
+          <WeeklyCalendar
+            week={week}
+            events={events}
+            blockInteraction={isSwiping}
+            isActiveCalendar={idx === activeCalendarIndex}
+          />
         </SwiperSlide>
       ))}
     </Swiper>

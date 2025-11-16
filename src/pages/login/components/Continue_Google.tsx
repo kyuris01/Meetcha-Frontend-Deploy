@@ -1,4 +1,5 @@
 import google_logo from "../../../assets/Google.svg";
+import "../styles/login.scss";
 
 const Continue_Google = () => {
   const handleGoogleLogin = () => {

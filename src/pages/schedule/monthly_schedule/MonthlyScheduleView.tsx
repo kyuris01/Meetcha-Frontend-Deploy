@@ -4,6 +4,8 @@ import EventTagBox from "./EventTagBox";
 import { dateFormatter } from "@/utils/dateFormatter";
 import { getMonth } from "date-fns/getMonth";
 import { getYear } from "date-fns";
+import { useContext } from "react";
+import { DateContext } from "../DataContext";
 
 interface Props {
   schedules: any[];
@@ -11,10 +13,13 @@ interface Props {
 }
 
 const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
+  const { year, month } = useContext(DateContext);
+  const activeStartDate = new Date(year, month - 1, 1);
   // console.log(schedules);
   return (
     <div className="monthlyScheduleView">
       <Calendar
+        activeStartDate={activeStartDate}
         showNeighboringMonth={false}
         tileContent={({ date, view }) => {
           const eventName = [];
@@ -31,7 +36,6 @@ const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
           return <EventTagBox eventName={eventName} />;
         }}
         formatDay={(_, date) => {
-          // console.log(date);
           return date.toLocaleString("en", { day: "numeric" });
         }}
         formatShortWeekday={(_, date) => date.toLocaleString("en-US", { weekday: "short" })}
@@ -39,7 +43,6 @@ const MonthlyScheduleView = ({ schedules, setFetchStandardDate }: Props) => {
           setFetchStandardDate((prev) => {
             const newStandardDate = `${getYear(activeStartDate)} ${getMonth(activeStartDate) + 1}`;
             if (prev !== newStandardDate) {
-              // console.log(getMonth(activeStartDate) + 1);
               return newStandardDate;
             } else {
               return prev;
