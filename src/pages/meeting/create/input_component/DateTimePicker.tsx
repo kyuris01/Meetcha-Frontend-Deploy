@@ -19,7 +19,8 @@ const formatDate = (date: Date) => {
 };
 
 const formatTime = (time: TimeOption) => {
-  const hour = Number(time.hour) + (time.meridiem === "오후" ? 12 : 0);
+  const numHour = Number(time.hour) % 12;
+  const hour = numHour + (time.meridiem === "오후" ? 12 : 0);
   return `${hour}:${time.minute}`;
 };
 
