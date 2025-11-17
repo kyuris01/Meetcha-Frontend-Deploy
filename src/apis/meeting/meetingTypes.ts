@@ -41,6 +41,10 @@ export interface AlternativeObj {
   alternativeTimes: AlternativeMeeting[];
 }
 
+export interface AlternativeVoteRes {
+  voteId: string;
+}
+
 export interface MeetingCreateResponse {
   meetingId: string;
   createdAt: string;

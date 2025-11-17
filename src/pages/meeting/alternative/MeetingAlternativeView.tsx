@@ -13,6 +13,7 @@ import ReactDOM from "react-dom";
 import { voteAlternativeMeeting } from "@/apis/meeting/meetingAPI";
 import type { AlternativeMeeting } from "@/apis/meeting/meetingTypes";
 import { useMeetingAlternative } from "@/hooks/useMeetingAlternative";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   alternativeTimes: AlternativeMeeting[];
@@ -22,6 +23,7 @@ interface Props {
 const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
   const { data, firstDate, duration, loading } = useMeetingAlternative(alternativeTimes);
   const [clickedEventNum, setClickedEventNum] = useState(null);
+  const navigate = useNavigate();
   const [popupInfo, setPopupInfo] = useState<{
     top: number;
     left: number;
@@ -96,11 +98,18 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
     if (!clickedEventNum) {
       alert("대안 시간을 하나 선정하세요!");
     } else {
-      const data = {
-        alternativeTime: `${clickedEventNum.date}T${clickedEventNum.startTime}`,
-      };
-      voteAlternativeMeeting(meetingId, data);
+      try {
+        const data = {
+          alternativeTime: `${clickedEventNum.date}T${clickedEventNum.startTime}`,
+        };
+        voteAlternativeMeeting(meetingId, data);
+      } catch (error) {
+        alert(error);
+        return;
+      }
     }
+
+    navigate(`/meeting/${meetingId}`);
   };
 
   return (

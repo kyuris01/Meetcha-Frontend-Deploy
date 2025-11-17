@@ -9,8 +9,6 @@ const Mymeeting_summary = ({ meetingSummary }) => {
   const [mainRole, setMainRole] = useState<string>("--");
   const [averageContribution, setAverageContribution] = useState<number>(0);
 
-  console.log(meetingSummary);
-
   useEffect(() => {
     if (!meetingSummary?.data) return; // 요약 데이터 도착 시에만 세팅
     setMeetingCount(meetingSummary.data.totalReflections ?? 0);
