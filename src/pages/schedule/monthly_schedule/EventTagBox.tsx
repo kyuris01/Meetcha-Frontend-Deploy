@@ -54,7 +54,11 @@ const EventTagBox = ({ eventName }: Props) => {
     >
       {eventName.map((item, index) => {
         if (index === 2) {
-          return <div className="eventTag">...</div>;
+          return (
+            <div className="eventTag" key={index}>
+              ...
+            </div>
+          );
         } else if (index > 2) {
           return null;
         }

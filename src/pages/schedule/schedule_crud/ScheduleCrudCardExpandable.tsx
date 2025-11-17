@@ -4,6 +4,7 @@ import { useScheduleCreateFormContext } from "./hooks/useScheduleCreateForm";
 import { TimePicker } from "./components/TimePicker";
 import Clock from "@assets/clock.svg?react";
 import styles from "./ScheduleCrudCard.module.scss";
+import { naturalDateToISO } from "@/utils/dateFormatter";
 
 interface Props {
   clickedSpan: string; // 주간캘린더에서 선택한 일정 범위
@@ -17,7 +18,7 @@ export const Picker = {
 export type PickerType = (typeof Picker)[keyof typeof Picker];
 
 const ScheduleCrudCardExpandable = ({ clickedSpan }: Props) => {
-  // clickedSpan : YYYY년 MM월 DD일(D) HH시 MM분
+  // clickedSpan : 2025년 11월 17일(월) 오전 12:00 2025년 11월 17일(월) 오전 01:30
   const [
     initStartYear,
     initStartMonth,
@@ -46,18 +47,13 @@ const ScheduleCrudCardExpandable = ({ clickedSpan }: Props) => {
   useEffect(() => {
     form.setFormValue(
       "startAt",
-      startYear + "-" + startMonth + "-" + startDate + "T" + formatTime(startTime)
+      naturalDateToISO(startYear + "년 " + startMonth + "월 " + startDate + "일 " + startTime)
     );
-    setFormValue("endAt", endYear + "-" + endMonth + "-" + endDate + "T" + formatTime(endTime));
-  }, [startTime, endTime, startYear, startMonth, startDate, endYear, endMonth, endDate]);
-
-  const formatTime = (time: string) => {
-    const [meridiem, timeAndMinute] = time.split(" ");
-    const [hour, minute] = timeAndMinute.split(":");
-    const base24Hour = Number(hour) + (meridiem === "오후" ? 12 : 0);
-    const formattedHour = String(base24Hour).padStart(2, "0");
-    return `${formattedHour}:${minute}`;
-  };
+    form.setFormValue(
+      "endAt",
+      naturalDateToISO(endYear + "년 " + endMonth + "월 " + endDate + "일 " + endTime)
+    );
+  }, [startTime, endTime]);
 
   return (
     <div

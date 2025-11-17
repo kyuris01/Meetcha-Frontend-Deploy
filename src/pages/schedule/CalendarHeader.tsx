@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { useContext, useState, type Dispatch, type SetStateAction } from "react";
 import styles from "./CalendarHeader.module.scss";
 import { CALENDAR, type Calendar } from "./calendarType.constants";
 import clsx from "clsx";
@@ -13,10 +13,6 @@ interface Props {
 const CalendarHeader = ({ calendarType, setCalendarType }: Props) => {
   const { year, month } = useContext(DateContext);
   const [isSliderOpen, setIsSliderOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log("month:", month);
-  }, [month]);
 
   return (
     <div className={clsx(styles.calendarHeader, isSliderOpen && styles.sliderOpen)}>

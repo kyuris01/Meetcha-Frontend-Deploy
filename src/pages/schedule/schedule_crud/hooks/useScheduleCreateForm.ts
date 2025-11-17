@@ -25,10 +25,10 @@ export const useScheduleCreateForm = (
     key: keyof ScheduleCreationSchema,
     value: ScheduleCreationSchema[keyof ScheduleCreationSchema]
   ) => {
-    setFormData((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
+    setFormData((prev) => {
+      if (prev[key] === value) return prev; // 변경 없으면 rerender 방지
+      return { ...prev, [key]: value };
+    });
   };
 
   const getFormValue = <K extends keyof ScheduleCreationSchema>(key: K) => {

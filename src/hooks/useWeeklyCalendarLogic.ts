@@ -23,13 +23,15 @@ export function useWeeklyCalendarLogic(week: Date, isActiveCalendar: boolean) {
     const start = scheduleStringFormatter(slotInfo.start);
     const end = scheduleStringFormatter(slotInfo.end);
 
+    console.log("start:", start);
+
     setClickedSpan(`${start} ${end}`);
 
     setTimeout(() => setCrudOpen(true), 0);
   }, []);
 
   const openEdit = useCallback((event) => {
-    setSlideType("edit");
+    setSlideType(Slide.Edit);
 
     setClickedSchedule({
       title: event.title,

@@ -32,11 +32,12 @@ const scheduleCreationSchema = z
   .superRefine((value, context) => {
     const start = parseISO(value.startAt);
     const end = parseISO(value.endAt);
+
     if (isAfter(start, end)) {
       context.addIssue({
         code: "custom",
         message: "일정 시작일은 일정 마감일 이전이어야 합니다.",
-        path: ["startDate", "endDate"],
+        path: ["startAt"],
       });
     }
   });

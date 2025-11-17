@@ -6,9 +6,10 @@ import { getMonth } from "date-fns/getMonth";
 import { getYear } from "date-fns";
 import { useContext } from "react";
 import { DateContext } from "../DataContext";
+import type { UserScheduleData } from "@/apis/participate/participateTypes";
 
 interface Props {
-  schedules: any[];
+  schedules: UserScheduleData[];
 }
 
 const MonthlyScheduleView = ({ schedules }: Props) => {
