@@ -8,6 +8,7 @@ import Memoir_complete_ctn from "./pages/memoir/Memoir_complete/Memoir_complete_
 import MeetingCreationPage from "./pages/meeting/create/MeetingCreationPage";
 import MeetingDetailPage from "./pages/meeting/detail/MeetingDetailPage";
 import MeetingAlternativePage from "./pages/meeting/alternative/MeetingAlternativePage";
+import MeetingSharePage from "./pages/meeting/share/MeetingSharePage";
 import SchedulePage from "./pages/schedule/SchedulePage";
 import MeetingPage from "./pages/meeting/MeetingPage";
 
@@ -23,6 +24,7 @@ import MyPage from "./pages/mypage/MyPage";
 import PrivacyPage from "./pages/privacy/PrivacyPage";
 
 import LandingBackground from "./pages/landing/LandingBackground";
+import MeetingLinkPage from "./pages/meeting/link/MeetingLinkPage";
 
 const App = () => {
   return (
@@ -48,6 +50,8 @@ const App = () => {
         <Route index path="/complete" element={<Participate_completed_ctn />}></Route>
         <Route index path="/meeting-creation" element={<MeetingCreationPage />}></Route>
         <Route index path="/privacy" element={<PrivacyPage />}></Route>
+        <Route index path="/meeting/share/:meetingId" element={<MeetingSharePage />} />
+        <Route index path="/meeting/link" element={<MeetingLinkPage />} />
       </Routes>
     </BrowserRouter>
   );
