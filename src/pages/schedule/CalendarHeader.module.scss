@@ -29,6 +29,7 @@
   > .month {
     @include head-1;
     color: $color-orange-700;
+    cursor: pointer;
   }
 
   > .calendarTypeCtn {
@@ -40,6 +41,7 @@
     > .typeLabel {
       @include head-3;
       color: $color-gray-300;
+      cursor: pointer;
     }
 
     > .activeTypeLabel {

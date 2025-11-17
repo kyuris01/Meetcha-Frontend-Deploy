@@ -11,7 +11,6 @@ export const dateFormatter = (input) => {
 };
 
 export const scheduleStringFormatter = (input) => {
-  console.log("input:", input);
   const formattedDate = format(input, "yyyy년 MM월 dd일(EEE)", { locale: ko });
   const formattedTime = format(input, "a hh:mm").replace("AM", "오전").replace("PM", "오후");
   return `${formattedDate} ${formattedTime}`;

@@ -12,7 +12,6 @@ const Memoir_complete_main = ({ meeting }) => {
   // projectId가 없으면 meetingId나 "default"로 안정적인 색을 계산
   const { text, bg } = getProjectTheme(projectId ?? meeting?.data?.meetingId ?? undefined);
 
-  console.log(meeting);
   return (
     <div className="memoir_complete_main_ctn">
       <Meeting_card

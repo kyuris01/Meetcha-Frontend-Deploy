@@ -56,8 +56,6 @@ const Meeting_list_content = ({ meetingLists }: Props) => {
     }
   }, [chosenMemoir]);
 
-  console.log(meetingLists);
-
   return (
     <div className="meetings_ctn">
       {Array.isArray(meetingLists) &&

@@ -7,7 +7,6 @@ import "./Memoir_meeting.scss";
 
 const Must_write = ({ meetingLists }) => {
   const navigate = useNavigate();
-  console.log(meetingLists);
 
   const handleClick = (meeting) => {
     navigate("/memoir-write", {
