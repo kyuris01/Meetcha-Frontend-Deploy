@@ -6,6 +6,7 @@ import { BiLinkAlt } from "react-icons/bi";
 import styles from "./MeetingSharePage.module.scss";
 import { copyToClipboard } from "@/utils/copyToClipBoard";
 import { fetchMeetingDetail } from "@/apis/meeting/meetingAPI";
+import { getMeetingShareLink } from "@/utils/meetingShare";
 
 const MeetingSharePage = () => {
   const { meetingId } = useParams();
@@ -17,7 +18,7 @@ const MeetingSharePage = () => {
 
     fetchMeetingDetail(meetingId)
       .then((data) => {
-        setShareLink(`${window.location.origin}/meeting/link?code=${data.meetingCode}`);
+        setShareLink(getMeetingShareLink(data.meetingCode));
       })
       .catch((error) => {
         console.error("Failed to fetch meeting detail:", error);

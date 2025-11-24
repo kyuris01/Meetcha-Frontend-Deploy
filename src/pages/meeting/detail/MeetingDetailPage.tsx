@@ -9,6 +9,7 @@ import { fetchMeetingDetail } from "@/apis/meeting/meetingAPI";
 import { toast } from "react-toastify";
 import { copyToClipboard } from "@/utils/copyToClipBoard";
 import { isBefore } from "date-fns";
+import { getMeetingShareLink } from "@/utils/meetingShare";
 
 const MeetingDetailPage = () => {
   const location = useLocation();
@@ -17,7 +18,7 @@ const MeetingDetailPage = () => {
   const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
 
   const onClickShare = async () => {
-    const ok = await copyToClipboard(meetingDetail.meetingCode);
+    const ok = await copyToClipboard(getMeetingShareLink(meetingDetail?.meetingCode));
 
     if (ok) {
       toast.success("링크를 복사했습니다", { containerId: "timerClose" });
@@ -40,7 +41,7 @@ const MeetingDetailPage = () => {
       setMeetingDetail(data);
     };
     load();
-  }, []);
+  }, [meetingId]);
 
   return (
     <div className={styles.meetingDetailPage}>
