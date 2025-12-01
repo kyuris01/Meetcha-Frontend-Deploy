@@ -1,9 +1,4 @@
 {
-  "src/apis/apiCall.ts": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 2
-    }
-  },
   "src/apis/meeting/meetingAPI.ts": {
     "@typescript-eslint/no-unused-vars": {
       "count": 1

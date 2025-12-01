@@ -11,19 +11,6 @@ export const sendAuthCode = async (authCode: string, addr: string) => {
   return res;
 };
 
-export const renewAccessToken = async (refToken: string) => {
-  const data = { refreshToken: refToken };
-  const res: ApiResponse<AuthResponse> = await apiCall("/oauth/refresh", "POST", data, false);
-  if (res.code === 200) {
-    console.log(res.message);
-    localStorage.setItem("access-token", res.data.accessToken);
-    localStorage.setItem("refresh-token", res.data.refreshToken);
-    return true;
-  } else {
-    return false;
-  }
-};
-
 export const logout = async () => {
   const res: ApiResponse<logoutResponse> = await apiCall("/oauth/logout", "POST", null, true);
   const type = getResponseType(res.code);
