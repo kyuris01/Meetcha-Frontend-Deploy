@@ -55,5 +55,5 @@ export default function ScheduleSlidePanel({
     </AnimatePresence>
   );
 
-  return ReactDOM.createPortal(slideUp, document.body);
+  return ReactDOM.createPortal(slideUp, document.getElementById("root"));
 }

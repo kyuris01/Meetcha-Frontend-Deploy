@@ -109,7 +109,11 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
       }
     }
 
-    navigate(`/meeting/${meetingId}`);
+    navigate(`/meeting/detail`, {
+      state: {
+        meetingId: meetingId,
+      },
+    });
   };
 
   return (
