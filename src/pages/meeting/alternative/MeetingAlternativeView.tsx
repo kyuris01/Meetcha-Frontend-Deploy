@@ -102,7 +102,7 @@ const MeetingAlternativeView = ({ alternativeTimes, meetingId }: Props) => {
         const data = {
           alternativeTime: `${clickedEventNum.date}T${clickedEventNum.startTime}`,
         };
-        voteAlternativeMeeting(meetingId, data);
+        await voteAlternativeMeeting(meetingId, data);
       } catch (error) {
         alert(error);
         return;
