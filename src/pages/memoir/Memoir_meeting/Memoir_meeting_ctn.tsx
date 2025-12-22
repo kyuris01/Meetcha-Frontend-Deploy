@@ -12,8 +12,6 @@ interface props {
   memoirLists: MemoirWithTheme[];
 }
 const Memoir_meeting_ctn = ({ meetingSummary, meetingLists, memoirLists }: props) => {
- 
-
   return (
     <div className="meeting_container">
       <Mymeeting_summary meetingSummary={meetingSummary} />

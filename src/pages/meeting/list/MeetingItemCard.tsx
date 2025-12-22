@@ -8,13 +8,15 @@ import {
 import type { Meeting } from "@/apis/meeting/meetingTypes";
 import { deleteMeeting } from "@/apis/meeting/meetingAPI";
 
+import { useMouseEvent } from "../create/hooks/useHandleMouseEvent";
+
 import trashCan from "@assets/trashCan.svg";
 
 interface Props {
   data: Meeting;
 }
 
-const DELBTNWIDTH = 72;
+const DelBtnWidth = 72;
 const OPEN_THRESHOLD = 0.5;
 
 const MeetingItemCard = ({ data }: Props) => {
@@ -35,19 +37,9 @@ const MeetingItemCard = ({ data }: Props) => {
   const startXRef = useRef(0);
   const startYRef = useRef(0);
   const movedRef = useRef(false); //드래그가 발생했는지
-  const containerRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: MouseEvent) => {
-      const target = e.target as Node;
-      if (containerRef.current && !containerRef.current.contains(target)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", onDown);
-    return () => document.removeEventListener("mousedown", onDown);
-  }, [open, setOpen]);
+  useMouseEvent({ open, setOpen, targetRef });
 
   const handleClick = () => {
     navigate("detail", {
@@ -80,7 +72,7 @@ const MeetingItemCard = ({ data }: Props) => {
   }, [data]);
   //형코드
   useEffect(() => {
-    setTx(open ? -DELBTNWIDTH : 0);
+    setTx(open ? -DelBtnWidth : 0);
   }, [open]);
   //범위 제한 유틸함수
   const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
@@ -110,7 +102,7 @@ const MeetingItemCard = ({ data }: Props) => {
     movedRef.current = true;
 
     // 왼쪽 스와이프만 허용(컨텐츠를 왼쪽으로 보내 버튼 노출)
-    const next = clamp(dx + (open ? -DELBTNWIDTH : 0), -DELBTNWIDTH, 0);
+    const next = clamp(dx + (open ? -DelBtnWidth : 0), -DelBtnWidth, 0);
     setTx(next);
 
     // 스와이프 중 화면이 스크롤 되는것을 막아준다.
@@ -121,9 +113,9 @@ const MeetingItemCard = ({ data }: Props) => {
     if (!dragging) return;
     setDragging(false);
 
-    const opened = Math.abs(tx) >= DELBTNWIDTH * OPEN_THRESHOLD;
+    const opened = Math.abs(tx) >= DelBtnWidth * OPEN_THRESHOLD;
     setOpen(opened);
-    setTx(opened ? -DELBTNWIDTH : 0);
+    setTx(opened ? -DelBtnWidth : 0);
 
     if (!movedRef.current && !opened) {
       handleClick();
@@ -144,7 +136,7 @@ const MeetingItemCard = ({ data }: Props) => {
 
   return (
     <div
-      ref={containerRef}
+      ref={targetRef}
       data-status={data.meetingStatus}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}

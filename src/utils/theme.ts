@@ -32,7 +32,7 @@ const BG_COLORS = [
   "#FFF8EB",
 ];
 
-export function getProjectTheme(key: string | number):projectTheme {
+export function getProjectTheme(key: string | number): projectTheme {
   const s = String(key);
   let hash = 0;
   for (let i = 0; i < s.length; i++) hash = (hash * 31 + s.charCodeAt(i)) >>> 0;

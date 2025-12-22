@@ -15,8 +15,8 @@ const MeetingIncompleteSection = ({ meetingList }: { meetingList: Meeting[] }) =
         })
         .sort((a,b)=>{
           const priority:Record<string,number>={
-            MATCHING:1,
-            MATCH_FAILED:2, 
+            "MATCHING":1,
+            "MATCH_FAILED":2, 
           };
           const diff=priority[a.meetingStatus]-priority[b.meetingStatus];
           if(diff!==0) return diff;

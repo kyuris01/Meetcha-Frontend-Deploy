@@ -42,7 +42,7 @@ const Header = ({ prevButton, hamburger, open, onToggle }: Props) => {
       {hamburger && (
         <div ref={ref} className={styles.header__menuWrap}>
           <img
-            className={styles.header__hamburger}
+            className={styles.header__menuWrap__hamburger}
             src={Hamburger}
             alt="Hamburger"
             onClick={toggle}

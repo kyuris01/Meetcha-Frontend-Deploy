@@ -6,8 +6,7 @@ import Memoir_complete_main from "./Memoir_complete_main";
 import type { MemoirDetail } from "@/apis/memoir/memoirTypes";
 const Memoir_complete_ctn = () => {
   const location = useLocation();
-  const meeting:MemoirDetail = location.state; //이 state에는 meeting하나에 대한 모든 정보가 들어 있다.
-
+  const meeting: MemoirDetail = location.state; //이 state에는 meeting하나에 대한 모든 정보가 들어 있다.
 
   return (
     <div className="memoir_complete_ctn">
