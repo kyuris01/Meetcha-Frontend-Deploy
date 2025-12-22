@@ -1,13 +1,10 @@
 import Calendar from "react-calendar";
 import { useMeetingCreateFormContext } from "../hooks/useMeetingCreateForm";
-import dayjs from "dayjs";
-import min from "dayjs/plugin/minMax";
-import "./DateTimePicker.scss";
+import { format, min as dateMin, isAfter, startOfDay } from "date-fns";
+import "./Calendar.scss";
 import { useState } from "react";
 import { WheelPicker, WheelPickerWrapper, type WheelPickerOption } from "@ncdai/react-wheel-picker";
 import { isPreviousDate } from "@/utils/MeetingOptionCardUtils";
-
-dayjs.extend(min);
 interface TimeOption {
   meridiem: string;
   hour: string;
@@ -15,7 +12,7 @@ interface TimeOption {
 }
 
 const formatDate = (date: Date) => {
-  return dayjs(date).format("YYYY-MM-DD");
+  return format(date, "yyyy-MM-dd");
 };
 
 const formatTime = (time: TimeOption) => {
@@ -66,18 +63,18 @@ export const DateTimePicker = () => {
             form.setFormValue("deadline", `${formatDate(date)}T${formatTime(time)}`);
           }}
           tileClassName={({ date }) => {
-            if (day === date) {
+            if (day?.getTime() === date.getTime()) {
               return "custom-active";
             }
           }}
           tileDisabled={({ date, view }) => {
             const candidateDates = form.getFormValue("candidateDates");
             const minDate =
-              candidateDates.length > 0 ? dayjs.min(candidateDates.map((d) => dayjs(d))) : null;
+              candidateDates.length > 0 ? dateMin(candidateDates.map((d) => new Date(d))) : null;
 
             return (
               isPreviousDate(date, view) ||
-              (minDate && dayjs(date).isAfter(minDate, "day")) ||
+              (minDate && isAfter(startOfDay(date), startOfDay(minDate))) ||
               candidateDates.includes(formatDate(date))
             );
           }}

@@ -2,7 +2,7 @@ import { isPreviousDate } from "@/utils/MeetingOptionCardUtils";
 import Calendar from "react-calendar";
 import { useMeetingCreateFormContext } from "../hooks/useMeetingCreateForm";
 import dayjs from "dayjs";
-import "./MultiSelectCalendar.scss";
+import "./Calendar.scss";
 
 const formatDate = (date: Date) => {
   return dayjs(date).format("YYYY-MM-DD");
