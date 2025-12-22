@@ -11,19 +11,18 @@ const MeetingIncompleteSection = ({ meetingList }: { meetingList: Meeting[] }) =
     setIncompleteMeetings(
       meetingList
         .filter((item: Meeting) => {
-          return item.meetingStatus === "MATCHING"||item.meetingStatus==="MATCH_FAILED";
+          return item.meetingStatus === "MATCHING" || item.meetingStatus === "MATCH_FAILED";
         })
-        .sort((a,b)=>{
-          const priority:Record<string,number>={
-            "MATCHING":1,
-            "MATCH_FAILED":2, 
+        .sort((a, b) => {
+          const priority: Record<string, number> = {
+            MATCHING: 1,
+            MATCH_FAILED: 2,
           };
-          const diff=priority[a.meetingStatus]-priority[b.meetingStatus];
-          if(diff!==0) return diff;
+          const diff = priority[a.meetingStatus] - priority[b.meetingStatus];
+          if (diff !== 0) return diff;
 
-          return isBefore(a.deadline,b.deadline)?-1:1;
+          return isBefore(a.deadline, b.deadline) ? -1 : 1;
         })
-        
     );
   }, [meetingList]);
 

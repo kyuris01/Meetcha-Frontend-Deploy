@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
 
-  .swipeTrack{
+  .swipeTrack {
     width: 100%;
     will-change: transform;
     touch-action: pan-y;
@@ -111,7 +111,9 @@
     }
   }
 
-  &[data-status="MATCHING"]{
-    .meetingItemCard{width: 85%;}
+  &[data-status="MATCHING"] {
+    .meetingItemCard {
+      width: 85%;
+    }
   }
 }

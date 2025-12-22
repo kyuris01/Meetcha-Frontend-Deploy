@@ -43,4 +43,8 @@
 
     overflow-y: scroll;
   }
+
+  &__meetingList::-webkit-scrollbar {
+    display: none;
+  }
 }

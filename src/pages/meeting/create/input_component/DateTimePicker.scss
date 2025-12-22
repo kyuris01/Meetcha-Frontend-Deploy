@@ -1,0 +1,241 @@
+@use "@/assets/styles/colors" as *;
+
+.dateTimePicker {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.calendarInputComponent .react-calendar {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  background: #fff;
+  border: none !important;
+  // border: 1px solid #a0a096;
+  font-family: "Arial", "Helvetica", sans-serif;
+  line-height: 1.125em;
+}
+
+.calendarInputComponent .react-calendar--doubleView {
+  width: 700px;
+}
+
+.calendarInputComponent .react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+
+.calendarInputComponent .react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 50%;
+  margin: 0.5em;
+}
+
+.calendarInputComponent .react-calendar,
+.calendarInputComponent .react-calendar *,
+.calendarInputComponent .react-calendar *:before,
+.calendarInputComponent .react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.calendarInputComponent .react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+}
+
+.calendarInputComponent .react-calendar button:enabled:hover {
+  cursor: pointer;
+}
+
+.calendarInputComponent .react-calendar__navigation {
+  display: flex;
+  height: 44px;
+  margin-bottom: 1em;
+}
+
+.calendarInputComponent .react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+}
+
+.calendarInputComponent .react-calendar__navigation button:disabled {
+  background-color: #f0f0f0;
+}
+
+.calendarInputComponent .react-calendar__navigation button:enabled:hover,
+.calendarInputComponent .react-calendar__navigation button:enabled:focus {
+  background-color: #e6e6e6;
+}
+
+.calendarInputComponent .react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: none;
+  font: inherit;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.calendarInputComponent .react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+
+.calendarInputComponent .react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: inherit;
+  font-size: 0.75em;
+  font-weight: bold;
+}
+
+.calendarInputComponent .react-calendar__month-view__weekdays__weekday--weekend {
+  color: $color-orange-10;
+}
+
+.calendarInputComponent .react-calendar__month-view__days__day--weekend {
+  color: $color-orange-10;
+}
+
+.calendarInputComponent .react-calendar__month-view__days__day {
+  height: 40px;
+}
+
+.calendarInputComponent .react-calendar__month-view__days__day--neighboringMonth,
+.calendarInputComponent .react-calendar__decade-view__years__year--neighboringDecade,
+.calendarInputComponent .react-calendar__century-view__decades__decade--neighboringCentury {
+  color: #757575;
+}
+
+.calendarInputComponent .react-calendar__year-view .react-calendar__tile,
+.calendarInputComponent .react-calendar__decade-view .react-calendar__tile,
+.calendarInputComponent .react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+
+.calendarInputComponent .react-calendar__tile {
+  max-width: 100%;
+  padding: 10px 6.6667px;
+  background: none;
+  text-align: center;
+  font: inherit;
+  font-size: 0.833em;
+}
+
+.calendarInputComponent .react-calendar__tile:disabled {
+  background-color: #f0f0f0;
+  color: #ababab;
+}
+
+.calendarInputComponent .react-calendar__month-view__days__day--neighboringMonth:disabled,
+.calendarInputComponent .react-calendar__decade-view__years__year--neighboringDecade:disabled,
+.calendarInputComponent .react-calendar__century-view__decades__decade--neighboringCentury:disabled {
+  color: #cdcdcd;
+}
+
+.calendarInputComponent .react-calendar__tile:enabled:hover,
+.calendarInputComponent .react-calendar__tile:enabled:focus {
+  background-color: #e6e6e6;
+}
+
+.calendarInputComponent .react-calendar__tile--now {
+}
+
+.calendarInputComponent .react-calendar__tile--now:enabled:hover,
+.calendarInputComponent .react-calendar__tile--now:enabled:focus {
+  background: #ffffa9;
+}
+
+.calendarInputComponent .react-calendar__tile--hasActive {
+  background: #76baff;
+}
+
+.calendarInputComponent .react-calendar__tile--hasActive:enabled:hover,
+.calendarInputComponent .react-calendar__tile--hasActive:enabled:focus {
+  background: #a9d4ff;
+}
+
+.calendarInputComponent .react-calendar__tile--active {
+}
+
+.calendarInputComponent .react-calendar__tile--active:enabled:hover,
+.calendarInputComponent .react-calendar__tile--active:enabled:focus {
+}
+
+.calendarInputComponent .react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #e6e6e6;
+}
+
+.calendarInputComponent abbr {
+  text-decoration: none !important;
+}
+
+.calendarInputComponent .eventTagBox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.calendarInputComponent .eventTag {
+  width: 100%;
+  height: 33%;
+  border-radius: 10px;
+
+  background-color: $color-orange-10;
+  color: white;
+  font-size: x-small;
+  line-height: 25px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendarInputComponent .custom-active {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+
+  background: $color-orange-10;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendarInputComponent .custom-active:enabled:hover,
+.calendarInputComponent .custom-active:enabled:focus {
+  background: $color-orange-10;
+}
+
+.calendarInputComponent .react-calendar__navigation__label {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.calendarInputComponent .react-calendar__navigation__arrow {
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+// Wheel
+[data-rwp-option] {
+  color: black;
+}
+
+[data-rwp-highlight-wrapper] {
+  display: none;
+}
+
+[data-rwp-wrapper] {
+}

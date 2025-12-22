@@ -1,6 +1,6 @@
 .projectInputComponent {
   width: 100%;
-  height: 6rem;
+  height: 7rem;
 
   display: flex;
   flex-direction: column;
@@ -53,6 +53,7 @@
 
 .projectInputComponentRow {
   width: 100%;
+  padding: 5px 10px;
 
   &__buttonContainer {
     width: 100%;

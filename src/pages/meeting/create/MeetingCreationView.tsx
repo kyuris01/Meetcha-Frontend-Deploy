@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./MeetingCreationView.module.scss";
 import { durationOptions } from "./constants/MeetingCreation.constants";
 import { useMeetingCreateFormContext } from "./hooks/useMeetingCreateForm";
@@ -7,7 +6,6 @@ import Pencil from "@assets/pencil.svg?react";
 import Calendar from "@assets/calendar.svg?react";
 import Clock from "@assets/clock.svg?react";
 import Watch from "@assets/watch.svg?react";
-// 아이콘 이름이 아이콘? 일단 피그마엔 그렇게 적힘
 import Icon from "@assets/icon.svg?react";
 import type { MeetingCreationSchema } from "./schemas/meetingCreationSchema";
 import { MeetingAccordionItem } from "./MeetingAccordionItem";

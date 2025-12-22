@@ -16,7 +16,7 @@ interface Props {
 }
 
 const DropDown = ({ open, setOpen, meetingId }: Props) => {
-  const targetRef = useRef<HTMLDivElement|null>(null);
+  const targetRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
 
   const handleDeleteBtn = async () => {
@@ -28,7 +28,7 @@ const DropDown = ({ open, setOpen, meetingId }: Props) => {
     }
   };
 
-  useMouseEvent({open,setOpen,targetRef});
+  useMouseEvent({ open, setOpen, targetRef });
 
   if (!open) return null;
   return (

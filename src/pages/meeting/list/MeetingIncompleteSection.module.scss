@@ -13,7 +13,7 @@
 
   background-color: white;
 
-  overflow: scroll;
+  overflow-y: scroll;
 
   &__label {
     font-weight: 600;
@@ -31,7 +31,9 @@
 
     flex: 1;
     min-height: 0;
-
-    overflow-y: scroll;
   }
+}
+
+.meetingIncompleteSection::-webkit-scrollbar {
+  display: none;
 }
