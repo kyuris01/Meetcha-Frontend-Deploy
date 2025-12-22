@@ -2,6 +2,7 @@ import { apiCall } from "../apiCall";
 import { isSuccess } from "../auth/authUtils";
 import type { ApiResponse } from "../common/types";
 import type {
+  DeleteRes,
   AlternativeObj,
   AlternativeVoteRes,
   Meeting,
@@ -69,4 +70,16 @@ export const createMeeting = async (data) => {
     default:
       alert(res.message);
   }
+};
+
+export const deleteMeeting = async (meetingId:string) => {
+  const res: ApiResponse<DeleteRes> = await apiCall(`/meeting/${meetingId}`, "DELETE", null, true);
+  const errorCodes = [400, 401, 403, 404];
+
+  if (errorCodes.includes(res.code)) {
+    alert(res.message);
+    // 상위에서 잡을 수 있도록 에러 던짐
+    throw new Error(res.message);
+  }
+  return res;
 };

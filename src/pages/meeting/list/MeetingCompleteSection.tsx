@@ -1,11 +1,16 @@
 import type { Meeting } from "@/apis/meeting/meetingTypes";
 import styles from "./MeetingCompleteSection.module.scss";
 import MeetingItemCard from "./MeetingItemCard";
+import { isBefore } from "date-fns";
 
 const MeetingCompleteSection = ({ meetingList }: { meetingList: Meeting[] }) => {
-  const completeDataList = meetingList?.filter((item) => {
-    return item.meetingStatus === "BEFORE";
-  });
+  const completeDataList = meetingList
+    ?.filter((item) => {
+      return item.meetingStatus === "BEFORE";
+    })
+    .sort((a, b) => {
+      return isBefore(a.deadline, b.deadline) ? -1 : 1;
+    });
 
   return (
     <div className={styles.meetingCompleteSection}>

@@ -5,9 +5,6 @@
     },
     "no-case-declarations": {
       "count": 1
-    },
-    "react-hooks/rules-of-hooks": {
-      "count": 1
     }
   },
   "src/components/BottomNav/BottomNav.tsx": {
@@ -70,30 +67,9 @@
       "count": 1
     }
   },
-  "src/pages/memoir/Memoir_complete/Memoir_complete_ctn.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/pages/memoir/Memoir_meeting/Meeting_list_content.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 3
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
   "src/pages/memoir/Memoir_meeting/Memoir_meeting_All.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 5
-    },
     "no-irregular-whitespace": {
-      "count": 2
-    }
-  },
-  "src/pages/memoir/Memoir_write/Memoir_write_ctn.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
+      "count": 1
     }
   },
   "src/pages/memoir/Memoir_write/Memoir_write_main.tsx": {
@@ -102,9 +78,6 @@
     }
   },
   "src/pages/memoir/Memoir_write/Project_container.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 4
-    },
     "@typescript-eslint/no-unused-vars": {
       "count": 1
     }

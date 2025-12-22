@@ -3,14 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Memoir_write_intro from "./Memoir_write_intro";
 import Memoir_write_main from "./Memoir_write_main";
-import { apiCall } from "@/apis/apiCall";
 
+import { fetchProjects } from "@/apis/project/projectAPI";
+import type { Project, PostMemoirPayload } from "@/apis/memoir/memoirTypes";
 import "./Memoir_write.scss";
-
-interface Project {
-  projectId: string;
-  projectName: string;
-}
+import { postMemoir } from "@/apis/memoir/memoirAPI";
 
 const Memoir_write_ctn = () => {
   // 폼 상태
@@ -50,22 +47,18 @@ const Memoir_write_ctn = () => {
 
   // 프로젝트 목록
   const [projectsAll, setProjectsAll] = useState<Project[]>([]);
-  const [projectsLoading, setProjectsLoading] = useState(false);
+  const [projectsLoading, setProjectsLoading] = useState<boolean>(false);
   const [projectsError, setProjectsError] = useState<string | null>(null);
 
   const fetchProjectsAll = useCallback(async () => {
     setProjectsLoading(true);
     setProjectsError(null);
     try {
-      const res = await apiCall("/user/projects", "GET", undefined, true);
-      if (res?.code === 200 && Array.isArray(res.data)) {
-        if (mounted.current) setProjectsAll(res.data.slice()); // 참조 변경 보장
-      } else if (res?.code === 401) {
-        alert("인증이 필요합니다");
-      } else {
-        alert(res?.message ?? "서버 오류");
+      const res = await fetchProjects();
+      if (res) {
+        if (mounted.current) setProjectsAll(res.slice()); // 참조 변경 보장
       }
-    } catch (e) {
+    } catch {
       if (mounted.current) setProjectsError("프로젝트 목록을 불러오지 못했습니다.");
     } finally {
       if (mounted.current) setProjectsLoading(false);
@@ -84,7 +77,7 @@ const Memoir_write_ctn = () => {
   // 제출
   const [submitLoading, setSubmitLoading] = useState(false);
 
-  const data = {
+  const data: PostMemoirPayload = {
     contribution: numContribution,
     role: role.trim(),
     thought: feeling.trim(),
@@ -101,22 +94,12 @@ const Memoir_write_ctn = () => {
     }
     setSubmitLoading(true);
     try {
-      const res = await apiCall(
-        `/meeting/${meeting.meetingId}/reflection/create`,
-        "POST",
-        data,
-        true
-      );
-      const ok = res?.success || res?.code === 200 || res?.code === 201;
+      const res = await postMemoir(meeting.meetingId, data);
 
-      if (ok) {
+      if (res) {
         navigate("/memoir", { replace: true, state: { refetchMemoirs: true } });
-      } else if (res?.code === 401) {
-        alert("인증이 필요합니다");
-      } else {
-        alert(res?.message ?? "회고 작성에 실패했습니다.");
       }
-    } catch (e) {
+    } catch {
       alert("서버 오류");
     } finally {
       if (mounted.current) setSubmitLoading(false);

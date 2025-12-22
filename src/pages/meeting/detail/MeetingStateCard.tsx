@@ -4,7 +4,6 @@ import RunningMatching from "@assets/runningMatching.svg?react";
 import CompletedMatching from "@assets/completedMatching.svg?react";
 import FailedMatching from "@assets/failedMatching.svg?react";
 import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
-import { isBefore } from "date-fns";
 
 interface Props {
   data: MeetingDetail;
@@ -17,15 +16,13 @@ const MeetingStateCard = ({ data }: Props) => {
 
   const stateResolver = () => {
     if (data.meetingStatus === "MATCHING") {
-      if (isBefore(new Date(), data.deadline)) {
-        setText("매칭 중");
-        setIcon(<RunningMatching className={styles.running} />);
-        setStyle(styles.running);
-      } else if (isBefore(data.deadline, new Date())) {
-        setText("매칭 실패");
-        setIcon(<FailedMatching className={styles.fail} />);
-        setStyle(styles.fail);
-      }
+      setText("매칭 중");
+      setIcon(<RunningMatching className={styles.running} />);
+      setStyle(styles.running);
+    } else if (data.meetingStatus === "MATCH_FAILED") {
+      setText("매칭 실패");
+      setIcon(<FailedMatching className={styles.fail} />);
+      setStyle(styles.fail);
     } else if (data.meetingStatus === "BEFORE") {
       setText("매칭 완료");
       setIcon(<CompletedMatching className={styles.complete} />);

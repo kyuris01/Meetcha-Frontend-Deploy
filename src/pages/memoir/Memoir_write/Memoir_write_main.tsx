@@ -117,7 +117,6 @@ const Memoir_write_main = ({
         chosenProjectTextColor={chosenProjectTextColor}
         setChosenProjectTextColor={setChosenProjectTextColor}
         setChosenProjectBgColor={setChosenProjectBgColor}
-        meeting={meeting}
         chosenProject={chosenProject}
         setChosenProject={setChosenProject}
       />

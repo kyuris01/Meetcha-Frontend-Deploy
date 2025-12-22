@@ -49,3 +49,15 @@ export interface MeetingCreateResponse {
   meetingId: string;
   createdAt: string;
 }
+
+export interface Anchor {
+  top: number;
+  left: number;
+  right: number;
+  bottom: number;
+}
+
+export interface DeleteRes {
+  meetingId: string;
+  message: string;
+}

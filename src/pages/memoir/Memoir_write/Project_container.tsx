@@ -2,40 +2,16 @@
 import React, { useEffect, useState } from "react";
 import "./Memoir_write.scss";
 
-import { useLocation } from "react-router-dom";
 import LowChevron from "@/assets/LowChevron.svg";
 import Plus from "@/assets/plus.svg";
 
 import { getProjectTheme } from "@/utils/theme";
-import { apiCall } from "@/utils/apiCall";
+import { createProject } from "@/apis/project/projectAPI";
 
-type Project = {
-  projectId: string;
-  projectName: string;
-  id?: string; // 서버가 이렇게 내려올 수도 있어 대비
-  name?: string; // 서버가 이렇게 내려올 수도 있어 대비
-};
-
-type Props = {
-  projectsAll: Project[] | undefined;
-  refetchProjects?: () => Promise<any>;
-
-  projectId: string | null;
-  setProjectId: (id: string) => void;
-
-  chosenProjectBgColor?: string;
-  chosenProjectTextColor?: string;
-  setChosenProjectBgColor: (c: string | undefined) => void;
-  setChosenProjectTextColor: (c: string | undefined) => void;
-
-  meeting?: any;
-  chosenProject: string;
-  setChosenProject: (name: string) => void;
-};
-
+import type { Project } from "@/apis/memoir/memoirTypes";
 const normalize = (s: string) => s.trim().toLowerCase();
 
-const Project_container: React.FC<Props> = ({
+const Project_container = ({
   projectsAll,
   refetchProjects,
   projectId,
@@ -53,7 +29,6 @@ const Project_container: React.FC<Props> = ({
   const [newProject, setNewProject] = useState("");
   const [creating, setCreating] = useState(false);
 
-  const location = useLocation();
   const updateProjectsAll = async () => {
     const name = newProject.trim();
     if (!name) return;
@@ -68,13 +43,16 @@ const Project_container: React.FC<Props> = ({
     try {
       setCreating(true);
       // 최신 입력값을 직접 전송
-      const res: any = await apiCall("/user/projects", "POST", { name }, true);
-      if (!res || (res.code !== 200 && res.code !== 201)) {
-        throw new Error(res?.message || "프로젝트 생성 실패");
+      const data = {
+        name: newProject,
+      };
+      const res = await createProject(data);
+      if (!res) {
+        throw new Error("프로젝트 생성 실패");
       }
 
-      const createdId: string | undefined = res.data?.projectId ?? res.data?.id;
-      const createdName: string = res.data?.projectName ?? res.data?.name ?? name;
+      const createdId: string = res.projectId;
+      const createdName: string = res.name;
 
       // 부모 목록 즉시 리패치 → 새로고침 없이 UI 반영
       if (typeof refetchProjects === "function") {
@@ -88,8 +66,8 @@ const Project_container: React.FC<Props> = ({
       }
 
       setNewProject("");
-    } catch (e: any) {
-      alert(e?.message || "프로젝트 생성 중 오류가 발생했습니다.");
+    } catch (e) {
+      alert("프로젝트 생성 중 오류가 발생했습니다.");
     } finally {
       setCreating(false);
     }
@@ -99,21 +77,21 @@ const Project_container: React.FC<Props> = ({
 
   // projectId가 바뀌면 테마/이름 갱신
   useEffect(() => {
-    if (!projectId) {
-      setChosenProject("");
-      setChosenProjectBgColor(undefined);
-      setChosenProjectTextColor(undefined);
-      return;
-    }
-    const p = list.find((x) => x.projectId === projectId);
-    if (p) {
-      const t = getProjectTheme(p.projectId);
-      setChosenProject(p.projectName ?? p.name ?? "");
-      setChosenProjectBgColor(t.bg);
-      setChosenProjectTextColor(t.text);
-    }
-  }, [projectId, list, setChosenProject, setChosenProjectBgColor, setChosenProjectTextColor]);
+    // projectId 없음 → 아무 작업도 안 함
+    if (!projectId) return;
 
+    // list가 비어있음 / 로딩 중 → 아직 업데이트하지 말기
+    if (!list || list.length === 0) return;
+
+    const p: Project = list.find((x) => x.projectId === projectId);
+    if (!p) return; // 새 프로젝트가 아직 list에 반영되지 않은 순간도 무시
+
+    const t = getProjectTheme(p.projectId);
+
+    setChosenProject(p.projectName);
+    setChosenProjectBgColor(t.bg);
+    setChosenProjectTextColor(t.text);
+  }, [projectId, list]);
   return (
     <div className="ctn_in_common to_write_meeting">
       <p className="write_title">프로젝트</p>
