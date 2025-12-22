@@ -33,7 +33,7 @@
       "@apis/*": ["src/apis/*"]
     },
     "noImplicitAny": false,
-    "strictNullChecks": false
+    "strictNullChecks": true
   },
   "include": ["src", "src/types/**/*.d.ts"]
 }

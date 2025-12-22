@@ -8,10 +8,10 @@ import { useRef } from "react";
 import clsx from "clsx";
 
 interface Props {
-  prevButton: boolean;
-  hamburger: boolean;
-  open: boolean;
-  onToggle: (next: boolean) => void;
+  prevButton?: boolean;
+  hamburger?: boolean;
+  open?: boolean;
+  onToggle?: (next: boolean) => void;
 }
 
 const Header = ({ prevButton, hamburger, open, onToggle }: Props) => {
@@ -19,7 +19,7 @@ const Header = ({ prevButton, hamburger, open, onToggle }: Props) => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   const toggle = () => {
-    onToggle(!open);
+    onToggle?.(!open);
   };
 
   return (
