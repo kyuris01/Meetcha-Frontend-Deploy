@@ -28,7 +28,7 @@ const Meeting_list_content = ({ memoirLists }: Props) => {
       navigate("/memoir-complete", { state: chosenMemoir });
     }
   }, [chosenMemoir]);
-
+  console.log(memoirLists);
   return (
     <div className="meetings_ctn">
       {Array.isArray(memoirLists) &&

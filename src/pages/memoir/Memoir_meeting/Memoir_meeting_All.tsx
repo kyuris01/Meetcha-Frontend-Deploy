@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import Memoir_meeting_ctn from "./Memoir_meeting_ctn";
-
+import Mymeeting_summary from "./Mymeeting_summary";
+import Must_list_container from "./Must_list_container";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { getMeetingLists, getMemoirLists, getMeetingSummary } from "@/apis/memoir/memoirAPI";
@@ -35,11 +35,11 @@ const Memoir_meeting_All = () => {
   const loadMeetingLists = async () => {
     const res = await getMeetingLists();
     setMeetingLists(res);
-  };
+  }; //작성이 필요한 미팅
   const loadMemoirLists = async () => {
     const res = await getMemoirLists();
     setMemoirLists(res);
-  };
+  }; //작성이 완료된 미팅
   const loadMeetingSummary = async () => {
     const res = await getMeetingSummary();
     setMeetingSummary(res);
@@ -75,7 +75,7 @@ const Memoir_meeting_All = () => {
       })),
     [memoir]
   );
-
+  console.log(memoirWithTheme);
   if (!meetingLists || !memoirLists || !meetingSummary) {
     return (
       <>
@@ -85,12 +85,9 @@ const Memoir_meeting_All = () => {
   }
 
   return (
-    <div style={{ flex: 1, width: "100%" }}>
-      <Memoir_meeting_ctn
-        meetingLists={meetingLists}
-        memoirLists={memoirWithTheme}
-        meetingSummary={meetingSummary}
-      />
+    <div style={{ flex: 1, width: "100%", minHeight: 0, display: "flex", flexDirection: "column" }}>
+      <Mymeeting_summary meetingSummary={meetingSummary} />
+      <Must_list_container meetingLists={meetingLists} memoirLists={memoirWithTheme} />
     </div>
   );
 };
