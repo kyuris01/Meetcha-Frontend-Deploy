@@ -15,7 +15,7 @@ interface Props {
 const MonthlyScheduleView = ({ schedules }: Props) => {
   const { year, month, setYear, setMonth } = useContext(DateContext);
   const activeStartDate = new Date(year, month - 1, 1);
-  // console.log(schedules);
+
   return (
     <div className="monthlyScheduleView">
       <Calendar

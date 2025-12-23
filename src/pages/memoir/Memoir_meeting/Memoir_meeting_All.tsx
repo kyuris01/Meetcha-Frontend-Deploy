@@ -75,7 +75,7 @@ const Memoir_meeting_All = () => {
       })),
     [memoir]
   );
-  console.log(memoirWithTheme);
+  
   if (!meetingLists || !memoirLists || !meetingSummary) {
     return (
       <>
