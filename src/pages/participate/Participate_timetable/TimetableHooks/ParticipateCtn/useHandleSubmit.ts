@@ -28,7 +28,7 @@ export const useHandleSubmitData = (
           })
         : await submitAvailability(meetingId, finalPostData);
 
-
+      console.log(result);
 
       if (isModify) {
         navigate("/meeting/detail", { state: { meetingId } });
