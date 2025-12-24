@@ -79,7 +79,7 @@
   },
   "src/pages/participate/Participate_link/Participate_link_ctn.tsx": {
     "@typescript-eslint/no-unused-vars": {
-      "count": 2
+      "count": 1
     }
   },
   "src/pages/participate/Participate_timetable/Timetable.tsx": {
@@ -128,14 +128,6 @@
   "src/utils/MeetingCreationUtils.ts": {
     "no-unsafe-optional-chaining": {
       "count": 2
-    }
-  },
-  "src/utils/apiCall.ts": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 2
-    },
-    "no-empty": {
-      "count": 1
     }
   }
 }

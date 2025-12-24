@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Participate_link.scss";
-
 import LeftChevron from "@assets/LeftChevron.svg";
-
 import { requestLinkCheckFunc } from "@/apis/participate/participate_link/linkAPI";
 import type { ApiResponse } from "@/apis/common/types";
 import type { MeetingData } from "@/apis/participate/participate_link/linkTypes";
@@ -19,8 +17,9 @@ const Participate_link = () => {
   };
 
   const requestLinkCheck = async () => {
-    const res: ApiResponse<MeetingData> = await requestLinkCheckFunc(linkText);
     try {
+      const res: ApiResponse<MeetingData> = await requestLinkCheckFunc(linkText);
+
       if (!res) return;
 
       if (res.code === 400) {

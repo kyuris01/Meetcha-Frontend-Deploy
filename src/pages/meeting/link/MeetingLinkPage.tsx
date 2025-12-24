@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { apiCall } from "@/utils/apiCall";
 import styles from "./MeetingLinkPage.module.scss";
+import { requestLinkCheckFunc } from "@/apis/participate/participate_link/linkAPI";
+import { UnauthorizedError } from "@/errors/errors";
+import { getMeetingShareLink } from "@/utils/meetingShare";
 
 const MeetingLinkPage = () => {
   const [searchParams] = useSearchParams();
@@ -9,6 +11,7 @@ const MeetingLinkPage = () => {
 
   useEffect(() => {
     const code = searchParams.get("code");
+    sessionStorage.removeItem("reservedNavigate");
 
     if (!code) {
       navigate("/error");
@@ -16,22 +19,19 @@ const MeetingLinkPage = () => {
     }
 
     // 미팅 코드 검증 및 리다이렉트
-    apiCall(`/meeting/code/${encodeURIComponent(code)}`, "GET", null, true)
+    requestLinkCheckFunc(code)
       .then((res) => {
-        if (!res) {
-          navigate("/error");
-          return;
-        }
-
-        if (res.code === 400) {
-          navigate("/complete");
-        } else if (res.code === 200) {
+        if (res.code === 200) {
           navigate(`/timetable?meetingId=${res.data.meetingId}&pagenum=2`);
-        } else {
-          navigate("/error");
         }
       })
-      .catch(() => {
+      .catch((error) => {
+        if (error instanceof UnauthorizedError) {
+          alert("로그인이 필요합니다!");
+          sessionStorage.setItem("reservedNavigate", getMeetingShareLink(code));
+          navigate("/login");
+          return;
+        }
         navigate("/error");
       });
   }, [searchParams, navigate]);

@@ -16,15 +16,18 @@ const LoginCompleteContainer = () => {
 
     (async () => {
       try {
-        await sendAuthCode(code, addr);
+        if (await sendAuthCode(code, addr)) {
+          const reserved = sessionStorage.getItem("reservedNavigate");
+          if (reserved) {
+            window.location.href = reserved;
+            return;
+          }
+          navigate("/schedule");
+        }
       } catch (e) {
         console.error(e);
       }
     })();
-
-    setTimeout(() => {
-      navigate("/schedule");
-    }, 5000);
   }, [params]);
   return (
     <div className="login_complete_container">
