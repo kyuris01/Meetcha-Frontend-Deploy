@@ -1,10 +1,11 @@
 import { toast } from "react-toastify";
+import type { Event } from "./MonthlyScheduleView";
 
 interface Props {
-  eventName: string[];
+  eventNames: Event[];
 }
 
-const EventTagBox = ({ eventName }: Props) => {
+const EventTagBox = ({ eventNames }: Props) => {
   return (
     <div
       className="eventTagBox"
@@ -15,9 +16,13 @@ const EventTagBox = ({ eventName }: Props) => {
         // 토스트를 띄우고 해당 토스트의 id를 받아둠
         const id = toast(
           <div className="eventToast">
-            {eventName.map((val, idx) => {
-              return <div key={idx}>{val}</div>;
-            })}
+            {eventNames.length !== 0 ? (
+              eventNames.map((val) => {
+                return <span key={val.id}>{val.name}</span>;
+              })
+            ) : (
+              <div>일정이 없습니다</div>
+            )}
           </div>,
           {
             containerId: "clickClose",
@@ -52,7 +57,7 @@ const EventTagBox = ({ eventName }: Props) => {
         );
       }}
     >
-      {eventName.map((item, index) => {
+      {eventNames.map((item, index) => {
         if (index === 2) {
           return (
             <div className="eventTag" key={index}>
@@ -63,8 +68,8 @@ const EventTagBox = ({ eventName }: Props) => {
           return null;
         }
         return (
-          <div key={index} className="eventTag" title={item}>
-            {item}
+          <div key={index} className="eventTag" title={item.name}>
+            {item.name}
           </div>
         );
       })}

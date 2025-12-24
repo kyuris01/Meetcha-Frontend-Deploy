@@ -1,14 +1,14 @@
 import { useContext, useEffect, useRef, useState, type Dispatch, type SetStateAction } from "react";
 import clsx from "clsx";
 import styles from "./InfiniteLoopSlider.module.scss";
-import { DateContext } from "./DataContext";
+import { DateContext, type DateContextValue } from "./DataContext";
 
 interface Props {
   setIsSliderOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const InfiniteLoopSlider = ({ setIsSliderOpen }: Props) => {
-  const { year, month, setYear, setMonth } = useContext(DateContext);
+  const { year, month, setYear, setMonth } = useContext(DateContext) as DateContextValue;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const itemWidth = 60;
@@ -63,13 +63,13 @@ const InfiniteLoopSlider = ({ setIsSliderOpen }: Props) => {
     const newMonthVal = extendedNumbers[newRawIndex];
 
     if (currentMonthVal === 12 && newMonthVal === 1) {
-      setYear(String(Number(year) + 1));
+      setYear(Number(year) + 1);
     } else if (currentMonthVal === 1 && newMonthVal === 12) {
-      setYear(String(Number(year) - 1));
+      setYear(Number(year) - 1);
     }
 
     setActiveIndex(newRawIndex);
-    setMonth(String(Number(newMonthVal) % 12 === 0 ? 12 : Number(newMonthVal) % 12));
+    setMonth(Number(newMonthVal) % 12 === 0 ? 12 : Number(newMonthVal) % 12);
   };
 
   // ---------- Pointer Events: 드래그로 스크롤 ----------

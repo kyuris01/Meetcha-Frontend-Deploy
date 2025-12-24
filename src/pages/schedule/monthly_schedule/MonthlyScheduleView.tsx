@@ -6,14 +6,20 @@ import { getMonth } from "date-fns/getMonth";
 import { getYear } from "date-fns";
 import { useContext } from "react";
 import { DateContext } from "../DataContext";
+import type { DateContextValue } from "../DataContext";
 import type { UserScheduleData } from "@/apis/participate/participateTypes";
 
 interface Props {
   schedules: UserScheduleData[];
 }
 
+export interface Event {
+  id: string;
+  name: string;
+}
+
 const MonthlyScheduleView = ({ schedules }: Props) => {
-  const { year, month, setYear, setMonth } = useContext(DateContext);
+  const { year, month, setYear, setMonth } = useContext(DateContext) as DateContextValue;
   const activeStartDate = new Date(year, month - 1, 1);
 
   return (
@@ -22,7 +28,7 @@ const MonthlyScheduleView = ({ schedules }: Props) => {
         activeStartDate={activeStartDate}
         showNeighboringMonth={false}
         tileContent={({ date, view }) => {
-          const eventName = [];
+          const eventNames: Event[] = [];
 
           schedules &&
             schedules.map((schedule) => {
@@ -30,10 +36,10 @@ const MonthlyScheduleView = ({ schedules }: Props) => {
               const date2 = dateFormatter(new Date(date));
 
               if (date1 === date2) {
-                eventName.push(schedule.title);
+                eventNames.push({ id: schedule.eventId, name: schedule.title });
               }
             });
-          return <EventTagBox eventName={eventName} />;
+          return <EventTagBox eventNames={eventNames} />;
         }}
         formatDay={(_, date) => {
           return date.toLocaleString("en", { day: "numeric" });
@@ -41,7 +47,7 @@ const MonthlyScheduleView = ({ schedules }: Props) => {
         formatShortWeekday={(_, date) => date.toLocaleString("en-US", { weekday: "short" })}
         onActiveStartDateChange={({ activeStartDate, view }) => {
           setYear((prev) => {
-            const newYear = getYear(activeStartDate);
+            const newYear = getYear(activeStartDate as Date);
             if (prev !== newYear) {
               return newYear;
             } else {
@@ -49,21 +55,13 @@ const MonthlyScheduleView = ({ schedules }: Props) => {
             }
           });
           setMonth((prev) => {
-            const newMonth = getMonth(activeStartDate);
+            const newMonth = getMonth(activeStartDate as Date);
             if (prev !== newMonth) {
               return newMonth;
             } else {
               return prev;
             }
           });
-          // setFetchStandardDate((prev) => {
-          //   const newStandardDate = `${getYear(activeStartDate)} ${getMonth(activeStartDate) + 1}`;
-          //   if (prev !== newStandardDate) {
-          //     return newStandardDate;
-          //   } else {
-          //     return prev;
-          //   }
-          // });
         }}
       />
     </div>

@@ -7,6 +7,7 @@ import { useSchedules } from "@/hooks/useSchedules";
 import { CALENDAR, type Calendar } from "./calendarType.constants";
 import CalendarHeader from "./CalendarHeader";
 import { DateContext } from "./DataContext";
+import type { Schedule } from "@/apis/schedule/scheduleTypes";
 
 const SchedulePage = () => {
   const [calendarType, setCalendarType] = useState<Calendar>(CALENDAR.Monthly);
@@ -30,7 +31,7 @@ const SchedulePage = () => {
         <div className={styles.schedulePage__viewBox}>
           <CalendarHeader calendarType={calendarType} setCalendarType={setCalendarType} />
           {calendarType === CALENDAR.Monthly ? (
-            <MonthlyScheduleView schedules={schedules} />
+            <MonthlyScheduleView schedules={schedules as Schedule[]} />
           ) : (
             <WeeklyScheduleView schedules={schedules} />
           )}
