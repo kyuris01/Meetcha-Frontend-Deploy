@@ -45,7 +45,7 @@ const DropDown = ({ open, setOpen, meetingId }: Props) => {
               <p>삭제하기</p>
             </button>
           </div>,
-          document.body
+          document.getElementById("root") as HTMLElement
         )}
     </div>
   );

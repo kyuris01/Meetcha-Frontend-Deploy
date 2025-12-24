@@ -3,7 +3,7 @@ import { useEffect } from "react";
 interface Props {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  targetRef: React.RefObject<HTMLDivElement>;
+  targetRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const useMouseEvent = ({ open, setOpen, targetRef }: Props) => {
