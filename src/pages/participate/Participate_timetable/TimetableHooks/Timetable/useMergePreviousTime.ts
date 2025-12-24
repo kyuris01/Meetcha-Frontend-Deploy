@@ -1,40 +1,75 @@
-//previousAvailTime을 기존 선택값과 병합하는 로직
 import { useEffect } from "react";
-import { parseISO } from "date-fns";
-import { snap30, keyOf } from "@/utils/dateUtil";
+import type React from "react";
 import type { ParticipateObject } from "@/apis/participate/participateTypes";
+import { addMinutes } from "date-fns";
+import { snap30, keyOf } from "@/utils/dateUtil"; // ✅
 
-interface PreviousTime {
-  startAt: string;
-  endAt: string;
+const MIN30 = 30;
+
+function intervalsToKeySet(intervals: ParticipateObject[]): Set<string> {
+  const set = new Set<string>();
+  for (const it of intervals) {
+    let cur = snap30(new Date(it.startAt));
+    const until = snap30(new Date(it.endAt));
+    while (cur < until) {
+      const next = addMinutes(cur, MIN30);
+      set.add(keyOf(cur.toISOString(), next.toISOString()));
+      cur = next;
+    }
+  }
+  return set;
+}
+
+function keysToIntervals(set: Set<string>): ParticipateObject[] {
+  const slots = Array.from(set)
+    .map((k) => {
+      const [s, e] = k.split("|").map((x) => Number(x));
+      return { s, e };
+    })
+    .sort((a, b) => a.s - b.s);
+
+  if (slots.length === 0) return [];
+
+  const out: ParticipateObject[] = [];
+  let curStart = slots[0].s;
+  let curEnd = slots[0].e;
+
+  for (let i = 1; i < slots.length; i++) {
+    const { s, e } = slots[i];
+    if (s === curEnd) curEnd = e;
+    else {
+      out.push({ startAt: new Date(curStart).toISOString(), endAt: new Date(curEnd).toISOString() });
+      curStart = s;
+      curEnd = e;
+    }
+  }
+  out.push({ startAt: new Date(curStart).toISOString(), endAt: new Date(curEnd).toISOString() });
+  return out;
 }
 
 export const useMergePreviousTimes = (
-  previousAvailTime: PreviousTime[] | undefined,
+  previousAvailTime: { startAt: string; endAt: string }[] | undefined,
   setSelectedTimes: React.Dispatch<React.SetStateAction<ParticipateObject[]>>
 ) => {
   useEffect(() => {
-    if (!Array.isArray(previousAvailTime) || previousAvailTime.length === 0) return;
+    if (!previousAvailTime?.length) return;
 
     setSelectedTimes((prev) => {
-      //현재 선택된 시간들과 새로운 previousAvailTime을 합치는 작업
-      const exists = new Set(prev.map((s) => keyOf(s.startAt, s.endAt))); //new Set은 중복제거
-      const merged = [...prev];
-      let changed = false;
+      const set = intervalsToKeySet(prev);
 
-      for (const slot of previousAvailTime) {
-        const s = snap30(parseISO(slot.startAt));
-        const e = snap30(parseISO(slot.endAt));
-        const sISO = s.toISOString();
-        const eISO = e.toISOString();
-        const key = keyOf(sISO, eISO); //
-        if (!exists.has(key)) {
-          merged.push({ startAt: sISO, endAt: eISO });
-          exists.add(key);
-          changed = true;
+      // 이전 시간도 슬롯 단위로 추가(합집합)
+      for (const it of previousAvailTime) {
+        let cur = snap30(new Date(it.startAt));
+        const until = snap30(new Date(it.endAt));
+        while (cur < until) {
+          const next = addMinutes(cur, MIN30);
+          set.add(keyOf(cur.toISOString(), next.toISOString()));
+          cur = next;
         }
       }
-      return changed ? merged : prev;
+
+      return keysToIntervals(set);
     });
   }, [previousAvailTime, setSelectedTimes]);
 };
+

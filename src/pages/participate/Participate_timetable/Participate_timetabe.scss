@@ -190,12 +190,6 @@
   pointer-events: none !important;
   border-radius: 8px;
 }
-// .button_ctn {
-//   position: fixed;
-//   bottom: 0;
-//   height: var(--cta-h);
-//   z-index: 1000;
-// }
 
 .button_ctn {
   width: 100%;
@@ -249,5 +243,15 @@
     line-height: 23.1px;
     letter-spacing: 1%;
     color: #343434;
+  }
+}
+
+.fc-timegrid-event-harness {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  .fc-event-time {
+    color: #ff6200;
+    font-size: 60%;
   }
 }

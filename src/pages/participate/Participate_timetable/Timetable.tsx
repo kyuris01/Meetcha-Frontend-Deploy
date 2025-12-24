@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import FullCalendar from "@fullcalendar/react"; //기본코어->렌더링 담당
 import timeGridPlugin from "@fullcalendar/timegrid"; //시간 단위로 일정이 보이는 형태(주간/일간 뷰)
@@ -7,7 +7,6 @@ import interactionPlugin from "@fullcalendar/interaction"; //드래그,선택,�
 import { toBusyEvents, toSelectedEvents } from "@/utils/eventTransform"; //데이터 transform util함수 호출
 import { useMergePreviousTimes } from "./TimetableHooks/Timetable/useMergePreviousTime"; //
 import { useTimetableSelection } from "./TimetableHooks/Timetable/useTimetableSelection"; //
-import type { EventWithColor } from "@/apis/participate/participateTypes";
 import "./Participate_timetabe.scss";
 
 import {
@@ -22,7 +21,6 @@ import {
 } from "date-fns";
 
 import { ko } from "date-fns/locale";
-import type { ParticipateObject } from "@/apis/participate/participateTypes";
 
 const Timetable = ({
   candidateDates,
@@ -31,7 +29,7 @@ const Timetable = ({
   scheduleData,
   previousAvailTime,
 }) => {
-  const { handleSelect } = useTimetableSelection(selectedTimes, setSelectedTimes);
+  const { handleSelect, handleDateClick } = useTimetableSelection(setSelectedTimes);
 
   useMergePreviousTimes(previousAvailTime, setSelectedTimes);
   //previousAvailTime(이전에 지정했던 시간=>대안시간 투표 전에 지정한 시간)이 존재하지 않으면 시행x
@@ -51,24 +49,7 @@ const Timetable = ({
   const rangeStart = formatDate(startOfDay(validDates[0]), "yyyy-MM-dd");
   const rangeEndExclusive = formatDate(addDays(endOfDay(validDates.at(-1)!), 1), "yyyy-MM-dd");
 
-  const CalendarColor = [
-    "#FF7842",
-    "#FF934F",
-    "#FFA770",
-    "#FFC8A1",
-    "#EEA679",
-    "#B58160",
-    "#875A3E",
-  ];
-  //selectedTimes마다 색상을 지정해줌!
-  const selectedEventsWithColor = (arr: ParticipateObject[]): EventWithColor[] =>
-    arr.map((t) => {
-      const s = new Date(t.startAt).getTime();
-      const e = new Date(t.endAt).getTime();
-      const idx = Math.abs(s ^ e) % CalendarColor.length; // ← 한 줄로 고정 인덱스
-      return { start: t.startAt, end: t.endAt, color: CalendarColor[idx] };
-    });
-
+  console.log(selectedTimes);
   return (
     <FullCalendar
       plugins={[timeGridPlugin, interactionPlugin]} //  수정됨: 드래그/선택 위해 interactionPlugin 추가
@@ -89,11 +70,40 @@ const Timetable = ({
       selectMirror={false}
       unselectAuto={false}
       select={handleSelect} //  수정됨: 드래그 선택 이벤트 핸들러
+      viewDidMount={(arg) => {
+        const root = arg.el; // FullCalendar 루트 DOM
+
+        // 이벤트 위임: 슬롯 클릭을 안정적으로 캐치
+        const onClick = (e: MouseEvent) => {
+          const target = e.target as HTMLElement | null;
+          if (!target) return;
+
+          // timeGrid의 "빈 칸" 영역
+          const lane = target.closest(".fc-timegrid-slot-lane") as HTMLElement | null;
+          if (!lane) return;
+
+          const td = target.closest("td[data-date]") as HTMLElement | null;
+          const dateStr = td?.getAttribute("data-date"); // "YYYY-MM-DD"
+
+          // row(시간)는 closest tr의 data-time 또는 lane의 이전 sibling에서 얻는 경우가 많음
+          const tr = target.closest("tr") as HTMLElement | null;
+          const time = tr?.getAttribute("data-time") || lane.getAttribute("data-time"); // "HH:mm:ss"
+
+          if (!dateStr || !time) return;
+
+          // 클릭한 칸의 Date 만들기
+          const clicked = parseISO(`${dateStr}T${time}`);
+
+          handleDateClick(clicked);
+        };
+
+        root.addEventListener("click", onClick);
+
+        // cleanup
+        return () => root.removeEventListener("click", onClick);
+      }}
       selectOverlap={(event) => !event.extendedProps?.isBusy}
-      events={[
-        ...toBusyEvents(scheduleData),
-        ...toSelectedEvents(selectedEventsWithColor(selectedTimes)),
-      ]} //  수정됨: 선택된 시간대 렌더링
+      events={[...toBusyEvents(scheduleData), ...toSelectedEvents(selectedTimes)]} //  수정됨: 선택된 시간대 렌더링
       height="auto"
       headerToolbar={false}
       dayHeaderContent={(info) => {

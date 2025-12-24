@@ -55,29 +55,6 @@ const Participate_timetable_ctn = () => {
 
   const handleSubmit = useHandleSubmitData(meetingId, pageNum as string, finalPostData);
 
-  if (!meetingData) {
-    return (
-      <>
-        <div className="top_ctn">
-          <img src={LeftChevron} alt="LeftChevron" onClick={backtoLink} />
-          <p>미팅 참여</p>
-        </div>
-        <div className="participate_ctn">
-          <div className="text_container1">
-            <div className="meeting_info_ctn">
-              <div className="dividend" />
-              <div className="meeting_info">
-                <p>불러오는 중…</p>
-                <p />
-              </div>
-            </div>
-            <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임" />
-          </div>
-        </div>
-      </>
-    );
-  }
-
   // meetingData가 확보된 뒤에만 본문 렌더
   return (
     <div className="ctn">
@@ -87,14 +64,18 @@ const Participate_timetable_ctn = () => {
       </div>
 
       <div className="participate_ctn">
-        <CountDown label={"참가 마감 시간"} finishTime={parseISO(meetingData.deadline)} />
+        {meetingData && (
+          <CountDown label={"참가 마감 시간"} finishTime={parseISO(meetingData.deadline)} />
+        )}
         <div className="text_container1">
           <div className="meeting_info_ctn">
             <div className="dividend"></div>
-            <div className="meeting_info">
-              <p>{meetingData.title}</p>
-              <p>{meetingData.description}</p>
-            </div>
+            {meetingData && (
+              <div className="meeting_info">
+                <p>{meetingData?.title}</p>
+                <p>{meetingData?.description}</p>
+              </div>
+            )}
           </div>
 
           <input type="text" value={nickname} onChange={handleSetNickname} placeholder="닉네임" />
@@ -113,15 +94,17 @@ const Participate_timetable_ctn = () => {
                 a.blur();
             }}
           >
-            <Timetable
-              candidateDates={
-                Array.isArray(meetingData?.candidateDates) ? meetingData.candidateDates : []
-              } //이거는 내가 선택하는 후보날짜
-              selectedTimes={selectedTimes}
-              setSelectedTimes={setSelectedTimes}
-              previousAvailTime={Array.isArray(previousAvailTime) ? previousAvailTime : []}
-              scheduleData={scheduleData /* []로 보장됨 */}
-            />
+            {meetingData && (
+              <Timetable
+                candidateDates={
+                  Array.isArray(meetingData?.candidateDates) ? meetingData?.candidateDates : []
+                } //이거는 내가 선택하는 후보날짜
+                selectedTimes={selectedTimes}
+                setSelectedTimes={setSelectedTimes}
+                previousAvailTime={Array.isArray(previousAvailTime) ? previousAvailTime : []}
+                scheduleData={scheduleData /* []로 보장됨 */}
+              />
+            )}
           </div>
         </div>
       </div>

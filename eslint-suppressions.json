@@ -82,11 +82,6 @@
       "count": 1
     }
   },
-  "src/pages/participate/Participate_timetable/Timetable.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
   "src/pages/schedule/SchedulePage.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 5

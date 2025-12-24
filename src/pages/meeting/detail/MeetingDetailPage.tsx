@@ -25,7 +25,10 @@ const MeetingDetailPage = () => {
   };
 
   const onClickShare = async () => {
-    const ok = await copyToClipboard(getMeetingShareLink(meetingDetail?.meetingCode));
+    if (!meetingDetail?.meetingCode) {
+      return;
+    }
+    const ok = await copyToClipboard(getMeetingShareLink(meetingDetail.meetingCode));
 
     if (ok) {
       toast.success("링크를 복사했습니다", { containerId: "timerClose" });

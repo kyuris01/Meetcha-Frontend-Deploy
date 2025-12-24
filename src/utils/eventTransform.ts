@@ -1,6 +1,6 @@
 //구글 캘린더에 이미 있는 일정...,선택된 일정들 fullcalendar에서 쓰기 위해 데이터 변환
 import { parseISO } from "date-fns";
-import type { UserScheduleData, EventWithColor } from "@/apis/participate/participateTypes";
+import type { UserScheduleData, ParticipateObject } from "@/apis/participate/participateTypes";
 interface BusyEvent {
   start: Date;
   end: Date;
@@ -18,24 +18,24 @@ interface SelectedEvent {
   extendedProps: Record<string, boolean>;
 }
 //사용자의 구글캘린더 일정 정보 불러와 데이터 재설정
-export const toBusyEvents = (scheduleData: UserScheduleData[] | null): BusyEvent[] =>
+export const toBusyEvents = (scheduleData: UserScheduleData[]): BusyEvent[] =>
   scheduleData.map((ev) => ({
     start: parseISO(ev.startAt),
     end: parseISO(ev.endAt),
     display: "background",
     classNames: ["busy-block"],
-    extendedProps: { isBusy: true },
+    extendedProps: { isBusy: false },
   })); //결과는 toBusyEvents는 이러한 데이터 형식가진 배열
 
 //색 6개 중에 번갈아 가면서 설정
 
 //내가 select한 일정들에 대해서 데이터 재설정->fullcalendar 렌더링을 위함
-export const toSelectedEvents = (selectedEventsWithColor: EventWithColor[]): SelectedEvent[] =>
-  selectedEventsWithColor.map((time) => ({
-    start: time.start,
-    end: time.end,
+export const toSelectedEvents = (selectedTimes: ParticipateObject[]): SelectedEvent[] =>
+  selectedTimes.map((time) => ({
+    start: time.startAt,
+    end: time.endAt,
     display: "auto",
-    backgroundColor: time.color,
+    backgroundColor: "#ffc8a5",
     classNames: ["selected-block"],
     extendedProps: { isBusy: false },
   }));
