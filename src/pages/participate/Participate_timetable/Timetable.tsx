@@ -112,6 +112,8 @@ const Timetable = ({
       slotLabelContent={(arg) => {
         return String(getHours(arg.date)); // 0~23
       }}
+      longPressDelay={200}
+      selectLongPressDelay={200}
     />
   );
 };
