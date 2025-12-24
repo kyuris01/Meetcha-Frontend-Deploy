@@ -61,11 +61,11 @@
 }
 
 .slideUpContainer {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
-  width: 100vw;
-  height: 90vh; /* 화면 높이의 90% */
+  width: 100%;
+  height: 90vh;
   background-color: #fff;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;

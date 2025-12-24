@@ -50,6 +50,7 @@ const MeetingDetailRow = ({ label, icon, data }: Props) => {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             onClick={(e) => e.stopPropagation()}
             drag="y"
+            dragConstraints={{ top: 0, bottom: 1000 }}
             dragDirectionLock={true}
             onDragEnd={(_, info) => {
               if (info.offset.y > window.innerHeight * 0.2) {
@@ -62,7 +63,7 @@ const MeetingDetailRow = ({ label, icon, data }: Props) => {
         </>
       )}
     </AnimatePresence>,
-    document.body
+    document.getElementById("root") as HTMLElement
   );
 
   return (
