@@ -49,7 +49,6 @@ const Timetable = ({
   const rangeStart = formatDate(startOfDay(validDates[0]), "yyyy-MM-dd");
   const rangeEndExclusive = formatDate(addDays(endOfDay(validDates.at(-1)!), 1), "yyyy-MM-dd");
 
-  console.log(selectedTimes);
   return (
     <FullCalendar
       plugins={[timeGridPlugin, interactionPlugin]} //  수정됨: 드래그/선택 위해 interactionPlugin 추가
