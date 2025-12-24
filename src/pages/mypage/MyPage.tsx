@@ -37,7 +37,7 @@ const MyPage = () => {
       <section className="profileContainer">
         {userData ? (
           <>
-            <img className="image" src={userData.profileImgUrl} alt="profile" />
+            <img className="image" src={userData.profileImgSrc} alt="profile" />
             <div className="nickname">{userData.nickname}</div>
           </>
         ) : (
