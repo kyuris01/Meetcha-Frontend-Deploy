@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import styles from "./MeetingStateCard.module.scss";
 import RunningMatching from "@assets/runningMatching.svg?react";
 import CompletedMatching from "@assets/completedMatching.svg?react";
@@ -9,35 +9,44 @@ interface Props {
   data: MeetingDetail;
 }
 
-const MeetingStateCard = ({ data }: Props) => {
-  const [text, setText] = useState<string>();
-  const [icon, setIcon] = useState<ReactNode>();
-  const [style, setStyle] = useState<string>();
+type MeetingStatus = MeetingDetail["meetingStatus"];
 
-  const stateResolver = () => {
-    if (data.meetingStatus === "MATCHING") {
-      setText("매칭 중");
-      setIcon(<RunningMatching className={styles.running} />);
-      setStyle(styles.running);
-    } else if (data.meetingStatus === "MATCH_FAILED") {
-      setText("매칭 실패");
-      setIcon(<FailedMatching className={styles.fail} />);
-      setStyle(styles.fail);
-    } else if (data.meetingStatus === "BEFORE") {
-      setText("매칭 완료");
-      setIcon(<CompletedMatching className={styles.complete} />);
-      setStyle(styles.complete);
+const UI_BY_STATUS: Partial<
+  Record<
+    MeetingStatus,
+    {
+      text: string;
+      className: string;
+      icon: ReactNode;
     }
-  };
+  >
+> = {
+  MATCHING: {
+    text: "매칭 중",
+    className: styles.running,
+    icon: <RunningMatching className={styles.running} />,
+  },
+  MATCH_FAILED: {
+    text: "매칭 실패",
+    className: styles.fail,
+    icon: <FailedMatching className={styles.fail} />,
+  },
+  BEFORE: {
+    text: "매칭 완료",
+    className: styles.complete,
+    icon: <CompletedMatching className={styles.complete} />,
+  },
+};
 
-  useEffect(() => {
-    stateResolver();
-  }, [data]);
+const MeetingStateCard = ({ data }: Props) => {
+  const ui = UI_BY_STATUS[data.meetingStatus];
+
+  if (!ui) return null;
 
   return (
-    <div className={`${styles.meetingStateCard} ${style}`}>
-      {icon}
-      {text}
+    <div className={`${styles.meetingStateCard} ${ui.className}`}>
+      {ui.icon}
+      {ui.text}
     </div>
   );
 };

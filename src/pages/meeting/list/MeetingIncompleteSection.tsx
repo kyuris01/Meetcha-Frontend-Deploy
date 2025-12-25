@@ -21,7 +21,7 @@ const MeetingIncompleteSection = ({ meetingList }: { meetingList: Meeting[] }) =
           const diff = priority[a.meetingStatus] - priority[b.meetingStatus];
           if (diff !== 0) return diff;
 
-          return isBefore(a.deadline, b.deadline) ? -1 : 1;
+          return isBefore(a.deadline as string, b.deadline as string) ? -1 : 1;
         })
     );
   }, [meetingList]);

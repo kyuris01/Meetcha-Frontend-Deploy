@@ -12,7 +12,7 @@ export const calendarConfig = {
 
   step: 30, // 각 시간 슬롯 간격 (분 단위)
   timeslots: 2, // 한 시간당 몇 개의 슬롯
-  longPressThreshold: 750,
+  longPressThreshold: 500,
 
   formats: {
     timeGutterFormat: (date: Date) => {

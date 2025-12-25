@@ -3,6 +3,11 @@
   width: 100%;
   display: flex;
 
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
   .swipeTrack {
     width: 100%;
     will-change: transform;

@@ -8,3 +8,7 @@ export const getResponseType = (code: number) => {
 export const isSuccess = (code: number) => {
   return code >= 200 && code < 300;
 };
+
+export const isFailure = (code: number) => {
+  return code >= 300;
+};

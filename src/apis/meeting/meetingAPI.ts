@@ -1,4 +1,6 @@
+import { NetworkError } from "@/errors/errors";
 import { apiCall } from "../apiCall";
+import { isFailure } from "../auth/authUtils";
 import type { ApiResponse } from "../common/types";
 import type {
   DeleteRes,
@@ -56,7 +58,7 @@ export const createMeeting = async (data) => {
       return res;
     case 400:
       const details = Object.entries(res.data)
-        .map(([_, value]) => `• ${value}`)
+        .map(([, value]) => `• ${value}`)
         .join("\n");
       alert(`${res.message}\n${details}`);
       break;
@@ -66,13 +68,21 @@ export const createMeeting = async (data) => {
 };
 
 export const deleteMeeting = async (meetingId: string) => {
-  const res: ApiResponse<DeleteRes> = await apiCall(`/meeting/${meetingId}`, "DELETE", null, true);
-  const errorCodes = [400, 401, 403, 404];
+  try {
+    const res: ApiResponse<DeleteRes> = await apiCall(
+      `/meeting/${meetingId}`,
+      "DELETE",
+      null,
+      true
+    );
+    if (isFailure(res.code)) {
+      alert(res.message);
+      return;
+    }
 
-  if (errorCodes.includes(res.code)) {
-    alert(res.message);
-    // 상위에서 잡을 수 있도록 에러 던짐
-    throw new Error(res.message);
+    return res;
+  } catch (e) {
+    if (e instanceof NetworkError) throw e;
+    throw e;
   }
-  return res;
 };

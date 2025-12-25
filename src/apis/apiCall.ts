@@ -1,4 +1,4 @@
-import { UnauthorizedError } from "@/errors/errors";
+import { NetworkError, UnauthorizedError } from "@/errors/errors";
 import type { ApiResponse } from "./common/types";
 
 export const API_BASE = import.meta.env.VITE_API_BASE_URL;
@@ -68,8 +68,10 @@ export const apiCall = async <T>(
     .catch((e) => {
       localStorage.removeItem("access-token");
       localStorage.removeItem("refresh-token");
-      // TODO: 책임 이관 필요
-      window.location.href = "/";
+
+      if (e instanceof TypeError) {
+        throw new NetworkError();
+      }
       throw e;
     });
 };
