@@ -107,6 +107,12 @@
       }
 
       > p {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        gap: 10px;
+
         font-family: Pretendard;
         font-weight: 500;
         font-style: Medium;
@@ -114,8 +120,17 @@
         line-height: 100%;
         letter-spacing: 0%;
         color: #616161;
-        > span {
+        > .star {
           color: #ff6200;
+        }
+
+        > .resetBtn {
+          background-color: $color-orange-400;
+          border-radius: 15px;
+          padding: 5px;
+
+          color: white;
+          font-size: smaller;
         }
       }
     }
@@ -254,4 +269,19 @@
     color: #ff6200;
     font-size: 60%;
   }
+}
+
+// 1. 기본 선택 하이라이트 숨기기 (가장 중요!)
+// 이걸 숨겨야 통짜 사각형이 안 보이고 우리가 만든 조각들이 보임
+.fc-highlight {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+// 2. 우리가 만든 드래그 미리보기 스타일
+.fc-drag-preview {
+  background-color: rgba(55, 136, 216, 0.5) !important; // FullCalendar 기본색과 유사한 반투명 파랑
+  border: none !important;
+  pointer-events: none; // 마우스 이벤트 방해 금지
+  z-index: 1; // Grid 위, 기존 이벤트 아래 적절히 배치
 }

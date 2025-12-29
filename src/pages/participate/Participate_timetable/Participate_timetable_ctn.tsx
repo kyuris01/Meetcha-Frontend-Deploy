@@ -6,11 +6,7 @@ import CountDown from "@/components/CountDown/CountDown";
 
 import LeftChevron from "@/assets/LeftChevron.svg";
 
-import type {
-  ParticipateResponse,
-  UserScheduleData,
-  MeetingInfoData,
-} from "@/apis/participate/participateTypes";
+import type { UserScheduleData, MeetingInfoData } from "@/apis/participate/participateTypes";
 
 import "./Participate_timetabe.scss";
 
@@ -34,8 +30,7 @@ const Participate_timetable_ctn = () => {
 
   const [meetingData, setMeetingData] = useState<MeetingInfoData | null>(null); //참가페이지에 해당하는 미팅 데이터
   const [scheduleData, setScheduleData] = useState<UserScheduleData[]>([]); //사용자의 캘린더 데이터
-  const [previousAvailTime, setPreviousAvailTime] = useState<ParticipateResponse | null>(null); //이전에 선택했던 시간 데이터 대안 시간 투표를 위한 데이터
-
+  const [previousAvailTime, setPreviousAvailTime] = useState<ParticipateObject[]>([]); //이전에 선택했던 시간 데이터 대안 시간 투표를 위한 데이터
   //이 친구는 선택된 시간 데이터들(startAt,endAt)데이터들의 배열임
   const [selectedTimes, setSelectedTimes] = useState<ParticipateObject[]>([]); //  수정됨: 선택된 시간 저장용 state
 
@@ -52,6 +47,12 @@ const Participate_timetable_ctn = () => {
   const handleSetNickname = (e) => {
     setNickname(e.target.value);
   }; //나중에 backend에 post로 보낼예정..
+
+  const resetToInitialSelection = () => {
+    if (previousAvailTime) {
+      setSelectedTimes(previousAvailTime);
+    }
+  };
 
   const handleSubmit = useHandleSubmitData(meetingId, pageNum as string, finalPostData);
 
@@ -83,7 +84,13 @@ const Participate_timetable_ctn = () => {
 
         <div className="timetable">
           <p>
-            참여 가능 시간<span>*</span>
+            <span>
+              <span>참여 가능 시간</span>
+              <span className="star"> *</span>
+            </span>
+            <button className="resetBtn" onClick={() => resetToInitialSelection()}>
+              초기화
+            </button>
           </p>
           <div
             className="timetable_ctn"

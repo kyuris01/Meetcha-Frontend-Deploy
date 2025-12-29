@@ -17,15 +17,15 @@ interface SelectedEvent {
   classNames: string[];
   extendedProps: Record<string, boolean>;
 }
-//사용자의 구글캘린더 일정 정보 불러와 데이터 재설정
-export const toBusyEvents = (scheduleData: UserScheduleData[]): BusyEvent[] =>
+/** 사용자의 구글캘린더 일정 정보 불러와 데이터 재설정 */
+export const parseUserCalendarEvents = (scheduleData: UserScheduleData[]): BusyEvent[] =>
   scheduleData.map((ev) => ({
     start: parseISO(ev.startAt),
     end: parseISO(ev.endAt),
     display: "background",
     classNames: ["busy-block"],
     extendedProps: { isBusy: false },
-  })); //결과는 toBusyEvents는 이러한 데이터 형식가진 배열
+  }));
 
 //색 6개 중에 번갈아 가면서 설정
 

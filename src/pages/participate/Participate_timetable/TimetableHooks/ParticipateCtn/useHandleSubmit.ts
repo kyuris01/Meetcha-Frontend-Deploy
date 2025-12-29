@@ -22,15 +22,16 @@ export const useHandleSubmitData = (
     const isModify = pageNum === "3";
 
     try {
-      const result = isModify
-        ? await updateAvailability(meetingId, {
-            selectedTimes: finalPostData.selectedTimes,
-          })
-        : await submitAvailability(meetingId, finalPostData);
-
-      console.log(result);
+      if (isModify) {
+        await updateAvailability(meetingId, {
+          selectedTimes: finalPostData.selectedTimes,
+        });
+      } else {
+        await submitAvailability(meetingId, finalPostData);
+      }
 
       if (isModify) {
+        alert("수정이 완료되었습니다!");
         navigate("/meeting/detail", { state: { meetingId } });
       } else {
         navigate("/schedule");
