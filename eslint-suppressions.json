@@ -54,31 +54,6 @@
       "count": 1
     }
   },
-  "src/pages/memoir/Memoir_common/Meeting_card.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/pages/memoir/Memoir_meeting/Memoir_meeting_All.tsx": {
-    "no-irregular-whitespace": {
-      "count": 1
-    }
-  },
-  "src/pages/memoir/Memoir_write/Memoir_write_main.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/pages/memoir/Memoir_write/Project_container.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/pages/participate/Participate_link/Participate_link_ctn.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
   "src/pages/schedule/SchedulePage.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 5

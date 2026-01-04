@@ -1,13 +1,13 @@
 import React from "react";
 
 import LeftChevron from "@/assets/LeftChevron.svg";
-import "./Participate_error.scss";
+import "./ParticipateError.scss";
 
 import { useNavigate } from "react-router-dom";
 
 import error from "@assets/warning.svg";
 
-const Participate_error_ctn = () => {
+const ParticipateErrorCtn = () => {
   const navigate = useNavigate();
 
   const button_text = "링크 다시 입력하기";
@@ -39,4 +39,4 @@ const Participate_error_ctn = () => {
   );
 };
 
-export default Participate_error_ctn;
+export default ParticipateErrorCtn;

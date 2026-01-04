@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./Participate_completed_ctn.scss";
+import "./ParticipateCompletedCtn.scss";
 import LeftChevron from "@/assets/LeftChevron.svg";
 import completed from "@assets/meeting_complete.svg";
 import { useNavigate } from "react-router-dom";
-const Participate_completed_ctn = () => {
+const ParticipateCompletedCtn = () => {
   const button_text = "링크 다시 입력하기";
   const navigate = useNavigate();
   const backtoLink = () => {
@@ -33,4 +33,4 @@ const Participate_completed_ctn = () => {
   );
 };
 
-export default Participate_completed_ctn;
+export default ParticipateCompletedCtn;

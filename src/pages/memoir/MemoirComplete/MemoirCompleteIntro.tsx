@@ -2,9 +2,9 @@ import React from "react";
 import leftChevron from "@/assets/LeftChevron.svg";
 import vertical_hamburger from "@/assets/vertical_hamburger.svg";
 import { useNavigate } from "react-router-dom";
-import "./Memoir_complete.scss";
+import "./MemoirComplete.scss";
 
-const Memoir_complete_intro = () => {
+const MemoirCompleteIntro = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/memoir");
@@ -18,4 +18,4 @@ const Memoir_complete_intro = () => {
   );
 };
 
-export default Memoir_complete_intro;
+export default MemoirCompleteIntro;

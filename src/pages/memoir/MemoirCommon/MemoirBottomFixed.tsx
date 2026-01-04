@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./Memoir_bottom_fixed.scss";
+import "./MemoirBottomFixed.scss";
 
-const Memoir_bottom_fixed = ({ isReadyToSubmit }) => {
+const MemoirBottomFixed = ({ isReadyToSubmit }) => {
   return (
     <div className="memoir_botton_fixed">
       <button
@@ -15,4 +15,4 @@ const Memoir_bottom_fixed = ({ isReadyToSubmit }) => {
   );
 };
 
-export default Memoir_bottom_fixed;
+export default MemoirBottomFixed;

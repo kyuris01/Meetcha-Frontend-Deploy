@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./Bottom_banner_button.scss";
+import "./BottomBannerButton.scss";
 
-const Botton_banner_button = ({ text }) => {
+const BottonBannerButton = ({ text }) => {
   return (
     <div className="button_ctn">
       <button className="button">
@@ -14,4 +14,4 @@ const Botton_banner_button = ({ text }) => {
   );
 };
 
-export default Botton_banner_button;
+export default BottonBannerButton;

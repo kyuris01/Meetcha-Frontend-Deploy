@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./Memoir_meeting.scss";
+import "./MemoirMeeting.scss";
 
-const Summary_card = ({ title, value }: { title: string; value: string }) => {
+const SummaryCard = ({ title, value }: { title: string; value: string }) => {
   return (
     <div className="summaryCard">
       <div className="title">{title}</div>
@@ -11,4 +11,4 @@ const Summary_card = ({ title, value }: { title: string; value: string }) => {
   );
 };
 
-export default Summary_card;
+export default SummaryCard;

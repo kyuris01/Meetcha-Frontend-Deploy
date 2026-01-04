@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import plus from "@/assets/plus.svg";
 
-import "./Memoir_meeting.scss";
+import "./MemoirMeeting.scss";
 
-const Must_write = ({ meetingLists }) => {
+const MustWrite = ({ meetingLists }) => {
   const navigate = useNavigate();
 
   const handleClick = (meeting) => {
@@ -35,4 +35,4 @@ const Must_write = ({ meetingLists }) => {
   );
 };
 
-export default Must_write;
+export default MustWrite;

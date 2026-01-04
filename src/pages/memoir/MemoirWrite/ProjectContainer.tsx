@@ -1,6 +1,6 @@
 // Project_container.tsx
 import React, { useEffect, useState } from "react";
-import "./Memoir_write.scss";
+import "./MemoirWrite.scss";
 
 import LowChevron from "@/assets/LowChevron.svg";
 import Plus from "@/assets/plus.svg";
@@ -11,7 +11,7 @@ import { createProject } from "@/apis/project/projectAPI";
 import type { Project } from "@/apis/memoir/memoirTypes";
 const normalize = (s: string) => s.trim().toLowerCase();
 
-const Project_container = ({
+const ProjectContainer = ({
   projectsAll,
   refetchProjects,
   projectId,
@@ -66,7 +66,7 @@ const Project_container = ({
       }
 
       setNewProject("");
-    } catch (e) {
+    } catch {
       alert("프로젝트 생성 중 오류가 발생했습니다.");
     } finally {
       setCreating(false);
@@ -156,4 +156,4 @@ const Project_container = ({
   );
 };
 
-export default Project_container;
+export default ProjectContainer;

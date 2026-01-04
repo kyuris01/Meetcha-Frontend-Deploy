@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./Memoir_meeting.scss";
+import "./MemoirMeeting.scss";
 
-import Meeting_list_content from "./Meeting_list_content";
+import MeetingListContent from "./MeetingListContent";
 
-const Meeting_list = ({ memoirLists }) => {
+const MeetingList = ({ memoirLists }) => {
   //어차피 사용자로부터 입력을 받는다.
 
   return (
@@ -13,9 +13,9 @@ const Meeting_list = ({ memoirLists }) => {
         <p>미팅 회고 목록</p>
       </div>
 
-      <Meeting_list_content memoirLists={memoirLists} />
+      <MeetingListContent memoirLists={memoirLists} />
     </div>
   );
 };
 
-export default Meeting_list;
+export default MeetingList;

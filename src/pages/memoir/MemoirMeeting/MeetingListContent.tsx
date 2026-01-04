@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Memoir_meeting.scss";
+import "./MemoirMeeting.scss";
 import type { MemoirDetail, memoirList } from "@/apis/memoir/memoirTypes";
 import { getChosenMemoir } from "@/apis/memoir/memoirAPI";
 interface Props {
   memoirLists: memoirList;
 }
 
-const Meeting_list_content = ({ memoirLists }: Props) => {
+const MeetingListContent = ({ memoirLists }: Props) => {
   const navigate = useNavigate();
 
-  const [chosenMemoir, setChosenMemoir] = useState<MemoirDetail | null>(null);
+  const [chosenMemoir, setChosenMemoir] = useState<MemoirDetail | null | undefined>(null);
 
   const load = async (meetingId: string) => {
     const res = await getChosenMemoir(meetingId);
@@ -28,7 +28,7 @@ const Meeting_list_content = ({ memoirLists }: Props) => {
       navigate("/memoir-complete", { state: chosenMemoir });
     }
   }, [chosenMemoir]);
-  console.log(memoirLists);
+
   return (
     <div className="meetings_ctn">
       {Array.isArray(memoirLists) &&
@@ -67,4 +67,4 @@ const Meeting_list_content = ({ memoirLists }: Props) => {
   );
 };
 
-export default Meeting_list_content;
+export default MeetingListContent;

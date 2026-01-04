@@ -1,14 +1,14 @@
 import React from "react";
 
-import "./Memoir_complete.scss";
-import Meeting_card from "../Memoir_common/Meeting_card";
+import "./MemoirComplete.scss";
+import MeetingCard from "../MemoirCommon/MeetingCard";
 import { getProjectTheme } from "@/utils/theme";
 
 import type { MemoirDetail, projectTheme } from "@/apis/memoir/memoirTypes";
 interface props {
   meeting: MemoirDetail;
 }
-const Memoir_complete_main = ({ meeting }: props) => {
+const MemoirCompleteMain = ({ meeting }: props) => {
   const projectId = meeting.projectId;
 
   const projectName = meeting.projectName;
@@ -18,10 +18,9 @@ const Memoir_complete_main = ({ meeting }: props) => {
 
   return (
     <div className="memoir_complete_main_ctn">
-      <Meeting_card
+      <MeetingCard
         meeting={meeting}
         chosenProject={projectName}
-        setChosenProject={null}
         chosenProjectBgColor={bg}
         chosenProjectTextColor={text}
       />
@@ -68,4 +67,4 @@ const Memoir_complete_main = ({ meeting }: props) => {
   );
 };
 
-export default Memoir_complete_main;
+export default MemoirCompleteMain;

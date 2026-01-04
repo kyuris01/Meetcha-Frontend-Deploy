@@ -8,7 +8,7 @@ import LeftChevron from "@/assets/LeftChevron.svg";
 
 import type { UserScheduleData, MeetingInfoData } from "@/apis/participate/participateTypes";
 
-import "./Participate_timetabe.scss";
+import "./ParticipateTimetabe.scss";
 
 import type {
   SubmitAvailabilityBody,
@@ -20,7 +20,7 @@ import { useGetSettingData } from "./TimetableHooks/ParticipateCtn/useGetSetting
 import { useGetScheduleData } from "./TimetableHooks/ParticipateCtn/useGetSchedule";
 import { useHandleSubmitData } from "./TimetableHooks/ParticipateCtn/useHandleSubmit";
 import { useGetFinalData } from "./TimetableHooks/ParticipateCtn/useGetFinalData";
-const Participate_timetable_ctn = () => {
+const ParticipateTimetableCtn = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const meetingId = params.get("meetingId") || "";
@@ -126,4 +126,4 @@ const Participate_timetable_ctn = () => {
     </div>
   );
 };
-export default Participate_timetable_ctn;
+export default ParticipateTimetableCtn;

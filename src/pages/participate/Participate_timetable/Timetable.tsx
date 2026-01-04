@@ -4,7 +4,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import { parseUserCalendarEvents, toSelectedEvents } from "@/utils/eventTransform";
 import { useMergePreviousTimes } from "./TimetableHooks/Timetable/useMergePreviousTime";
 import { useTimetableSelection } from "./TimetableHooks/Timetable/useTimetableSelection";
-import "./Participate_timetabe.scss";
+import "./ParticipateTimetabe.scss";
 import {
   parseISO,
   startOfDay,

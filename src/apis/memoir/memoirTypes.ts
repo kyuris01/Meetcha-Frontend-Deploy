@@ -58,9 +58,9 @@ export interface PostMemoirPayload {
   contribution: number;
   role: string;
   thought: string;
-  completedWork: string;
-  plannedWork: string;
-  projectId: string;
+  completedWork?: string;
+  plannedWork?: string;
+  projectId?: string;
 }
 
 export interface PostMemoirReturn {

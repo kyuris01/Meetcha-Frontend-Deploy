@@ -2,9 +2,9 @@ import React from "react";
 import leftchevron from "@/assets/LeftChevron.svg";
 import { useNavigate } from "react-router-dom";
 
-import "./Memoir_write.scss";
+import "./MemoirWrite.scss";
 
-const Memoir_write_intro = () => {
+const MemoirWriteIntro = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -20,4 +20,4 @@ const Memoir_write_intro = () => {
   );
 };
 
-export default Memoir_write_intro;
+export default MemoirWriteIntro;

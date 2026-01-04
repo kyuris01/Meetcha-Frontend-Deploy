@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import Meeting_card from "../Memoir_common/Meeting_card";
-import Project_container from "./Project_container";
-import "./Memoir_write.scss";
-import { useNavigate } from "react-router-dom";
+import MeetingCard from "../MemoirCommon/MeetingCard";
+import ProjectContainer from "./ProjectContainer";
+import "./MemoirWrite.scss";
+
 const Memoir_write_main = ({
   projectsAll,
   refetchProjects,
@@ -25,7 +25,7 @@ const Memoir_write_main = ({
   setChosenProjectTextColor,
   meeting, //meetingid받기위해서...
 }) => {
-  const navigate = useNavigate();
+
 
   const [chosenProject, setChosenProject] = useState<string>("");
 
@@ -43,9 +43,8 @@ const Memoir_write_main = ({
     <div className="main_ctn">
       <div className="meeting_card_ctn">
         <p className="write_title">작성할 회의</p>
-        <Meeting_card
+        <MeetingCard
           chosenProject={chosenProject}
-          setChosenProject={setChosenProject}
           chosenProjectBgColor={chosenProjectBgColor}
           chosenProjectTextColor={chosenProjectTextColor}
           meeting={meeting}
@@ -108,7 +107,7 @@ const Memoir_write_main = ({
           onChange={(e) => setTodo(e.target.value)}
         />
       </div>
-      <Project_container
+      <ProjectContainer
         projectsAll={projectsAll}
         refetchProjects={refetchProjects}
         projectId={projectId}

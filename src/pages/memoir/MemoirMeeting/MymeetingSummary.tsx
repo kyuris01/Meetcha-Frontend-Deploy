@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 
-import Summary_card from "./Summary_card";
+import SummaryCard from "./SummaryCard";
 import type { meetingSummary } from "@/apis/memoir/memoirTypes";
-import "./Memoir_meeting.scss";
+import "./MemoirMeeting.scss";
 
 interface props {
   meetingSummary: meetingSummary;
 }
-const Mymeeting_summary = ({ meetingSummary }: props) => {
+const MymeetingSummary = ({ meetingSummary }: props) => {
   const [meetingCount, setMeetingCount] = useState<number>(0);
   const [mainRole, setMainRole] = useState<string>("--");
   const [averageContribution, setAverageContribution] = useState<number>(0);
@@ -25,12 +25,12 @@ const Mymeeting_summary = ({ meetingSummary }: props) => {
         <p>나의 미팅 요약</p>
       </div>
       <div className="myMeetings">
-        <Summary_card title="미팅 건수" value={`${meetingCount}`} />
-        <Summary_card title="주요 역할" value={mainRole} />
-        <Summary_card title="평균 기여도" value={`${averageContribution}%`} />
+        <SummaryCard title="미팅 건수" value={`${meetingCount}`} />
+        <SummaryCard title="주요 역할" value={mainRole} />
+        <SummaryCard title="평균 기여도" value={`${averageContribution}%`} />
       </div>
     </div>
   );
 };
 
-export default Mymeeting_summary;
+export default MymeetingSummary;

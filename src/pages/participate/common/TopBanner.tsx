@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./Top_banner.scss";
+import "./TopBanner.scss";
 
 import LeftChevron from "@/assets/LeftChevron.svg";
 
-const Top_banner = ({ text }) => {
+const TopBanner = ({ text }) => {
   return (
     <div className="top_ctn">
       <img src={LeftChevron} alt="LeftChevron"></img>
@@ -13,4 +13,4 @@ const Top_banner = ({ text }) => {
   );
 };
 
-export default Top_banner;
+export default TopBanner;
