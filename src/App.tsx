@@ -25,6 +25,7 @@ import PrivacyPage from "./pages/privacy/PrivacyPage";
 
 import LandingBackground from "./pages/landing/LandingBackground";
 import MeetingLinkPage from "./pages/meeting/link/MeetingLinkPage";
+import { AlreadyAuthRedirect } from "./components/AlreadyAuthRedirect";
 
 
 const App = () => {
@@ -32,10 +33,12 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/landingPage" replace />} />
-        <Route path="/landingPage" element={<LandingBackground />}></Route>
+        <Route element={<AlreadyAuthRedirect />}>
+          <Route path="/landingPage" element={<LandingBackground />} />
+          <Route path="/login" element={<LoginContainer />} />
+        </Route>
         <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
         <Route index path="/meeting/detail" element={<MeetingDetailPage />}></Route>
-        <Route path="/login" element={<LoginContainer />}></Route>
         <Route path="/login-complete" element={<LoginCompleteContainer />}></Route>
         <Route path="/" element={<BackgroundPage />}>
           <Route index path="schedule" element={<SchedulePage />} />

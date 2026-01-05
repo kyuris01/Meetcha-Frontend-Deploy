@@ -5,6 +5,7 @@ import { fetchProfileData } from "@/apis/mypage/mypageAPI";
 import { logout } from "@/apis/auth/authAPI";
 import { useNavigate } from "react-router-dom";
 import type { ProfileResponse } from "@/apis/mypage/mypageTypes";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/const/localStorage";
 
 const MyPage = () => {
   const [userData, setUserData] = useState<ProfileResponse | null>(null);
@@ -23,8 +24,8 @@ const MyPage = () => {
   const logoutHandler = () => {
     logout()
       .then(() => {
-        localStorage.removeItem("access-token");
-        localStorage.removeItem("refresh-token");
+        localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem(REFRESH_TOKEN);
         navigate("/landingPage");
       })
       .catch((error) => {
