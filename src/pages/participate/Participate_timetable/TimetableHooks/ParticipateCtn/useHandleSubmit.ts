@@ -34,6 +34,7 @@ export const useHandleSubmitData = (
         alert("수정이 완료되었습니다!");
         navigate("/meeting/detail", { state: { meetingId } });
       } else {
+        alert("미팅 참가가 완료되었습니다!");
         navigate("/schedule");
       }
     } catch (e) {
