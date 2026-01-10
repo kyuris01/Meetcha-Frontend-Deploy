@@ -17,8 +17,9 @@ const LoginCompleteContainer = () => {
     (async () => {
       try {
         if (await sendAuthCode(code, addr)) {
-          const reserved = sessionStorage.getItem("reservedNavigate");
+          const reserved = sessionStorage.getItem("return-route");
           if (reserved) {
+            sessionStorage.removeItem("return-route");
             window.location.href = reserved;
             return;
           }

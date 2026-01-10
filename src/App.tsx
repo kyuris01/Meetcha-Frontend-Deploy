@@ -27,35 +27,41 @@ import LandingBackground from "./pages/landing/LandingBackground";
 import MeetingLinkPage from "./pages/meeting/link/MeetingLinkPage";
 import { AlreadyAuthRedirect } from "./components/AlreadyAuthRedirect";
 
+import ProtectedRoute from "./ProtectedRoute";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Navigate to="/landingPage" replace />} />
         <Route element={<AlreadyAuthRedirect />}>
           <Route path="/landingPage" element={<LandingBackground />} />
           <Route path="/login" element={<LoginContainer />} />
         </Route>
-        <Route index path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
-        <Route index path="/meeting/detail" element={<MeetingDetailPage />}></Route>
         <Route path="/login-complete" element={<LoginCompleteContainer />}></Route>
-        <Route path="/" element={<BackgroundPage />}>
-          <Route index path="schedule" element={<SchedulePage />} />
-          <Route path="meeting" element={<MeetingPage />} />
-          <Route index path="/memoir" element={<MemoirMeetingAll />}></Route>
-          <Route index path="/mypage" element={<MyPage />}></Route>
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
+          <Route path="/meeting/detail" element={<MeetingDetailPage />}></Route>
+          <Route path="/" element={<BackgroundPage />}>
+            <Route index element={<SchedulePage />} />
+            <Route path="/meeting" element={<MeetingPage />} />
+            <Route path="/memoir" element={<MemoirMeetingAll />}></Route>
+            <Route path="/mypage" element={<MyPage />}></Route>
+          </Route>
+          <Route path="/memoir-write" element={<MemoirWriteCtn />}></Route>
+          <Route path="/memoir-complete" element={<MemoirCompleteCtn />}></Route>
+          <Route path="/timetable" element={<ParticipateTimetableCtn />}></Route>
+          <Route path="/participate" element={<ParticipateLink />}></Route>
+          <Route path="/error" element={<ParticipateErrorCtn />}></Route>
+          <Route path="/complete" element={<ParticipateCompletedCtn />}></Route>
+          <Route path="/meeting-creation" element={<MeetingCreationPage />}></Route>
+          <Route path="/privacy" element={<PrivacyPage />}></Route>
+          <Route path="/meeting/share/:meetingId" element={<MeetingSharePage />} />
+          <Route path="/meeting/link" element={<MeetingLinkPage />} />
         </Route>
-        <Route index path="/memoir-write" element={<MemoirWriteCtn />}></Route>
-        <Route index path="/memoir-complete" element={<MemoirCompleteCtn />}></Route>
-        <Route index path="/timetable" element={<ParticipateTimetableCtn />}></Route>
-        <Route index path="/participate" element={<ParticipateLink />}></Route>
-        <Route index path="/error" element={<ParticipateErrorCtn />}></Route>
-        <Route index path="/complete" element={<ParticipateCompletedCtn />}></Route>
-        <Route index path="/meeting-creation" element={<MeetingCreationPage />}></Route>
-        <Route index path="/privacy" element={<PrivacyPage />}></Route>
-        <Route index path="/meeting/share/:meetingId" element={<MeetingSharePage />} />
-        <Route index path="/meeting/link" element={<MeetingLinkPage />} />
       </Routes>
     </BrowserRouter>
   );

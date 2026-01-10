@@ -11,7 +11,6 @@ const MeetingLinkPage = () => {
 
   useEffect(() => {
     const code = searchParams.get("code");
-    sessionStorage.removeItem("reservedNavigate");
 
     if (!code) {
       navigate("/error");
