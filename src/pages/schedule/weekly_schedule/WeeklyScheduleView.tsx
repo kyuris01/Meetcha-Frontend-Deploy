@@ -2,7 +2,7 @@ import "./WeeklyCalendar.scss";
 import WeeklySwiper from "./WeeklySwiper";
 import WeeklyCalendar from "./WeeklyCalendar";
 import { useWeeklySwiperController } from "@/hooks/useWeeklySwiperController";
-import { weeklySwiperConfig } from "./weeklySwiperConfig";
+import { weeklySwiperConfig } from "./constants/weeklySwiperConfig";
 import { SwiperSlide } from "swiper/react";
 import type { ParsedSchedule } from "@/types/WeeklyScheuldeTypes";
 

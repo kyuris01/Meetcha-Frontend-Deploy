@@ -5,30 +5,43 @@ import { createSchedule, deleteSchedule, editSchedule } from "@/apis/schedule/sc
 import type { Schedule } from "@/apis/schedule/scheduleTypes";
 import ScheduleCrudView from "./ScheduleCrudView";
 import { ScheduleCreateFormContext, useScheduleCreateForm } from "./hooks/useScheduleCreateForm";
-import { Slide, type SlideType } from "../weekly_schedule/WeeklyCalendar";
+import { Slide } from "../weekly_schedule/WeeklyCalendar";
 import type { Dispatch, SetStateAction } from "react";
 import { ScheduleCrudContext } from "./hooks/useScheduleCrudContext";
 import { DateContext } from "../DataContext";
 import { useSchedules } from "@/hooks/useSchedules";
 
-interface Props {
+type BaseProps = {
   clickedSpan: string;
-  slideType: SlideType;
   setCrudOpen: Dispatch<SetStateAction<boolean>>;
-  data?: Schedule; // 기존 일정 클릭시 얻을수있는 기존 일정 관련 데이터
-}
+};
 
-const ScheduleCrudPage = ({ clickedSpan, slideType, data, setCrudOpen }: Props) => {
+type CreateProps = BaseProps & {
+  slideType: typeof Slide.Create;
+  data?: never;
+};
+
+type EditProps = BaseProps & {
+  slideType: typeof Slide.Edit;
+  data: Schedule; // 기존 일정 클릭시 얻을수있는 기존 일정 관련 데이터
+};
+
+type Props = CreateProps | EditProps;
+
+const ScheduleCrudPage = (props: Props) => {
+  const { clickedSpan, slideType, setCrudOpen } = props;
+  const data = slideType === Slide.Edit ? props.data : undefined;
   const form = useScheduleCreateForm();
-  const { year, month } = useContext(DateContext);
+  const { year, month } = useContext(DateContext)!;
   const { forceRefresh } = useSchedules(year, month);
 
   useEffect(() => {
-    if (slideType === Slide.Create) {
-      return;
+    if (slideType === Slide.Create) return;
+
+    if (data) {
+      form.setFormValue("title", data.title);
+      form.setFormValue("recurrence", data.recurrence);
     }
-    form.setFormValue("title", data?.title);
-    form.setFormValue("recurrence", data?.recurrence);
   }, [slideType, data, form]);
 
   const sendCreationReq = () => {
@@ -47,6 +60,8 @@ const ScheduleCrudPage = ({ clickedSpan, slideType, data, setCrudOpen }: Props) 
   };
 
   const sendEditReq = () => {
+    if (slideType !== Slide.Edit) return;
+
     if (form.errors) {
       for (const [key, value] of Object.entries(form.errors)) {
         alert(`${key} ${value}`);
@@ -55,14 +70,16 @@ const ScheduleCrudPage = ({ clickedSpan, slideType, data, setCrudOpen }: Props) 
     }
 
     form.onSubmit(async () => {
-      await editSchedule({ ...form.values, eventId: data.eventId });
+      await editSchedule({ ...form.values, eventId: props.data.eventId });
       forceRefresh();
       setCrudOpen(false);
     });
   };
 
   const sendDelReq = async () => {
-    await deleteSchedule(data.eventId);
+    if (slideType !== Slide.Edit) return;
+
+    await deleteSchedule(props.data.eventId);
     forceRefresh();
     setCrudOpen(false);
   };

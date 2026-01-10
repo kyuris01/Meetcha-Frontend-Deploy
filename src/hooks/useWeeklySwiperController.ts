@@ -3,7 +3,7 @@ import { addWeeks, subWeeks, getYear, getMonth, startOfWeek } from "date-fns";
 import { DateContext } from "@/pages/schedule/DataContext";
 
 export function useWeeklySwiperController() {
-  const { setYear, setMonth } = useContext(DateContext);
+  const { setYear, setMonth } = useContext(DateContext)!;
 
   const didSkipFirstChange = useRef(false);
   const swiperRef = useRef(null);

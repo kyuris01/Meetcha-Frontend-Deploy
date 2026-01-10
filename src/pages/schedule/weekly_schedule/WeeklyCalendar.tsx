@@ -1,7 +1,7 @@
 import { Calendar } from "react-big-calendar";
 import type { ParsedSchedule } from "@/types/WeeklyScheuldeTypes";
 import { useWeeklyCalendarLogic } from "@/hooks/useWeeklyCalendarLogic";
-import { calendarConfig, localizer } from "./weeklyCalendarConfig";
+import { calendarConfig, localizer } from "./constants/weeklyCalendarConfig";
 import ScheduleSlidePanel from "./ScheduleSlidePanel";
 
 /**
@@ -17,7 +17,7 @@ export type SlideType = (typeof Slide)[keyof typeof Slide];
 interface Props {
   week: Date;
   events: ParsedSchedule[];
-  blockInteraction: boolean;
+  blockInteraction: boolean; // Swiper로 좌우 드래그 중일 경우의 플래그
   isActiveCalendar: boolean; // 현재 표시되고있는 캘린더인지 여부
 }
 
@@ -34,7 +34,12 @@ const WeeklyCalendar = ({ week, events, blockInteraction, isActiveCalendar }: Pr
   } = useWeeklyCalendarLogic(week, isActiveCalendar);
 
   return (
-    <>
+    <div
+      style={{
+        touchAction: "pan-y",
+        height: "100%",
+      }}
+    >
       <Calendar
         localizer={localizer}
         startAccessor="startAt"
@@ -43,7 +48,8 @@ const WeeklyCalendar = ({ week, events, blockInteraction, isActiveCalendar }: Pr
         date={week}
         events={events}
         selectable
-        onSelecting={() => !blockInteraction}
+        // onSelecting={() => !blockInteraction}
+        onSelecting={() => false}
         onSelectSlot={(slot) => {
           if (!blockInteraction) openCreate(slot);
         }}
@@ -59,7 +65,7 @@ const WeeklyCalendar = ({ week, events, blockInteraction, isActiveCalendar }: Pr
         setCrudOpen={setCrudOpen}
         onClose={closeSlide}
       />
-    </>
+    </div>
   );
 };
 

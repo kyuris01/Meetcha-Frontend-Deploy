@@ -6,7 +6,7 @@ import { Slide, type SlideType } from "@/pages/schedule/weekly_schedule/WeeklyCa
 import { DateContext } from "@/pages/schedule/DataContext";
 
 export function useWeeklyCalendarLogic(week: Date, isActiveCalendar: boolean) {
-  const { setMonth } = useContext(DateContext);
+  const { setMonth } = useContext(DateContext)!;
 
   const [crudOpen, setCrudOpen] = useState(false);
   const [clickedSpan, setClickedSpan] = useState<string>();

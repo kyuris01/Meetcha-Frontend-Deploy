@@ -1,6 +1,7 @@
 import { Swiper } from "swiper/react";
 import "./WeeklyCalendar.scss";
 import "swiper/swiper-bundle.css";
+import type SwiperCore from "swiper";
 import { useEffect, useRef } from "react";
 
 export default function WeeklySwiper({
@@ -10,7 +11,7 @@ export default function WeeklySwiper({
   onSwipeStateChange,
   children,
 }) {
-  const swiperRef = useRef(null);
+  const swiperRef = useRef<SwiperCore | null>(null);
 
   useEffect(() => {
     if (!swiperRef.current) return;
