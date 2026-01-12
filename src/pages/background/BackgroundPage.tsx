@@ -15,7 +15,7 @@ const BackgroundPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [activeMenuNum, setActiveMenuNum] = useState<number>();
+  const [activeMenuNum, setActiveMenuNum] = useState<number>(0);
 
   // URL에 따라 현재 활성 메뉴를 결정
   React.useMemo(() => {

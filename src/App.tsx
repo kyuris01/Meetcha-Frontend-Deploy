@@ -45,8 +45,8 @@ const App = () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/alternative/:id" element={<MeetingAlternativePage />}></Route>
           <Route path="/meeting/detail" element={<MeetingDetailPage />}></Route>
-          <Route path="/" element={<BackgroundPage />}>
-            <Route index element={<SchedulePage />} />
+          <Route element={<BackgroundPage />}>
+            <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/meeting" element={<MeetingPage />} />
             <Route path="/memoir" element={<MemoirMeetingAll />}></Route>
             <Route path="/mypage" element={<MyPage />}></Route>
