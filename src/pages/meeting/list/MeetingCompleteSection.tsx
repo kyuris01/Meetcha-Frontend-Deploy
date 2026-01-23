@@ -9,14 +9,14 @@ const MeetingCompleteSection = ({ meetingList }: { meetingList: Meeting[] }) => 
       return item.meetingStatus === "BEFORE";
     })
     .sort((a, b) => {
-      return isBefore(a.deadline, b.deadline) ? -1 : 1;
+      return isBefore(a.deadline!, b.deadline!) ? -1 : 1;
     });
 
   return (
     <div className={styles.meetingCompleteSection}>
       <div className={styles.meetingCompleteSection__label}>매칭 완료 미팅</div>
       <div className={styles.meetingCompleteSection__meetingList}>
-        {completeDataList.map((item, _) => (
+        {completeDataList.map((item) => (
           <MeetingItemCard key={item.meetingId} data={item} />
         ))}
       </div>

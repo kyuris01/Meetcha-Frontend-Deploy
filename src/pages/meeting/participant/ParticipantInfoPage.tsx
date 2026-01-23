@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styles from "./ParticipantInfoPage.module.scss";
 import ParticipantInfoView from "./ParticipantInfoView";
 import type { Participant } from "@/apis/meeting/meetingTypes";

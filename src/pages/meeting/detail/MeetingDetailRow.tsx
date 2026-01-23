@@ -29,7 +29,6 @@ const MeetingDetailRow = ({ label, icon, data }: Props) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* 1) 백드롭: 클릭 시 닫기 */}
           <motion.div
             key="backdrop"
             className={styles.backdrop}
@@ -39,8 +38,6 @@ const MeetingDetailRow = ({ label, icon, data }: Props) => {
             transition={{ duration: 0.2 }}
             onClick={() => setIsOpen(false)}
           />
-
-          {/* 2) 슬라이드업 패널: 클릭 이벤트 전파 차단 */}
           <motion.div
             key="panel"
             className={styles.slideUpContainer}
@@ -83,7 +80,7 @@ const MeetingDetailRow = ({ label, icon, data }: Props) => {
               <img
                 key={item.participantId}
                 className={styles.meetingDetailRow__rightArea__participantImg}
-                src={item.profileImageUrl}
+                src={item.profileImageSrc}
               />
             ))
           : (data as string)}

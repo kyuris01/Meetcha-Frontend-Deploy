@@ -32,12 +32,7 @@ const Header = ({ prevButton, hamburger, open, onToggle }: Props) => {
       {prevButton && (
         <LeftArrow className={styles.header__leftArrow} onClick={() => navigate(-1)} />
       )}
-      <img
-        className={styles.header__mainlogo}
-        src={MainLogo}
-        alt="Meetcha 로고 이미지"
-        onClick={() => navigate("/")}
-      />
+      <img className={styles.header__mainlogo} src={MainLogo} alt="Meetcha 로고 이미지" />
 
       {hamburger && (
         <div ref={ref} className={styles.header__menuWrap}>

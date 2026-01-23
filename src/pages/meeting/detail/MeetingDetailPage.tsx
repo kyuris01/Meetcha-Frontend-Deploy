@@ -14,11 +14,11 @@ import { getMeetingShareLink } from "@/utils/meetingShare";
 
 const MeetingDetailPage = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
 
   const location = useLocation();
   const { meetingId } = location.state;
   const navigate = useNavigate();
-  const [meetingDetail, setMeetingDetail] = useState<MeetingDetail | null>(null);
 
   const handleToggle = (next: boolean) => {
     setOpen(next);
@@ -28,9 +28,9 @@ const MeetingDetailPage = () => {
     if (!meetingDetail?.meetingCode) {
       return;
     }
-    const ok = await copyToClipboard(getMeetingShareLink(meetingDetail.meetingCode));
+    const copied = await copyToClipboard(getMeetingShareLink(meetingDetail.meetingCode));
 
-    if (ok) {
+    if (copied) {
       toast.success("링크를 복사했습니다", { containerId: "timerClose" });
     } else {
       toast.error("복사에 실패했어요. 직접 복사해주세요.", { containerId: "timerClose" });

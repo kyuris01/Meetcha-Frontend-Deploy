@@ -60,9 +60,9 @@ export const useMeetingCreateForm = (
     }
   );
 
-  const [errors, setErrors] = useState<Partial<Record<keyof MeetingCreationSchema, string>> | null>(
-    null
-  );
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof MeetingCreationSchema, string>> | undefined
+  >(undefined);
 
   const formDataSetter = (
     key: keyof MeetingCreationSchema,
@@ -92,8 +92,8 @@ export const useMeetingCreateForm = (
   };
 
   const clearForm = () => {
-    setFormData(setter?.defaultValue);
-    setErrors(null);
+    if (setter?.defaultValue) setFormData(setter?.defaultValue);
+    setErrors(undefined);
   };
 
   return {
@@ -122,8 +122,12 @@ export const useMeetingCreateForm = (
   };
 };
 
-export const MeetingCreateFormContext = createContext<FormBase<MeetingCreationSchema>>(null);
+export const MeetingCreateFormContext = createContext<FormBase<MeetingCreationSchema> | undefined>(
+  undefined
+);
 
 export const useMeetingCreateFormContext = () => {
-  return useContext(MeetingCreateFormContext);
+  const ctx = useContext(MeetingCreateFormContext);
+  if (!ctx) throw new Error("MeetingCreateFormContext.Provider로 감싸야 합니다.");
+  return ctx;
 };

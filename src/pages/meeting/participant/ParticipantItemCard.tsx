@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./ParticipantItemCard.module.scss";
 import type { Participant } from "@/apis/meeting/meetingTypes";
 
@@ -13,8 +12,8 @@ const ParticipantItemCard = ({ data }: Props) => {
       <div className={styles.participantItemCard__dataArea}>
         <img
           className={styles.participantItemCard__dataArea__profileImg}
-          src={data.profileImageUrl}
-          alt=""
+          src={data.profileImageSrc}
+          alt="참여자 프로필 이미지"
         />
         {data.nickname}
       </div>

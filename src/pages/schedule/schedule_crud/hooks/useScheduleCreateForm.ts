@@ -13,13 +13,13 @@ export const useScheduleCreateForm = (
       title: "",
       startAt: "",
       endAt: "",
-      recurrence: "NONE",
+      recurrence: "",
     }
   );
 
-  const [errors, setErrors] = useState<Partial<
-    Record<keyof ScheduleCreationSchema, string>
-  > | null>(null);
+  const [errors, setErrors] = useState<
+    Partial<Record<keyof ScheduleCreationSchema, string>> | undefined
+  >(undefined);
 
   const formDataSetter = (
     key: keyof ScheduleCreationSchema,
@@ -49,8 +49,8 @@ export const useScheduleCreateForm = (
   };
 
   const clearForm = () => {
-    setFormData(setter?.defaultValue);
-    setErrors(null);
+    if (setter?.defaultValue) setFormData(setter?.defaultValue);
+    setErrors(undefined);
   };
 
   return {
@@ -79,8 +79,12 @@ export const useScheduleCreateForm = (
   };
 };
 
-export const ScheduleCreateFormContext = createContext<FormBase<ScheduleCreationSchema>>(null);
+export const ScheduleCreateFormContext = createContext<
+  FormBase<ScheduleCreationSchema> | undefined
+>(undefined);
 
 export const useScheduleCreateFormContext = () => {
-  return useContext(ScheduleCreateFormContext);
+  const ctx = useContext(ScheduleCreateFormContext);
+  if (!ctx) throw new Error("ScheduleCreateFormContext.Provider로 감싸야 합니다.");
+  return ctx;
 };

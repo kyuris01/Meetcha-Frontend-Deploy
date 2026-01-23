@@ -40,7 +40,7 @@ const ScheduleCrudPage = (props: Props) => {
 
     if (data) {
       form.setFormValue("title", data.title);
-      form.setFormValue("recurrence", data.recurrence);
+      // form.setFormValue("recurrence", data.recurrence);
     }
   }, [slideType, data, form]);
 

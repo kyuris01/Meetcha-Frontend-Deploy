@@ -61,7 +61,9 @@ const ScheduleCrudCardExpandable = ({ clickedSpan }: Props) => {
         setIsCardOpen((prev) => !prev);
       }}
       className={
-        isCardOpen ? `${styles.active} ${styles.scheduleCrudCard}` : styles.scheduleCrudCard
+        isCardOpen
+          ? `${styles.active} ${styles.scheduleCrudCard} ${styles.expandable}`
+          : `${styles.scheduleCrudCard} ${styles.expandable}`
       }
     >
       <div className={styles.scheduleCrudCard__basic}>

@@ -34,17 +34,7 @@
       "count": 1
     }
   },
-  "src/pages/meeting/list/MeetingCompleteSection.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
   "src/pages/meeting/list/MeetingIncompleteSection.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/pages/meeting/participant/ParticipantInfoPage.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 1
     }

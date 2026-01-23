@@ -24,7 +24,7 @@ export interface MeetingDetail {
 export interface Participant {
   participantId: string;
   nickname: string;
-  profileImageUrl: string;
+  profileImageSrc: string;
 }
 
 export interface AlternativeMeeting {

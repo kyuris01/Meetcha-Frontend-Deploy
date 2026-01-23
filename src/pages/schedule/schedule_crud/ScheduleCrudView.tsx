@@ -1,5 +1,5 @@
 import styles from "./ScheduleCrudView.module.scss";
-import Pencil from "@assets/pencil.svg?react";
+import Repeat from "@assets/repeat.svg?react";
 import ScheduleRepetitionRow from "./ScheduleRepetitionRow";
 import ScheduleCrudCardExpandable from "./ScheduleCrudCardExpandable";
 import ScheduleCrudCard from "./ScheduleCrudCard";
@@ -27,7 +27,7 @@ const ScheduleCrudView = () => {
       <div className={styles.scheduleCrudView__scheduleOptionContainer}>
         <ScheduleCrudCardExpandable clickedSpan={scheduleCrudContext.clickedSpan} />
         <ScheduleCrudCard
-          icon={<Pencil />}
+          icon={<Repeat />}
           content={<ScheduleRepetitionRow />}
           type={"recurrence"}
         />
