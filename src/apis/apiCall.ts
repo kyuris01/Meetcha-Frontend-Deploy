@@ -3,6 +3,7 @@ import type { ApiResponse } from "./common/types";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/const/localStorage";
 
 export const API_BASE = import.meta.env.VITE_API_BASE_URL;
+const RETRY_LIMIT = 2;
 
 const tokenRefresh = async (refreshToken: string) => {
   return fetch(`${API_BASE}/oauth/refresh`, {
@@ -22,7 +23,6 @@ const tokenRefresh = async (refreshToken: string) => {
     });
 };
 
-const RETRY_LIMIT = 2;
 export const apiCall = async <T>(
   path: string,
   method = "GET",
@@ -31,17 +31,18 @@ export const apiCall = async <T>(
 ): Promise<ApiResponse<T>> => {
   let SAFE_RETRY_FLAG = 0;
 
-  const access_token = localStorage.getItem(ACCESS_TOKEN);
-  if (withAuth && !access_token) {
+  if (withAuth && !localStorage.getItem(ACCESS_TOKEN)) {
     throw new UnauthorizedError();
   }
 
   const doFetch = () => {
+    const access_token = localStorage.getItem(ACCESS_TOKEN);
+
     return fetch(`${API_BASE}${path}`, {
       method,
       headers: {
         "Content-Type": "application/json",
-        ...(withAuth ? { Authorization: `Bearer ${access_token}` } : {}),
+        ...(withAuth && access_token ? { Authorization: `Bearer ${access_token}` } : {}),
       },
       ...(data ? { body: JSON.stringify(data) } : {}),
     });
@@ -52,10 +53,8 @@ export const apiCall = async <T>(
       return res;
     })
     .then(async (res) => {
-      // TODO: 매우 중요, 아직도 500 에러가 나옴
-      // TODO: Bearer sdlksdfnk 같이 임의 작성이나, Bearer null같이 access token이 없는 경우 500에러
-      if (res.status === 401 || res.status === 500) {
-        const refresh_token = localStorage.getItem("refresh-token");
+      if (res.status === 401) {
+        const refresh_token = localStorage.getItem(REFRESH_TOKEN);
         if (refresh_token && SAFE_RETRY_FLAG < RETRY_LIMIT) {
           return tokenRefresh(refresh_token).then(() => doFetch());
         } else {
