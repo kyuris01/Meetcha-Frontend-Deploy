@@ -20,6 +20,7 @@
     "@fullcalendar/core": "^6.1.18",
     "@fullcalendar/interaction": "^6.1.18",
     "@fullcalendar/react": "^6.1.18",
+    "@fullcalendar/scrollgrid": "^6.1.20",
     "@fullcalendar/timegrid": "^6.1.18",
     "@ncdai/react-wheel-picker": "^1.0.17",
     "@radix-ui/react-accordion": "^1.2.12",
