@@ -4,72 +4,9 @@
       "count": 1
     }
   },
-  "src/components/BottomNav/BottomNav.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/components/BottomNav/NavModal.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/components/CountDown/CountDown.tsx": {
-    "no-constant-binary-expression": {
-      "count": 1
-    }
-  },
-  "src/pages/landing/CommonContent.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
-    }
-  },
-  "src/pages/meeting/alternative/MeetingAlternativeView.tsx": {
-    "no-irregular-whitespace": {
-      "count": 5
-    }
-  },
-  "src/pages/meeting/detail/MeetingDetailRow.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/pages/meeting/list/MeetingIncompleteSection.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
-  "src/pages/meeting/participant/ParticipantInfoView.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
-    }
-  },
   "src/pages/schedule/SchedulePage.tsx": {
     "@typescript-eslint/no-unused-vars": {
       "count": 5
-    }
-  },
-  "src/pages/schedule/monthly_schedule/MonthlyScheduleView.tsx": {
-    "@typescript-eslint/no-unused-expressions": {
-      "count": 1
-    },
-    "@typescript-eslint/no-unused-vars": {
-      "count": 2
-    }
-  },
-  "src/pages/schedule/weekly_schedule/CustomEvent.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 1
-    }
-  },
-  "src/pages/schedule/weekly_schedule/CustomWeekHeader.tsx": {
-    "@typescript-eslint/no-explicit-any": {
-      "count": 1
-    }
-  },
-  "src/pages/schedule/weekly_schedule/WeeklyScheduleView.tsx": {
-    "@typescript-eslint/no-unused-vars": {
-      "count": 1
     }
   },
   "src/utils/MeetingCreationUtils.ts": {

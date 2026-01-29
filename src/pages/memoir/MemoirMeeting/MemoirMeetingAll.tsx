@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import MymeetingSummary from "./MymeetingSummary";
-import MustListContainer from "./MustListContainer";
+import { useEffect, useMemo, useRef, useState } from "react";
+import MymeetingSummary from "../../../components/domain/memoir/MemoirMeeting/MymeetingSummary";
+import MustListContainer from "../../../components/domain/memoir/MemoirMeeting/MustListContainer";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { getMeetingLists, getMemoirLists, getMeetingSummary } from "@/apis/memoir/memoirAPI";

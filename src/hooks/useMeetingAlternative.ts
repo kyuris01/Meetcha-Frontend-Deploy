@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import type { AlternativeMeeting } from "@/apis/meeting/meetingTypes";
-import { calculateDuration, mapToEvents } from "@/pages/meeting/alternative/utils/altTimesParsing";
+import { calculateDuration, mapToEvents } from "@/utils/meeting/alternative/altTimesParsing";
 import type { AlternativeEvent } from "@/types/AlternativeMeetingTypes";
 
 export function useMeetingAlternative(alternativeTimes: AlternativeMeeting[]) {

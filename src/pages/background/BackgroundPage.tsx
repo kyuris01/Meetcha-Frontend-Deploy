@@ -1,7 +1,7 @@
-import BottomNav from "@/components/BottomNav/BottomNav";
+import BottomNav from "@/components/common/BottomNav/BottomNav";
 import React, { useEffect, useState } from "react";
 import styles from "./BackgroundPage.module.scss";
-import Header from "@/components/Header";
+import Header from "@/components/common/Header";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 const pathMapObject = {

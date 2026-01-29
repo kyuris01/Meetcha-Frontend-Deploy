@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import styles from "./MeetingDetailPage.module.scss";
-import Header from "@/components/Header";
-import MeetingDetailView from "./MeetingDetailView";
-import Button from "@/components/Button";
+import Header from "@/components/common/Header";
+import Button from "@/components/common/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { MeetingDetail } from "@/apis/meeting/meetingTypes";
 import { fetchMeetingDetail } from "@/apis/meeting/meetingAPI";
 import { toast } from "react-toastify";
 import { copyToClipboard } from "@/utils/copyToClipBoard";
 import { isBefore } from "date-fns";
-import DropDown from "./DropDown";
 import { getMeetingShareLink } from "@/utils/meetingShare";
+import MeetingDetailView from "@/components/domain/meeting/detail/MeetingDetailView";
+import DropDown from "@/components/domain/meeting/detail/DropDown";
 
 const MeetingDetailPage = () => {
   const [open, setOpen] = useState<boolean>(false);

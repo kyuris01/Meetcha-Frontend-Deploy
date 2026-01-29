@@ -1,13 +1,16 @@
 import styles from "./MeetingCreationPage.module.scss";
-import Button from "@/components/Button";
-import TopNav from "@/components/TopNav";
-import MeetingCreationView from "./MeetingCreationView";
+import Button from "@/components/common/Button";
+import TopNav from "@/components/common/TopNav";
+import MeetingCreationView from "../../../components/domain/meeting/create/MeetingCreationView";
 import { useState } from "react";
 import { createMeeting } from "@/apis/meeting/meetingAPI";
 import { useNavigate } from "react-router-dom";
-import { MeetingCreateFormContext, useMeetingCreateForm } from "./hooks/useMeetingCreateForm";
-import { meetingFormDataConvert } from "./utils/meetingFormDataConvert";
-import { meetingCreationSchema } from "./schemas/meetingCreationSchema";
+import { meetingFormDataConvert } from "../../../utils/meeting/create/meetingFormDataConvert";
+import { meetingCreationSchema } from "../../../schemas/meetingCreationSchema";
+import {
+  MeetingCreateFormContext,
+  useMeetingCreateForm,
+} from "@/hooks/meeting/create/useMeetingCreateForm";
 
 export interface MeetingSendData {
   title: string;

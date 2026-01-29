@@ -1,9 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addWeeks, subWeeks, getYear, getMonth, startOfWeek } from "date-fns";
-import { DateContext } from "@/pages/schedule/DataContext";
+import { useScheduleDate } from "@/components/domain/schedule/DateContext";
 
 export function useWeeklySwiperController() {
-  const { setYear, setMonth } = useContext(DateContext)!;
+  const { setYear, setMonth } = useScheduleDate();
 
   const didSkipFirstChange = useRef(false);
   const swiperRef = useRef(null);

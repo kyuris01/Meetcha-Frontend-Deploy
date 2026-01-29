@@ -1,13 +1,13 @@
 import { useState } from "react";
 import styles from "./SchedulePage.module.scss";
-import MonthlyScheduleView from "./monthly_schedule/MonthlyScheduleView";
-import WeeklyScheduleView from "./weekly_schedule/WeeklyScheduleView";
+import WeeklyScheduleView from "../../components/domain/schedule/weekly_schedule/WeeklyScheduleView";
 import { getMonth, getYear } from "date-fns";
 import { useSchedules } from "@/hooks/useSchedules";
-import { CALENDAR, type Calendar } from "./calendarType.constants";
-import CalendarHeader from "./CalendarHeader";
-import { DateContext } from "./DataContext";
 import type { Schedule } from "@/apis/schedule/scheduleTypes";
+import { CALENDAR, type Calendar } from "@/const/scheduleCalendarType.constants";
+import { DateContext } from "@/components/domain/schedule/DateContext";
+import CalendarHeader from "@/components/domain/schedule/CalendarHeader";
+import MonthlyScheduleView from "@/components/domain/schedule/monthly_schedule/MonthlyScheduleView";
 
 const SchedulePage = () => {
   const [calendarType, setCalendarType] = useState<Calendar>(CALENDAR.Monthly);

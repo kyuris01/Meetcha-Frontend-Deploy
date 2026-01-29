@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 import Timetable from "./Timetable";
-import CountDown from "@/components/CountDown/CountDown";
+import CountDown from "@/components/common/CountDown/CountDown";
 
 import LeftChevron from "@/assets/LeftChevron.svg";
 

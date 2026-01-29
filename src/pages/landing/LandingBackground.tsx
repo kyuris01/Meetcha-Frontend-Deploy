@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LandingPage from "./LandingPage";
+import LandingPage from "../../components/domain/landing/LandingPage";
 
 import book from "@assets/book.svg";
 import alarm from "@assets/alarmClock.svg";

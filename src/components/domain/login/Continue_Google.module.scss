@@ -1,0 +1,20 @@
+.google_button {
+  height: 3.1rem;
+  border: 1px solid #ff6200;
+  border-radius: 10px;
+  padding: 0 0.9375rem;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.9375rem;
+  cursor: pointer;
+}
+
+.google_button > p {
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #ff6200;
+}

@@ -35,5 +35,10 @@
     "noImplicitAny": false,
     "strictNullChecks": true
   },
-  "include": ["src", "src/types/**/*.d.ts"]
+  "include": [
+    "src",
+    "src/types/**/*.d.ts",
+    "src/schemas/meetingCreationSchema.ts",
+    "src/schemas/scheduleCreationSchema.ts"
+  ]
 }

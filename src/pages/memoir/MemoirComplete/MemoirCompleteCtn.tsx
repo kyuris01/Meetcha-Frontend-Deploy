@@ -1,8 +1,7 @@
-import React from "react";
 import { useLocation } from "react-router-dom";
 
-import MemoirCompleteIntro from "./MemoirCompleteIntro";
-import MemoirCompleteMain from "./MemoirCompleteMain";
+import MemoirCompleteIntro from "../../../components/domain/memoir/MemoirComplete/MemoirCompleteIntro";
+import MemoirCompleteMain from "../../../components/domain/memoir/MemoirComplete/MemoirCompleteMain";
 import type { MemoirDetail } from "@/apis/memoir/memoirTypes";
 const MemoirCompleteCtn = () => {
   const location = useLocation();

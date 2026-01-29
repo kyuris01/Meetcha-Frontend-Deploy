@@ -1,12 +1,12 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getMonth } from "date-fns";
 import { scheduleStringFormatter } from "@/utils/dateFormatter";
 import type { Schedule } from "@/apis/schedule/scheduleTypes";
-import { Slide, type SlideType } from "@/pages/schedule/weekly_schedule/WeeklyCalendar";
-import { DateContext } from "@/pages/schedule/DataContext";
+import { Slide, type SlideType } from "@/components/domain/schedule/weekly_schedule/WeeklyCalendar";
+import { useScheduleDate } from "@/components/domain/schedule/DateContext";
 
 export function useWeeklyCalendarLogic(week: Date, isActiveCalendar: boolean) {
-  const { setMonth } = useContext(DateContext)!;
+  const { setMonth } = useScheduleDate();
 
   const [crudOpen, setCrudOpen] = useState(false);
   const [clickedSpan, setClickedSpan] = useState<string>();

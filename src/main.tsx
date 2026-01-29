@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 import { MSWProvider } from "./mocks/MSWProvider";
 import "normalize.css";
 import "@ncdai/react-wheel-picker/style.css";
-import { BrowserLimiter } from "./components/BrowserLimiter.tsx";
+import { BrowserLimiter } from "./components/common/BrowserLimiter.tsx";
 
 export const queryClient = new QueryClient({
   defaultOptions: {

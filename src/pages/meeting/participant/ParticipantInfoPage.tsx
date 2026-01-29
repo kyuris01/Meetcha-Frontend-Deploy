@@ -1,5 +1,5 @@
 import styles from "./ParticipantInfoPage.module.scss";
-import ParticipantInfoView from "./ParticipantInfoView";
+import ParticipantInfoView from "../../../components/domain/meeting/participant/ParticipantInfoView";
 import type { Participant } from "@/apis/meeting/meetingTypes";
 
 interface Props {
