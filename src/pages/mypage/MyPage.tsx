@@ -1,5 +1,4 @@
 import "./MyPage.scss";
-import MoonLoader from "react-spinners/MoonLoader";
 import { useEffect, useState } from "react";
 import { fetchProfileData } from "@/apis/mypage/mypageAPI";
 import { logout } from "@/apis/auth/authAPI";
@@ -38,12 +37,10 @@ const MyPage = () => {
       <section className="profileContainer">
         {userData ? (
           <>
-            <img className="image" src={userData.profileImgSrc} alt="profile" />
-            <div className="nickname">{userData.nickname}</div>
+            <img className="image" src={userData?.profileImgSrc} alt="profile" />
+            <div className="nickname">{userData?.nickname}</div>
           </>
-        ) : (
-          <MoonLoader />
-        )}
+        ) : null}
       </section>
       <section className="featureContainer">
         <div className="featureItem" onClick={() => logoutHandler()}>

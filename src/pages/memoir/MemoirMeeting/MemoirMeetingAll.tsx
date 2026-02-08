@@ -58,36 +58,30 @@ const MemoirMeetingAll = () => {
     if (!s?.refetchMemoirs || didRefetch.current) return;
 
     didRefetch.current = true;
-    getMeetingLists();
-    getMemoirLists();
-    getMeetingSummary();
+    loadMeetingLists();
+    loadMemoirLists();
+    loadMeetingSummary();
     navigate(location.pathname, { replace: true, state: undefined });
   }, []);
-
-  const memoir = Array.isArray(memoirLists) ? memoirLists : [];
+  //null이나 undefined이면 빈 배열로 흘려보내서 컴포넌트는 항상 렌더링 되게끔 한다.
+  const safeMeetingLists = meetingLists ?? [];
+  const safeMemoirLists = memoirLists ?? [];
+  const safeMeetingSummary = meetingSummary ?? null;
 
   const memoirWithTheme: MemoirWithTheme[] = useMemo(
     () =>
-      memoir.map((m: memoirList) => ({
+      safeMemoirLists.map((m: memoirList) => ({
         ...m,
         // memoir 항목에 projectId가 없을 수도 있으니 fallback 더 넓게
         theme: getProjectTheme(m.projectId),
       })),
-    [memoir]
+    [safeMemoirLists]
   );
-
-  if (!meetingLists || !memoirLists || !meetingSummary) {
-    return (
-      <>
-        <p style={{ textAlign: "center", marginTop: "2rem" }}>⌛ 로딩 중…</p>
-      </>
-    );
-  }
 
   return (
     <div style={{ flex: 1, width: "100%", minHeight: 0, display: "flex", flexDirection: "column" }}>
-      <MymeetingSummary meetingSummary={meetingSummary} />
-      <MustListContainer meetingLists={meetingLists} memoirLists={memoirWithTheme} />
+      <MymeetingSummary meetingSummary={safeMeetingSummary} />
+      <MustListContainer meetingLists={safeMeetingLists} memoirLists={memoirWithTheme} />
     </div>
   );
 };

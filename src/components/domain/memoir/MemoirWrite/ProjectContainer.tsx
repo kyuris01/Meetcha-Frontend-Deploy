@@ -1,5 +1,4 @@
-// Project_container.tsx
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./ProjectContainer.module.scss";
 
 import LowChevron from "@/assets/LowChevron.svg";
@@ -51,8 +50,8 @@ const ProjectContainer = ({
         throw new Error("프로젝트 생성 실패");
       }
 
-      const createdId: string = res.projectId;
-      const createdName: string = res.name;
+      const createdId: string = res.data.projectId;
+      const createdName: string = res.data.name;
 
       // 부모 목록 즉시 리패치 → 새로고침 없이 UI 반영
       if (typeof refetchProjects === "function") {

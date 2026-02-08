@@ -1,7 +1,11 @@
 import styles from "./Loading.module.scss";
 
 function Loading() {
-  return <span className={styles.loader}></span>;
+  return (
+    <div className={styles.container}>
+      <span className={styles.loader}></span>;
+    </div>
+  );
 }
 
 export default Loading;

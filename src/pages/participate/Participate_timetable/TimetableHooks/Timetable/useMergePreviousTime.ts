@@ -4,7 +4,7 @@ import type { ParticipateObject } from "@/apis/participate/participateTypes";
 import { addMinutes } from "date-fns";
 import { snap30, keyOf } from "@/utils/dateUtil"; // ✅
 
-const MIN30 = 30;//시간 슬롯 단위 30분
+const MIN30 = 30; //시간 슬롯 단위 30분
 
 function intervalsToKeySet(intervals: ParticipateObject[]): Set<string> {
   const set = new Set<string>();
@@ -18,7 +18,7 @@ function intervalsToKeySet(intervals: ParticipateObject[]): Set<string> {
     }
   }
   return set;
-}//여러 개의 시간 구간을 30분 슬롯 단위 key Set으로 변환한다. 중복 제거
+} //여러 개의 시간 구간을 30분 슬롯 단위 key Set으로 변환한다. 중복 제거
 
 function keysToIntervals(set: Set<string>): ParticipateObject[] {
   const slots = Array.from(set)
@@ -38,7 +38,10 @@ function keysToIntervals(set: Set<string>): ParticipateObject[] {
     const { s, e } = slots[i];
     if (s === curEnd) curEnd = e;
     else {
-      out.push({ startAt: new Date(curStart).toISOString(), endAt: new Date(curEnd).toISOString() });
+      out.push({
+        startAt: new Date(curStart).toISOString(),
+        endAt: new Date(curEnd).toISOString(),
+      });
       curStart = s;
       curEnd = e;
     }
@@ -72,4 +75,3 @@ export const useMergePreviousTimes = (
     });
   }, [previousAvailTime, setSelectedTimes]);
 };
-

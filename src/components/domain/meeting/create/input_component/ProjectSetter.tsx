@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Plus from "@assets/plus.svg?react";
 import type { Project } from "@/apis/project/projectTypes";
 import { createProject, fetchProjects } from "@/apis/project/projectAPI";
+import { isSuccess } from "@/apis/auth/authUtils";
 import { useMeetingCreateForm } from "@/hooks/meeting/create/useMeetingCreateForm";
 
 export const ProjectSetter = () => {
@@ -14,16 +15,19 @@ export const ProjectSetter = () => {
     const data = {
       name: inputValue,
     };
-    const response = await createProject(data);
+    const result = await createProject(data);
 
-    setProjects((prev) => [
-      ...prev,
-      {
-        projectId: response.projectId,
-        projectName: response.name,
-      },
-    ]);
-    setInputValue("");
+    if (isSuccess(result.code)) {
+      const response = result.data;
+      setProjects((prev) => [
+        ...prev,
+        {
+          projectId: response.projectId,
+          projectName: response.name,
+        },
+      ]);
+      setInputValue("");
+    }
   };
 
   useEffect(() => {

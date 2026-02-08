@@ -5,7 +5,7 @@ import type { meetingSummary } from "@/apis/memoir/memoirTypes";
 import "./MemoirMeeting.scss";
 
 interface props {
-  meetingSummary: meetingSummary;
+  meetingSummary: meetingSummary | null;
 }
 const MymeetingSummary = ({ meetingSummary }: props) => {
   const [meetingCount, setMeetingCount] = useState<number>(0);
