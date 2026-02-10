@@ -55,7 +55,7 @@ export const TriggerContent = ({
   const formatValue = (value: MeetingCreationSchema[keyof MeetingCreationSchema]) => {
     if (typeof value === "string") return value;
     if (typeof value === "number") return value.toString();
-    if (value) return value.join(", ");
+    return value?.join(", ");
   };
 
   return (

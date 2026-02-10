@@ -10,5 +10,5 @@ export const fetchProjects = async () => {
 export const createProject = async (data) => {
   const res: ApiResponse<ProjectCreate> = await apiCall("/user/projects", "POST", data, true);
   alert(res.message);
-  return res;
+  return res.data;
 };

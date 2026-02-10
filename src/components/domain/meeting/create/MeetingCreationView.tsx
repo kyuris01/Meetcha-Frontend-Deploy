@@ -43,7 +43,7 @@ const MeetingCreationView = () => {
           triggerContent={{
             Icon: Pencil,
             title: "미팅 설명",
-            value: form.getFormValue("description") || "미팅 설명을 적어주세요",
+            value: form.getFormValue("description") || "-",
           }}
           formInputComponent={
             <textarea

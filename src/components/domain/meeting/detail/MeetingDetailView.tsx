@@ -13,9 +13,10 @@ const MeetingDetailView = ({ data }: { data: MeetingDetail }) => {
     switch (data.meetingStatus) {
       case "MATCH_FAILED":
         return "매칭 실패";
+      case "BEFORE":
+        return "시작 전";
       case "MATCHING":
         return "시간을 정하고 있어요!";
-      case "BEFORE":
       case "DONE":
       case "ONGOING":
       default:
