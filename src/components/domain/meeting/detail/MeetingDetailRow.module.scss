@@ -9,6 +9,8 @@
 
   font-family: Pretendard;
 
+  overflow: hidden;
+
   &__leftArea {
     display: flex;
     flex-direction: row;
@@ -20,6 +22,8 @@
     font-weight: 500;
 
     color: $color-gray-400;
+
+    white-space: nowrap;
   }
 
   &__rightArea {

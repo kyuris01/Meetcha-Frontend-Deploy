@@ -21,7 +21,7 @@ const MeetingItemCard = ({ data }: Props) => {
   const currentStatus: string = data.meetingStatus;
   const isMatchFailed: boolean = currentStatus === "MATCH_FAILED";
 
-  const { onPointerDown, onPointerMove, onPointerUp, dragging, tx, open } =
+  const { onPointerDown, onPointerMove, onPointerUp, dragging, tx } =
     useMeetingItemSwiperController(data.meetingId, isMatchFailed);
 
   const targetRef = useRef<HTMLDivElement | null>(null);
@@ -72,11 +72,24 @@ const MeetingItemCard = ({ data }: Props) => {
       onPointerCancel={onPointerUp}
       className={styles.meetingItemCardWithDelete}
     >
+      {isMatchFailed && (
+        <button
+          className={styles.delete}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleDeleteBtn();
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
+        >
+          <img src={trashCan} alt="쓰레기통"></img>
+        </button>
+      )}
+
       <div
         className={styles.swipeTrack}
         style={{
           transform: `translateX(${tx}px)`,
-          transition: dragging ? "none" : "transform 160ms ease",
+          transition: dragging ? "none" : "transform 160ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
         }}
       >
         <div className={styles.meetingItemCard}>
@@ -95,15 +108,6 @@ const MeetingItemCard = ({ data }: Props) => {
           </div>
         </div>
       </div>
-      {isMatchFailed && open ? (
-        <button
-          className={styles.meetingItemCard__delete}
-          onClick={handleDeleteBtn}
-          onPointerDown={(e) => e.stopPropagation()}
-        >
-          <img src={trashCan} alt="쓰레기통"></img>
-        </button>
-      ) : null}
     </div>
   );
 };
