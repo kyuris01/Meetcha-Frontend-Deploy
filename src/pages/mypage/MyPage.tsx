@@ -21,6 +21,8 @@ const MyPage = () => {
   }, []);
 
   const logoutHandler = () => {
+    const proceed = confirm("로그아웃 하시겠습니까?");
+    if (!proceed) return;
     logout()
       .then(() => {
         localStorage.removeItem(ACCESS_TOKEN);

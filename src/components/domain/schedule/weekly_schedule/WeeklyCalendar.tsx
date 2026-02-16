@@ -1,13 +1,12 @@
+import { useMemo } from "react";
 import { Calendar } from "react-big-calendar";
-import type { ParsedSchedule } from "@/types/WeeklyScheuldeTypes";
 import { useWeeklyCalendarLogic } from "@/hooks/useWeeklyCalendarLogic";
-import { calendarConfig, localizer } from "../../../../const/weeklyCalendarConfig";
+import { calendarConfig, localizer } from "../../../../const/weeklyCalendarConfig"; // 경로에 맞게 수정
 import ScheduleSlidePanel from "./ScheduleSlidePanel";
-import { useRef } from "react";
+import { WeeklyCalendarContext } from "./WeeklyCalendarContext";
+import { TimeSlotWrapper } from "./TimeSlotWrapper";
+import type { ParsedSchedule } from "@/types/WeeklyScheuldeTypes";
 
-/**
- * 슬라이드가 생성모드로 열렸는지, 수정모드로 열렸는지를 구분
- */
 export const Slide = {
   Create: "create",
   Edit: "edit",
@@ -15,14 +14,19 @@ export const Slide = {
 
 export type SlideType = (typeof Slide)[keyof typeof Slide];
 
-interface Props {
+export interface WeeklyCalendarProps {
   week: Date;
   events: ParsedSchedule[];
   blockInteraction: boolean; // Swiper로 좌우 드래그 중일 경우의 플래그
   isActiveCalendar: boolean; // 현재 표시되고있는 캘린더인지 여부
 }
 
-const WeeklyCalendar = ({ week, events, blockInteraction, isActiveCalendar }: Props) => {
+const WeeklyCalendar = ({
+  week,
+  events,
+  blockInteraction,
+  isActiveCalendar,
+}: WeeklyCalendarProps) => {
   const {
     crudOpen,
     clickedSpan,
@@ -34,59 +38,49 @@ const WeeklyCalendar = ({ week, events, blockInteraction, isActiveCalendar }: Pr
     setCrudOpen,
   } = useWeeklyCalendarLogic(week, isActiveCalendar);
 
-  // 1. 터치 상태를 추적하기 위한 Ref 생성
-  const isSwiping = useRef(false);
-  const startX = useRef(0);
-  const startY = useRef(0);
+  const contextValue = useMemo(
+    () => ({
+      openCreate,
+      blockInteraction,
+    }),
+    [openCreate, blockInteraction]
+  );
 
-  // 2. 터치 시작 시 좌표 저장 및 플래그 초기화
-  const handleTouchStart = (e: React.TouchEvent) => {
-    isSwiping.current = false;
-    startX.current = e.touches[0].clientX;
-    startY.current = e.touches[0].clientY;
-  };
-
-  // 3. 터치 이동 시 "스와이프인지 아닌지" 판별
-  const handleTouchMove = (e: React.TouchEvent) => {
-    const currentX = e.touches[0].clientX;
-    const currentY = e.touches[0].clientY;
-
-    const diffX = Math.abs(currentX - startX.current);
-    const diffY = Math.abs(currentY - startY.current);
-
-    // X축 이동이 10px 이상이고, Y축(스크롤)보다 X축 이동이 더 크면 "스와이프"로 간주
-    if (diffX > 10 && diffX > diffY) {
-      isSwiping.current = true;
-    }
-  };
+  // 2. components 객체 메모이제이션
+  // TimeSlotWrapper는 import 해온 컴포넌트이므로 의존성 배열은 빈 배열
+  const components = useMemo(
+    () => ({
+      ...calendarConfig.components,
+      timeSlotWrapper: TimeSlotWrapper,
+    }),
+    []
+  );
 
   return (
     <div
       style={{
         touchAction: "pan-y",
         height: "100%",
+        userSelect: "none",
+        WebkitUserSelect: "none",
       }}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
     >
-      <Calendar
-        localizer={localizer}
-        startAccessor="startAt"
-        endAccessor="endAt"
-        {...calendarConfig}
-        date={week}
-        events={events}
-        selectable
-        onSelectSlot={(slot) => {
-          if (blockInteraction || isSwiping.current) {
-            return;
-          }
-          openCreate(slot);
-        }}
-        onSelectEvent={(event) => {
-          if (!blockInteraction) openEdit(event);
-        }}
-      />
+      <WeeklyCalendarContext.Provider value={contextValue}>
+        <Calendar
+          localizer={localizer}
+          startAccessor="startAt"
+          endAccessor="endAt"
+          {...calendarConfig}
+          date={week}
+          events={events}
+          selectable={false}
+          components={components}
+          onSelectEvent={(event) => {
+            if (!blockInteraction) openEdit(event);
+          }}
+        />
+      </WeeklyCalendarContext.Provider>
+
       <ScheduleSlidePanel
         open={crudOpen}
         clickedSpan={clickedSpan}

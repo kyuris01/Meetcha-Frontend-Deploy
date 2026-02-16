@@ -961,3 +961,20 @@ button.rbc-input::-moz-focus-inner {
   display: none !important;
   /* 또는 background-color: transparent !important; */
 }
+
+/* [중요] 이벤트 컨테이너가 배경 클릭을 막지 않도록 설정 */
+.rbc-day-slot .rbc-events-container {
+  pointer-events: none !important;
+  z-index: 10; /* 이벤트가 슬롯보다 위에 보이는 건 유지 */
+}
+
+/* [중요] 실제 일정(색깔 바)은 클릭/터치가 되어야 수정 팝업을 띄울 수 있음 */
+.rbc-event {
+  pointer-events: auto !important;
+}
+
+/* 우리가 만든 슬롯 래퍼가 터치를 잘 받도록 설정 */
+.rbc-time-slot {
+  pointer-events: auto !important;
+  z-index: 1; /* 컨테이너보다 아래지만, pointer-events: none 덕분에 클릭 가능 */
+}
