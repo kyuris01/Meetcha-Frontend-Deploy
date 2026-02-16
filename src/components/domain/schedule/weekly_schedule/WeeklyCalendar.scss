@@ -956,3 +956,8 @@ button.rbc-input::-moz-focus-inner {
 .rbc-day-slot {
   cursor: pointer;
 }
+
+.rbc-slot-selection {
+  display: none !important;
+  /* 또는 background-color: transparent !important; */
+}
