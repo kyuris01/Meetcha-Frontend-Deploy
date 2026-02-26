@@ -53,7 +53,6 @@ const MeetingDetailPage = () => {
     load();
   }, [meetingId]);
 
-  console.log(meetingDetail);
   return (
     <div className={styles.meetingDetailPage}>
       <Header

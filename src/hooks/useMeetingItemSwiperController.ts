@@ -29,6 +29,7 @@ export const useMeetingItemSwiperController = (meetingId: string, isMatchFailed:
   const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
   const handleClick = () => {
+    console.log(openedMeetingId);
     if (openedMeetingId !== null) {
       setOpenedMeetingId(null);
       return;
@@ -78,7 +79,7 @@ export const useMeetingItemSwiperController = (meetingId: string, isMatchFailed:
   };
 
   const onPointerUp = () => {
-    if (!dragging) return;
+    if (!dragging && isMatchFailed) return;
     setDragging(false);
 
     if (!movedRef.current) {
