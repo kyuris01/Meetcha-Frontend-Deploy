@@ -156,6 +156,7 @@ const Timetable = ({
 
   return (
     <FullCalendar
+      schedulerLicenseKey="GPL-My-Project-Is-Open-Source"
       plugins={[timeGridPlugin, interactionPlugin, scrollGridPlugin]}
       stickyHeaderDates={true}
       stickyFooterScrollbar={true}
