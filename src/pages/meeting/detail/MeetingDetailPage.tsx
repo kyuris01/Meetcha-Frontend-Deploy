@@ -82,7 +82,7 @@ const MeetingDetailPage = () => {
               </>
             )}
           {meetingDetail?.meetingStatus === "MATCH_FAILED" &&
-            isBefore(meetingDetail?.deadline, Date.now()) && (
+            isBefore(Date.now(), meetingDetail?.deadline) && (
               <Button
                 label={"대안시간 투표하기"}
                 className={styles.editButton}
