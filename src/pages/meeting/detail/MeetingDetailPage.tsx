@@ -82,12 +82,14 @@ const MeetingDetailPage = () => {
               </>
             )}
           {meetingDetail?.meetingStatus === "MATCH_FAILED" &&
-            isBefore(Date.now(), meetingDetail?.deadline) && (
-              <Button
-                label={"대안시간 투표하기"}
-                className={styles.editButton}
-                clickHandler={onClickAlternative}
-              />
+            isBefore(Date.now(), meetingDetail?.earliestTime) && (
+              <>
+                <Button
+                  label={"대안시간 투표하기"}
+                  className={styles.editButton}
+                  clickHandler={onClickAlternative}
+                />
+              </>
             )}
         </div>
       </div>

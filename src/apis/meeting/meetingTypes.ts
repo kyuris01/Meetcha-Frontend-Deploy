@@ -19,6 +19,7 @@ export interface MeetingDetail {
   participants: Participant[];
   meetingStatus: "MATCHING" | "ONGOING" | "DONE" | "MATCH_FAILED" | "BEFORE";
   confirmedTime: string;
+  earliestTime: string;
 }
 
 export interface Participant {
