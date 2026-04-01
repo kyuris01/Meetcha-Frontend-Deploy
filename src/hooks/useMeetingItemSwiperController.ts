@@ -29,7 +29,6 @@ export const useMeetingItemSwiperController = (meetingId: string, isMatchFailed:
   const clamp = (v: number, min: number, max: number) => Math.min(max, Math.max(min, v));
 
   const handleClick = () => {
-    console.log(openedMeetingId);
     if (openedMeetingId !== null) {
       setOpenedMeetingId(null);
       return;
@@ -42,23 +41,24 @@ export const useMeetingItemSwiperController = (meetingId: string, isMatchFailed:
   };
 
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    setDragging(true);
+    movedRef.current = false;
+    startXRef.current = e.clientX;
+    startYRef.current = e.clientY;
+
     if (!isMatchFailed) return;
 
     if (openedMeetingId !== null && openedMeetingId !== meetingId) {
       setOpenedMeetingId(null);
     }
 
-    setDragging(true);
-    movedRef.current = false;
-    startXRef.current = e.clientX;
-    startYRef.current = e.clientY;
-
     // 드래그 캡처, 드래그가 시작된 이후, 커서가 요소 밖으로 나가더라도 pointermove/pointer up 이벤트를 계속 이요소가 받게 하려는 기능
     (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
   };
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!dragging || !isMatchFailed) return;
+    // if (!dragging || !isMatchFailed) return;
+    if (!dragging) return;
 
     const dx = e.clientX - startXRef.current;
     const dy = e.clientY - startYRef.current;
@@ -68,6 +68,8 @@ export const useMeetingItemSwiperController = (meetingId: string, isMatchFailed:
     } else {
       return;
     }
+
+    if (!isMatchFailed) return;
 
     if (Math.abs(dx) < Math.abs(dy)) return; // 커서의 수평이동량이 더 많을 경우에만 슬라이드
 

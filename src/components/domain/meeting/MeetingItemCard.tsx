@@ -69,7 +69,7 @@ const MeetingItemCard = ({ data }: Props) => {
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
-      onPointerCancel={onPointerUp}
+      // onPointerCancel={onPointerUp}
       className={styles.meetingItemCardWithDelete}
     >
       {isMatchFailed && (
